@@ -24,6 +24,7 @@ CREATE TABLE User_Health_Profile (
 CREATE TABLE Product (
     product_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID sản phẩm, tự động tăng
     name NVARCHAR(255) NOT NULL,               -- Tên sản phẩm
+	supplier NVARCHAR(255) NOT NULL,           -- Nguồn gốc
     description TEXT,                          -- Mô tả sản phẩm
     price DECIMAL(10, 2) NOT NULL,             -- Giá sản phẩm
     category NVARCHAR(255) NOT NULL,           -- Loại sản phẩm

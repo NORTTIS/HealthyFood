@@ -4,8 +4,16 @@
         <servlet-name>CartControl</servlet-name>
         <servlet-class>controller.CartControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeControl</servlet-name>
+        <servlet-class>controller.HomeControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CartControl</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeControl</servlet-name>
+        <url-pattern>/home</url-pattern>
     </servlet-mapping>
 </web-app>

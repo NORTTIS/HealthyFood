@@ -5,23 +5,20 @@
 
 package controller;
 
-import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.Cart;
-import model.LineItem;
-import model.Products;
 
 /**
  *
  * @author Norttie
  */
-public class CartControl extends HttpServlet {
+@WebServlet(name="NewServlet", urlPatterns={"/NewServlet"})
+public class NewServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +35,10 @@ public class CartControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CartControl</title>");  
+            out.println("<title>Servlet NewServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartControl at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet NewServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,20 +55,7 @@ public class CartControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String productid = request.getParameter("productid");
-        Products prod = new ProductDao().getProductsById(Integer.parseInt(productid));
-        HttpSession session = request.getSession();
-         Cart cart = (Cart) session.getAttribute("cart");
-         if (cart == null) {
-                cart = new Cart();
-            }
-         LineItem lineItem = new LineItem(prod,1);
-         cart.addItem(lineItem);
-         PrintWriter out = response.getWriter();
-         
-         session.setAttribute("cart", cart);
-       request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
-        
+        processRequest(request, response);
     } 
 
     /** 
