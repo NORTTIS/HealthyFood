@@ -18,9 +18,10 @@ public class Products {
     private int quantityInStock;
     private String status;
     private double averageCalories;
+    private String picture;
 
     // Constructor
-    public Products(int productId, String name, String supplier, String description, double price, String category, int quantityInStock, String status, double averageCalories) {
+    public Products(int productId, String name, String supplier, String description, double price, String category, int quantityInStock, String status, double averageCalories, String picture) {
         this.productId = productId;
         this.name = name;
         this.supplier = supplier;
@@ -30,6 +31,7 @@ public class Products {
         this.quantityInStock = quantityInStock;
         this.status = status;
         this.averageCalories = averageCalories;
+         this.picture = picture;
     }
 
     // Getters and Setters
@@ -105,16 +107,18 @@ public class Products {
         this.averageCalories = averageCalories;
     }
 
-    // ToString method for easy printing
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     @Override
     public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", name='" + name + '\'' +
-                ", supplier='" + supplier + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", category='" + category + '\'' +
-                ", quantityInStock=";
-                }
+        return "Products{" + "productId=" + productId + ", name=" + name + ", supplier=" + supplier + ", description=" + description + ", price=" + price + ", category=" + category + ", quantityInStock=" + quantityInStock + ", status=" + status + ", averageCalories=" + averageCalories + ", picture=" + picture + '}';
+    }
+
+
 }

@@ -58,8 +58,10 @@ public class CartControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        String action  = request.getParameter("ac");
         String productid = request.getParameter("productid");
-        Products prod = new ProductDao().getProductsById(Integer.parseInt(productid));
+        if(action.equals("addtocart")&&productid!=null){
+             Products prod = new ProductDao().getProductsById(Integer.parseInt(productid));
         HttpSession session = request.getSession();
          Cart cart = (Cart) session.getAttribute("cart");
          if (cart == null) {
@@ -68,9 +70,13 @@ public class CartControl extends HttpServlet {
          LineItem lineItem = new LineItem(prod,1);
          cart.addItem(lineItem);
          PrintWriter out = response.getWriter();
-         
          session.setAttribute("cart", cart);
-       request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+      response.sendRedirect("home");
+
+        }
+       if(action.equals("show")){
+           request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+       }
         
     } 
 
@@ -84,7 +90,29 @@ public class CartControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       String action  = request.getParameter("ac");
+       int productid = Integer.parseInt(request.getParameter("productid"));
+       HttpSession session = request.getSession();
+       
+       if(action.equals("change")){
+           int quantity = Integer.parseInt(request.getParameter("quantity"));
+           Cart cart = (Cart) session.getAttribute("cart");
+       if (cart == null) {
+                cart = new Cart();
+            }
+       Products prod = new ProductDao().getProductsById(productid);
+       if(prod.getQuantityInStock()<quantity){
+           request.setAttribute("alert","Sorry that the item is already in the largest quantity");
+           
+       }else{
+           for (LineItem  item: cart.getItems()) {
+               if(item.getProduct().getProductId()==productid){
+                   item.setQuantity(quantity);
+               }
+           }
+       }
+       request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+       }
     }
 
     /** 

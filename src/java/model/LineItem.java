@@ -42,6 +42,10 @@ public class LineItem {
         double total = product.getPrice() * quantity;
         return total;
     }
+    public double getTotalCal() {
+        double totalCal = product.getAverageCalories() * quantity;
+        return totalCal;
+    }
 
     @Override
     public String toString() {

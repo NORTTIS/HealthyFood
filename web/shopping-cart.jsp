@@ -229,57 +229,59 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${sessionScope.cart.items}" var="i">
-
+                        <form action="cart?ac=change" method="post">
+                            <table>
+                                <thead>
                                     <tr>
-                                        <td class="shoping__cart__item">
-                                            <img src="img/cart/cart-1.jpg" alt="">
-                                            <h5>Vegetable’s Package</h5>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            $55.00
-                                        </td>
-                                        <td class="shoping__cart__quantity">
-                                            <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" value="${i.quantity}">
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="shoping__cart__total">
-                                            $110.00
-                                        </td>
-                                        <td class="shoping__cart__item__close">
-                                            <span class="icon_close"></span>
-                                        </td>
+                                        <th class="shoping__product">Products</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total Cal</th>
+                                        <th>Total Price</th>
+                                        <th></th>
                                     </tr>
-                                </c:forEach>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${sessionScope.cart.items}" var="i">
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <img src="img/cart/cart-1.jpg" alt="">
+                                                <h5>Vegetable’s Package</h5>
+                                                <input type="text" value="${i.product.productId}" name="productid" hidden/>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                ${i.product.price}
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                    <div class="pro-qty">
+                                                        <input type="text" value="${i.quantity}" name="quantity" class="qty">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                ${i.getTotalCal()}
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                ${i.getTotal()}
+                                            </td>
 
-                            </tbody>
-                        </table>
+                                            <td class="shoping__cart__item__close">
+                                                <span class="icon_close"></span>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
 
+                                </tbody>
+                            </table>
+                            <button type="submit" hidden><span class="upd-cart"></span>
+                                Upadate Cart</button>
+                        </form>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
-                    </div>
-                </div>
+
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
@@ -292,14 +294,14 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="shoping__checkout">
+                    <form class="shoping__checkout" action="home" method="post">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Subtotal <span class="subtotal"><input type="text" hidden value="" class="subtotalinp"></span></li>
+                            <li>Total <span class="total"><input class="totalinp" type="text" hidden value=""/></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
-                    </div>
+                        <button class="primary-btn site-btn w-100" type="submit">PROCEED TO CHECKOUT</button>
+                    </form>
                 </div>
             </div>
         </div>

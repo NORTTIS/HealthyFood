@@ -31,9 +31,7 @@ public class Cart {
         int quantity = item.getQuantity();
         for (LineItem cartItem : items) {
             if (cartItem.getProduct().getProductId()==id) {
-                if(cartItem.getQuantity()==quantity){
-                     cartItem.setQuantity(quantity++);
-                }else{
+                if(cartItem.getQuantity()!=quantity){
                 cartItem.setQuantity(quantity);
                 }
                 return;
@@ -42,14 +40,14 @@ public class Cart {
         items.add(item);
     }
 
-    public void removeItem(LineItem item) {
-        int id = item.getProduct().getProductId();
-        for (int i = 0; i < items.size(); i++) {
-            LineItem lineItem = items.get(i);
-            if (lineItem.getProduct().getProductId()==id ) {
-                items.remove(i);
-                return;
-            }
-        }
-    }
+//    public void removeItem(LineItem item) {
+//        int id = item.getProduct().getProductId();
+//        for (int i = 0; i < items.size(); i++) {
+//            LineItem lineItem = items.get(i);
+//            if (lineItem.getProduct().getProductId()==id ) {
+//                items.remove(i);
+//                return;
+//            }
+//        }
+//    }
 }

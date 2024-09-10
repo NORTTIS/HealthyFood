@@ -46,30 +46,9 @@
             <div class="loader"></div>
         </div>-->
 
-        <!-- Humberger Begin -->
         <div class="humberger__menu__overlay"></div>
         <div class="humberger__menu__wrapper">
-            <div class="humberger__menu__logo">
-                <a href="#"><img src="img/logo.png" alt="" /></a>
-            </div>
-            <div class="humberger__menu__cart">
-                <ul>
-                    <li>
-                        <a href="#"
-                            ><i class="fa fa-heart"></i> <span>1</span></a
-                        >
-                    </li>
-                    <li>
-                        <a href="#"
-                            ><i class="fa fa-shopping-bag"></i>
-                            <span>3</span></a
-                        >
-                    </li>
-                </ul>
-                <div class="header__cart__price">
-                    item: <span>$150.00</span>
-                </div>
-            </div>
+            
             <div class="humberger__menu__widget">
                 <div class="header__top__right__language">
                     <img src="img/language.png" alt="" />
@@ -220,6 +199,8 @@
                             </ul>
                         </nav>
                     </div>
+                    
+                    <!--comment-->
                     <div class="col-lg-3">
                         <div class="header__cart">
                             <ul>
@@ -230,7 +211,7 @@
                                     >
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="cart?ac=show"
                                         ><i class="fa fa-shopping-bag"></i>
                                         <span>3</span></a
                                     >
@@ -411,7 +392,7 @@
                                     </li>
                                     <li>
                                         <!--add to cart btn-->
-                                        <a href="cart?productid=4"
+                                        <a href="cart?productid=4&ac=addtocart"
                                            ><input type="text" value="4" hidden/>
                                             <i class="fa fa-shopping-cart"></i
                                         ></a>
@@ -445,7 +426,7 @@
                                     </li>
                                     <li>
                                         <!--add to cart btn-->
-                                        <a href="cart?productid=5"
+                                        <a href="cart?productid=5&ac=addtocart"
                                            ><input type="text" value="5" hidden/>
                                             <i class="fa fa-shopping-cart"></i
                                         ></a>

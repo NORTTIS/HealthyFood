@@ -31,6 +31,7 @@ CREATE TABLE Product (
     quantity_in_stock INT NOT NULL,            -- Số lượng sản phẩm trong kho
     status NVARCHAR(20) CHECK (status IN ('available', 'unavailable')) NOT NULL,  -- Tình trạng sản phẩm
     average_calories FLOAT,                    -- Lượng calo trung bình
+	picture NVARCHAR(MAX),                     -- Ảnh sản phẩm
 );
 
 CREATE TABLE Orders (
