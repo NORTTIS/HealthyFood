@@ -42,7 +42,7 @@
         <div class="humberger__menu__overlay"></div>
         <div class="humberger__menu__wrapper">
             <div class="humberger__menu__logo">
-                <a href="#"><img src="img/logo.png" alt=""></a>
+                <a href="home"><img src="img/logo.png" alt=""></a>
             </div>
             <div class="humberger__menu__cart">
                 <ul>
@@ -67,7 +67,7 @@
             </div>
             <nav class="humberger__menu__nav mobile-menu">
                 <ul>
-                    <li class="active"><a href="./index.html">Home</a></li>
+                    <li class="active"><a href="home">Home</a></li>
                     <li><a href="./shop-grid.html">Shop</a></li>
                     <li><a href="#">Pages</a>
                         <ul class="header__menu__dropdown">
@@ -110,7 +110,7 @@
                 <div class="col-lg-3">
                     <div class="header__logo">
                         <!--changer logo link-->
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="home"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -119,7 +119,7 @@
                             <!--changehome link-->
 
 
-                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="home">Home</a></li>
                             <li class="active"><a href="./shop-grid.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
@@ -267,7 +267,9 @@
                                             </td>
 
                                             <td class="shoping__cart__item__close">
+                                                <a href="cart?ac=del&productid=${i.product.productId}">
                                                 <span class="icon_close"></span>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -297,8 +299,13 @@
                     <form class="shoping__checkout" action="home" method="post">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span class="subtotal"><input type="text" hidden value="" class="subtotalinp"></span></li>
-                            <li>Total <span class="total"><input class="totalinp" type="text" hidden value=""/></span></li>
+                            <li>Total Calories <span class="subtotal text-dark">
+                                    ${sessionScope.totalcal}
+                                    <%--<c:if test="${sessionScope.totalcart==0}">00000.00</c:if>--%>
+                                    <%--<c:if test="${sessionScope.totalcart!=0}"></c:if>--%>
+                                    <input type="text" hidden value="${sessionScope.totoalcart}" class="subtotalinp">
+                                </span></li>
+                            <li>Total Price <span class="total text-dark"> ${sessionScope.totalcart}<input class="totalinp" type="text" hidden value="00000.00"/></span></li>
                         </ul>
                         <button class="primary-btn site-btn w-100" type="submit">PROCEED TO CHECKOUT</button>
                     </form>
@@ -315,7 +322,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                            <a href="home"><img src="img/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>

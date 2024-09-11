@@ -13,12 +13,12 @@ import java.sql.*;
  */
 public class ProductDao {
 
-    public Products getProductsById(int id) {
+    public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
         try {
             Connection conn = new DBContext().getConnection();
             PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, id);
+            st.setString(1, id);
             ResultSet rs;
             rs = st.executeQuery();
             while (rs.next()) {
@@ -47,7 +47,7 @@ public class ProductDao {
 
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
-        prod.getProductsById(4);
+        prod.getProductsById("4");
     }
 
 }
