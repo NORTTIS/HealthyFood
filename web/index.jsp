@@ -13,7 +13,7 @@
         <meta name="keywords" content="Ogani, unica, creative, html" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Ogani | Template</title>
+        <title>Organic | Template</title>
 
         <!-- Google Font -->
         <link
@@ -74,7 +74,7 @@
                                 <a href="./shop-details.html">Shop Details</a>
                             </li>
                             <li>
-                                <a href="./shoping-cart.html">Shoping Cart</a>
+                                <a href="./shoping-cart.html">Shopping Cart</a>
                             </li>
                             <li><a href="./checkout.html">Check Out</a></li>
                             <li>
