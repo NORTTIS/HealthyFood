@@ -9,19 +9,20 @@ package model;
  * @author Norttie
  */
 public class Products {
+
     private int productId;
     private String name;
     private String supplier;
     private String description;
     private double price;
-    private String category;
+    private int category;
     private int quantityInStock;
     private String status;
     private double averageCalories;
     private String picture;
 
     // Constructor
-    public Products(int productId, String name, String supplier, String description, double price, String category, int quantityInStock, String status, double averageCalories, String picture) {
+    public Products(int productId, int category, String supplier,String name,String description, double price, int quantityInStock, String status, double averageCalories, String picture) {
         this.productId = productId;
         this.name = name;
         this.supplier = supplier;
@@ -31,7 +32,7 @@ public class Products {
         this.quantityInStock = quantityInStock;
         this.status = status;
         this.averageCalories = averageCalories;
-         this.picture = picture;
+        this.picture = picture;
     }
 
     // Getters and Setters
@@ -75,11 +76,11 @@ public class Products {
         this.price = price;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -119,6 +120,5 @@ public class Products {
     public String toString() {
         return "Products{" + "productId=" + productId + ", name=" + name + ", supplier=" + supplier + ", description=" + description + ", price=" + price + ", category=" + category + ", quantityInStock=" + quantityInStock + ", status=" + status + ", averageCalories=" + averageCalories + ", picture=" + picture + '}';
     }
-
 
 }
