@@ -392,7 +392,7 @@
                                     </li>
                                     <li>
                                         <!--add to cart btn-->
-                                        <a href="cart?productid=4&ac=addtocart"
+                                        <a href="cart?productid=1&ac=addtocart"
                                            ><input type="text" value="4" hidden/>
                                             <i class="fa fa-shopping-cart"></i
                                         ></a>
