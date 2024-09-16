@@ -13,7 +13,7 @@
         <meta name="keywords" content="Ogani, unica, creative, html" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <title>Ogani | Template</title>
+        <title>Organic | Template</title>
 
         <!-- Google Font -->
         <link
@@ -22,22 +22,22 @@
         />
 
         <!-- Css Styles -->
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" />
         <link
             rel="stylesheet"
-            href="css/font-awesome.min.css"
+            href="assets/css/font-awesome.min.css"
             type="text/css"
         />
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-        <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/elegant-icons.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/nice-select.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/jquery-ui.min.css" type="text/css" />
         <link
             rel="stylesheet"
-            href="css/owl.carousel.min.css"
+            href="assets/css/owl.carousel.min.css"
             type="text/css"
         />
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/slicknav.min.css" type="text/css" />
+        <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     </head>
 
     <body>
@@ -55,7 +55,7 @@
                     <div>English</div>
                     <span class="arrow_carrot-down"></span>
                     <ul>
-                        <li><a href="#">Spanis</a></li>
+                        <li><a href="#">Spanish</a></li>
                         <li><a href="#">English</a></li>
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
                                 <a href="./shop-details.html">Shop Details</a>
                             </li>
                             <li>
-                                <a href="./shoping-cart.html">Shoping Cart</a>
+                                <a href="./shoping-cart.html">Shopping Cart</a>
                             </li>
                             <li><a href="./checkout.html">Check Out</a></li>
                             <li>
@@ -179,7 +179,7 @@
                                         </li>
                                         <li>
                                             <a href="./shoping-cart.html"
-                                                >Shoping Cart</a
+                                                >Shopping Cart</a
                                             >
                                         </li>
                                         <li>

@@ -64,20 +64,20 @@ public class CartControl extends HttpServlet {
         String productid = request.getParameter("productid");
         Products prod = new ProductDao().getProductsById(productid);
 
-            HttpSession session = request.getSession();
-            Cart cart = (Cart) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new Cart();
-            }
-        if (action.equals("addtocart")&& prod != null) {
-            
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+        }
+        if (action.equals("addtocart") && prod != null) {
+
             LineItem lineItem = new LineItem(prod, 1);
             cart.addItem(lineItem);
             int totalprice = 0;
             int totalcal = 0;
             for (LineItem item : cart.getItems()) {
                 totalprice += item.getTotal();
-                totalcal+=item.getTotalCal();
+                totalcal += item.getTotalCal();
             }
             session.setAttribute("totalcal", totalcal);
             session.setAttribute("totalcart", totalprice);
@@ -89,16 +89,16 @@ public class CartControl extends HttpServlet {
             request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
         }
         if (action.equals("del") && prod != null) {
-            LineItem lineItem = new LineItem() ;
+            LineItem lineItem = new LineItem();
             for (LineItem item : cart.getItems()) {
-                if(item.getProduct().getProductId()==Integer.parseInt(productid)){
-                   lineItem = item;
+                if (item.getProduct().getProductId() == Integer.parseInt(productid)) {
+                    lineItem = item;
                 }
             }
             cart.getItems().remove(lineItem);
             session.setAttribute("totalcal", 0);
             session.setAttribute("totalcart", 0);
-           response.sendRedirect("cart?ac=show");
+            response.sendRedirect("cart?ac=show");
         }
 
     }
@@ -136,11 +136,11 @@ public class CartControl extends HttpServlet {
                 }
 
             }
-             int totalprice = 0;
+            int totalprice = 0;
             int totalcal = 0;
             for (LineItem item : cart.getItems()) {
                 totalprice += item.getTotal();
-                totalcal+=item.getTotalCal();
+                totalcal += item.getTotalCal();
             }
             session.setAttribute("totalcal", totalcal);
             session.setAttribute("totalcart", totalprice);

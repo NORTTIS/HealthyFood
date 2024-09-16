@@ -17,7 +17,7 @@
         <meta name="keywords" content="Ogani, unica, creative, html">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Ogani | Template</title>
+        <title>Organic | Template</title>
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -57,7 +57,7 @@
                     <div>English</div>
                     <span class="arrow_carrot-down"></span>
                     <ul>
-                        <li><a href="#">Spanis</a></li>
+                        <li><a href="#">Spanish</a></li>
                         <li><a href="#">English</a></li>
                     </ul>
                 </div>
@@ -72,7 +72,7 @@
                     <li><a href="#">Pages</a>
                         <ul class="header__menu__dropdown">
                             <li><a href="./shop-details.html">Shop Details</a></li>
-                            <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                            <li><a href="./shoping-cart.html">Shopping Cart</a></li>
                             <li><a href="./checkout.html">Check Out</a></li>
                             <li><a href="./blog-details.html">Blog Details</a></li>
                         </ul>
@@ -124,7 +124,7 @@
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="./shoping-cart.html">Shopping Cart</a></li>
                                     <li><a href="./checkout.html">Check Out</a></li>
                                     <li><a href="./blog-details.html">Blog Details</a></li>
                                 </ul>
@@ -268,7 +268,7 @@
 
                                             <td class="shoping__cart__item__close">
                                                 <a href="cart?ac=del&productid=${i.product.productId}">
-                                                <span class="icon_close"></span>
+                                                    <span class="icon_close"></span>
                                                 </a>
                                             </td>
                                         </tr>
@@ -277,7 +277,8 @@
                                 </tbody>
                             </table>
                             <button type="submit" hidden><span class="upd-cart"></span>
-                                Upadate Cart</button>
+                                Update Cart
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -296,9 +297,10 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <form class="shoping__checkout" action="home" method="post">
+                    <form class="shoping__checkout" action="vnpay" method="post">
                         <h5>Cart Total</h5>
                         <ul>
+                            <input type="text" name="amount"/><!-- this input to test payment method -->
                             <li>Total Calories <span class="subtotal text-dark">
                                     ${sessionScope.totalcal}
                                     <%--<c:if test="${sessionScope.totalcart==0}">00000.00</c:if>--%>
@@ -338,7 +340,7 @@
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">About Our Shop</a></li>
                             <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
+                            <li><a href="#">Delivery information</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                             <li><a href="#">Our Sitemap</a></li>
                         </ul>
