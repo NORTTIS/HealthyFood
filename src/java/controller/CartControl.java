@@ -42,7 +42,10 @@ public class CartControl extends HttpServlet {
             out.println("<title>Servlet CartControl</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CartControl at " + request.getContextPath() + "</h1>");
+//            for (LineItem item : cart.getItems()) {
+//               out.println("<h1> " + item.getProduct().toString() + "</h1>");
+//
+//            }
             out.println("</body>");
             out.println("</html>");
         }
@@ -86,6 +89,7 @@ public class CartControl extends HttpServlet {
 
         }
         if (action.equals("show")) {
+            
             request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
         }
         if (action.equals("del") && prod != null) {

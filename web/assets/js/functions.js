@@ -117,6 +117,7 @@
     }
 
     /*Events On Document*/
+      //      minicart handle
     $document.on('click','.minicart-item .action .edit',function (e){
         e.preventDefault();
         let $this       = $(this),
@@ -140,6 +141,17 @@
             block_minicart  = _this.closest('.cart-inner');
         minicart_item.remove();
         $('body').trigger( 'update-minicart',[ block_minicart ]);
+    });
+    
+    //cart-item handle
+  $document.on('click','.cart_item .action .edit',function (e){
+        e.preventDefault();
+        let $this       = $(this),
+            cart_item   = $this.closest('.cart_item'),
+            input_field = cart_item.find('.input-qty'),
+            curent_val  = input_field.val();
+            input_field.val(curent_val).focus();
+   
     });
 
     $document.on('click','#overlay',function (e){
