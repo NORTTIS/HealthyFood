@@ -9,6 +9,7 @@ CREATE TABLE Accounts (
 	description NVARCHAR(MAX),                 -- Description
     email NVARCHAR(100) NOT NULL UNIQUE,       -- Email người dùng, không trùng lặp
     phone_number NVARCHAR(15),                 -- Số điện thoại (tùy chọn)
+
     role NVARCHAR(20) NOT NULL CHECK (role IN ('Customer', 'Admin', 'Manager', 'Nutritionist')),  -- Vai trò của người dùng
     status NVARCHAR(10) DEFAULT 'Active' CHECK (status IN ('Active', 'Inactive')),  -- Trạng thái tài khoản
 	avatar NVARCHAR(MAX)					   -- Avatar người dùng
