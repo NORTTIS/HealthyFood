@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -699,8 +700,12 @@
                                                     class="biolife-icon icon-contain"></i>Oatmeal</a></li>
                                         <li class="menu-item"><a href="#" class="menu-title"><i
                                                     class="biolife-icon icon-fresh-juice"></i>Fresh Bananas & Plantains</a>
+
                                         </li>
+                                        <li class="menu-item"><a href="#">Biscuits</a></li>
+                                        <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
                                     </ul>
+
                                 </div>
                             </div>
                         </div>
@@ -728,11 +733,13 @@
                                 <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">
                                         123 456 7891</b></p>
                                 <p class="working-time">Mon-Fri: 8:30am-7:30pm; Sat-Sun: 9:30am-4:30pm</p>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </header>
 
         <!-- Page Contain -->
@@ -3321,9 +3328,11 @@
                             </li>
                         </ul>
                     </div>
+
                 </div>
 
             </div>
+
         </div>
 
         <!-- FOOTER -->
@@ -3456,12 +3465,30 @@
                                                                               height="36" alt=""></a></li>
                                     <li><a href="#" class="payment-link"><img src="assets/images/card5.jpg" width="51"
                                                                               height="36" alt=""></a></li>
+
                                 </ul>
                             </div>
+                        </div>
+                        <span class="sku">SKU: N/A</span>
+                        <div class="biolife-social inline add-title">
+                            <span class="fr-title">Share:</span>
+                            <ul class="socials">
+                                <li><a href="#" title="twitter" class="socail-btn"><i class="fa fa-twitter"
+                                            aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="facebook" class="socail-btn"><i class="fa fa-facebook"
+                                            aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="pinterest" class="socail-btn"><i class="fa fa-pinterest"
+                                            aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="youtube" class="socail-btn"><i class="fa fa-youtube"
+                                            aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="instagram" class="socail-btn"><i class="fa fa-instagram"
+                                            aria-hidden="true"></i></a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
         </footer>
 
 
@@ -3478,5 +3505,6 @@
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
     </body>
+
 
 </html>

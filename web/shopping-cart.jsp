@@ -4,6 +4,7 @@
     Author     : Norttie
 --%>
 
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -139,13 +140,16 @@
                                                             <li><a href="#">Fruit Jam</a></li>
                                                             <li><a href="#">Beverages</a></li>
                                                         </ul>
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </li>
+
                                     <li class="menu-item menu-item-has-children has-child">
                                         <a href="#" class="menu-name" data-title="Products">Products</a>
+
                                         <ul class="sub-menu">
                                             <li class="menu-item"><a href="#">Omelettes</a></li>
                                             <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
@@ -175,6 +179,7 @@
                                             <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
                                         </ul>
                                     </li>
+
                                     <li class="menu-item menu-item-has-children has-megamenu">
                                         <a href="#" class="menu-name" data-title="Demo">Demo</a>
                                         <div class="wrap-megamenu lg-width-800 md-width-750">
@@ -665,6 +670,7 @@
                                 <p class="telephone"><i class="fa fa-phone" aria-hidden="true"></i><b class="phone-number">(+900) 123 456 7891</b></p>
                                 <p class="working-time">Mon-Fri: 8:30am-7:30pm; Sat-Sun: 9:30am-4:30pm</p>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -675,6 +681,7 @@
         <div class="hero-section hero-background">
             <h1 class="page-title">Organic Fruits</h1>
         </div>
+
 
         <!--Navigation section-->
         <div class="container">
@@ -1077,5 +1084,6 @@
         <script src="assets/js/functions.js"></script>
 
     </body>
+
 
 </html>
