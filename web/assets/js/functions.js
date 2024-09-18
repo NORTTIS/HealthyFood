@@ -213,7 +213,7 @@
     $document.on('click','.qty-input .qty-btn', function (e){
         e.preventDefault();
         let btn     = $(this),
-            input   = btn.siblings("input[name^='qty']");
+            input   = btn.siblings("input[name='product_qty[]']");
         if(input.length){
             let current_val = parseInt(input.val(),10),
                 max_val     = parseInt(input.data('max_value'),10),

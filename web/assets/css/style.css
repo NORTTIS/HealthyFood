@@ -5153,7 +5153,7 @@ body.open-overlay #overlay{
     padding: 13px 10px 12px;
 }
 .shopping-cart-container table th.product-name{
-    width: 346px;
+    width: 325px;
 }
 .shopping-cart-container table td.product-thumbnail{
     text-align: left;
@@ -5641,7 +5641,7 @@ body.open-overlay #overlay{
     text-align: left;
     background-color: #f3f3f3;
     line-height: 1;
-    width: 106px;
+    width: 96px;
     padding: 9px 33px 8px 22px;
     height: 38px;
 }
