@@ -66,7 +66,7 @@ public class CartControl extends HttpServlet {
         String action = request.getParameter("ac");
         String productid = request.getParameter("productid");
         if (action.equals("show")) {
-           request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
         }
         Products prod = new ProductDao().getProductsById(productid);
 
@@ -91,8 +91,24 @@ public class CartControl extends HttpServlet {
             session.setAttribute("totalcart", totalprice);
             session.setAttribute("totalitem", totalitem);
             session.setAttribute("cart", cart);
-            
-            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+
+            String previousURL = request.getHeader("Referer");
+            String currentURL = request.getRequestURL().toString();
+
+// Kiểm tra nếu previousURL không null và không trùng với currentURL
+            if (previousURL != null && !previousURL.equals(currentURL)) {
+                // Kiểm tra nếu previousURL chứa từ khóa "cart"
+                if (previousURL.contains("cart")) {
+                    // Chuyển hướng đến trang cart?ac=show
+                    response.sendRedirect("cart?ac=show");
+                } else {
+                    // Chuyển hướng lại trang trước đó nếu không chứa "cart"
+                    response.sendRedirect(previousURL);
+                }
+            } else {
+                // Nếu không có "Referer" hoặc "Referer" trùng với URL hiện tại, chuyển đến trang mặc định
+                response.sendRedirect("home");
+            }
 
         }
 
@@ -141,7 +157,8 @@ public class CartControl extends HttpServlet {
             cart = new Cart();
         }
         String outStock = "";
-        if (action.equals("upd")) {
+        try{
+            if (action.equals("upd")) {
             for (int i = 0; i < productid.length; i++) {
                 int productId = Integer.parseInt(productid[i]);
                 int quantity = Integer.parseInt(product_qty[i]);
@@ -169,6 +186,10 @@ public class CartControl extends HttpServlet {
             }
 
         }
+        }catch(Exception e){
+            
+        }
+        
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
 
     }

@@ -738,7 +738,7 @@
                                                     <td class="product-quantity" data-title="Quantity">
                                                         <div class="quantity-box type1">
                                                             <div class="qty-input">
-                                                                <input class="input-qty" type="text" name="product_qty[]" value="${i.quantity}" data-max_value="20" data-min_value="1" data-step="1">
+                                                                <input class="input-qty" type="text" name="product_qty[]" value="${i.quantity}" data-max_value="${i.product.quantityInStock}" data-min_value="1" data-step="1">
                                                                 <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                                                                 <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                                             </div>
@@ -838,7 +838,7 @@
                                             <p class="message">All products are carefully selected to ensure food safety.</p>
                                             <div class="buttons">
                                                 <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                <a href="cart?ac=addtocart&productid=3" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                <a href="cart?ac=addtocart&productid=1" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
                                                 <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
