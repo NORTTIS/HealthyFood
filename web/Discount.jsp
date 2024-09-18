@@ -27,12 +27,5 @@
 
             <input type="submit" value="Tạo Mã Giảm Giá"/>
         </form>
-        <form action="discounts" method="get">
-            <input type="text" name="name" value="${requestScope.data.getname()}" hidden/>
-            <input type="text" name="value" value="${requestScope.data.getvalue()}" hidden/>
-            <input type="text" name="amounts" value="${requestScope.data.getamounts()}" hidden/>
-            <input type="submit" value="Thay Đổi"/>
-        </form>
-    </form>
-</body>
+    </body>
 </html>
