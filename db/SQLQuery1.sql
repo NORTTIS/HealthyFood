@@ -55,6 +55,7 @@ CREATE TABLE Orders (
 	total_calories FLOAT NOT NULL,           -- Tổng calo
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
+
 );
 
 CREATE TABLE Order_Items (
@@ -127,6 +128,7 @@ CREATE TABLE Messages (
 	FOREIGN KEY (sender_id) REFERENCES Accounts(account_id) ,
 	FOREIGN KEY (receiver_id) REFERENCES Accounts(account_id) ,
 );
+
 
 
 
