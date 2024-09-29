@@ -1,4 +1,4 @@
-﻿create database HealthyFood
+﻿﻿create database HealthyFood
 
 CREATE TABLE Accounts (
     account_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID tài khoản, tự động tăng
@@ -55,6 +55,7 @@ CREATE TABLE Orders (
 	total_calories FLOAT NOT NULL,           -- Tổng calo
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
+
 );
 
 CREATE TABLE Order_Items (
@@ -118,6 +119,18 @@ CREATE TABLE Wish_Item (
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 );
 
+CREATE TABLE Messages (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    message NVARCHAR(MAX),
+    timestamp DATETIME DEFAULT GETDATE(),
+	FOREIGN KEY (sender_id) REFERENCES Accounts(account_id) ,
+	FOREIGN KEY (receiver_id) REFERENCES Accounts(account_id) ,
+);
+
+
+
 
 -- khỏi tạp dữ liệu
 INSERT INTO Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar)
@@ -127,5 +140,3 @@ VALUES
 ('datKa1', 'datKa124', 'Yuxly  Manager', '789 Manager St', 'Manages department', 'jane.manager@example.com', '5555555555', 'Manager', 'Active', NULL),
 ('Norttis', 'Bacvu123', 'Nort Nutritionist', '1010 Health St', 'Helps with diets', 'mary.nutritionist@example.com', '6666666666', 'Nutritionist', 'Active', NULL),
 ('guest_user', 'guest123', 'Guest User', 'No Address', 'Guest account', 'guest@example.com', NULL, 'Customer', 'Active', NULL);
-
-
