@@ -1,4 +1,4 @@
-﻿create database HealthyFood
+﻿﻿create database HealthyFood
 
 CREATE TABLE Accounts (
     account_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID tài khoản, tự động tăng
@@ -12,7 +12,9 @@ CREATE TABLE Accounts (
 
     role NVARCHAR(20) NOT NULL CHECK (role IN ('Customer', 'Admin', 'Manager', 'Nutritionist')),  -- Vai trò của người dùng
     status NVARCHAR(10) DEFAULT 'Active' CHECK (status IN ('Active', 'Inactive')),  -- Trạng thái tài khoản
-	avatar NVARCHAR(MAX)					   -- Avatar người dùng
+	avatar NVARCHAR(MAX),					   -- Avatar người dùng
+	create_at DATETIME DEFAULT GETDATE(),
+	update_at DATETIME DEFAULT GETDATE()
 );
 
 CREATE TABLE User_Health_Profile (
@@ -22,7 +24,7 @@ CREATE TABLE User_Health_Profile (
     height FLOAT NOT NULL,                     -- Chiều cao
     age INT NOT NULL,                          -- Tuổi
     gender NVARCHAR(10) CHECK (gender IN ('male', 'female', 'other')) NOT NULL,  -- Giới tính
-    activity_level NVARCHAR(10) CHECK (activity_level IN ('low', 'medium', 'high')) NOT NULL,  -- Mức độ hoạt động
+	bmi_result FLOAT NOT NULL                  -- chỉ số bmi
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE CASCADE  -- Khóa ngoại tham chiếu đến bảng Users
 );
 
@@ -48,19 +50,93 @@ CREATE TABLE Products (
 CREATE TABLE Orders (
     order_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID đơn hàng, tự động tăng
     account_id INT,                          -- ID tài khoản của khách hàng
-    order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     total_amount DECIMAL(10, 2) NOT NULL,    -- Tổng số tiền
     status NVARCHAR(20) CHECK (status IN ('Pending', 'Processing', 'Completed', 'Cancelled')) NOT NULL,  -- Trạng thái đơn hàng
-    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE CASCADE  -- Khóa ngoại tham chiếu đến bảng Accounts
+	total_calories FLOAT NOT NULL,           -- Tổng calo
+	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
+    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
+
 );
 
--- khởi tạo dữ liệu 
-INSERT INTO Category (name)
-VALUES ('Fruits'),
-       ('Vegetables');
+CREATE TABLE Order_Items (
+    order_item_id INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    prod_qty INT NOT NULL,
+    total_price DECIMAL(10, 2)              
+	FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
+	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
+);
 
-INSERT INTO Products (category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture)
-VALUES 
-(1, 'Supplier A', 'Apple', 'Fresh organic apples', 1.50, 100, 'available', 52.0, 'apple.jpg'),
-(2, 'Supplier B', 'Carrot', 'Fresh organic carrots', 0.75, 200, 'available', 41.0, 'carrot.jpg');
+CREATE TABLE Costomer_Type (
+    [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
+    [type_name] NVARCHAR(255) NOT NULL,                -- Tên loại sản phẩm
+);
+CREATE TABLE Menu (
+    menu_id INT IDENTITY(1,1) PRIMARY KEY,
+    [type_id] INT,
+    name NVARCHAR(255) NOT NULL,
+	average_calories FLOAT, 
+    description NVARCHAR(MAX), 
+	create_by INT,
+	create_at DATETIME DEFAULT GETDATE(),
+	update_at DATETIME DEFAULT GETDATE(),
+	FOREIGN KEY (create_by) REFERENCES Accounts(account_id) ON DELETE SET NULL,
+	FOREIGN KEY ([type_id]) REFERENCES Costomer_Type([type_id]) ON DELETE SET NULL,
+);
 
+CREATE TABLE Menu_Detail (
+    menu_detail_id INT IDENTITY(1,1) PRIMARY KEY,
+    product_id  INT,
+	menu_id INT,
+	product_qty INT,
+	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
+	FOREIGN KEY (menu_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
+);
+CREATE TABLE Reviews (
+    review_id INT IDENTITY(1,1) PRIMARY KEY,
+    account_id INT,
+	product_id INT,
+	comment NVARCHAR(MAX),
+	create_at DATETIME DEFAULT GETDATE(),
+	status NVARCHAR(10) CHECK (status IN ('Approved ', 'Rejected ')) NOT NULL,
+	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,
+	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
+);
+CREATE TABLE WishList (
+    wish_id INT IDENTITY(1,1) PRIMARY KEY,
+    account_id INT,
+	create_at DATETIME DEFAULT GETDATE(),
+	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,
+);
+
+CREATE TABLE Wish_Item (
+    wish_item_id INT IDENTITY(1,1) PRIMARY KEY,
+	wish_id INT,
+	product_id INT,
+	product_qty INT,
+	FOREIGN KEY (wish_id) REFERENCES WishList(wish_id) ON DELETE SET NULL,
+	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
+);
+
+CREATE TABLE Messages (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    message NVARCHAR(MAX),
+    timestamp DATETIME DEFAULT GETDATE(),
+	FOREIGN KEY (sender_id) REFERENCES Accounts(account_id) ,
+	FOREIGN KEY (receiver_id) REFERENCES Accounts(account_id) ,
+);
+
+
+
+
+-- khỏi tạp dữ liệu
+INSERT INTO Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar)
+VALUES
+('duckmen', 'Duckment123', 'Duckment123', '123 Main St', 'Regular customer', 'john@example.com', '1234567890', 'Customer', 'Active', NULL),
+('datKa', 'datKa123', 'Admin User', '456 Admin St', 'Administrator account', 'admin@example.com', '0987654321', 'Admin', 'Active', NULL),
+('datKa1', 'datKa124', 'Yuxly  Manager', '789 Manager St', 'Manages department', 'jane.manager@example.com', '5555555555', 'Manager', 'Active', NULL),
+('Norttis', 'Bacvu123', 'Nort Nutritionist', '1010 Health St', 'Helps with diets', 'mary.nutritionist@example.com', '6666666666', 'Nutritionist', 'Active', NULL),
+('guest_user', 'guest123', 'Guest User', 'No Address', 'Guest account', 'guest@example.com', NULL, 'Customer', 'Active', NULL);
