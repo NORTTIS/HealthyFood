@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import model.User;
 
 public class AccountsDAO extends DBContext {
 
@@ -16,14 +17,20 @@ public class AccountsDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 al.add(a);
             }
@@ -40,14 +47,20 @@ public class AccountsDAO extends DBContext {
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 return a;
             }
@@ -64,14 +77,20 @@ public class AccountsDAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 return a;
             }
@@ -124,14 +143,20 @@ public class AccountsDAO extends DBContext {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 managers.add(a);
             }
@@ -148,14 +173,20 @@ public class AccountsDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 managers.add(a);
             }
@@ -216,13 +247,44 @@ public class AccountsDAO extends DBContext {
         } catch (SQLException ex) {
         }
     }
+    public Accounts login(String username, String password) {
+        String sql = "SELECT * FROM Accounts WHERE username = ? AND password = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, password);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    int row = 1;
+                    Accounts acc = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++));
+                    System.out.println(acc);
+                    return acc;
+                    
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error while trying to login: " + e.getMessage());
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-        List<Accounts> al = adb.getAllUser();
-        for (Accounts a : al) {
-            System.out.println(a.toString());
-        }
+//        List<Accounts> al = adb.getAllUser();
+//        for (Accounts a : al) {
+//            System.out.println(a.toString());
+//        }
+//         adb.login("Norttis", "Bacvu123");
     }
 
 }

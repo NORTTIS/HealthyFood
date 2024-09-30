@@ -33,7 +33,6 @@ public class ProductDao {
                         rs.getString(8),
                         rs.getDouble(9),
                         rs.getString(10));
-                System.out.println(acc);
 
                 return acc;
             }
@@ -47,7 +46,7 @@ public class ProductDao {
 
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
-        prod.getProductsById("4");
+        System.out.println(prod.getProductsById("2"));
     }
 
 }

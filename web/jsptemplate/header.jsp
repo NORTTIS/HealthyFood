@@ -12,6 +12,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <link rel="stylesheet" href="assets/css/slick.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body>
         <!-- HEADER -->
@@ -301,7 +312,7 @@
                                         <a href="javascript:void(0)" class="link-to">
                                             <span class="icon-qty-combine">
                                                 <i class="icon-cart-mini biolife-icon"></i>
-                                                <span class="qty">8</span>
+                                                <span class="qty">${totalitem == null ? 0 : totalitem}</span>
                                             </span>
                                             <span class="title">My Cart -</span>
                                             <span class="sub-total">0.00VND</span>
@@ -310,7 +321,7 @@
                                             <div class="cart-inner">
                                                 <ul class="products">
                                                     <li>
-                                                        <c:if test="${ sessionScope.cart==null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
+                                                        <c:if test="${ totalitem == 0}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
                                                         <c:forEach items="${sessionScope.cart.getItems()}" var="i">
                                                         <li>
                                                             <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
@@ -737,5 +748,6 @@
             </div>
 
         </header>
+
     </body>
 </html>

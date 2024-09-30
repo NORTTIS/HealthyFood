@@ -896,7 +896,7 @@ body{
     border-left: 0;
 }
 .header-top .right .horizontal-menu{
-    font-size: 0;
+    /*font-size: 0;*/
 }
 .header-top .right .horizontal-menu>li{
     vertical-align: middle;
