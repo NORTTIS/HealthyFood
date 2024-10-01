@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import model.User;
+
 
 public class AccountsDAO extends DBContext {
 
@@ -45,6 +45,67 @@ public class AccountsDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int row = 1;
+                Accounts a = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
+                );
+                return a;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    
+    public List<Accounts> getAllAccountByRole(String role) {
+        String sql = "SELECT * FROM Accounts where role = ?";
+        List<Accounts> al = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1,role);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int row = 1;
+                Accounts a = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
+                );
+                al.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return al;
+    }
+    
+       public Accounts getAllAccountByid(String id) {
+        String sql = "SELECT * FROM Accounts where account_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1,id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 int row = 1;
@@ -267,7 +328,6 @@ public class AccountsDAO extends DBContext {
                         rs.getString(row++),
                         rs.getString(row++),
                         rs.getString(row++));
-                    System.out.println(acc);
                     return acc;
                     
                 }
@@ -277,13 +337,15 @@ public class AccountsDAO extends DBContext {
         }
         return null;
     }
+    
+    
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-//        List<Accounts> al = adb.getAllUser();
-//        for (Accounts a : al) {
-//            System.out.println(a.toString());
-//        }
+        List<Accounts> al = adb.getAllAccountByRole("Nutritionist");
+        for (Accounts a : al) {
+            System.out.println(a.toString());
+        }
 //         adb.login("Norttis", "Bacvu123");
     }
 

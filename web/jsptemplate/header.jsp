@@ -150,40 +150,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="menu-item menu-item-has-children has-child">
-                                        <a href="#" class="menu-name" data-title="Product">Product</a>
-                                        <ul class="sub-menu">
-                                            <li class="menu-item"><a href="#">Omelettes</a></li>
-                                            <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
-                                            <li class="menu-item menu-item-has-children has-child"><a href="#"
-                                                                                                      class="menu-name" data-title="Eggs & other considerations">Eggs & other
-                                                    considerations</a>
-                                                <ul class="sub-menu">
-                                                    <li class="menu-item"><a href="#">Classic Breakfast</a></li>
-                                                    <li class="menu-item"><a href="#">Huevos Rancheros</a></li>
-                                                    <li class="menu-item"><a href="#">Everything Egg Sandwich</a></li>
-                                                    <li class="menu-item"><a href="#">Egg Sandwich</a></li>
-                                                    <li class="menu-item"><a href="#">Vegan Burrito</a></li>
-                                                    <li class="menu-item"><a href="#">Biscuits and Gravy</a></li>
-                                                    <li class="menu-item"><a href="#">Bacon Avo Egg Sandwich</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item"><a href="#">Griddle</a></li>
-                                            <li class="menu-item menu-item-has-children has-child"><a href="#"
-                                                                                                      class="menu-name" data-title="Sides & Extras">Sides & Extras</a>
-                                                <ul class="sub-menu">
-                                                    <li class="menu-item"><a href="#">Breakfast Burrito</a></li>
-                                                    <li class="menu-item"><a href="#">Crab Cake Benedict</a></li>
-                                                    <li class="menu-item"><a href="#">Corned Beef Hash</a></li>
-                                                    <li class="menu-item"><a href="#">Steak & Eggs</a></li>
-                                                    <li class="menu-item"><a href="#">Oatmeal</a></li>
-                                                    <li class="menu-item"><a href="#">Fruit & Yogurt Parfait</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item"><a href="#">Biscuits</a></li>
-                                            <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
-                                        </ul>
-                                    </li>
+                                    
                                     <li class="menu-item">
                                         <a href="#" class="menu-name" data-title="Pages">Location</a>
                                     </li>
@@ -269,6 +236,9 @@
                                         </div>
                                     </li>
                                     <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                    <li class="menu-item ">
+                                        <a href="chat" class="menu-name" data-title="Product">Chat&Nutritionist</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
