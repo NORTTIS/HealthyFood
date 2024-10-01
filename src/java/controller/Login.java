@@ -4,18 +4,19 @@
  */
 package controller;
 
-import dao.AccountDao;
+
+import dao.AccountsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import model.User;
+
+import model.Accounts;
+
 
 /**
  *
@@ -67,7 +68,7 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User acc = new AccountDao().login(username, password);
+        Accounts acc = new AccountsDAO().login(username, password);
         try {
             if (acc == null) {
                 request.setAttribute("mess", "wrong username or password");
@@ -75,7 +76,6 @@ public class Login extends HttpServlet {
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("acc", acc);
-
                 if (!acc.getRole().equals("admin")) {
                     response.sendRedirect("home");
                 } else if (acc.getRole().equals("admin")) {

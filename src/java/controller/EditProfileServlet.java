@@ -60,7 +60,7 @@ public class EditProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         AccountsDAO adb = new AccountsDAO();
-        Accounts user = adb.getUser(username);
+        Accounts user = adb.getAccountByUserName(username);
         request.setAttribute("user", user);
         request.getRequestDispatcher("Profile.jsp").forward(request, response);
     }
@@ -82,10 +82,10 @@ public class EditProfileServlet extends HttpServlet {
         String password = request.getParameter("password");
         String olduser = request.getParameter("oldusername");
         AccountsDAO adb = new AccountsDAO();
-        Accounts username_exist = adb.getUser(username);
+        Accounts username_exist = adb.getAccountByUserName(username);
         Accounts email_exist = adb.getUserEmail(email);
         if(username_exist != null || email_exist != null){
-            Accounts old = adb.getUser(olduser);
+            Accounts old = adb.getAccountByUserName(olduser);
             request.setAttribute("user", old);
             request.setAttribute("error", "Username hoặc email đã tồn tại");
             request.getRequestDispatcher("Profile.jsp").forward(request, response);

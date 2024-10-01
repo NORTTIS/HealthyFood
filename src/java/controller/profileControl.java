@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.AccountDao;
+import dao.AccountsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import model.Accounts;
 import model.User;
 
 /**
@@ -84,6 +85,7 @@ public class profileControl extends HttpServlet {
         String id = request.getParameter("id");
         String displayname = request.getParameter("displayname");
         String desc = request.getParameter("desc");
+        String email = request.getParameter("email");
         String address = request.getParameter("address");
         String filename = "";
 
@@ -94,7 +96,7 @@ public class profileControl extends HttpServlet {
                 // Lấy đường dẫn thư mục gốc của ứng dụng
                 String appPath = request.getServletContext().getRealPath("/");
                 // Đường dẫn tới thư mục mong muốn (cùng cấp với thư mục chứa servlet)
-                String path = "web/assets/image";
+                String path = "web/assets/images";
                 Path uploadDir = Paths.get(appPath).getParent().getParent().resolve(path);
 
                 // Kiểm tra và tạo thư mục nếu chưa tồn tại
@@ -123,9 +125,9 @@ public class profileControl extends HttpServlet {
             if (filename.isEmpty()) {
                 filename = acc.getAvatar();
             }
-            AccountDao dao = new AccountDao();
+            AccountsDAO dao = new AccountsDAO();
             dao.updateUser(id, displayname,filename , desc, address);
-            User account = dao.getUserById(id);
+            Accounts account = dao.getAccountByid(id);
             session.setAttribute("acc", account);
             request.getRequestDispatcher("profile.jsp").forward(request, response);
 

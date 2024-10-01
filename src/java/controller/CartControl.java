@@ -91,6 +91,10 @@ public class CartControl extends HttpServlet {
             session.setAttribute("totalcart", totalprice);
             session.setAttribute("totalitem", totalitem);
             session.setAttribute("cart", cart);
+            PrintWriter out = response.getWriter();
+            for (LineItem item : cart.getItems()) {
+                out.print(item.getProduct());
+            }
 
             String previousURL = request.getHeader("Referer");
             String currentURL = request.getRequestURL().toString();

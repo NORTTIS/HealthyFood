@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.AccountDao;
+import dao.AccountsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.User;
+import model.Accounts;
 
 /**
  *
@@ -61,47 +61,54 @@ public class Signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
+        String userName = request.getParameter("username");
         String password = request.getParameter("password");
+        String email = request.getParameter("email");
         String comfirmpassword = request.getParameter("comfirmpassword");
         String role = request.getParameter("permission");
         try {
             boolean isValidForm = true;
-            boolean isNotValidUsername = !validator.Validator.checkUsername(username);
+            boolean isNotValidUsername = !validator.Validator.checkUsername(userName);
             boolean isNotValidPassword = !validator.Validator.checkPassWord(password);
-            User acc = new AccountDao().getUserByUserName(username);
+            Accounts acc = new AccountsDAO().getAccountByUserName(userName);
+            Accounts accByEmail = new  AccountsDAO().getAccountByEmail(email);
             if (isNotValidUsername) {
-                request.setAttribute("messU", "tên đăng nhập phải có ít nhất 5 ký tự ");
+                request.setAttribute("messU", "Username must have at least 5 characters");
                 isValidForm = false;
             }
             if (acc != null) {
-                request.setAttribute("messU", "người dùng  đã tồn tại ");
+                request.setAttribute("messU", "User already exists ");
                 isValidForm = false;
             }
             if (isNotValidPassword) {
-                request.setAttribute("messP", "mật khẩu phải có ít nhất 8 ký tự bao gồm chữ hoa, chữ\n"
-                        + "thường và số");
+                request.setAttribute("messP", "Password must have at least 8 characters"
+                        + "including uppercase and lowercase letters and number");
+                isValidForm = false;
+            }
+             if(accByEmail!=null){
+                 request.setAttribute("messEmail", "Email already exists");
                 isValidForm = false;
             }
             if (!password.equals(comfirmpassword)) {
                 request.setAttribute("messCp",
-                        "mật khẩu không khớp ");
+                        "passwords do not match ");
                 isValidForm = false;
             }
 
             if (!isValidForm) {
-                request.setAttribute("username", username);
+                request.setAttribute("username", userName);
                 request.setAttribute("pass", password);
                 request.setAttribute("cpass", comfirmpassword);
+                 request.setAttribute("email", email);
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
 
             } else {
-                new dao.AccountDao().createUser(username, password, username, role);
-                response.sendRedirect("login.jsp");
+             new AccountsDAO().createAccount(userName, password, userName, email, role);
+                response.sendRedirect("login");
             }
 
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
         }
 
     }
