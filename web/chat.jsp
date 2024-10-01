@@ -40,7 +40,7 @@
                 <div class="col-md-4 col-lg-3 p-3 bg-light border-end" style="min-height: 500px;">
                     <h2 class="h4 mb-4">Chats</h2>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Tìm kiếm liên hệ...">
+                        <input type="text" class="form-control" placeholder="Search for contact...">
                     </div>
                     <div class="contact-list">
                                 

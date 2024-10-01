@@ -71,7 +71,7 @@ public class ChatControl extends HttpServlet {
             }
         if (accId != null) {
             
-            Accounts account = new AccountsDAO().getAllAccountByid(accId);
+            Accounts account = new AccountsDAO().getAccountByid(accId);
             List<Messages> listMes = new MessageDao().getMessagesByConversation(accId, "" + acc.getAccount_id());
             request.setAttribute("accName", account.getDisplayname());
             request.setAttribute("listMes", listMes);
