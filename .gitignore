@@ -1,0 +1,3 @@
+/build/
+# Ignore specific configuration file
+/dist/
