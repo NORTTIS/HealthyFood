@@ -769,7 +769,7 @@
                                 <!-- Nút Đăng nhập bằng Google -->
                                 <div class="google-login">
                                     <p class="text-center">or</p>
-                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:/HealthyFood/login&response_type=code&client_id=579360781150-5so6djecl57vtghvliofofg0fmnida1v.apps.googleusercontent.com&approval_prompt=force" 
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:9999/HealthyFood/login&response_type=code&client_id=579360781150-5so6djecl57vtghvliofofg0fmnida1v.apps.googleusercontent.com&approval_prompt=force" 
                                        class="btn btn-google btn-bold" 
                                        style="display: flex; align-items: center; justify-content: center; background-color: #4285F4; color: white; padding: 10px; border-radius: 5px;">
                                         <img src="path_to_google_icon" alt="Google" style="width: 20px; margin-right: 10px;"> Login with Google
