@@ -358,7 +358,7 @@
                                         <a href="javascript:void(0)" class="link-to">
                                             <span class="icon-qty-combine">
                                                 <i class="icon-cart-mini biolife-icon"></i>
-                                                <span class="qty">${totalitem}</span>
+                                                <span class="qty">${totalitem == null ? 0 : totalitem}</span>
                                             </span>
                                             <span class="title">My Cart -</span>
                                             <span class="sub-total">$0.00</span>
@@ -845,7 +845,7 @@
                                             <p class="message">All products are carefully selected to ensure food safety.</p>
                                             <div class="buttons">
                                                 <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                <a href="cart?ac=addtocart&productid=1" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                <a href="cart?ac=addtocart&productid=2" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
                                                 <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                             </div>
                                         </div>
@@ -870,7 +870,7 @@
                                             <p class="message">All products are carefully selected to ensure food safety.</p>
                                             <div class="buttons">
                                                 <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                <a href="cart?ac=addtocart&productid=2" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                <a href="cart?ac=addtocart&productid=3" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
                                                 <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
                                             </div>
                                         </div>

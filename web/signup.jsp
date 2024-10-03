@@ -55,7 +55,20 @@
                             />
                     </div>
                     <p class="text-danger error"> ${messU} </p>
-
+                      <!-- Email input -->
+                    <label class="form-label" for="comfirmpassword">Enter your email</label>
+                    <div class="form-outline mb-4 form-group">
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-control"
+                            name="email"
+                            placeholder="Enter your email..."
+                            value="${email}"
+                            required
+                            />
+                        <p class="text-danger error"> ${messEmail} </p>
+                    </div>
                     <!-- Password input -->
                     <label class="form-label" for="password">Password</label>
                     <div class="form-outline mb-4 form-group">
@@ -70,6 +83,8 @@
                             />
                         <p class="text-danger error"> ${messP} </p>
                     </div>
+                    
+                    
 
                     <!-- Confirm Password input -->
                     <label class="form-label" for="comfirmpassword">Confirm Password</label>
@@ -92,7 +107,7 @@
                         id="permit"
                         class="form-control"
                         name="permission"
-                        value="student"
+                        value="Customer"
                         hidden
                         />
 

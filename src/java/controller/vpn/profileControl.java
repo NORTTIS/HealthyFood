@@ -4,7 +4,8 @@
  */
 package controller.vpn;
 
-import dao.AccountDao;
+
+import dao.AccountsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import model.Accounts;
 import model.User;
 
 /**
@@ -123,9 +125,9 @@ public class profileControl extends HttpServlet {
             if (filename.isEmpty()) {
                 filename = acc.getAvatar();
             }
-            AccountDao dao = new AccountDao();
+            AccountsDAO dao = new AccountsDAO();
             dao.updateUser(id, displayname,filename , desc, address);
-            User account = dao.getUserById(id);
+            Accounts account = dao.getAccountByid(id);
             session.setAttribute("acc", account);
             request.getRequestDispatcher("profile.jsp").forward(request, response);
 

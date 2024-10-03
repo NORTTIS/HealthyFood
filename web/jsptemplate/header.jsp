@@ -12,11 +12,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <link rel="stylesheet" href="assets/css/slick.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body>
         <!-- HEADER -->
-
-
         <header id="header" class="header-area style-01 layout-03">
             <div class="header-top bg-main hidden-xs">
                 <div class="container">
@@ -33,41 +42,34 @@
                             <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                         </ul>
                         <ul class="horizontal-menu">
-
                             <li class="horz-menu-item lang">
                                 <select name="language">
                                     <option value="VND" selected>VietNam (VND)</option>
                                     <option value="en">English (USD)</option>
-
                                 </select>
                             </li>
-                            <li> <div>
-                                    <c:if test="${not empty sessionScope.acc.avatar}">
-                                        <a href="profile.jsp">
-                                            <img
-                                                src="./assets/image/${sessionScope.acc.avatar}"
-                                                alt="avatar"
-                                                class="avatar"
-
-                                                />
-                                        </a>
-                                    </c:if>
-
-
-                                    <div class="user__name">${sessionScope.acc.username}</div>
+                            <li>
+                                <div class="user__name">
+                                    <!-- Kiểm tra trạng thái đăng nhập -->
                                     <c:choose>
                                         <c:when test="${not empty sessionScope.acc}">
-                                            <a class="logout-btn" href="login.jsp">Log out</a>
+                                            <!-- Hiển thị tên người dùng và nút Log out -->
+                                            <a href="profile">${sessionScope.acc.username}</a>
+                                            <a class="logout-btn" href="logout">Log out</a> <!-- Gọi servlet 'logout' -->
                                         </c:when>
                                         <c:otherwise>
+                                            <!-- Nếu chưa đăng nhập, hiển thị nút Log in -->
                                             <a class="logout-btn" href="login.jsp">Log in</a>
                                         </c:otherwise>
                                     </c:choose>
-                                </div></li>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
+
+
             <div class="header-middle biolife-sticky-object ">
                 <div class="container">
                     <div class="row">
@@ -139,40 +141,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="menu-item menu-item-has-children has-child">
-                                        <a href="#" class="menu-name" data-title="Product">Product</a>
-                                        <ul class="sub-menu">
-                                            <li class="menu-item"><a href="#">Omelettes</a></li>
-                                            <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
-                                            <li class="menu-item menu-item-has-children has-child"><a href="#"
-                                                                                                      class="menu-name" data-title="Eggs & other considerations">Eggs & other
-                                                    considerations</a>
-                                                <ul class="sub-menu">
-                                                    <li class="menu-item"><a href="#">Classic Breakfast</a></li>
-                                                    <li class="menu-item"><a href="#">Huevos Rancheros</a></li>
-                                                    <li class="menu-item"><a href="#">Everything Egg Sandwich</a></li>
-                                                    <li class="menu-item"><a href="#">Egg Sandwich</a></li>
-                                                    <li class="menu-item"><a href="#">Vegan Burrito</a></li>
-                                                    <li class="menu-item"><a href="#">Biscuits and Gravy</a></li>
-                                                    <li class="menu-item"><a href="#">Bacon Avo Egg Sandwich</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item"><a href="#">Griddle</a></li>
-                                            <li class="menu-item menu-item-has-children has-child"><a href="#"
-                                                                                                      class="menu-name" data-title="Sides & Extras">Sides & Extras</a>
-                                                <ul class="sub-menu">
-                                                    <li class="menu-item"><a href="#">Breakfast Burrito</a></li>
-                                                    <li class="menu-item"><a href="#">Crab Cake Benedict</a></li>
-                                                    <li class="menu-item"><a href="#">Corned Beef Hash</a></li>
-                                                    <li class="menu-item"><a href="#">Steak & Eggs</a></li>
-                                                    <li class="menu-item"><a href="#">Oatmeal</a></li>
-                                                    <li class="menu-item"><a href="#">Fruit & Yogurt Parfait</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item"><a href="#">Biscuits</a></li>
-                                            <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
-                                        </ul>
-                                    </li>
+
                                     <li class="menu-item">
                                         <a href="#" class="menu-name" data-title="Pages">Location</a>
                                     </li>
@@ -258,6 +227,9 @@
                                         </div>
                                     </li>
                                     <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                    <li class="menu-item ">
+                                        <a href="chat" class="menu-name" data-title="Product">Chat&Nutritionist</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -301,7 +273,7 @@
                                         <a href="javascript:void(0)" class="link-to">
                                             <span class="icon-qty-combine">
                                                 <i class="icon-cart-mini biolife-icon"></i>
-                                                <span class="qty">8</span>
+                                                <span class="qty">${totalitem == null ? 0 : totalitem}</span>
                                             </span>
                                             <span class="title">My Cart -</span>
                                             <span class="sub-total">0.00VND</span>
@@ -310,7 +282,7 @@
                                             <div class="cart-inner">
                                                 <ul class="products">
                                                     <li>
-                                                        <c:if test="${ sessionScope.cart==null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
+                                                        <c:if test="${ totalitem == 0}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
                                                         <c:forEach items="${sessionScope.cart.getItems()}" var="i">
                                                         <li>
                                                             <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
@@ -737,5 +709,6 @@
             </div>
 
         </header>
+
     </body>
 </html>

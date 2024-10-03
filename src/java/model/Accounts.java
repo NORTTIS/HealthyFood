@@ -9,22 +9,31 @@ public class Accounts {
     private int account_id;
     private String username;
     private String password;
+    private String displayname;
+    private String address;
+    private String description;
     private String email;
     private String phone_number;
     private String role;
     private String status;
+    private String avatar;
+    
 
     public Accounts() {
     }
 
-    public Accounts(int account_id, String username, String password, String email, String phone_number, String role, String status) {
+    public Accounts(int account_id, String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status, String avatar) {
         this.account_id = account_id;
         this.username = username;
         this.password = password;
+        this.displayname = displayname;
+        this.address = address;
+        this.description = description;
         this.email = email;
         this.phone_number = phone_number;
         this.role = role;
         this.status = status;
+        this.avatar = avatar;
     }
 
     public int getAccount_id() {
@@ -49,6 +58,30 @@ public class Accounts {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getEmail() {
@@ -83,8 +116,19 @@ public class Accounts {
         this.status = status;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public String toString() {
-        return "Accounts{" + "account_id=" + account_id + ", username=" + username + ", password=" + password + ", email=" + email + ", phone_number=" + phone_number + ", role=" + role + ", status=" + status + '}';
+        return "Accounts{" + "account_id=" + account_id + ", username=" + username + ", password=" + password + ", displayname=" + displayname + ", address=" + address + ", description=" + description + ", email=" + email + ", phone_number=" + phone_number + ", role=" + role + ", status=" + status + ", avatar=" + avatar + '}';
     }
+    
+    
+    
 }

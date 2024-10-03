@@ -139,4 +139,23 @@ VALUES
 ('datKa', 'datKa123', 'Admin User', '456 Admin St', 'Administrator account', 'admin@example.com', '0987654321', 'Admin', 'Active', NULL),
 ('datKa1', 'datKa124', 'Yuxly  Manager', '789 Manager St', 'Manages department', 'jane.manager@example.com', '5555555555', 'Manager', 'Active', NULL),
 ('Norttis', 'Bacvu123', 'Nort Nutritionist', '1010 Health St', 'Helps with diets', 'mary.nutritionist@example.com', '6666666666', 'Nutritionist', 'Active', NULL),
-('guest_user', 'guest123', 'Guest User', 'No Address', 'Guest account', 'guest@example.com', NULL, 'Customer', 'Active', NULL);
+('guest_user', 'guest123', 'Guest User', 'No Address', 'Guest account', 'guest@example.com', NULL, 'Customer', 'Active', NULL),
+('Norttis1', 'Bacvu124', 'Nort', '1010 Health St', 'Helps with diets', 'mary.nutritionist@example.com', '6666666666', 'Customer', 'Active', NULL);
+INSERT INTO Category (name)
+VALUES
+('Fruits'),
+('Bakery'),
+('Seafood'),
+('Beverages'),
+('Dairy Alternatives');
+
+
+
+INSERT INTO Products (category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture)
+VALUES
+(1, 'Fresh Farms Co.', 'Organic Apples', 'Fresh organic apples', 82000, 100, 'available', 52.0, 'apple.jpg'),
+(2, 'Green Valley', 'Whole Wheat Bread', 'Whole wheat bread rich in fiber', 69000, 50, 'available', 247.0, 'bread.jpg'),
+(3, 'Ocean Harvest', 'Salmon Fillets', 'Premium quality salmon fillets', 295000, 30, 'available', 208.0, 'salmon.jpg'),
+(1, 'Healthy Harvest', 'Bananas', 'Ripe bananas with high potassium content', 28000, 200, 'available', 89.0, 'banana.jpg'),
+(4, 'Vegan Choice', 'Almond Milk', 'Plant-based almond milk, dairy-free', 92000, 80, 'available', 30.0, 'almond_milk.jpg');
+

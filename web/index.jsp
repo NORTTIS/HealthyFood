@@ -224,7 +224,7 @@
                                                                 class="currencySymbol">VND</span>VND</span></del>
                                                 </div>
                                                 <div class="buttons">
-                                                    <a href="cart?ac=addtocart&productid=1" class="btn add-to-cart-btn"></i>add to cart</a>
+                                                    <a href="cart?ac=addtocart&productid=2" class="btn add-to-cart-btn"></i>add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -327,7 +327,7 @@
                                                         <div class="buttons">
                                                             <a href="#" class="btn wishlist-btn"><i class="fa fa-heart"
                                                                                                     aria-hidden="true"></i></a>
-                                                            <a href="cart?ac=addtocart&productid=2" class="btn add-to-cart-btn"><i
+                                                            <a href="cart?ac=addtocart&productid=4" class="btn add-to-cart-btn"><i
                                                                     class="fa fa-cart-arrow-down" aria-hidden="true"></i>add
                                                                 to cart</a>
                                                             <a href="#" class="btn compare-btn"><i class="fa fa-random"
