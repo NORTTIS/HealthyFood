@@ -14,6 +14,7 @@ import java.util.Random;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import jakarta.servlet.http.HttpServletRequest;
+import java.security.SecureRandom;
 
 /**
  *
@@ -120,8 +121,8 @@ public class Config {
         return ipAdress;
     }
 
-    public static String getRandomNumber(int len) {
-        Random rnd = new Random();
+    public static String getRandomNumber(int len) throws NoSuchAlgorithmException {
+        Random rnd = SecureRandom.getInstanceStrong();
         String chars = "0123456789";
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
