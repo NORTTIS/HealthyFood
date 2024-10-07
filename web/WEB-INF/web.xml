@@ -13,10 +13,6 @@
         <servlet-class>controller.vpn.Config</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ajaxServlet</servlet-name>
-        <servlet-class>controller.vpn.ajaxServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>TransactionServlet</servlet-name>
         <servlet-class>controller.vpn.TransactionServlet</servlet-class>
     </servlet>
@@ -39,10 +35,6 @@
     <servlet-mapping>
         <servlet-name>Config</servlet-name>
         <url-pattern>/config</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ajaxServlet</servlet-name>
-        <url-pattern>/vnpay</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TransactionServlet</servlet-name>
