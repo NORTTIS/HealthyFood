@@ -5,23 +5,18 @@
 
 package controller;
 
-import dao.DBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Connection;
 
 /**
  *
  * @author Norttie
  */
-public class homeControl_1 extends HttpServlet {
+public class BlogController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,26 +28,17 @@ public class homeControl_1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-             Connection conn = new DBContext().getConnection();
-             String sql = "select count(*) from Surveys";
-             PreparedStatement questionStmt = conn.prepareStatement(sql);
-            ResultSet rsCount = questionStmt.executeQuery();
-             int countSurvey = 0 ;
-             int countUserCount = 0 ;
-            if(rsCount.next()){
-                countSurvey = rsCount.getInt(1);
-            }
-            String sql2 = "select count(*) from Users";
-            PreparedStatement userNumber = conn.prepareStatement(sql2);
-            ResultSet rsUsercount = userNumber.executeQuery();
-            if(rsUsercount.next()){
-                countUserCount = rsUsercount.getInt(1);
-            }
-            request.setAttribute("snum", countSurvey);
-            request.setAttribute("unum", countUserCount);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        } catch (Exception e) {
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BlogController</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BlogController at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 
@@ -67,7 +53,9 @@ public class homeControl_1 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.setAttribute("currentPage", 3);
+        request.setAttribute("totalPages", 8);
+       request.getRequestDispatcher("blog.jsp").forward(request, response);
     } 
 
     /** 

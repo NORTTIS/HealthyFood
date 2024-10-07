@@ -92,13 +92,45 @@ figure{
 input:focus{
     outline: none;
 }
+.btn-default{
+    background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    border-radius: 999px;
+    outline: none;
+}
+.btn-default:hover{
+     background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    opacity: 0.7;
+    outline: none;
+}
+.btn-reset{
+    font-size: 16px;
+    line-height: 18px;
+    color: #848484;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    opacity: 0.7;
+    border-radius: 999px;
+}
 a:hover, a:focus, a:visited, a:active,
 button:hover, button:focus, button:visited, button:active{
     text-decoration: none;
     outline: none;
 }
 table {
-    border: 1px solid #E6E6E6;
+    /*border: 1px solid #E6E6E6;*/
     border-collapse: collapse;
     border-spacing: 0;
     table-layout: auto;
@@ -106,7 +138,7 @@ table {
     margin-bottom: 20px;
 }
 th,td{
-    border: 1px solid #e6e6e6;
+    /*border: 1px solid #e6e6e6;*/
     padding: 10px 5px;
     font-weight: normal;
     text-align: center;
@@ -238,9 +270,9 @@ select option{
     font-family: 'biolife';
     src: url('../fonts/biolifebbd0.eot?t4lhqt');
     src: url('../fonts/biolifebbd0.eot?t4lhqt#iefix') format('embedded-opentype'),
-         url('../fonts/biolifebbd0.ttf?t4lhqt') format('truetype'),
-         url('../fonts/biolifebbd0.woff?t4lhqt') format('woff'),
-         url('../fonts/biolifebbd0.svg?t4lhqt#biolife') format('svg');
+        url('../fonts/biolifebbd0.ttf?t4lhqt') format('truetype'),
+        url('../fonts/biolifebbd0.woff?t4lhqt') format('woff'),
+        url('../fonts/biolifebbd0.svg?t4lhqt#biolife') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -411,58 +443,126 @@ select option{
 * Animation Effects                       *
 *******************************************/
 @-webkit-keyframes move-around-reverse{
-    0% { -webkit-transform: translate( 0, -10px); }
-    25% { -webkit-transform: translate( -10px, 0); }
-    50% { -webkit-transform: translate( 0, 10px); }
-    75% { -webkit-transform: translate( 10px, 0); }
-    100% { -webkit-transform: translate( 0, -10px); }
+    0% {
+        -webkit-transform: translate( 0, -10px);
+    }
+    25% {
+        -webkit-transform: translate( -10px, 0);
+    }
+    50% {
+        -webkit-transform: translate( 0, 10px);
+    }
+    75% {
+        -webkit-transform: translate( 10px, 0);
+    }
+    100% {
+        -webkit-transform: translate( 0, -10px);
+    }
 }
 @keyframes move-around-reverse{
-    0% { transform: translate( 0, -10px); }
-    25% { transform: translate( -10px, 0); }
-    50% { transform: translate( 0, 10px); }
-    75% { transform: translate( 10px, 0); }
-    100% { transform: translate( 0, -10px); }
+    0% {
+        transform: translate( 0, -10px);
+    }
+    25% {
+        transform: translate( -10px, 0);
+    }
+    50% {
+        transform: translate( 0, 10px);
+    }
+    75% {
+        transform: translate( 10px, 0);
+    }
+    100% {
+        transform: translate( 0, -10px);
+    }
 }
 @-webkit-keyframes move-around{
-    0% { -webkit-transform: translate( 0, -10px); }
-    25% { -webkit-transform: translate( 10px, 0); }
-    50% { -webkit-transform: translate( 0, 10px); }
-    75% { -webkit-transform: translate( -10px, 0); }
-    100% { -webkit-transform: translate( 0, -10px); }
+    0% {
+        -webkit-transform: translate( 0, -10px);
+    }
+    25% {
+        -webkit-transform: translate( 10px, 0);
+    }
+    50% {
+        -webkit-transform: translate( 0, 10px);
+    }
+    75% {
+        -webkit-transform: translate( -10px, 0);
+    }
+    100% {
+        -webkit-transform: translate( 0, -10px);
+    }
 }
 @keyframes move-around{
-    0% { transform: translate( 0, -10px); }
-    25% { transform: translate( 10px, 0); }
-    50% { transform: translate( 0, 10px); }
-    75% { transform: translate( -10px, 0); }
-    100% { transform: translate( 0, -10px); }
+    0% {
+        transform: translate( 0, -10px);
+    }
+    25% {
+        transform: translate( 10px, 0);
+    }
+    50% {
+        transform: translate( 0, 10px);
+    }
+    75% {
+        transform: translate( -10px, 0);
+    }
+    100% {
+        transform: translate( 0, -10px);
+    }
 }
 @-webkit-keyframes movebounce{
-    0% { -webkit-transform: translateY(0); }
-    50% { -webkit-transform: translateY(20px); }
-    100% { -webkit-transform: translateY(0); }
+    0% {
+        -webkit-transform: translateY(0);
+    }
+    50% {
+        -webkit-transform: translateY(20px);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+    }
 }
 @keyframes movebounce{
-    0% { transform: translateY(0); }
-    50% { transform: translateY(20px);}
-    100% { transform: translateY(0); }
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 @-webkit-keyframes movebounce-x{
-    0% { -webkit-transform: translateX(0); }
-    50% { -webkit-transform: translateX(20px); }
-    100% { -webkit-transform: translateX(0); }
+    0% {
+        -webkit-transform: translateX(0);
+    }
+    50% {
+        -webkit-transform: translateX(20px);
+    }
+    100% {
+        -webkit-transform: translateX(0);
+    }
 }
 @keyframes movebounce-x{
-    0% { transform: translateX(0); }
-    50% { transform: translateX(20px); }
-    100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(20px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 @-webkit-keyframes preload_waiting{
-    75% { -webkit-transform: scale(0); }
+    75% {
+        -webkit-transform: scale(0);
+    }
 }
 @keyframes preload_waiting{
-    75% { transform: scale(0); }
+    75% {
+        transform: scale(0);
+    }
 }
 /******************************************
 * Pre Loading                             *
@@ -950,6 +1050,7 @@ body{
     padding: 30px 0 21px;
 }
 .header-area .primary-menu{
+    text-align: center;
     margin-top: 8px;
 }
 .header-area .primary-menu>ul{
@@ -984,12 +1085,10 @@ body{
     font-weight: 600;
     display: inline-block;
 }
-.header-area .primary-menu>ul>li.has-child>a::after,
-.header-area .primary-menu>ul>li.has-megamenu>a::after{
+.header-area .primary-menu>ul>li.has-child>a::after{
     content: '\f0d7';
     font-family: 'FontAwesome', sans-serif;
     font-size: 14px;
-    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     display: inline-block;
     margin-left: 4px;
@@ -1479,7 +1578,7 @@ body.open-mobile-search .header-area.layout-02{
 .contain-product.layout-default{
     /*padding-bottom: 12px;*/
     padding-bottom: 2px;
- }
+}
 .contain-product.layout-default .info .price{
     margin-bottom: 11px;
 }
@@ -1592,7 +1691,7 @@ body.open-mobile-search .header-area.layout-02{
     margin: 0;
 }
 .minicart-item .left-info .qty .in-qty{
-     display: inline-block;
+    display: inline-block;
     font-size: 14px;
     line-height: 24px;
     color: #333333;
@@ -1867,6 +1966,17 @@ body.open-mobile-search .header-area.layout-02{
     -o-transition: all 320ms ease;
     transition: all 320ms ease;
 }
+.bmi-wrap  .angle{
+
+    font-size: 18px;
+    line-height: 18px;
+    display: inline-block;
+    max-width: 18px;
+    -webkit-transition: all 320ms ease;
+    -moz-transition: all 320ms ease;
+    -o-transition: all 320ms ease;
+    transition: all 320ms ease;
+}
 .vertical-category-block .black-color .menu-icon span::before,
 .vertical-category-block .black-color .menu-icon span{
     background-color: #333333;
@@ -1906,28 +2016,11 @@ body.open-mobile-search .header-area.layout-02{
     display: inline-block;
     width: 100%;
 }
-.vertical-category-block>.wrap-menu>.menu li.has-megamenu>a,
-.vertical-category-block>.wrap-menu .menu li.has-child>a{
-    position: relative;
-    padding-right: 5px;
-}
+
 .vertical-category-block .wrap-menu .menu li.has-child{
     position: relative;
 }
-.vertical-category-block .wrap-menu .menu li.has-megamenu>a:after,
-.vertical-category-block .wrap-menu .menu li.has-child>a:after{
-    font-family: 'FontAwesome', sans-serif;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    content: '\f105';
-    display: inline-block;
-    font-size: 14px;
-    line-height: 45px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #333333;
-}
+
 .vertical-category-block>.wrap-menu>.menu>li+li>a{
     border-top: 1px dashed #d2d2d2;
 }
@@ -1994,6 +2087,12 @@ body.open-mobile-search .header-area.layout-02{
     filter: alpha(opacity=100);
 }
 .vertical-category-block:not(.open-menu) .block-title .angle{
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+.bmi-wrap:not(.open-menu) .angle{
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
@@ -2426,6 +2525,7 @@ body.open-mobile-search .header-area.layout-02{
     padding: 0 7px;
 }
 .header-search-bar.layout-01 {
+    padding-left: 100px;
     display: inline-block;
     position: relative;
     float: left;
@@ -2545,9 +2645,9 @@ body.open-mobile-search .header-area.layout-02{
     box-shadow: 5px 5px 5px rgba(204, 204, 204,0.2);
     -webkit-box-shadow: 5px 5px 5px rgba(204, 204, 204,0.2);
 }
-    /***********************
-    * Newsletter Block     *
-    ***********************/
+/***********************
+* Newsletter Block     *
+***********************/
 .newsletter-block.layout-01{
     margin-top: 40px;
 }
@@ -5974,11 +6074,21 @@ body.open-overlay #overlay{
 .why-choose-us-block .sc-element{
     color: #95cb34;
 }
-.why-choose-us-block .sc-element.color-02{ color: #ff4f63;}
-.why-choose-us-block .sc-element.color-03{ color: #3b7f17;}
-.why-choose-us-block .sc-element.color-04{ color: #cec316;}
-.why-choose-us-block .sc-element.color-05{ color: #ffbc53;}
-.why-choose-us-block .sc-element.color-06{ color: #51142e;}
+.why-choose-us-block .sc-element.color-02{
+    color: #ff4f63;
+}
+.why-choose-us-block .sc-element.color-03{
+    color: #3b7f17;
+}
+.why-choose-us-block .sc-element.color-04{
+    color: #cec316;
+}
+.why-choose-us-block .sc-element.color-05{
+    color: #ffbc53;
+}
+.why-choose-us-block .sc-element.color-06{
+    color: #51142e;
+}
 .why-choose-us-block .sc-element .biolife-icon{
     display: inline-block;
     width: 60px;
@@ -6041,7 +6151,7 @@ body.open-overlay #overlay{
     left: -80px;
     z-index: 2;
     font-weight: 100;
- }
+}
 .testimonial-block .box-title::after{
     left: auto;
     right: -82px;
@@ -6302,6 +6412,7 @@ body.open-overlay #overlay{
     border-bottom: 2px solid #e6e6e6;
     padding: 18px 0;
     margin-top: 30px;
+    margin-bottom: 25px;
 }
 .single-post-contain .post-foot .auth-info .ath{
     display: inline-block;
@@ -6571,9 +6682,7 @@ body.open-overlay #overlay{
     list-style: none;
     display: block;
 }
-.main-content>.posts-list li+li{
-    margin-top: 50px;
-}
+
 .posts-list .post-item .thumbnail{
     padding: 0;
     margin: 0;
@@ -6914,8 +7023,8 @@ body.open-overlay #overlay{
     height: 1072px;
 }
 .slider-opt03__layout01.slide-bgr-mode03-01 .media{
-     background-image: url('../images/home-01/main-slide-01.jpg');
- }
+    background-image: url('../images/home-01/main-slide-01.jpg');
+}
 .slider-opt03__layout01.slide-bgr-mode03-02 .media{
     background-image: url('../images/home-01/main-slide-02.jpg');
 }
@@ -7925,7 +8034,7 @@ li.slick-current .slider-opt04__layout01 .buttons .btn{
 }
 .biolife-banner__promotion .media .position-4 img{
     -webkit-animation: movebounce 3.9s linear infinite;
-     animation: movebounce 3.9s linear infinite;
+    animation: movebounce 3.9s linear infinite;
 }
 .biolife-banner__promotion2{
     display: block;
@@ -11259,7 +11368,7 @@ body.open-quickview-block .biolife-quickview-block{
         background: none;
     }
     .mobile-inline.biolife-brand ul li{
-     width: 100%;
+        width: 100%;
     }
     .mega-content .row{
         margin: 0;
@@ -11735,7 +11844,7 @@ body.open-quickview-block .biolife-quickview-block{
     .contain-product__deal-layout img{
         display: inline-block;
     }
-    .biolife-banner__style-01 .text-content .third-line, 
+    .biolife-banner__style-01 .text-content .third-line,
     .biolife-banner__style-01 .text-content .second-line{
         font-size: 30px;
         line-height: 40px;
@@ -13239,11 +13348,11 @@ body.open-quickview-block .biolife-quickview-block{
     .biolife-banner__style-04 .text-content{
         min-height: auto;
     }
-    .biolife-banner__style-14 .text2, 
-    .biolife-banner__style-09 .text2, 
+    .biolife-banner__style-14 .text2,
+    .biolife-banner__style-09 .text2,
     .biolife-banner__style-03 .text2,
-    .biolife-banner__style-13 .text2, 
-    .biolife-banner__style-08 .text2, 
+    .biolife-banner__style-13 .text2,
+    .biolife-banner__style-08 .text2,
     .biolife-banner__style-02 .text2{
         font-size: 25px;
     }
@@ -13398,14 +13507,10 @@ body.open-quickview-block .biolife-quickview-block{
     padding-bottom: 50px;
 }
 /*--------------------------*/
-.width-100percent{ width: 100%;}
-.width-90percent{ width: 90%;}
-.width-80percent{ width: 80%;}
-.width-40percent{ width: 40%;}
-.width-30percent{ width: 30%;}
-.width-20percent{ width: 20%;}
-.width-10percent{ width: 10%;}
-.min-height-346px{ min-height: 346px;}
+
+.min-height-346px{
+    min-height: 346px;
+}
 
 @media ( min-width: 768px){
     .sm-margin-top_-1px{
@@ -14229,7 +14334,7 @@ body.open-quickview-block .biolife-quickview-block{
     .lg-padding-left-50{
         padding-left: 50px;
     }
-/*--------------------------------*/
+    /*--------------------------------*/
     .md-boder-left-30{
         position: relative;
     }
@@ -14356,6 +14461,19 @@ body.open-quickview-block .biolife-quickview-block{
     }
     .header-area.layout-03 .header-search-bar.layout-01 .input-text{
         max-width: 500px;
+    }
+    .header-area.layout-03 .header-search-bar.layout-01 .bmi-wrap > span::after{
+        content: '\f0d7';
+        font-family: 'FontAwesome', sans-serif;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+        display: inline-block;
+        margin-left: 4px;
+    }
+    .header-area.layout-03 .header-search-bar.layout-01 .bmi-wrap {
+        position: absolute;
+        top: 12px;
+        right: 104px;
     }
     .slider-opt03__layout01.mode-03.black-color .text-content .first-line{
         color: #666666;

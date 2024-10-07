@@ -21,7 +21,6 @@ import java.security.SecureRandom;
  * @author CTT VNPAY
  */
 public class Config {
-
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_ReturnUrl = "http://localhost:9999/HealthyFood/transaction";
     public static String vnp_TmnCode = "J08SZP53";
