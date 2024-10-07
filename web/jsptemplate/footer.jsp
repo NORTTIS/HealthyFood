@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
          <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
