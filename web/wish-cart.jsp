@@ -87,7 +87,7 @@
                                         </thead>
                                         <tbody>
 
-                                            <c:forEach items="${sessionScope.cart.getItems()}" var="i">
+                                            <c:forEach items="${wishcart.getItems()}" var="i">
 
                                                 <tr class="cart_item ">
                                                     <td class="product-quantity" data-title="Quantity">
@@ -148,7 +148,7 @@
                                     
 
                                     <div class="btn-checkout">
-                                        <a href="checkout" class="btn checkout">Check out</a>
+                                        <a href="#" class="btn checkout">Check out</a>
                                     </div>
                                     <div class="biolife-progress-bar">
                                         <table>
