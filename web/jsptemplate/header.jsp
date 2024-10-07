@@ -32,7 +32,7 @@
                 <div class="container">
                     <div class="top-bar left">
                         <ul class="horizontal-menu">
-                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>Group5@company.com</a></li>
+                            <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>Group5@gmail.com</a></li>
                             <li><a href="#">HealthyFood for healthy life</a></li>
                         </ul>
                     </div>
@@ -88,7 +88,7 @@
                             <div class="primary-menu">
                                 <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu"
                                     data-menuname="main menu">
-                                    <li class="menu-item"><a href="#">Home</a></li>
+                                    <li class="menu-item"><a href="home">Home</a></li>
                                     <li class="menu-item menu-item-has-children ">
                                         <a href="#" class="menu-name" data-title="Shop">Shop</a>
                                        
@@ -134,10 +134,10 @@
                                     </div>
                                 </div>
                                 <div class="wishlist-block hidden-sm hidden-xs">
-                                    <a href="#" class="link-to">
+                                    <a href="wishcart?ac=show" class="link-to">
                                         <span class="icon-qty-combine">
                                             <i class="icon-heart-bold biolife-icon"></i>
-                                            <span class="qty">4</span>
+                                            <span class="qty">${wishitem == null ? 0 : wishitem}</span>
                                         </span>
                                     </a>
                                 </div>
@@ -155,7 +155,7 @@
                                             <div class="cart-inner">
                                                 <ul class="products">
                                                     <li>
-                                                        <c:if test="${ totalitem == 0}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
+                                                        <c:if test="${ totalitem == 0|| totalitem == null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
                                                         <c:forEach items="${sessionScope.cart.getItems()}" var="i">
                                                         <li>
                                                             <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
