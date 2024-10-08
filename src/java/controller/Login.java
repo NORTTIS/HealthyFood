@@ -4,21 +4,26 @@
  */
 package controller;
 
+
 import dao.AccountsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import model.Accounts;
+
 
 /**
  *
- * @author Gosu
+ * @author Norttie
  */
-// url = /edit
-public class EditProfileServlet extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/login"})
+public class Login extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,18 +37,7 @@ public class EditProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditProfile</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditProfile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,11 +52,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        AccountsDAO adb = new AccountsDAO();
-        Accounts user = adb.getAccountByUserName(username);
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        response.sendRedirect("login.jsp");
     }
 
     /**
@@ -77,21 +67,23 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phone_number = request.getParameter("phone_number");
         String password = request.getParameter("password");
-        String olduser = request.getParameter("oldusername");
-        AccountsDAO adb = new AccountsDAO();
-        Accounts username_exist = adb.getAccountByUserName(username);
-        Accounts email_exist = adb.getUserEmail(email);
-        if(username_exist != null || email_exist != null){
-            Accounts old = adb.getAccountByUserName(olduser);
-            request.setAttribute("user", old);
-            request.setAttribute("error", "Username hoặc email đã tồn tại");
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
-        } else {
-            adb.updateUser(username, email, phone_number, password, olduser);
-            response.sendRedirect("userlist");
+        Accounts acc = new AccountsDAO().login(username, password);
+        try {
+            if (acc == null) {
+                request.setAttribute("mess", "wrong username or password");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("acc", acc);
+                if (!acc.getRole().equals("admin")) {
+                    response.sendRedirect("home");
+                } else if (acc.getRole().equals("admin")) {
+                    response.sendRedirect("admin");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("err occur while login");
         }
     }
 

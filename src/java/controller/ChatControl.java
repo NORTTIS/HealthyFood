@@ -5,20 +5,23 @@
 package controller;
 
 import dao.AccountsDAO;
+import dao.MessageDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import model.Accounts;
+import model.Messages;
 
 /**
  *
- * @author Gosu
+ * @author Norttie
  */
-// url = /edit
-public class EditProfileServlet extends HttpServlet {
+public class ChatControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class EditProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditProfile</title>");
+            out.println("<title>Servlet ChatControl</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ChatControl at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,11 +61,25 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        AccountsDAO adb = new AccountsDAO();
-        Accounts user = adb.getAccountByUserName(username);
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        String accId = request.getParameter("accId");
+        List<Accounts> accs = new AccountsDAO().getAllAccountByRole("Customer");
+        HttpSession session = request.getSession();
+        Accounts acc = (Accounts) session.getAttribute("acc");
+        boolean isCustomer = acc.getRole().equals("Customer");
+        if (isCustomer) {
+                accs = new AccountsDAO().getAllAccountByRole("Nutritionist");
+            }
+        if (accId != null) {
+            
+            Accounts account = new AccountsDAO().getAccountByid(accId);
+            List<Messages> listMes = new MessageDao().getMessagesByConversation(accId, "" + acc.getAccount_id());
+            request.setAttribute("accName", account.getDisplayname());
+            request.setAttribute("listMes", listMes);
+            request.setAttribute("receiveId", accId);
+        }
+        request.setAttribute("lacc", accs);
+        
+        request.getRequestDispatcher("chat.jsp").forward(request, response);
     }
 
     /**
@@ -76,23 +93,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phone_number = request.getParameter("phone_number");
-        String password = request.getParameter("password");
-        String olduser = request.getParameter("oldusername");
-        AccountsDAO adb = new AccountsDAO();
-        Accounts username_exist = adb.getAccountByUserName(username);
-        Accounts email_exist = adb.getUserEmail(email);
-        if(username_exist != null || email_exist != null){
-            Accounts old = adb.getAccountByUserName(olduser);
-            request.setAttribute("user", old);
-            request.setAttribute("error", "Username hoặc email đã tồn tại");
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
-        } else {
-            adb.updateUser(username, email, phone_number, password, olduser);
-            response.sendRedirect("userlist");
-        }
+        processRequest(request, response);
     }
 
     /**

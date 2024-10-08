@@ -2,23 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.vpn;
 
-import dao.AccountsDAO;
+import dao.DBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Accounts;
+import java.sql.Connection;
 
 /**
  *
- * @author Gosu
+ * @author Norttie
  */
-// url = /edit
-public class EditProfileServlet extends HttpServlet {
+public class homeControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +32,26 @@ public class EditProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditProfile</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditProfile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            Connection conn = new DBContext().getConnection();
+            String sql = "select count(*) from Surveys";
+            PreparedStatement questionStmt = conn.prepareStatement(sql);
+            ResultSet rsCount = questionStmt.executeQuery();
+            int countSurvey = 0;
+            int countUserCount = 0;
+            if (rsCount.next()) {
+                countSurvey = rsCount.getInt(1);
+            }
+            String sql2 = "select count(*) from Users";
+            PreparedStatement userNumber = conn.prepareStatement(sql2);
+            ResultSet rsUsercount = userNumber.executeQuery();
+            if (rsUsercount.next()) {
+                countUserCount = rsUsercount.getInt(1);
+            }
+            request.setAttribute("snum", countSurvey);
+            request.setAttribute("unum", countUserCount);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } catch (Exception e) {
         }
     }
 
@@ -58,11 +67,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        AccountsDAO adb = new AccountsDAO();
-        Accounts user = adb.getAccountByUserName(username);
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -76,23 +81,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String phone_number = request.getParameter("phone_number");
-        String password = request.getParameter("password");
-        String olduser = request.getParameter("oldusername");
-        AccountsDAO adb = new AccountsDAO();
-        Accounts username_exist = adb.getAccountByUserName(username);
-        Accounts email_exist = adb.getUserEmail(email);
-        if(username_exist != null || email_exist != null){
-            Accounts old = adb.getAccountByUserName(olduser);
-            request.setAttribute("user", old);
-            request.setAttribute("error", "Username hoặc email đã tồn tại");
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
-        } else {
-            adb.updateUser(username, email, phone_number, password, olduser);
-            response.sendRedirect("userlist");
-        }
+        processRequest(request, response);
     }
 
     /**

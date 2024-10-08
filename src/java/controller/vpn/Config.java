@@ -14,13 +14,13 @@ import java.util.Random;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import jakarta.servlet.http.HttpServletRequest;
+import java.security.SecureRandom;
 
 /**
  *
  * @author CTT VNPAY
  */
 public class Config {
-
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_ReturnUrl = "http://localhost:9999/HealthyFood/transaction";
     public static String vnp_TmnCode = "J08SZP53";
@@ -120,7 +120,7 @@ public class Config {
         return ipAdress;
     }
 
-    public static String getRandomNumber(int len) {
+    public static String getRandomNumber(int len)  {
         Random rnd = new Random();
         String chars = "0123456789";
         StringBuilder sb = new StringBuilder(len);

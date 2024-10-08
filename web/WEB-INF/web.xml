@@ -20,6 +20,18 @@
         <servlet-name>TransactionServlet</servlet-name>
         <servlet-class>controller.vpn.TransactionServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChatControl</servlet-name>
+        <servlet-class>controller.ChatControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogController</servlet-name>
+        <servlet-class>controller.BlogController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShopController</servlet-name>
+        <servlet-class>controller.ShopController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CartControl</servlet-name>
         <url-pattern>/cart</url-pattern>
@@ -40,6 +52,7 @@
         <servlet-name>TransactionServlet</servlet-name>
         <url-pattern>/transaction</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>AdminController</servlet-name>
         <servlet-class>controller.AdminController</servlet-class>
@@ -119,5 +132,17 @@
     <servlet-mapping>
         <servlet-name>AllDiscounts</servlet-name>
         <url-pattern>/discountlist</url-pattern>
+    <servlet-mapping>
+        <servlet-name>ChatControl</servlet-name>
+        <url-pattern>/chat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogController</servlet-name>
+        <url-pattern>/blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShopController</servlet-name>
+        <url-pattern>/shop</url-pattern>
+
     </servlet-mapping>
 </web-app>

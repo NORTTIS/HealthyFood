@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
 public class AccountsDAO extends DBContext {
 
     public List<Accounts> getAllUser() {
@@ -16,14 +17,20 @@ public class AccountsDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 al.add(a);
             }
@@ -33,21 +40,135 @@ public class AccountsDAO extends DBContext {
         return al;
     }
     
-    public Accounts getUser(String username){
-        String sql = "SELECT * FROM Accounts WHERE username = ?";
+    public Accounts getAccountByUserName(String username) {
+        String sql = "Select * from Accounts where username =?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                int row = 1;
+                Accounts a = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                );
+                return a;
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Error cannot get account");
+            return null;
+        }
+        return null;
+    }
+     public Accounts getAccountByEmail(String email) {
+        String sql = "Select * from Accounts where email =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                int row = 1;
+                Accounts a = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                );
+                return a;
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Error cannot get account");
+            return null;
+        }
+        return null;
+    }
+    public void createAccount(String username, String password, String displayname,String email , String role) {
+        String sql = "INSERT INTO Accounts  (username,password,displayname,email,avatar,role) values (?,?,?,?,?,?) ";
+        String avatar = "Avatar.png";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setString(3, displayname);
+            st.setString(4, email);
+            st.setString(5, avatar);
+            st.setString(6, role);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error while trying to sign up: " + e.getMessage());
+        }
+    }
+    public List<Accounts> getAllAccountByRole(String role) {
+        String sql = "SELECT * FROM Accounts where role = ?";
+        List<Accounts> al = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1,role);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
+                );
+                al.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return al;
+    }
+    
+       public Accounts getAccountByid(String id) {
+        String sql = "SELECT * FROM Accounts where account_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1,id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int row = 1;
+                Accounts a = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 return a;
             }
@@ -64,14 +185,20 @@ public class AccountsDAO extends DBContext {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 return a;
             }
@@ -124,14 +251,20 @@ public class AccountsDAO extends DBContext {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 managers.add(a);
             }
@@ -148,14 +281,20 @@ public class AccountsDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+                int row = 1;
                 Accounts a = new Accounts(
-                        rs.getInt("account_id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("email"),
-                        rs.getString("phone_number"),
-                        rs.getString("role"),
-                        rs.getString("status")
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++)
+                        
                 );
                 managers.add(a);
             }
@@ -216,13 +355,46 @@ public class AccountsDAO extends DBContext {
         } catch (SQLException ex) {
         }
     }
+    public Accounts login(String username, String password) {
+        String sql = "SELECT * FROM Accounts WHERE username = ? AND password = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, password);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    int row = 1;
+                    Accounts acc = new Accounts(
+                        rs.getInt(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++),
+                        rs.getString(row++));
+                    return acc;
+                    
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error while trying to login: " + e.getMessage());
+        }
+        return null;
+    }
+    
+    
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-        List<Accounts> al = adb.getAllUser();
-        for (Accounts a : al) {
-            System.out.println(a.toString());
-        }
+//        List<Accounts> al = adb.getAllAccountByRole("Nutritionist");
+//        for (Accounts a : al) {
+//            System.out.println(a.toString());
+//        }
+//         adb.login("Norttis", "Bacvu123");
+             adb.createAccount("Norttis6","Bacvu126","Norttis6","bacvu126@gmail.com","Customer");
     }
 
 }

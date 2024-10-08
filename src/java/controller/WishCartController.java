@@ -8,6 +8,7 @@ import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,7 +21,8 @@ import model.Products;
  *
  * @author Norttie
  */
-public class CartControl extends HttpServlet {
+@WebServlet(name = "WishCartController", urlPatterns = {"/wishlist"})
+public class WishCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,7 +68,7 @@ public class CartControl extends HttpServlet {
         String action = request.getParameter("ac");
         String productid = request.getParameter("productid");
         if (action.equals("show")) {
-            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+            request.getRequestDispatcher("wish-cart.jsp").forward(request, response);
         }
         Products prod = new ProductDao().getProductsById(productid);
 
@@ -138,6 +140,7 @@ public class CartControl extends HttpServlet {
             session.setAttribute("cart", cart);
             response.sendRedirect("cart?ac=show");
         }
+
     }
 
     /**

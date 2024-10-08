@@ -194,10 +194,11 @@
         });
     };
 
+ 
     $.fn.biolife_vertical_menu = function () {
         $(this).each( function () {
             let this_menu = $(this);
-            this_menu.on('click', '.block-title', function (e) {
+            this_menu.on('click', '.menu-titles', function (e) {
                 e.preventDefault();
                 this_menu.toggleClass('open-menu');
             });
