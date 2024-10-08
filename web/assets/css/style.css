@@ -129,6 +129,7 @@ button:hover, button:focus, button:visited, button:active{
     text-decoration: none;
     outline: none;
 }
+
 table {
     /*border: 1px solid #E6E6E6;*/
     border-collapse: collapse;
@@ -1633,7 +1634,6 @@ body.open-mobile-search .header-area.layout-02{
 }
 .contain-product.layout-02{
     display: inline-block;
-    width: 100%;
 }
 .advance-product-box_countdown{
     border: 2px solid #e6e6e6;
@@ -3559,6 +3559,9 @@ body.open-overlay #overlay{
 .sidebar .wgt-content .check-list li a,
 .sidebar .wgt-content .cat-list li a{
     color: inherit;
+}
+.cat-link.active{
+    color: #7faf51 !important;
 }
 .sidebar .wgt-content .check-list li a{
     padding-left: 30px;
