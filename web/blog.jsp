@@ -76,7 +76,7 @@
                                 </div>
 
                                 <!--Categories Widget-->
-                                <div class="widget biolife-filter">
+                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; margin-bottom: 37px;">
                                     <h4 class="wgt-title">Categories</h4>
                                     <div class="wgt-content">
                                         <ul class="cat-list">
@@ -88,6 +88,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <button class="btn btn-default"><a href="createBlog" style="color: inherit">Create Blog</a></button>
                             </div>
                         </aside>
 

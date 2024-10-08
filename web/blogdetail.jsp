@@ -55,7 +55,7 @@
 
     <!-- Page Contain -->
     <div class="page-contain blog-page left-sidebar">
-        <div class="container">
+        <div class="container blogdetail">
             <div class="row">
 
                 <!-- Main content -->
@@ -91,7 +91,7 @@
 
                             <div class="auth-info">
                                 <div class="ath">
-                                    <a href="#" class="avata"><img src="assets/images/user-avatar/Avatar.png" width="29" height="28" alt="Christian Doe">Christian Doe</a>
+                                    <a href="#" class="avata"><img src="assets/images/user-avatar/Avatar.png" style="width: 30px; height: 30px;" alt="Christian Doe">Christian Doe</a>
                                    
                                 </div>
                                 <div class="socials-connection">
