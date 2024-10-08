@@ -11,13 +11,12 @@ import java.sql.*;
  *
  * @author Norttie
  */
-public class ProductDao {
+public class ProductDao extends DBContext {
 
     public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
-        try {
-            Connection conn = new DBContext().getConnection();
-            PreparedStatement st = conn.prepareStatement(sql);
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
             st.setString(1, id);
             ResultSet rs;
             rs = st.executeQuery();

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
@@ -40,6 +40,7 @@
         </style>
     </head>
     <body>
+        tét thử tiếng việt vào đây 
         <h2>Create a Dynamic Form</h2>
         <form action="submitForm" method="POST">
             <div id="questions">
