@@ -128,7 +128,7 @@ public class BlogServlet extends HttpServlet {
             request.getRequestDispatcher("createBlog.jsp").forward(request, response);
         }
 
-        request.getRequestDispatcher("blog.jsp").forward(request, response);
+        response.sendRedirect("blog");
 
     }
 

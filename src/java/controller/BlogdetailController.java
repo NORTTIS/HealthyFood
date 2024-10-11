@@ -5,6 +5,8 @@
 
 package controller;
 
+import dao.AccountsDAO;
+import dao.BlogDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +14,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Accounts;
+import model.Blog;
 
 /**
  *
@@ -56,7 +60,13 @@ public class BlogdetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String blogId = request.getParameter("blogId");
-        
+        BlogDao bDao = new BlogDao();
+        Blog blog = bDao.getBlogById(blogId);
+        String blogCategory = bDao.getCategoryByBlogId(blogId);
+        Accounts author = new AccountsDAO().getAccountByid(blog.getAuthor());
+        request.setAttribute("author", author);
+        request.setAttribute("blog", blog);
+        request.setAttribute("cate", blogCategory);
        request.getRequestDispatcher("blogdetail.jsp").forward(request, response);
     } 
 

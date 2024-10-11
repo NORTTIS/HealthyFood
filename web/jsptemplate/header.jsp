@@ -40,22 +40,21 @@
                             <c:if test="${not empty sessionScope.acc.avatar}">
                                 <a href="profile.jsp">
                                     <img
-                                        src="./assets/image/${sessionScope.acc.avatar}"
+                                        src="./assets/images/${sessionScope.acc.avatar}"
                                         alt="avatar"
                                         class="avatar"
 
                                         />
                                 </a>
                             </c:if>
-
-
                             <div class="user__name">${sessionScope.acc.username}</div>
                             <c:choose>
                                 <c:when test="${not empty sessionScope.acc}">
                                     <a class="logout-btn" href="login.jsp">Log out</a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a class="logout-btn" href="login.jsp">Log in</a>
+                                     <a href="login.jsp" class="login-link"><i
+                                        class="biolife-icon icon-login"></i>Login/Register</a>
                                 </c:otherwise>
                             </c:choose>
                         </div></li>
@@ -215,7 +214,7 @@
                 </div>
                 <div class="col-lg-9 col-md-8 padding-top-2px">
                     <div class="header-search-bar layout-01">
-                        <form action="#" class="form-search" name="desktop-seacrh" method="get">
+                        <form action="shop" class="form-search" name="desktop-seacrh" method="get">
                             <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
                             <div class="vertical-menu vertical-category-block bmi-wrap">
                                 <div class="menu-titles">

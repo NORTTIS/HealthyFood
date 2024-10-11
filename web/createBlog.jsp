@@ -64,10 +64,10 @@
                     <label for="title">Category</label><br>
                     <select id="category" name="category">
                         <option value="1">Fruits</option>
-                        <option value="2">Vegetables</option>
-                        <option value="3">Dairy</option>
-                        <option value="4">Grains</option>
-                        <option value="5">Meat</option>
+                        <option value="2">Health</option>
+                        <option value="3">Trick</option>
+                        <option value="4">Cook</option>
+                        <option value="5">Diet</option>
                     </select>
                      
                 </div>
