@@ -5,6 +5,7 @@
 package model;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -91,6 +92,16 @@ public class Blog {
 
     public void setCategory(int category) {
         this.category = category;
+    }
+    public int getBlogDay(){
+        Calendar calendar = Calendar.getInstance();
+    calendar.setTime(createAt);
+    return calendar.get(Calendar.DAY_OF_MONTH);  // Lấy ngày trong tháng
+    }
+     public int getBlogMonth(){
+        Calendar calendar = Calendar.getInstance();
+    calendar.setTime(createAt);
+    return calendar.get(Calendar.MONTH)+1;  // Lấy ngày trong tháng
     }
 
     @Override

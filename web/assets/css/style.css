@@ -3511,7 +3511,6 @@ body.open-overlay #overlay{
     display: block;
     clear: both;
     border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 37px;
 }
 .sidebar .widget:last-child{
     border-bottom: none;

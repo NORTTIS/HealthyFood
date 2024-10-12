@@ -71,12 +71,21 @@
                                         <form action="" name="frm-search" method="get" class="frm-search">
                                             <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
                                             <input type="text" name="cate" value="${cate}" hidden/>
-                                             <input type="text" name="page" value="${currentPage}" hidden/>
+                                            <input type="text" name="page" value="${currentPage}" hidden/>
                                             <button type="submit"><i class="biolife-icon icon-search"></i></button>
                                         </form>
                                     </div>
                                 </div>
-
+                                 <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
+                                                
+                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                    <button class="btn btn-default"><a href="manageblog" style="color: inherit">Create Blog</a></button>
+                                    <form action="blog" method="post" style="display: inline-block;">
+                                        <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
+                                        <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
+                                    </form>
+                                </div>
+                                            </c:if>
                                 <!--Categories Widget-->
                                 <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; margin-bottom: 37px;">
                                     <h4 class="wgt-title"><a href="blog" class="" style="color:inherit">Category</a></h4>
@@ -90,7 +99,6 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <button class="btn btn-default"><a href="createBlog" style="color: inherit">Create Blog</a></button>
                             </div>
                         </aside>
 
@@ -99,28 +107,28 @@
                             <ul class="posts-list main-post-list">
                                 <!--loop post here-->
                                 <c:forEach items="${bList}" var="i" varStatus="j">
-                                     <li class="post-elem col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                    <div class="post-item effect-04 style-bottom-info">
-                                        <div class="thumbnail">
-                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post">
-                                                <div>
-                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px;" alt="">
+                                    <li class="post-elem col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="post-item effect-04 style-bottom-info">
+                                            <div class="thumbnail">
+                                                <a href="blogdetail?blogId=${i.id}" class="link-to-post">
+                                                    <div>
+                                                        <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px;" alt="">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="post-content">
+                                                <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
+                                                <p class="post-archive"><b class="post-cat">${cateList.get(i.category)}</b><span class="post-date"> / ${i.createAt}</span><span class="author">Posted By: ${accList.get(j.index).displayname}</span></p>
+                                                <p class="excerpt">Did you know that is a example description...</p>
+                                                <div class="group-buttons">
+                                                    <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                                 </div>
-                                            </a>
-                                        </div>
-                                        <div class="post-content">
-                                            <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
-                                            <p class="post-archive"><b class="post-cat">${cateList.get(i.category)}</b><span class="post-date"> / ${i.createAt}</span><span class="author">Posted By: ${accList.get(j.index).displayname}</span></p>
-                                            <p class="excerpt">Did you know that is a example description...</p>
-                                            <div class="group-buttons">
-                                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 </c:forEach>
-                           
-                               </ul>
+
+                            </ul>
                         </div>
                     </div>
 

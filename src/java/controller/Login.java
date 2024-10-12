@@ -52,7 +52,12 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        String ac = request.getParameter("ac");
+        if(ac.equals("logout")){
+            HttpSession session = request.getSession();
+            session.removeAttribute("acc");
+        }
+       request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**

@@ -50,7 +50,8 @@
                             <div class="user__name">${sessionScope.acc.username}</div>
                             <c:choose>
                                 <c:when test="${not empty sessionScope.acc}">
-                                    <a class="logout-btn" href="login.jsp">Log out</a>
+                                    <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
+                                  
                                 </c:when>
                                 <c:otherwise>
                                      <a href="login.jsp" class="login-link"><i

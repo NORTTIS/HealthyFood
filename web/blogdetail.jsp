@@ -4,6 +4,7 @@
     Author     : Norttie
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -70,7 +71,7 @@
                                 <div class="thumbnail">
                                     <figure><img src="assets/images/our-blog//${blog.imagePath}" width="870" height="635" alt=""></figure>
                                 </div>
-                                
+
                             </div>
 
                             <div class="post-content">
@@ -93,6 +94,20 @@
                                 </div>
 
                             </div>
+                      <c:if test="${sessionScope.acc.account_id == author.account_id}">
+                                <div class="widget biolife-filter" style=" margin-bottom: 20px; text-align: end;">
+                                    <form action="manageblog" method="post" style="display: inline-block;">
+                                        <input type="text" name="blogId" value="${blog.id}" hidden/>
+                                         <input type="text" name="ac" value="edit" hidden/>
+                                        <button class="btn btn-default" style="margin-left: 20px; background-color: #60adeb;" type="submit">Edit Blog</button>
+                                    </form>
+                                    <form action="manageblog" method="post" style="display: inline-block;">
+                                        <input type="text" name="blogId" value="${blog.id}" hidden/>
+                                         <input type="text" name="ac" value="del" hidden/>
+                                        <button class="btn btn-default" style="margin-left: 20px; background-color: #ff6631;" type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </c:if>
 
                         </div>
 
@@ -116,10 +131,20 @@
                                     </form>
                                 </div>
                             </div>
+                            <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
+
+                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                    <button class="btn btn-default"><a href="manageblog?ac=create" style="color: inherit">Create Blog</a></button>
+                                    <form action="blog" method="post" style="display: inline-block;">
+                                        <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
+                                        <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
+                                    </form>
+                                </div>
+                            </c:if>
 
                             <!--Categories Widget-->
                             <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; margin-bottom: 37px;">
-                                 <h4 class="wgt-title"><a href="blog" class="" style="color:inherit">Category</a></h4>
+                                <h4 class="wgt-title"><a href="blog" class="" style="color:inherit">Category</a></h4>
                                 <div class="wgt-content">
                                     <ul class="cat-list">
                                         <li class="cat-list-item"><a href="blog?cate=1" class="cat-link">Food</a></li>

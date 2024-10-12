@@ -68,6 +68,7 @@ public class BlogController extends HttpServlet {
         int indexPage = 1;
         int totalPage = 0;
         BlogDao blogDao = new BlogDao();
+        AccountsDAO accDao = new AccountsDAO();
         Map<Integer, String> cateList = blogDao.getAllBlogCategory();
         if (page != null && !page.equals("")) {
             indexPage = Integer.parseInt(page);
@@ -78,9 +79,10 @@ public class BlogController extends HttpServlet {
          if (searchValue == null) {
             searchValue = "";
         }
+        
         List<Blog> bListByPageIndex = blogDao.getAllBlog("", cid, indexPage, searchValue);
         List<Blog> bListTotal = blogDao.getAllBlog("", cid, searchValue);
-        AccountsDAO accDao = new AccountsDAO();
+        
         List<Accounts> accList = new ArrayList<>();
         for (Blog blog : bListByPageIndex) {
             accList.add(accDao.getAccountByid(blog.getAuthor()));
@@ -107,37 +109,43 @@ public class BlogController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String searchValue = request.getParameter("search");
-//        String cid = request.getParameter("cate");
-//        String page = request.getParameter("page");
-//        int indexPage = 1;
-//        int totalPage = 0;
-//        BlogDao blogDao = new BlogDao();
-//        Map<Integer, String> cateList = blogDao.getAllBlogCategory();
-//        if (page != null && !page.equals("")) {
-//            indexPage = Integer.parseInt(page);
-//        }
-//        if (cid == null) {
-//            cid = "";
-//        }
-//        if (searchValue == null) {
-//            searchValue = "";
-//        }
-//        List<Blog> bList = blogDao.getAllBlog("", cid, indexPage, searchValue);
-//        List<Blog> bListTotal = blogDao.getAllBlog("", cid, "");
-//         totalPage = blogDao.calNumPageBlog(bListTotal);
-//        AccountsDAO accDao = new AccountsDAO();
-//        List<Accounts> accList = new ArrayList<>();
-//        for (Blog blog : bList) {
-//            accList.add(accDao.getAccountByid(blog.getAuthor()));
-//        }
-//        request.setAttribute("searchValue", searchValue);
-//        request.setAttribute("bList", bList);
-//        request.setAttribute("accList", accList);
-//        request.setAttribute("cateList", cateList);
-//        request.setAttribute("currentPage", indexPage);
-//        request.setAttribute("totalPages", totalPage);
-//        request.getRequestDispatcher("blog.jsp").forward(request, response);
+        String page = request.getParameter("page");
+        String cid = request.getParameter("cate");
+        String searchValue = request.getParameter("search");
+        String accId = request.getParameter("accId");
+        int indexPage = 1;
+        int totalPage = 0;
+        BlogDao blogDao = new BlogDao();
+        AccountsDAO accDao = new AccountsDAO();
+        Map<Integer, String> cateList = blogDao.getAllBlogCategory();
+        if (page != null && !page.equals("")) {
+            indexPage = Integer.parseInt(page);
+        }
+        if (cid == null) {
+            cid = "";
+        }
+         if (searchValue == null) {
+            searchValue = "";
+        }
+         if(accId == null){
+             accId="";
+         }
+        List<Blog> bListByPageIndex = blogDao.getAllBlog(accId, cid, indexPage, searchValue);
+        List<Blog> bListTotal = blogDao.getAllBlog(accId, cid, searchValue);
+        
+        List<Accounts> accList = new ArrayList<>();
+        for (Blog blog : bListByPageIndex) {
+            accList.add(accDao.getAccountByid(blog.getAuthor()));
+        }
+        totalPage = blogDao.calNumPageBlog(bListTotal);
+         request.setAttribute("searchValue", searchValue);
+        request.setAttribute("bList", bListByPageIndex);
+        request.setAttribute("accList", accList);
+        request.setAttribute("cate",cid);
+        request.setAttribute("cateList", cateList);
+        request.setAttribute("currentPage", indexPage);
+        request.setAttribute("totalPages", totalPage);
+        request.getRequestDispatcher("blog.jsp").forward(request, response);
     }
 
     /**

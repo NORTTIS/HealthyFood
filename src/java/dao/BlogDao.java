@@ -77,7 +77,7 @@ public class BlogDao extends DBContext {
     }
 
     public String getCategoryByBlogId(String id) {
-        String sql = "select * from Category where category_id = ?";
+        String sql = "select * from BlogCategory where category_id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, id);
@@ -156,7 +156,7 @@ public class BlogDao extends DBContext {
         return bList;
     }
     
-     public List<Blog> getAllBlog(String nutriId, String cateId, String searchValue) {
+    public List<Blog> getAllBlog(String nutriId, String cateId, String searchValue) {
         StringBuilder sql = new StringBuilder("select * from Blogs r where 1=1 ");  // Luôn đúng để dễ dàng nối các điều kiện
         List<Blog> bList = new ArrayList<>();
 
@@ -210,17 +210,37 @@ public class BlogDao extends DBContext {
         }
         return bList;
     }
+    
+    public void updateBlog(String blogId,String title, String cateId, String content, String image) {
+        String sql = "UPDATE Blogs  SET title = ?, cate_id = ?, content = ?, image = ? where id =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            int index = 1;
+            st.setString(index++, title);
+            st.setString(index++, cateId);
+            st.setString(index++, content);
+            st.setString(index++, image);
+            st.setString(index++, blogId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error cannot insert blog");
+        }
+    }
+    public void deleteBlog(String blogId) {
+        String sql = "delete from Blogs where id =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            int index = 1;
+            st.setString(index++, blogId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error cannot delete blog: "+e);
+        }
+    }
+    
     public static void main(String[] args) {
         BlogDao b = new BlogDao();
-        List<Blog> l = b.getAllBlog("", "", 1, "");
-        for (Blog blog : l) {
-            System.out.println(blog);
-        }
-         System.out.println(b.getBlogById("1"));
-        System.out.println(b.getCategoryByBlogId("1"));
-        for (Blog blog : l) {
-            System.out.println(blog);
-        }
+       b.deleteBlog("7");
 
     }
 

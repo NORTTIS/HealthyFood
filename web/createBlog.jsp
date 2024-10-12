@@ -4,6 +4,7 @@
     Author     : Norttie
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,40 +49,42 @@
         <jsp:include page="./jsptemplate/header.jsp" />
         <div class="container">
             <!-- Preloader loading-->
-            <h2 style="font-weight: bold;border-top: 1px solid #e6e6e6; margin-top: 20px;">Create a New Blog</h2>
+            <h2 style="font-weight: bold;border-top: 1px solid #e6e6e6; margin-top: 20px;">
+                ${blog == null ? 'Create a new Blog' : 'Update Blog'}
+            </h2>
 
-            <form class="row" id="editor-form" action="createBlog" method="post" enctype="multipart/form-data">
+            <form class="row" id="editor-form" action="manageblog" method="post" enctype="multipart/form-data">
                 <input type="text" name="nutriId" value="${sessionScope.acc.account_id}" hidden/>
+                <input type="text" name="BlogId" value="${blog.id}" hidden/>
+                <input type="text" name="ac" value="${blog==null?'create':'upd'}" hidden/>
                 <div class="col-lg-6">
                     <label for="title">Blog Title:</label><br>
-                    <input type="text" id="title" name="title" required><br><br>
+                    <input type="text" id="title" name="title" value="${blog.title}" required><br><br>
 
                     <label for="thumbnail">Upload Thumbnail:</label><br>
-                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required><br><br>
+                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*" ${blog == null ? 'required' : ''}><br><br>
                     <p class="text-danger">${error}</p>
                 </div>
                 <div class="col-lg-6">
                     <label for="title">Category</label><br>
                     <select id="category" name="category">
-                        <option value="1">Fruits</option>
-                        <option value="2">Health</option>
-                        <option value="3">Trick</option>
-                        <option value="4">Cook</option>
-                        <option value="5">Diet</option>
+                        <c:forEach items="${blogCate}" var="entry">
+                           <option value="${entry.key}" ${blog.category == entry.key ? 'selected' : ''}>${entry.value}</option>
+                        </c:forEach>
                     </select>
-                     
+
                 </div>
                 <div class="col-lg-12">
                     <label for="editor-container">Content:</label><br>
                     <div id="editor-container"></div><br>
 
                     <!-- Hidden input to store blog content -->
-                    <input type="hidden" name="content" id="content">
+                    <input type="hidden" name="content" value="${blog.content}" id="content">
                 </div>
-                 <div class="col-lg-12"> 
-                     <button type="submit" class="btn btn-default" style="margin-bottom: 10px;">Submit</button>
-                 </div>
-               
+                <div class="col-lg-12"> 
+                    <button type="submit" class="btn btn-default" style="margin-bottom: 10px;">Submit</button>
+                </div>
+
             </form>
         </div>
 
@@ -105,7 +108,7 @@
                 charset: "UTF-8"
             });
 
-            quill.root.innerHTML = '${research.content}';
+            quill.root.innerHTML = '${blog.content}';
 
             // Bắt sự kiện submit form để gán nội dung của Quill vào input hidden
             document.getElementById('editor-form').onsubmit = function () {
