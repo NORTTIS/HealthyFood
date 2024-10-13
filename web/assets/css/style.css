@@ -2372,6 +2372,14 @@ body.open-mobile-search .header-area.layout-02{
     font-size: 16px;
     color: #666666;
 }
+.wish-btn{
+    width: 32px;
+    font-size: 16px;
+    color: #666666;
+}
+.wish-btn:hover{
+    color:#7faf51;
+}
 .pr-detail-layout .info .buttons .wishlist-btn{
     position: absolute;
     top: 5px;

@@ -67,7 +67,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                    <a href="index.jsp" class="biolife-logo"><img src="assets/images/organic-3-green.png"
+                    <a href="home" class="biolife-logo"><img src="assets/images/organic-3-green.png"
                                                                   alt="biolife logo" width="135" height="36"></a>
                 </div>
                 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
@@ -123,7 +123,7 @@
                             <a href="wishcart?ac=show" class="link-to">
                                 <span class="icon-qty-combine">
                                     <i class="icon-heart-bold biolife-icon"></i>
-                                    <span class="qty">${wishitem == null ? 0 : wishitem}</span>
+                                    <span class="qty">${sessionScope.totalWish == null?0:sessionScope.totalWish}</span>
                                 </span>
                             </a>
                         </div>

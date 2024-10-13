@@ -42,7 +42,7 @@
         </div>
         <!--HEADER-->
         <jsp:include page="./jsptemplate/header.jsp" />
-       
+
 
         <!-- Page Contain -->
         <div class="page-contain">
@@ -196,7 +196,7 @@
                         </li>
                     </ul>
                 </div>
-         
+
                 <!--Block 02: Banner Promotion 01-->
                 <div class="banner-promotion-01 xs-margin-top-50px sm-margin-top-70px">
                     <div class="biolife-banner promotion3 biolife-banner__promotion3 green-style">
@@ -213,7 +213,7 @@
                                     <b class="second-line">Vegetable Always fresh</b>
                                     <p class="third-line">Food Heaven Made Easy sounds like the name of an amazingly
                                         delicious food delivery service, but don't be fooled...</p>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -246,7 +246,7 @@
                 <div class="Product-box sm-margin-top-96px">
                     <div class="container">
                         <div class="row">
-                           
+
                             <div class="col-lg-12 col-md-7 col-sm-6">
                                 <div class="advance-product-box">
                                     <div class="biolife-title-box bold-style biolife-title-box__bold-style">
@@ -254,7 +254,7 @@
                                     </div>
                                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px"
                                         data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 3}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
-                                     <!--loop here-->
+                                        <!--loop here-->
                                         <li class="product-item">
                                             <div
                                                 class="contain-product right-info-layout contain-product__right-info-layout">
@@ -279,227 +279,19 @@
                                                         <p class="star-rating"><span class="" style="width: 80%;"></span></p>
                                                         <span class="review-count">(05 Reviews)</span>
                                                     </div>
+                                                    <div class="slide-down-box" style="margin-top: 25px;">
+                                                        <div>
+                                                            <a href="wishcart?ac=add&productId=3" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            <a href="#" class="btn btn-default">add to cart</a>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
 
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li class="product-item">
-                                            <div
-                                                class="contain-product right-info-layout contain-product__right-info-layout">
-                                                <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
-                                                             height="270" class="product-thumnail">
-                                                    </a>
-                                                </div>
-                                                <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
-                                                    <div class="price ">
-                                                        <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
-
-                                                    </div>
-                                                    <div class="rating" hidden="">
-                                                        <p class="star-rating"><span class="" style="width: 80%;"></span></p>
-                                                        <span class="review-count">(05 Reviews)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                       
                                     </ul>
-                          
+
                                 </div>
                             </div>
                         </div>
@@ -516,35 +308,35 @@
                         <ul class="biolife-carousel nav-center nav-none-on-mobile xs-margin-top-36px"
                             data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 2}},{"breakpoint":768, "settings":{ "slidesToShow": 2}},{"breakpoint":600, "settings":{ "slidesToShow": 1}}]}'>
                             <c:forEach items="${bList}" var="i" varStatus="j">
-                                 <li>
-                                <div class="post-item effect-01 style-bottom-info layout-02 ">
-                                    <div class="thumbnail">
-                                        <a href="blog?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
-                                                                             style="width: 360px; height: 270px;" alt=""></a>
-                                        
-                                    </div>
-                                    <div class="post-content">
-                                        <h4 class="post-name"><a href="blog?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
-                                        <div class="post-meta">
-                                            <a href="blog?blogId=${i.id}" class="post-meta__item author"><img
-                                                    src="assets/images/user-avatar/Avatar.png" width="28" height="28"
-                                                    alt=""><span>${accList.get(j.index).displayname}</span></a>
-                                           
-                                            <div class="post-meta__item post-meta__item-social-box">
-                                              ${i.createAt}
+                                <li>
+                                    <div class="post-item effect-01 style-bottom-info layout-02 ">
+                                        <div class="thumbnail">
+                                            <a href="blog?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
+                                                                                                    style="width: 360px; height: 270px;" alt=""></a>
+
+                                        </div>
+                                        <div class="post-content">
+                                            <h4 class="post-name"><a href="blog?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
+                                            <div class="post-meta">
+                                                <a href="blog?blogId=${i.id}" class="post-meta__item author"><img
+                                                        src="assets/images/user-avatar/Avatar.png" width="28" height="28"
+                                                        alt=""><span>${accList.get(j.index).displayname}</span></a>
+
+                                                <div class="post-meta__item post-meta__item-social-box">
+                                                    ${i.createAt}
+                                                </div>
+                                            </div>
+                                            <p class="excerpt">Did you know that red-staining foods are excellent lymph-movers?
+                                                In fact, many plants that were historically used as dyes...</p>
+                                            <div class="group-buttons">
+                                                <a href="blog?blogId=${i.id}" class="btn readmore">continue reading</a>
                                             </div>
                                         </div>
-                                        <p class="excerpt">Did you know that red-staining foods are excellent lymph-movers?
-                                            In fact, many plants that were historically used as dyes...</p>
-                                        <div class="group-buttons">
-                                            <a href="blog?blogId=${i.id}" class="btn readmore">continue reading</a>
-                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
                             </c:forEach>
-                           
-                            
+
+
                         </ul>
                     </div>
 

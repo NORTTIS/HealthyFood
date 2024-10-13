@@ -6,16 +6,19 @@ package controller;
 
 import dao.AccountsDAO;
 import dao.BlogDao;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import model.Accounts;
 import model.Blog;
+import model.Cart;
 
 /**
  *
@@ -65,10 +68,19 @@ public class HomeControl extends HttpServlet {
         List<Blog> bListByPageIndex = blogDao.getAllBlog("", "", "");
         AccountsDAO accDao = new AccountsDAO();
         List<Accounts> accList = new ArrayList<>();
+        HttpSession session = request.getSession();
+        Accounts acc = (Accounts) session.getAttribute("acc");
+        Cart cart = new Cart() ;
+        if (acc != null) {
+            String accountId = acc.getAccount_id() + "";
+             cart = new ProductDao().getWishCartByAccountId(accountId);
+        }
+
         for (Blog blog : bListByPageIndex) {
             accList.add(accDao.getAccountByid(blog.getAuthor()));
         }
-        request.setAttribute("accList",accList);
+        session.setAttribute("totalWish", cart.getCount());
+        request.setAttribute("accList", accList);
         request.setAttribute("bList", bListByPageIndex);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
