@@ -4,25 +4,42 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author Norttie
  */
 public class Blog {
-
+    private int id;
     private String title;
     private String author;
+    private int category;
     private String content;
     private String imagePath;
+    private Date createAt;
 
     public Blog() {
     }
 
-    public Blog(String title, String author, String content, String imagePath) {
+    public Blog( int id, String author , String title,int category, String content, Date createAt , String imagePath ) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.imagePath = imagePath;
+        this.createAt = createAt;
+        this.category = category;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -57,9 +74,45 @@ public class Blog {
         this.author = author;
     }
 
-    @Override
-    public String toString() {
-        return "Blog{" + "title=" + title + ", content=" + content + ", imagePath=" + imagePath + '}';
+    public String getCreateAt() {
+        
+        // Định dạng ngày tháng năm
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formattedDate = dateFormat.format(createAt);
+        return formattedDate;
     }
 
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+    public int getBlogDay(){
+        Calendar calendar = Calendar.getInstance();
+    calendar.setTime(createAt);
+    return calendar.get(Calendar.DAY_OF_MONTH);  // Lấy ngày trong tháng
+    }
+     public int getBlogMonth(){
+        Calendar calendar = Calendar.getInstance();
+    calendar.setTime(createAt);
+    return calendar.get(Calendar.MONTH)+1;  // Lấy ngày trong tháng
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" + "id=" + id + ", title=" + title + ", author=" + author + ", category=" + category + ", content=" + content + ", imagePath=" + imagePath + ", createAt=" + createAt + '}';
+    }
+ 
+   
+    
+
+   
+
+  
 }

@@ -86,6 +86,10 @@ img{
     height: auto;
     outline: none;
 }
+.blogdetail img{
+    max-width:870px;
+    height:635px;
+}
 figure{
     max-width: 100%;
 }
@@ -152,9 +156,9 @@ input[type="email"],
 textarea,
 input[type="password"],
 input[type="tel"],
-select,
+
 input[type="search"]{
-    border: 1px solid #e6e6e6;
+    border: 2px solid #e6e6e6;
     border-radius: 0;
     padding: 7px 20px;
     max-width: 100%;
@@ -162,6 +166,13 @@ input[type="search"]{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+select{
+     border: 2px solid #e6e6e6;
+    border-radius: 0;
+    padding: 7px 20px;
+    max-width: 100%;
+    outline: none;
 }
 input[type="text"]::-ms-input-placeholder,
 input[type="email"]::-ms-input-placeholder,
@@ -184,11 +195,7 @@ input[type="tel"]::placeholder,
 input[type="search"]::placeholder{
     color: #888888;
 }
-select{
-    background: transparent;
-    border: none;
-    color: #ffffff;
-}
+
 select option{
     color: #333333;
 }
@@ -2365,6 +2372,14 @@ body.open-mobile-search .header-area.layout-02{
     font-size: 16px;
     color: #666666;
 }
+.wish-btn{
+    width: 32px;
+    font-size: 16px;
+    color: #666666;
+}
+.wish-btn:hover{
+    color:#7faf51;
+}
 .pr-detail-layout .info .buttons .wishlist-btn{
     position: absolute;
     top: 5px;
@@ -3504,7 +3519,6 @@ body.open-overlay #overlay{
     display: block;
     clear: both;
     border-bottom: 1px solid #e6e6e6;
-    margin-bottom: 37px;
 }
 .sidebar .widget:last-child{
     border-bottom: none;
@@ -6298,7 +6312,7 @@ body.open-overlay #overlay{
 }
 .single-post-contain .post-head .post-name{
     display: block;
-    margin: 30px 0 0;
+    margin: 20px 0 0;
     font-size: 34px;
     color: #222222;
     line-height: 1;

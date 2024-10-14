@@ -128,13 +128,20 @@ CREATE TABLE Messages (
 	FOREIGN KEY (sender_id) REFERENCES Accounts(account_id) ,
 	FOREIGN KEY (receiver_id) REFERENCES Accounts(account_id) ,
 );
+CREATE TABLE BlogCategory (
+    category_id INT IDENTITY(1,1) PRIMARY KEY, 
+    name NVARCHAR(255) NOT NULL,                
+);
 CREATE TABLE Blogs (
     id INT IDENTITY(1,1) PRIMARY KEY,
     nutri_id INT NOT NULL,
+	title NVARCHAR(255) NOT NULL,
+	cate_id INT NOT NULL,
     content NVARCHAR(MAX),
     timestamp DATETIME DEFAULT GETDATE(),
 	image NVARCHAR(MAX),
-	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id) 
+	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
+	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
 );
 
 

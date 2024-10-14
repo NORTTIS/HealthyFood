@@ -91,7 +91,7 @@
                                         <div class="row">
                                             <ul class="products-list">
 
-                                                <li class="product-item col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
                                                     <div class="contain-product layout-default">
                                                         <div class="product-thumb">
                                                             <a href="#" class="link-to-product">
