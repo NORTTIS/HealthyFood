@@ -59,10 +59,10 @@ public class CreateDiscounts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-    RequestDispatcher dispatcher = request.getRequestDispatcher("Discount.jsp");
-    dispatcher.forward(request, response);
-}
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("Discount.jsp");
+        dispatcher.forward(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -77,15 +77,12 @@ public class CreateDiscounts extends HttpServlet {
             throws ServletException, IOException {
         DiscountsDao adb = new DiscountsDao();
 
-    String name = request.getParameter("name");
-    String value = request.getParameter("value");
-    String amounts_string = request.getParameter("amount");
-    int amounts = Integer.parseInt(amounts_string);
-
-    Discounts discount = new Discounts(name, value, amounts);
-
-    adb.creatDiscounts(name, value, amounts);
-    response.sendRedirect("AllDiscounts");
+        String name = request.getParameter("name");
+        String value = request.getParameter("value");
+        String amounts_string = request.getParameter("amount");
+        int amounts = Integer.parseInt(amounts_string);
+        adb.creatDiscounts(name, value, amounts);
+        response.sendRedirect("AllDiscounts");
     }
 
     /**

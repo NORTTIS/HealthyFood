@@ -1,3 +1,10 @@
+<%-- 
+    Document   : checkout
+    Created on : Oct 7, 2024, 2:17:11 PM
+    Author     : Minh
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -823,20 +830,35 @@
                                                         <input type="checkbox" name="subcribe" id="input_subcribe" >
                                                         <label for="input_subcribe">Subscribe to our newsletter</label>
                                                     </p>
-                                                    <p class="msg">Already have an account? <a href="#" class="link-forward">Sign in now</a></p>
+                                                    <p class="msg">Already have an account? <a href="login" class="link-forward">Sign in now</a></p>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="step 2nd">
-                                    <div class="checkout-act"><h3 class="title-box"><span class="number">2</span>Shipping</h3></div>
-                                </li>
-                                <li class="step 3rd">
-                                    <div class="checkout-act"><h3 class="title-box"><span class="number">3</span>Billing</h3></div>
-                                </li>
                                 <li class="step 4th">
-                                    <div class="checkout-act"><h3 class="title-box"><span class="number">4</span>Payment</h3></div>
+                                    <div class="checkout-act"><h3 class="title-box"><span class="number">2</span>Payment</h3>
+                                        <div class="box-content">
+                                            <p class="txt-desc">Choose your payment method</p>
+                                            <div class="login-on-checkout">
+                                                <form action="#" name="frm-login" method="post">
+                                                    <p class="form-row">
+                                                        <label for="input_email">Email Address</label>
+                                                        <input type="email" name="email" id="input_email" value="" placeholder="Your email">
+                                                        <button type="submit" name="btn-sbmt" class="btn">Continue As Guest</button>
+                                                    </p>
+                                                    <p class="form-row">
+                                                        <input type="checkbox" name="subcribe" id="input_subcribe" >
+                                                        <label for="input_subcribe">Subscribe to our newsletter</label>
+                                                    </p>
+                                                </form>
+                                                <form method="post" action="pay">
+                                                    <input type="text" name="amount"/>
+                                                    <input type="submit" value="Thanh toán"/>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>

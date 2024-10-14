@@ -21,8 +21,8 @@ public class DiscountsDao extends DBContext {
     public List<Discounts> getDiscounts() {
         String sql = "SELECT * FROM Discounts";
         List<Discounts> al = new ArrayList<>();
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
+        try (PreparedStatement st = connection.prepareStatement(sql)){
+            
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Discounts a = new Discounts(
@@ -40,8 +40,8 @@ public class DiscountsDao extends DBContext {
 
     public void creatDiscounts(String name, String value, int amounts) {
         String sql = "INSERT INTO Discounts (name, value, amounts) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
+        try (PreparedStatement st = connection.prepareStatement(sql)){
+            
             st.setString(1, name);
             st.setString(2, value);
             st.setInt(3, amounts);
