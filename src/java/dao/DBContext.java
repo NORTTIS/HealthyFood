@@ -14,6 +14,8 @@ import java.sql.SQLException;
  */
 public class DBContext {
     protected Connection connection;
+    private static String password = "123456";
+    private static String username = "sa";
     public DBContext()
     {
         try {
@@ -21,6 +23,9 @@ public class DBContext {
             String url = "jdbc:sqlserver://localhost:1433;databaseName=HealthyFood";
             String username = "sa";
             String password = "123";
+
+
+
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException | SQLException ex) {
