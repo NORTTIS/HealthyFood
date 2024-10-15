@@ -6,12 +6,12 @@ package model;
 
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Norttie
  */
 public class Cart {
+
     private ArrayList<LineItem> items;
 
     public Cart() {
@@ -30,9 +30,9 @@ public class Cart {
         int id = item.getProduct().getProductId();
         int quantity = item.getQuantity();
         for (LineItem cartItem : items) {
-            if (cartItem.getProduct().getProductId()==id) {
-                if(cartItem.getQuantity()!=quantity){
-                cartItem.setQuantity(quantity);
+            if (cartItem.getProduct().getProductId() == id) {
+                if (cartItem.getQuantity() != quantity) {
+                    cartItem.setQuantity(quantity);
                 }
                 return;
             }
@@ -40,14 +40,19 @@ public class Cart {
         items.add(item);
     }
 
-//    public void removeItem(LineItem item) {
-//        int id = item.getProduct().getProductId();
-//        for (int i = 0; i < items.size(); i++) {
-//            LineItem lineItem = items.get(i);
-//            if (lineItem.getProduct().getProductId()==id ) {
-//                items.remove(i);
-//                return;
-//            }
-//        }
-//    }
+    public double getTotalPrice() {
+        double total = 0;
+        for (LineItem item : items) {
+            total += item.getTotal();
+        }
+        return total;
+    }
+
+    public double getTotalCal() {
+        double total = 0;
+        for (LineItem item : items) {
+            total += item.getTotalCal();
+        }
+        return total;
+    }
 }

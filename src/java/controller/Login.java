@@ -6,6 +6,8 @@ package controller;
 
 
 import dao.AccountsDAO;
+import dao.ProductDao;
+
 import java.io.IOException;
 
 import jakarta.servlet.ServletException;
@@ -16,6 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import model.Accounts;
+
+import model.Cart;
 
 
 /**
@@ -52,7 +56,12 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        String ac = request.getParameter("ac");
+        if (ac.equals("logout")) {
+            HttpSession session = request.getSession();
+            session.removeAttribute("acc");
+        }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**

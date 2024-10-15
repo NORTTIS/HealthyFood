@@ -138,7 +138,6 @@ public class CartControl extends HttpServlet {
             session.setAttribute("cart", cart);
             response.sendRedirect("cart?ac=show");
         }
-
     }
 
     /**

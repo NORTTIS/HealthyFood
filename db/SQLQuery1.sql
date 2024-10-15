@@ -68,7 +68,7 @@ CREATE TABLE Order_Items (
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 );
 
-CREATE TABLE Costomer_Type (
+CREATE TABLE Customer_Type (
     [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
     [type_name] NVARCHAR(255) NOT NULL,                -- Tên loại sản phẩm
 );
@@ -82,7 +82,7 @@ CREATE TABLE Menu (
 	create_at DATETIME DEFAULT GETDATE(),
 	update_at DATETIME DEFAULT GETDATE(),
 	FOREIGN KEY (create_by) REFERENCES Accounts(account_id) ON DELETE SET NULL,
-	FOREIGN KEY ([type_id]) REFERENCES Costomer_Type([type_id]) ON DELETE SET NULL,
+	FOREIGN KEY ([type_id]) REFERENCES Customer_Type([type_id]) ON DELETE SET NULL,
 );
 
 CREATE TABLE Menu_Detail (
@@ -128,6 +128,22 @@ CREATE TABLE Messages (
 	FOREIGN KEY (sender_id) REFERENCES Accounts(account_id) ,
 	FOREIGN KEY (receiver_id) REFERENCES Accounts(account_id) ,
 );
+CREATE TABLE BlogCategory (
+    category_id INT IDENTITY(1,1) PRIMARY KEY, 
+    name NVARCHAR(255) NOT NULL,                
+);
+CREATE TABLE Blogs (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nutri_id INT NOT NULL,
+	title NVARCHAR(255) NOT NULL,
+	cate_id INT NOT NULL,
+    content NVARCHAR(MAX),
+    timestamp DATETIME DEFAULT GETDATE(),
+	image NVARCHAR(MAX),
+	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
+	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
+);
+
 
 
 
