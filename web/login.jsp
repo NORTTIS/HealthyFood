@@ -726,69 +726,81 @@
 
         </header>
 
-        <!--Hero Section-->
-        <div class="hero-section hero-background">
-            <h1 class="page-title">Organic Fruits</h1>
-        </div>
+    
+    <!-- Hero Section -->
+    <div class="hero-section hero-background">
+        <h1 class="page-title">Organic Fruits</h1>
+    </div>
 
-        <!--Navigation section-->
-        <div class="container">
-            <nav class="biolife-nav">
-                <ul>
-                    <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                    <li class="nav-item"><span class="current-page">Authentication</span></li>
-                </ul>
-            </nav>
-        </div>
+    <!-- Navigation section -->
+    <div class="container">
+        <nav class="biolife-nav">
+            <ul>
+                <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
+                <li class="nav-item"><span class="current-page">Authentication</span></li>
+            </ul>
+        </nav>
+    </div>
 
-        <div class="page-contain login-page">
-            <!-- Main content -->
-            <div id="main-content" class="main-content">
-                <div class="container">
-                    <div class="row">
-                        <!--Form Sign In-->
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="signin-container">
-                                <h1 class="text-center">Login</h1>
-                                <p class="text-danger">${mess}</p>
-                                <form action="login" name="frm-login" method="post">
-                                    <p class="form-row">
-                                        <label for="username">Username:<span class="requite">*</span></label>
-                                        <input type="text" id="username" name="username" value="" class="txt-input" required>
-                                    </p>
-                                    <p class="form-row">
-                                        <label for="password">Password:<span class="requite">*</span></label>
-                                        <input type="password" id="password" name="password" value="" class="txt-input" required>
-                                    </p>
-                                    <p class="form-row wrap-btn">
-                                        <button class="btn btn-submit btn-bold" type="submit">Sign In</button>
-                                        <a href="#" class="link-to-help">Forgot your password?</a>
-                                    </p>
-                                </form>
+    <div class="page-contain login-page">
+        <!-- Main content -->
+        <div id="main-content" class="main-content">
+            <div class="container">
+                <div class="row">
+                    <!-- Form Sign In -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="signin-container">
+                            <h1 class="text-center">Login</h1>
+                            <p class="text-danger">${mess}</p> <!-- Hiển thị thông báo lỗi nếu có -->
+                            <form action="login" name="frm-login" method="post">
+                                <input type="hidden" name="loginMethod" value="normal"> <!-- Để xác định phương thức đăng nhập -->
+                                <p class="form-row">
+                                    <label for="username">Username:<span class="requite">*</span></label>
+                                    <input type="text" id="username" name="username" value="" class="txt-input" required>
+                                </p>
+                                <p class="form-row">
+                                    <label for="password">Password:<span class="requite">*</span></label>
+                                    <input type="password" id="password" name="password" value="" class="txt-input" required>
+                                </p>
+                                <p class="form-row wrap-btn">
+                                    <button class="btn btn-submit btn-bold" type="submit">Sign In</button>
+                                    <a href="forgotPassword.jsp" class="link-to-help">Forgot your password?</a>
+                                </p>
+                            </form>
+                            
+                            <!-- Nút Đăng nhập bằng Google -->
+                            <div class="google-login">
+                                <p class="text-center">or</p>
+                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:9999/HealthyFood/login&response_type=code&client_id=579360781150-5so6djecl57vtghvliofofg0fmnida1v.apps.googleusercontent.com&approval_prompt=force" 
+                                   class="btn btn-google btn-bold" 
+                                   style="display: flex; align-items: center; justify-content: center; background-color: #4285F4; color: white; padding: 10px; border-radius: 5px;">
+                                    <img src="path_to_google_icon" alt="Google" style="width: 20px; margin-right: 10px;"> Login with Google
+                                </a>
                             </div>
                         </div>
+                    </div>
 
-                        <!--Go to Register form-->
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="register-in-container">
-                                <div class="intro">
-                                    <h4 class="box-title">New Customer?</h4>
-                                    <p class="sub-title">Create an account with us and you’ll be able to:</p>
-                                    <ul class="lis">
-                                        <li>Check out faster</li>
-                                        <li>Save multiple shipping addresses</li>
-                                        <li>Access your order history</li>
-                                        <li>Track new orders</li>
-                                        <li>Save items to your Wishlist</li>
-                                    </ul>
-                                    <a href="signup.jsp" class="btn btn-bold">Create an account</a>
-                                </div>
+                    <!-- Go to Register form -->
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="register-in-container">
+                            <div class="intro">
+                                <h4 class="box-title">New Customer?</h4>
+                                <p class="sub-title">Create an account with us and you’ll be able to:</p>
+                                <ul class="lis">
+                                    <li>Check out faster</li>
+                                    <li>Save multiple shipping addresses</li>
+                                    <li>Access your order history</li>
+                                    <li>Track new orders</li>
+                                    <li>Save items to your Wishlist</li>
+                                </ul>
+                                <a href="signup.jsp" class="btn btn-bold">Create an account</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 

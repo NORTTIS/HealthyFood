@@ -4,7 +4,9 @@
  */
 package controller;
 
-
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import constants.Iconstant;
 import dao.AccountsDAO;
 import java.io.IOException;
 
@@ -16,7 +18,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import model.Accounts;
-
+import model.GoogleAccount;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.fluent.Form;
+import org.apache.http.client.fluent.Request;
 
 /**
  *
@@ -52,7 +57,53 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("login.jsp");
+        String code = request.getParameter("code");
+
+        // Lấy mã token truy cập từ Google
+        String accessToken = getToken(code);
+
+        // Lấy thông tin người dùng Google
+        GoogleAccount googleAccount = getUserInfo(accessToken);
+
+        // Kiểm tra thông tin tài khoản Google
+        if (googleAccount != null) {
+            // Lưu thông tin người dùng vào session
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", googleAccount); // Lưu đối tượng GoogleAccount vào session
+
+            // Điều hướng về trang home sau khi đăng nhập thành công
+            response.sendRedirect("home");
+        } else {
+            // Nếu có lỗi, chuyển hướng về trang login với thông báo lỗi
+            response.sendRedirect("login.jsp?error=Google login failed");
+        }
+    }
+
+    // Lấy token từ mã code
+    public static String getToken(String code) throws ClientProtocolException, IOException {
+        String response = Request.Post(Iconstant.GOOGLE_LINK_GET_TOKEN)
+                .bodyForm(
+                        Form.form()
+                                .add("client_id", Iconstant.GOOGLE_CLIENT_ID)
+                                .add("client_secret", Iconstant.GOOGLE_CLIENT_SECRET)
+                                .add("redirect_uri", Iconstant.GOOGLE_REDIRECT_URI)
+                                .add("code", code)
+                                .add("grant_type", Iconstant.GOOGLE_GRANT_TYPE)
+                                .build()
+                )
+                .execute().returnContent().asString();
+
+        JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
+        String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
+        return accessToken;
+    }
+
+    // Lấy thông tin người dùng từ token
+    public static GoogleAccount getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
+        String link = Iconstant.GOOGLE_LINK_GET_USER_INFO + accessToken;
+        String response = Request.Get(link).execute().returnContent().asString();
+        GoogleAccount googleAccount = new Gson().fromJson(response, GoogleAccount.class);
+        return googleAccount;
     }
 
     /**

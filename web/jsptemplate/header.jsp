@@ -25,7 +25,8 @@
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body>
-        <!-- HEADER -->
+
+
         <header id="header" class="header-area style-01 layout-03">
             <div class="header-top bg-main hidden-xs">
                 <div class="container">
@@ -53,9 +54,11 @@
                                     <!-- Kiểm tra trạng thái đăng nhập -->
                                     <c:choose>
                                         <c:when test="${not empty sessionScope.acc}">
-                                            <!-- Hiển thị tên người dùng và nút Log out -->
-                                            <a href="profile">${sessionScope.acc.username}</a>
-                                            <a class="logout-btn" href="logout">Log out</a> <!-- Gọi servlet 'logout' -->
+                                            <!-- Hiển thị tên người dùng -->
+                                            <c:if test="${not empty sessionScope.acc.displayname}"> <!-- Sử dụng displayname -->
+                                                <a href="profile">${sessionScope.acc.displayname}</a> <!-- Tên người dùng từ database -->
+                                            </c:if>
+                                            <a class="logout-btn" href="logout">Log out</a> <!-- Gọi servlet logout -->
                                         </c:when>
                                         <c:otherwise>
                                             <!-- Nếu chưa đăng nhập, hiển thị nút Log in -->
@@ -68,6 +71,11 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
 
 
             <div class="header-middle biolife-sticky-object ">

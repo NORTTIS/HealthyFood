@@ -24,6 +24,10 @@
         <servlet-name>ChatControl</servlet-name>
         <servlet-class>controller.ChatControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>controller.ForgotPassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CartControl</servlet-name>
         <url-pattern>/cart</url-pattern>
@@ -47,5 +51,9 @@
     <servlet-mapping>
         <servlet-name>ChatControl</servlet-name>
         <url-pattern>/chat</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/forgotpassword</url-pattern>
     </servlet-mapping>
 </web-app>

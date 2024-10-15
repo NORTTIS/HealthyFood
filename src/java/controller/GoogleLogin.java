@@ -7,8 +7,8 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import constants.Iconstant;
-import entity.GoogleAccount;
 import java.io.IOException;
+import model.GoogleAccount;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -48,3 +48,4 @@ public class GoogleLogin {
         return googlePojo;
     }
 }
+ 
