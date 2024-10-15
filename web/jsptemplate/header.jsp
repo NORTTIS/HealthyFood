@@ -9,6 +9,7 @@
 
 
 
+
 <header id="header" class="header-area style-01 layout-03">
     <div class="header-top bg-main hidden-xs">
         <div class="container">
@@ -103,6 +104,7 @@
                                             class="biolife-icon icon-close-menu"></span></a>
                                     <input type="text" name="s" class="input-text" value=""
                                            placeholder="Search here...">
+
                                     <select name="category">
                                         <option value="-1" selected>All Categories</option>
                                         <option value="vegetables">Vegetables</option>

@@ -156,11 +156,13 @@ public class ProductDao extends DBContext {
 
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
+
         Products product = prod.getProductsById("1");
         Cart cart = prod.getWishCartByAccountId("1");
         for (LineItem item : cart.getItems()) {
             System.out.println(item);
         }
+
     }
 
 }

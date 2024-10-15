@@ -34,8 +34,10 @@ public class MessageDao extends DBContext {
     public List<Messages>  getMessagesByConversation(String senderId,String receiverId){
         String sql = "  SELECT * FROM Messages WHERE (sender_Id = ? AND receiver_Id = ?) OR (sender_Id = ? AND receiver_Id = ?)";
         List<Messages> lmes = new ArrayList<>();
+
         try (PreparedStatement stmt = connection.prepareStatement(sql)){
             
+
             stmt.setString(1, senderId);
             stmt.setString(2, receiverId);
             stmt.setString(3, receiverId);

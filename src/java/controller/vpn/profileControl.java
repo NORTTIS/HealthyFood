@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.vpn;
+
 
 import dao.AccountsDAO;
 import java.io.IOException;
@@ -68,7 +69,7 @@ public class profileControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        request.getRequestDispatcher("profile.jsp");
     }
 
     /**
@@ -85,7 +86,6 @@ public class profileControl extends HttpServlet {
         String id = request.getParameter("id");
         String displayname = request.getParameter("displayname");
         String desc = request.getParameter("desc");
-        String email = request.getParameter("email");
         String address = request.getParameter("address");
         String filename = "";
 
@@ -96,7 +96,7 @@ public class profileControl extends HttpServlet {
                 // Lấy đường dẫn thư mục gốc của ứng dụng
                 String appPath = request.getServletContext().getRealPath("/");
                 // Đường dẫn tới thư mục mong muốn (cùng cấp với thư mục chứa servlet)
-                String path = "web/assets/images";
+                String path = "web/assets/image";
                 Path uploadDir = Paths.get(appPath).getParent().getParent().resolve(path);
 
                 // Kiểm tra và tạo thư mục nếu chưa tồn tại

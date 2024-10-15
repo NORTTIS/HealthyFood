@@ -43,7 +43,9 @@
             </div>-->
 
         <!-- HEADER -->
+
         <jsp:include page="./jsptemplate/header.jsp" />
+
 
         <!--Hero Section-->
         <div class="hero-section hero-background">
