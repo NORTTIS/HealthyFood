@@ -63,7 +63,7 @@
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
                                         <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
+                                        <a href="blog" class="btn btn-thin">View Blog</a>
                                     </p>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
                                         <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
+                                         <a href="blog" class="btn btn-thin">View Blog</a>
                                     </p>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
                                         <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
+                                         <a href="blog" class="btn btn-thin">View Blog</a>
                                     </p>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
                                         <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
+                                          <a href="blog" class="btn btn-thin">View Blog</a>
                                     </p>
                                 </div>
                             </div>
@@ -119,85 +119,18 @@
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
                                         <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
+                                         <a href="blog" class="btn btn-thin">View Blog</a>
                                     </p>
                                 </div>
                             </div>
                         </li>
-                        <li>
-                            <div class="slide-contain slider-opt03__layout02 slide_animation type_02">
-                                <div class="media background-geen-02"></div>
-                                <div class="text-content">
-                                    <i class="first-line">Pomegranate</i>
-                                    <h3 class="second-line">Vegetables 100% Organic</h3>
-                                    <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
-                                    <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slide-contain slider-opt03__layout02 slide_animation type_02">
-                                <div class="media background-geen-01"></div>
-                                <div class="text-content">
-                                    <i class="first-line">Pomegranate</i>
-                                    <h3 class="second-line">Vegetables 100% Organic</h3>
-                                    <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
-                                    <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slide-contain slider-opt03__layout02 slide_animation type_02">
-                                <div class="media background-geen-02"></div>
-                                <div class="text-content">
-                                    <i class="first-line">Pomegranate</i>
-                                    <h3 class="second-line">Vegetables 100% Organic</h3>
-                                    <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
-                                    <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slide-contain slider-opt03__layout02 slide_animation type_02">
-                                <div class="media background-geen-01"></div>
-                                <div class="text-content">
-                                    <i class="first-line">Pomegranate</i>
-                                    <h3 class="second-line">Vegetables 100% Organic</h3>
-                                    <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
-                                    <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="slide-contain slider-opt03__layout02 slide_animation type_02">
-                                <div class="media background-geen-02"></div>
-                                <div class="text-content">
-                                    <i class="first-line">Pomegranate</i>
-                                    <h3 class="second-line">Vegetables 100% Organic</h3>
-                                    <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
-                                    <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="#" class="btn btn-thin">View lookbook</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
+                        
                     </ul>
                 </div>
 
+
                 <!--Block 02: Banner Promotion 01-->
+
                 <div class="banner-promotion-01 xs-margin-top-50px sm-margin-top-70px">
                     <div class="biolife-banner promotion3 biolife-banner__promotion3 green-style">
                         <div class="banner-contain">
@@ -233,8 +166,7 @@
                                         delicious food delivery service, but don't be fooled. The blog is actually a
                                         compilation of recipes, cooking videos, and nutrition tips.</p>
                                     <p class="buttons">
-                                        <a href="#" class="btn btn-bold">Read More</a>
-                                        <a href="#" class="btn btn-thin">View Menu Now</a>
+                                        <a href="blog" class="btn btn-bold">Read More</a>
                                     </p>
                                 </div>
                             </div>
@@ -254,25 +186,24 @@
                                     </div>
                                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px"
                                         data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 3}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
-                                        <!--loop here-->
-                                        <li class="product-item">
+                                        <c:forEach items="${lProd}" var="i" varStatus="j">
+                                            <li class="product-item">
                                             <div
                                                 class="contain-product right-info-layout contain-product__right-info-layout">
                                                 <div class="product-thumb">
-                                                    <a href="#" class="link-to-product">
-                                                        <img src="assets/images/products/p-19.jpg" alt="dd" width="270"
+                                                    <a href="cart?ac=addtocart&productId=${i.productId}" class="link-to-product">
+                                                        <img src="assets/images/products/p-01.jpg" alt="dd" width="270"
                                                              height="270" class="product-thumnail">
                                                     </a>
                                                 </div>
                                                 <div class="info">
-                                                    <b class="categories">Vegetables</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">Pumpkins
-                                                            Fairytale</a></h4>
+                                                    <b class="categories">${cates.get(i.category)}</b>
+                                                    <h4 class="product-title"><a href="#" class="pr-name">${i.name}</a></h4>
                                                     <div class="price ">
                                                         <ins><span class="price-amount"><span
-                                                                    class="currencySymbol">80.00</span>VND</span></ins>
+                                                                    class="currencySymbol">${i.price}</span>VND</span></ins>
                                                         <del><span class="price-amount"><span
-                                                                    class="currencySymbol">90.00 </span>VND</span></del>
+                                                                    class="currencySymbol">${i.price*110/100} </span>VND</span></del>
 
                                                     </div>
                                                     <div class="rating" hidden="">
@@ -281,14 +212,16 @@
                                                     </div>
                                                     <div class="slide-down-box" style="margin-top: 25px;">
                                                         <div>
-                                                            <a href="wishcart?ac=add&productId=3" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                            <a href="#" class="btn btn-default">add to cart</a>
+                                                            <a href="wishcart?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            <a href="cart?ac=addtocart&productId=${i.productId}" class="btn btn-default">add to cart</a>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                             </div>
                                         </li>
+                                        </c:forEach>
+                                        
                                        
                                     </ul>
 
@@ -311,14 +244,14 @@
                                 <li>
                                     <div class="post-item effect-01 style-bottom-info layout-02 ">
                                         <div class="thumbnail">
-                                            <a href="blog?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
+                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
                                                                                                     style="width: 360px; height: 270px;" alt=""></a>
 
                                         </div>
                                         <div class="post-content">
                                             <h4 class="post-name"><a href="blog?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
                                             <div class="post-meta">
-                                                <a href="blog?blogId=${i.id}" class="post-meta__item author"><img
+                                                <a href="blogdetail?blogId=${i.id}" class="post-meta__item author"><img
                                                         src="assets/images/user-avatar/Avatar.png" width="28" height="28"
                                                         alt=""><span>${accList.get(j.index).displayname}</span></a>
 
@@ -329,7 +262,7 @@
                                             <p class="excerpt">Did you know that red-staining foods are excellent lymph-movers?
                                                 In fact, many plants that were historically used as dyes...</p>
                                             <div class="group-buttons">
-                                                <a href="blog?blogId=${i.id}" class="btn readmore">continue reading</a>
+                                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">continue reading</a>
                                             </div>
                                         </div>
                                     </div>

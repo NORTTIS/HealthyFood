@@ -6,6 +6,10 @@ package dao;
 
 import model.Products;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import model.Cart;
 import model.LineItem;
 
@@ -13,13 +17,12 @@ import model.LineItem;
  *
  * @author Norttie
  */
-public class ProductDao {
+public class ProductDao extends DBContext {
 
     public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
-        try {
-            Connection conn = new DBContext().getConnection();
-            PreparedStatement st = conn.prepareStatement(sql);
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
             st.setString(1, id);
             ResultSet rs;
             rs = st.executeQuery();
@@ -44,6 +47,35 @@ public class ProductDao {
         }
 
         return null;
+    }
+
+    public List<Products> getAllDiscountProduct() {
+        String sql = "Select * from Products ";
+        List<Products> lProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                lProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return lProduct;
     }
 
     public String getWishIdByAccountId(String accountid) {
@@ -137,9 +169,9 @@ public class ProductDao {
         }
         return cart;
     }
-    
-    public void deleteWishItem(String productid , String accountId){
-         Connection conn = new DBContext().getConnection();
+
+    public void deleteWishItem(String productid, String accountId) {
+        Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
         String wishId = getWishIdByAccountId(accountId);
         Cart cart = new Cart();
@@ -148,20 +180,84 @@ public class ProductDao {
             st = conn.prepareStatement(getWishItemSql);
             st.setString(1, wishId);
             st.setString(2, productid);
-           st.executeUpdate();
-            
+            st.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Map<Integer, String> getAllProductCategory() {
+        String sql = "SELECT * FROM Category";
+        Map<Integer, String> cateList = new ConcurrentHashMap<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                cateList.put(rs.getInt(1), rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return cateList;
+    }
+
+    public void createOrder(Cart cart, String accountId) {
+        String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement psOrder = null;
+        PreparedStatement psOrderItems = null;
+        ResultSet rs = null;
+        try {
+
+            String insertOrderSQL = "INSERT INTO Orders (account_id, total_amount, status, total_calories, order_date) VALUES (?, ?, 'Pending', ?, GETDATE())";
+            psOrder = conn.prepareStatement(insertOrderSQL, Statement.RETURN_GENERATED_KEYS);
+            psOrder.setString(1, accountId);
+            psOrder.setDouble(2, cart.getTotalPrice());  // Tổng số tiền
+            psOrder.setDouble(3, cart.getTotalCal());    // Tổng calo
+
+            int affectedRows = psOrder.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order failed, no rows affected.");
+            }
+
+            rs = psOrder.getGeneratedKeys();
+            int orderId = 0;
+            if (rs.next()) {
+                orderId = rs.getInt(1);
+            }
+
+            String insertOrderItemSQL = "INSERT INTO Order_Items (order_id, product_id, prod_qty, total_price) VALUES (?, ?, ?, ?)";
+            psOrderItems = conn.prepareStatement(insertOrderItemSQL);
+
+            for (LineItem item : cart.getItems()) {
+                psOrderItems.setInt(1, orderId);  // ID của đơn hàng
+                psOrderItems.setInt(2, item.getProduct().getProductId());  // ID sản phẩm
+                psOrderItems.setInt(3, item.getQuantity());  // Số lượng sản phẩm
+                psOrderItems.setDouble(4, item.getTotal());  // Tổng giá trị của sản phẩm đó
+
+                psOrderItems.addBatch();  // Thêm vào batch để thực hiện sau
+            }
+
+            psOrderItems.executeBatch();  // Thực hiện batch
+
+            // Bước 3: Commit giao dịch
+            conn.commit();
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+
     }
 
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
         Products product = prod.getProductsById("1");
         Cart cart = prod.getWishCartByAccountId("1");
-        for (LineItem item : cart.getItems()) {
-            System.out.println(item);
-        }
+        prod.createOrder(cart, "1");
+
     }
 
 }

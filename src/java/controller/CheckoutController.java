@@ -2,23 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.vpn;
+package controller;
 
-import dao.DBContext;
+import dao.ProductDao;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.sql.Connection;
+import jakarta.servlet.http.HttpSession;
+import model.Accounts;
+import model.Cart;
 
 /**
  *
- * @author Norttie
+ * @author Minh
  */
-public class homeControl extends HttpServlet {
+@WebServlet(name = "CheckoutController", urlPatterns = {"/checkout"})
+public class CheckoutController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,26 +35,17 @@ public class homeControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            Connection conn = new DBContext().getConnection();
-            String sql = "select count(*) from Surveys";
-            PreparedStatement questionStmt = conn.prepareStatement(sql);
-            ResultSet rsCount = questionStmt.executeQuery();
-            int countSurvey = 0;
-            int countUserCount = 0;
-            if (rsCount.next()) {
-                countSurvey = rsCount.getInt(1);
-            }
-            String sql2 = "select count(*) from Users";
-            PreparedStatement userNumber = conn.prepareStatement(sql2);
-            ResultSet rsUsercount = userNumber.executeQuery();
-            if (rsUsercount.next()) {
-                countUserCount = rsUsercount.getInt(1);
-            }
-            request.setAttribute("snum", countSurvey);
-            request.setAttribute("unum", countUserCount);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        } catch (Exception e) {
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CheckoutController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CheckoutController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -67,7 +61,13 @@ public class homeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        Accounts acc = (Accounts) session.getAttribute("acc");
+        request.setAttribute("cart", cart);
+        request.setAttribute("totalPrice", (int)cart.getTotalPrice());
+         request.setAttribute("totalCal", cart.getTotalCal());
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
     /**

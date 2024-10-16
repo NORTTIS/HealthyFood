@@ -68,7 +68,7 @@ public class profileControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("profile.jsp");
+        request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
     /**

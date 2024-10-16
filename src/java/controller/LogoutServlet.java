@@ -2,24 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-//  discounts
 package controller;
 
-import dao.DiscountsDao;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Discounts;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author Gosu
+ * @author manhg
  */
-public class CreateDiscounts extends HttpServlet {
+@WebServlet(name = "LogoutServlet", urlPatterns = {"/logout"})
+public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class CreateDiscounts extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateDiscounts</title>");
+            out.println("<title>Servlet LogoutServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateDiscounts at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LogoutServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,30 +58,22 @@ public class CreateDiscounts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false); // không tạo session mới nếu chưa có
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Discount.jsp");
-        dispatcher.forward(request, response);
+        if (session != null) {
+            // Hủy session
+            session.invalidate();
+        }
+
+        // Chuyển hướng về trang đăng nhập
+        response.sendRedirect("login.jsp");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DiscountsDao adb = new DiscountsDao();
+        doGet(request, response);
 
-        String name = request.getParameter("name");
-        String value = request.getParameter("value");
-        String amounts_string = request.getParameter("amount");
-        int amounts = Integer.parseInt(amounts_string);
-        adb.creatDiscounts(name, value, amounts);
-        response.sendRedirect("AllDiscounts");
     }
 
     /**

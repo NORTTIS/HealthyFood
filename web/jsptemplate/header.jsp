@@ -9,6 +9,7 @@
 
 
 
+
 <header id="header" class="header-area style-01 layout-03">
     <div class="header-top bg-main hidden-xs">
         <div class="container">
@@ -103,6 +104,7 @@
                                             class="biolife-icon icon-close-menu"></span></a>
                                     <input type="text" name="s" class="input-text" value=""
                                            placeholder="Search here...">
+
                                     <select name="category">
                                         <option value="-1" selected>All Categories</option>
                                         <option value="vegetables">Vegetables</option>
@@ -147,7 +149,7 @@
                                                     <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
                                                     <div class="minicart-item">
                                                         <div class="thumb">
-                                                            <a href="single-product-simple.html"><img src="assets/images/minicart/pr-01.jpg"
+                                                            <a href="single-product-simple.html"><img src="./assets/images/products/p-01.jpg"
                                                                                                       width="90" height="90" alt="National Fresh"></a>
                                                         </div>
                                                         <div class="left-info">
@@ -162,8 +164,8 @@
                                                             </div>
 
                                                             <div class="price">
-                                                                <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins>
-                                                                <del><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></del>
+                                                                <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins><br/>
+                                                                <del><span class="price-amount">${i.product.price*110/100}<span class="currencySymbol">đ</span></span></del>
                                                             </div>
 
                                                         </div>
@@ -176,7 +178,7 @@
                                         </ul>
                                         <p class="btn-control">
                                             <a href="cart?ac=show" class="btn view-cart">view cart</a>
-                                            <a href="#" class="btn">checkout</a>
+                                            <a href="checkout" class="btn">checkout</a>
                                         </p>
                                     </div>
                                 </div>
