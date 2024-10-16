@@ -16,9 +16,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import model.Accounts;
 import model.Blog;
 import model.Cart;
+import model.Products;
 
 /**
  *
@@ -70,18 +72,24 @@ public class HomeControl extends HttpServlet {
         List<Accounts> accList = new ArrayList<>();
         HttpSession session = request.getSession();
         Accounts acc = (Accounts) session.getAttribute("acc");
-        Cart cart = new Cart() ;
+        Cart cart = new Cart();
         if (acc != null) {
             String accountId = acc.getAccount_id() + "";
-             cart = new ProductDao().getWishCartByAccountId(accountId);
+            cart = new ProductDao().getWishCartByAccountId(accountId);
         }
-
-        for (Blog blog : bListByPageIndex) {
-            accList.add(accDao.getAccountByid(blog.getAuthor()));
+        if (bListByPageIndex != null) {
+            for (Blog blog : bListByPageIndex) {
+                accList.add(accDao.getAccountByid(blog.getAuthor()));
+            }
+            session.setAttribute("totalWish", cart.getCount());
+            request.setAttribute("accList", accList);
+            request.setAttribute("bList", bListByPageIndex);
         }
-        session.setAttribute("totalWish", cart.getCount());
-        request.setAttribute("accList", accList);
-        request.setAttribute("bList", bListByPageIndex);
+        ProductDao prodDao = new ProductDao();
+        List<Products> lProduct = prodDao.getAllDiscountProduct();
+        Map<Integer, String> cates = prodDao.getAllProductCategory();
+        request.setAttribute("lProd", lProduct);
+        request.setAttribute("cates", cates);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

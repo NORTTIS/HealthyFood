@@ -5,17 +5,21 @@ package controller.vpn;
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 // url: /transaction
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import model.Accounts;
+import model.Cart;
 
 /**
  *
@@ -81,6 +85,12 @@ public class TransactionServlet extends HttpServlet {
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
                 request.setAttribute("result", "Thành Công");
+                // tạo order t=khi thanh toán thành công 
+                HttpSession session = request.getSession();
+                Cart cart = (Cart) session.getAttribute("cart");
+                Accounts acc = (Accounts) session.getAttribute("acc");
+                ProductDao prod = new ProductDao();
+                prod.createOrder(cart, acc.getAccount_id()+"");
             } else {
                 request.setAttribute("result", "Không thành công");
             }
@@ -88,7 +98,7 @@ public class TransactionServlet extends HttpServlet {
         } else {
             request.setAttribute("result", "invalid signature");
         }
-        
+
         request.getRequestDispatcher("vnpay_return.jsp").forward(request, response);
     }
 
