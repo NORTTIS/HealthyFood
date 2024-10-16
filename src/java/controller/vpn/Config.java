@@ -131,5 +131,6 @@ public class Config {
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
 
         }
+        return sb.toString();
     }
 }

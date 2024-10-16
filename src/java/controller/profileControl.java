@@ -18,36 +18,38 @@ import model.Accounts;
 import model.User;
 
 @MultipartConfig
-@WebServlet(name = "profileControl", urlPatterns = {"/profile"})
+@WebServlet(name = "profileControl", urlPatterns = {"/cus_profile"})
 public class profileControl extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        // Chuyển hướng tới trang cus_profile.jsp khi người dùng truy cập GET
+        request.getRequestDispatcher("cus_profile.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Lấy thông tin từ form được gửi qua POST
         String id = request.getParameter("id");
         String displayname = request.getParameter("displayname");
-        String description = request.getParameter("description"); // Sửa đúng tên tham số
+        String description = request.getParameter("desc"); // Đồng bộ tên tham số với form HTML
         String email = request.getParameter("email");
         String address = request.getParameter("address");
-        String filename = "";
+        String filename = "";  // Biến để lưu tên file avatar nếu có
 
         try {
-            // Lấy phần file từ request
+            // Xử lý việc tải lên file avatar (nếu có)
             Part part = request.getPart("file");
             if (part != null && part.getSize() > 0) {
                 // Lấy đường dẫn thư mục gốc của ứng dụng
                 String appPath = request.getServletContext().getRealPath("/");
-                // Đường dẫn tới thư mục mong muốn (cùng cấp với thư mục chứa servlet)
-                String path = "web/assets/images";
-                Path uploadDir = Paths.get(appPath).getParent().getParent().resolve(path);
+                // Đường dẫn lưu file (ví dụ: /uploads)
+                String path = "uploads"; // Thư mục lưu file, có thể thay đổi tùy ý
+                Path uploadDir = Paths.get(appPath).resolve(path);
 
-                // Kiểm tra và tạo thư mục nếu chưa tồn tại
+                // Tạo thư mục nếu chưa tồn tại
                 if (!Files.exists(uploadDir)) {
                     Files.createDirectories(uploadDir);
                 }
@@ -56,37 +58,35 @@ public class profileControl extends HttpServlet {
                 filename = "id" + id + "_" + Path.of(part.getSubmittedFileName()).getFileName().toString();
                 Path filePath = uploadDir.resolve(filename);
 
-                // In ra đường dẫn để kiểm tra
-                System.out.println("Đường dẫn file: " + filePath.toString());
-
-                // Kiểm tra nếu file đã tồn tại, thì ghi đè lên file đó
-                if (Files.exists(filePath)) {
-                    Files.copy(part.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-                } else {
-                    part.write(filePath.toString()); // Nếu file chưa tồn tại, ghi file mới vào
-                }
+                // Ghi file (ghi đè nếu file đã tồn tại)
+                Files.copy(part.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
             }
 
+            // Lấy tài khoản hiện tại từ session
             HttpSession session = request.getSession();
             User acc = (User) session.getAttribute("acc");
 
+            // Nếu không có file mới, giữ nguyên avatar cũ
             if (filename.isEmpty()) {
-                filename = acc.getAvatar(); // Nếu không có file, giữ nguyên avatar cũ
+                filename = acc.getAvatar();  // Sử dụng avatar cũ nếu không có file mới
             }
 
-            // Cập nhật thông tin người dùng
+            // Cập nhật thông tin tài khoản người dùng
             AccountsDAO dao = new AccountsDAO();
             dao.updateUser(id, displayname, filename, description, address);
-            Accounts account = dao.getAccountByid(id);
-            session.setAttribute("acc", account); // Cập nhật lại session
+            Accounts account = dao.getAccountByid(id);  // Lấy lại thông tin tài khoản sau khi cập nhật
 
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            // Cập nhật lại session với thông tin mới
+            session.setAttribute("acc", account);
+
+            // Chuyển hướng lại trang profile sau khi cập nhật thành công
+            request.getRequestDispatcher("cus_profile.jsp").forward(request, response);
 
         } catch (IOException | ServletException e) {
-            // Xử lý ngoại lệ
+            // Xử lý lỗi nếu có vấn đề xảy ra trong quá trình xử lý file hoặc cập nhật dữ liệu
             e.printStackTrace();
             request.setAttribute("errorMessage", "Cập nhật thông tin không thành công, vui lòng thử lại.");
-            request.getRequestDispatcher("profile.jsp").forward(request, response);
+            request.getRequestDispatcher("cus_profile.jsp").forward(request, response);
         }
     }
 

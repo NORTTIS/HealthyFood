@@ -762,7 +762,7 @@
                                     </p>
                                     <p class="form-row wrap-btn">
                                         <button class="btn btn-submit btn-bold" type="submit">Sign In</button>
-                                        <a href="#" class="link-to-help">Forgot your password?</a>
+                                        <a href="forgotPassword.jsp" class="link-to-help">Forgot your password?</a>
                                     </p>
                                 </form>
                             </div>

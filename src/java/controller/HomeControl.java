@@ -66,22 +66,25 @@ public class HomeControl extends HttpServlet {
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
         List<Blog> bListByPageIndex = blogDao.getAllBlog("", "", "");
-        AccountsDAO accDao = new AccountsDAO();
-        List<Accounts> accList = new ArrayList<>();
-        HttpSession session = request.getSession();
-        Accounts acc = (Accounts) session.getAttribute("acc");
-        Cart cart = new Cart() ;
-        if (acc != null) {
-            String accountId = acc.getAccount_id() + "";
-             cart = new ProductDao().getWishCartByAccountId(accountId);
+        if (bListByPageIndex != null) {
+            AccountsDAO accDao = new AccountsDAO();
+            List<Accounts> accList = new ArrayList<>();
+            HttpSession session = request.getSession();
+            Accounts acc = (Accounts) session.getAttribute("acc");
+            Cart cart = new Cart();
+            if (acc != null) {
+                String accountId = acc.getAccount_id() + "";
+                cart = new ProductDao().getWishCartByAccountId(accountId);
+            }
+
+            for (Blog blog : bListByPageIndex) {
+                accList.add(accDao.getAccountByid(blog.getAuthor()));
+            }
+            session.setAttribute("totalWish", cart.getCount());
+            request.setAttribute("accList", accList);
+            request.setAttribute("bList", bListByPageIndex);
         }
 
-        for (Blog blog : bListByPageIndex) {
-            accList.add(accDao.getAccountByid(blog.getAuthor()));
-        }
-        session.setAttribute("totalWish", cart.getCount());
-        request.setAttribute("accList", accList);
-        request.setAttribute("bList", bListByPageIndex);
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
