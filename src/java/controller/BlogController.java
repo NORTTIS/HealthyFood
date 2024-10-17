@@ -90,7 +90,7 @@ public class BlogController extends HttpServlet {
         }
         }
         totalPage = blogDao.calNumPageBlog(bListTotal);
-         request.setAttribute("searchValue", searchValue);
+        request.setAttribute("searchValue", searchValue);
         request.setAttribute("bList", bListByPageIndex);
         request.setAttribute("accList", accList);
         request.setAttribute("cate",cid);

@@ -5,6 +5,7 @@
 
 package controller;
 
+import dao.NutriDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
+import model.Accounts;
+import model.Menu;
 
 /**
  *
@@ -55,6 +61,13 @@ public class zNutriMenuList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        //lấy dữ liệu tài khoản đăng nhập
+        Accounts ac = (Accounts)session.getAttribute("acc");
+        NutriDAO ndb = new NutriDAO();
+        //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
+        Map<String , List<Menu>> mList = ndb.getAllMenu(ac.getAccount_id());
+        request.setAttribute("menuList", mList);
         request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
     } 
 

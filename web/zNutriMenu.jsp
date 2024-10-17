@@ -81,84 +81,32 @@
                             <!--articles block-->
                             <ul class="posts-list main-post-list">
                                 <!--loop menu here-->
-                                <c:forEach items="${menuList}" var="i" varStatus="j">
-                                    <li class="post-elem col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                                        <div class="post-item effect-04 style-bottom-info">
-                                            <div class="thumbnail">
-                                                <a href="blogdetail?blogId=${i.id}" class="link-to-post">
-                                                    <div>
-                                                        <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px;" alt="">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="post-content">
-                                                <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
-                                                <p class="post-archive"><b class="post-cat">${cateList.get(i.category)}</b><span class="post-date"> / ${i.createAt}</span><span class="author">Posted By: ${accList.get(j.index).displayname}</span></p>
-                                                <p class="excerpt">Did you know that is a example description...</p>
-                                                <div class="group-buttons">
-                                                    <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                <c:forEach items="${menuList}" var="m">
+                                    <h1>aaaaa</h1>
                                 </c:forEach>
 
                             </ul>
                         </div>
                     </div>
-
-
-                    <div class="biolife-panigations-block ">
-                        <ul class="panigation-contain">
-                            <c:if test="${currentPage > 1}">
-                                <li><a href="blog?page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
-                                <li><a href="blog?page=${currentPage-1}" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-                                    </c:if>
-
-                            <c:choose>
-                                <c:when test="${currentPage > 3}">
-                                    <li><span>...</span><li/>
-                                </c:when>
-                            </c:choose>
-
-                            <c:forEach begin="${(currentPage - 2) > 1 ? (currentPage - 2) : 1}" 
-                                       end="${(currentPage + 2) < totalPages ? currentPage + 2 : totalPages}" 
-                                       var="i">
-
-                                <li><a href="blog?page=${i}" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
-                                </c:forEach>
-
-                            <c:choose>
-                                <c:when test="${currentPage < totalPages - 2}">
-                                    <li><span>...</span><li/>
-                                </c:when>
-                            </c:choose>
-
-                            <c:if test="${currentPage < totalPages}">
-                                <li><a href="blog?page=${currentPage+1}" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                                <li><a href="blog?page=${totalPages}" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-                                    </c:if>
-                        </ul>
-                        <div/>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- FOOTER -->
-            <jsp:include page="./jsptemplate/footer.jsp" />
+        <!-- FOOTER -->
+        <jsp:include page="./jsptemplate/footer.jsp" />
 
 
 
-            <!-- Scroll Top Button -->
-            <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+        <!-- Scroll Top Button -->
+        <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-            <script src="assets/js/jquery-3.4.1.min.js"></script>
-            <script src="assets/js/bootstrap.min.js"></script>
-            <script src="assets/js/jquery.countdown.min.js"></script>
-            <script src="assets/js/jquery.nicescroll.min.js"></script>
-            <script src="assets/js/slick.min.js"></script>
-            <script src="assets/js/biolife.framework.js"></script>
-            <script src="assets/js/functions.js"></script>
+        <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.countdown.min.js"></script>
+        <script src="assets/js/jquery.nicescroll.min.js"></script>
+        <script src="assets/js/slick.min.js"></script>
+        <script src="assets/js/biolife.framework.js"></script>
+        <script src="assets/js/functions.js"></script>
 
 
     </body>
