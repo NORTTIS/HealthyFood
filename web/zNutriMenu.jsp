@@ -4,7 +4,7 @@
     Author     : Minh
 --%>
 <!DOCTYPE html>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -81,8 +81,22 @@
                             <!--articles block-->
                             <ul class="posts-list main-post-list">
                                 <!--loop menu here-->
-                                <c:forEach items="${menuList}" var="m">
-                                    <h1>aaaaa</h1>
+                                <c:forEach var="m" items="${menuList}">
+                                    <li>
+                                        <strong>Menu for ${m.key}</strong> 
+                                        <ul>
+                                            <c:forEach var="nameEntry" items="${m.value}">
+                                                <li>
+                                                    <strong>Name: ${nameEntry.key}</strong>
+                                                    <ul>
+                                                        <c:forEach var="menu" items="${nameEntry.value}">
+                                                            <li>Menu Name: ${menu.menu_name}</li>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </li>
                                 </c:forEach>
 
                             </ul>

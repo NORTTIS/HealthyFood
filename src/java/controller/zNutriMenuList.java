@@ -66,7 +66,7 @@ public class zNutriMenuList extends HttpServlet {
         Accounts ac = (Accounts)session.getAttribute("acc");
         NutriDAO ndb = new NutriDAO();
         //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
-        Map<String , List<Menu>> mList = ndb.getAllMenu(ac.getAccount_id());
+        Map<String, Map<String, List<Menu>>> mList = ndb.getMenuMap(ac.getAccount_id());
         request.setAttribute("menuList", mList);
         request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
     } 
