@@ -79,7 +79,7 @@
                     <div id="editor-container"></div><br>
 
                     <!-- Hidden input to store blog content -->
-                    <input type="hidden" name="content" value="${blog.content}" id="content">
+                    <input type="hidden" name="content" />
                 </div>
                 <div class="col-lg-12"> 
                     <button type="submit" class="btn btn-default" style="margin-bottom: 10px;">Submit</button>
@@ -133,16 +133,7 @@
     </body>
 </html>
 
-<!--modules: {
-                    toolbar: [
-                        [{'header': [1, 2, false]}],
-                        ['bold', 'italic', 'underline'],
-                        [{'list': 'ordered'}, {'list': 'bullet'}],
-                        ['link'],
-                        ['clean']
-                    ]
-                },
-                 charset: "UTF-8"-->
+
 
 
 

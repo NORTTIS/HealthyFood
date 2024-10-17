@@ -48,7 +48,7 @@
             <nav class="biolife-nav">
                 <ul>
                     <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                    <li class="nav-item"><span class="current-page">Our Blog</span></li>
+                    <li class="nav-item"><span class="current-page"><a href="blog" class="permal-link">OurBlog</a></span></li>
                 </ul>
             </nav>
         </div>
@@ -117,9 +117,12 @@
                                                 </a>
                                             </div>
                                             <div class="post-content">
-                                                <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
+                                                <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title">${i.title}</p></a></h4>
                                                 <p class="post-archive"><b class="post-cat">${cateList.get(i.category)}</b><span class="post-date"> / ${i.createAt}</span><span class="author">Posted By: ${accList.get(j.index).displayname}</span></p>
-                                                <p class="excerpt">Did you know that is a example description...</p>
+                                                <div class="excerpt">
+                                                    ${i.content}
+                                                </div>
+                                                
                                                 <div class="group-buttons">
                                                     <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                                 </div>
