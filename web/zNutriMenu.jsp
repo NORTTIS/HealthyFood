@@ -1,9 +1,9 @@
 <%-- 
-    Document   : blog
-    Created on : Oct 6, 2024, 12:43:06 PM
-    Author     : Norttie
+    Document   : zNutriMenu
+    Created on : Oct 18, 2024, 1:54:14 AM
+    Author     : Minh
 --%>
-
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -44,13 +44,7 @@
 
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Organic Fruits</h1>
-            <nav class="biolife-nav">
-                <ul>
-                    <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                    <li class="nav-item"><span class="current-page">Our Blog</span></li>
-                </ul>
-            </nav>
+            <h1 class="page-title">Menu List</h1>
         </div>
 
         <!-- Page Contain -->
@@ -76,28 +70,9 @@
                                         </form>
                                     </div>
                                 </div>
-                                 <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
-                                                
+
                                 <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
-                                    <button class="btn btn-default"><a href="manageblog" style="color: inherit">Create Blog</a></button>
-                                    <form action="blog" method="post" style="display: inline-block;">
-                                        <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
-                                        <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
-                                    </form>
-                                </div>
-                                </c:if>
-                                <!--Categories Widget-->
-                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; margin-bottom: 37px;">
-                                    <h4 class="wgt-title"><a href="blog" class="" style="color:inherit">Category</a></h4>
-                                    <div class="wgt-content">
-                                        <ul class="cat-list">
-                                            <li class="cat-list-item"><a href="blog?cate=1" class="cat-link">Food</a></li>
-                                            <li class="cat-list-item"><a href="blog?cate=2" class="cat-link">Health</a></li>
-                                            <li class="cat-list-item"><a href="blog?cate=3" class="cat-link">Tip & trick</a></li>
-                                            <li class="cat-list-item"><a href="blog?cate=4" class="cat-link">Cook</a></li>
-                                            <li class="cat-list-item"><a href="blog?cate=5" class="cat-link">Diet</a></li>
-                                        </ul>
-                                    </div>
+                                    <button class="btn btn-default"><a href="createMenu" style="color: inherit">Create Menu</a></button>
                                 </div>
                             </div>
                         </aside>
@@ -105,8 +80,8 @@
                         <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
                             <!--articles block-->
                             <ul class="posts-list main-post-list">
-                                <!--loop post here-->
-                                <c:forEach items="${bList}" var="i" varStatus="j">
+                                <!--loop menu here-->
+                                <c:forEach items="${menuList}" var="i" varStatus="j">
                                     <li class="post-elem col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                         <div class="post-item effect-04 style-bottom-info">
                                             <div class="thumbnail">
@@ -187,5 +162,5 @@
 
 
     </body>
-
 </html>
+

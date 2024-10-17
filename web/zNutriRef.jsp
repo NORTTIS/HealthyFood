@@ -1,6 +1,6 @@
 <%-- 
-    Document   : nutriMenu
-    Created on : Oct 7, 2024, 9:06:06 PM
+    Document   : nutriRef
+    Created on : Oct 15, 2024, 9:06:06 PM
     Author     : Minh
 --%>
 
@@ -141,7 +141,15 @@
                                         <a href="blog" class="menu-name" data-title="Blog">Blog</a>
 
                                     </li>
-                                    <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                    <!--nếu đăng nhập là nutritionist thì sẽ hiện ra thanh chuyển xem list menu thay vì contact -->
+                                    <c:choose>
+                                        <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
+                                            <li class="menu-item"><a href="menuList">Menu</a></li>
+                                            </c:when>
+                                            <c:otherwise>
+                                            <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                            </c:otherwise>
+                                        </c:choose>
 
                                 </ul>
                             </div>
@@ -154,7 +162,7 @@
 
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Create New Menu</h1>
+            <h1 class="page-title">Organic Fruits</h1>
             <!--            <nav class="biolife-nav">
                             <ul>
                                 <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
@@ -170,41 +178,86 @@
                 <!-- Main content -->
                 <div id="main-content" class="main-content">
 
-                    <div id="main-content">
+                    <div class="row">
+                        <!-- Sidebar -->
+                        <aside id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                            <div class="sidebar-contain">
 
-                        <!--articles block-->
-                        <form action="submitMenu" method="post">
-                            <div class="contain" style="width:100%; height: 500px;">
-                                <div class="create-new-meals" style=" display: flex; justify-content:space-between; margin-bottom: 100px">
-                                    <div>
-                                        <button type="button" class="btn btn-default" style="padding: 10px 15px" onclick="addMeals()">Create</button>
-                                        <input style="border-radius: 20px; width: 200px;" type="text" id="meals-name" placeholder="What Meal..." />
+                                <!--Search Widget-->
+                                <div class="widget search-widget">
+                                    <div class="wgt-content">
+                                        <form action="" name="frm-search" method="get" class="frm-search">
+                                            <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
+                                            <input type="text" name="cate" value="${cate}" hidden/>
+                                            <input type="text" name="page" value="${currentPage}" hidden/>
+                                            <button type="submit"><i class="biolife-icon icon-search"></i></button>
+                                        </form>
                                     </div>
-                                    <input style="border-radius: 20px" type="text" name="name" placeholder="Menu Name..." />
-                                    <input style="border-radius: 20px;" type="number" name="type" placeholder="For Type..."/>
                                 </div>
-                                <div>
+                                <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
+                                    <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                        <button class="btn btn-default"><a href="manageblog" style="color: inherit">Create Blog</a></button>
+                                        <form action="blog" method="post" style="display: inline-block;">
+                                            <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
+                                            <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
+                                        </form>
+                                    </div>
+                                </c:if>
+                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                    <button class="btn btn-default"><a href="manageblog" style="color: inherit">Create Blog</a></button>
+                                    <form action="blog" method="post" style="display: inline-block;">
+                                        <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
+                                        <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
+                                    </form>
+                                </div>
 
-                                </div>
-                                <div>
+                            </div>
+                        </aside>
+
+                        <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                            <!--articles block-->
+                            <div>
+                                <h2>Create New Menu</h2>
+                                <form action="submitMenu" method="post">
                                     <div id="meals">
                                         <!-- loại bữa ăn(sáng, chiều,...) sẽ được cho vào đây -->
                                     </div>
-                                </div>
+                                </form>
                             </div>
-                            <div style="display:flex; justify-content: center; margin-bottom: 50px">
-                                <div>
-                                    <h3>Description</h3>
-                                    <textarea name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
-                                </div>
-                            </div>
-                            <div style="display:flex; justify-content: space-around">
-                                <button style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</button>
-                                <input style="width:120px" type="submit" value="Create" class="btn btn-default"/>
-                            </div>
-                        </form>
-                        <!--articles block end-->
+                            <div>
+                                <h2>Create a Dynamic Form</h2>
+                                <form action="submitForm" method="POST">
+                                    <div id="questions">
+                                        <!-- Các câu hỏi động sẽ được thêm vào đây -->
+                                    </div>
 
+                                    <button style="font-size: 30px;" type="button" onclick="addQuestion()">Add Question</button>
+                                    <button type="button" onclick="removeQuestion()">Remove Last Question</button><br><br>
+
+                                    <input type="submit" value="Submit">
+                                </form>
+                                <h2>Accordion Example</h2>
+
+                                <!-- Nút accordion đầu tiên -->
+                                <button class="accordion">Section 1</button>
+                                <div class="panel">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent cursus.</p>
+                                </div>
+
+                                <!-- Nút accordion thứ hai -->
+                                <button class="accordion">Section 2</button>
+                                <div class="panel">
+                                    <p>Vestibulum at eros eu orci cursus pellentesque. Nam porttitor.</p>
+                                </div>
+
+                                <!-- Nút accordion thứ ba -->
+                                <button class="accordion">Section 3</button>
+                                <div class="panel">
+                                    <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.</p>
+                                </div>
+                            </div>
+                            <!--articles block end-->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,46 +278,48 @@
 
     </body>
     <script>
-                                            function addMeals() {
-                                                // Lấy giá trị từ input
-                                                var mealName = document.getElementById("meals-name").value;
-                                                if (mealName.trim() !== "") {
-                                                    // Tạo một thẻ mới
-                                                    var newMeal = document.createElement("button");
-                                                    // Đặt nội dung cho thẻ mới
-                                                    newMeal.innerHTML = '';
-                                                    // Chèn thẻ mới vào trong div 'meals'
-                                                    document.getElementById("meals").appendChild(newMeal);
-                                                    // Reset lại input sau khi tạo thẻ
-                                                    document.getElementById("meals-name").value = "";
-                                                } 
-                                            }
-//                                            let counts = 0;
-//                                            //hàm tạo bữa ăn mới
-//                                            function addMeals() {
-//                                                counts++;
-//                                                const mealsDiv = document.getElementById('meals');
-//
-//                                                // Tạo một div cho mỗi bữa ăn
-//                                                const mealDiv = document.createElement('div');
-//                                                mealDiv.classList.add('Meals');
-//                                                mealDiv.id = `meals_${counts}`;
-//
-//                                                // Tạo nội dung cho câu hỏi
-//                                                mealDiv.innerHTML = `
-//                <label for="meals_${counts}">Meals ${counts}:</label>
-//                <input type="text" name="meals_${counts}" id="question_${counts}" required>
-//                <button type="button" onclick="removeMeals(${counts})">Remove</button><br><br>`;
-//
-//                                                // Thêm câu hỏi vào div chứa câu hỏi
-//                                                mealsDiv.appendChild(mealDiv);
-//                                            }
+                                        let questionCount = 0;
+                                        function addQuestion() {
+                                            questionCount++;
+                                            const questionsDiv = document.getElementById('questions');
+                                            // Tạo một div cho mỗi câu hỏi
+                                            const questionDiv = document.createElement('div');
+                                            questionDiv.id = `question_${questionCount}`;
 
-                                            function removeMeals(counts) {
-                                                const mealDiv = document.getElementById(`meals_${counts}`);
-                                                if (mealDiv) {
-                                                    mealDiv.remove();
-                                                }
+                                            // Tạo label và input cho câu hỏi
+                                            questionDiv.innerHTML = `
+                <label for="question_${questionCount}">Question ${questionCount}:</label><br>   
+                <input type="text" name="question_${questionCount}" id="question_${questionCount}" required><br><br>`;
+                                            questionsDiv.appendChild(questionDiv);
+                                        }
+
+                                        function removeQuestion() {
+                                            if (questionCount > 0) {
+                                                const questionsDiv = document.getElementById('questions');
+                                                const lastQuestion = document.getElementById(`question_${questionCount}`);
+                                                questionsDiv.removeChild(lastQuestion);
+                                                questionCount--;
                                             }
+                                        }
+
+
+                                        // Lấy tất cả các phần tử có class "accordion"
+                                        var acc = document.getElementsByClassName("accordion");
+
+                                        // Lặp qua từng accordion để gán sự kiện click
+                                        for (var i = 0; i < acc.length; i++) {
+                                            acc[i].addEventListener("click", function () {
+                                                // Toggle giữa việc thêm và bỏ class "active"
+                                                this.classList.toggle("active");
+
+                                                // Lấy phần tử panel kế tiếp và điều khiển việc hiện/ẩn
+                                                var panel = this.nextElementSibling;
+                                                if (panel.style.display === "block") {
+                                                    panel.style.display = "none";
+                                                } else {
+                                                    panel.style.display = "block";
+                                                }
+                                            });
+                                        }
     </script>
 </html>
