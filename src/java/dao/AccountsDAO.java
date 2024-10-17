@@ -384,12 +384,10 @@ public class AccountsDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-//        List<Accounts> al = adb.getAllAccountByRole("Nutritionist");
-//        for (Accounts a : al) {
-//            System.out.println(a.toString());
-//        }
-//         adb.login("Norttis", "Bacvu123");
-        adb.createAccount("Norttis6", "Bacvu126", "Norttis6", "bacvu126@gmail.com", "Customer");
+        List<Accounts> alist = adb.getAllUser();
+        for(Accounts i : alist){
+            i.getAccount_id();
+        }
     }
 
 }

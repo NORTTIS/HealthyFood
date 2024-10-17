@@ -7,11 +7,15 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
-                    <file>${file.reference.jakarta.servlet.jsp.jstl-2.0.0.jar-1}</file>
+                    <file>${file.reference.json-20240303.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< Upstream, based on origin/master
                     <file>${file.reference.jakarta.servlet.jsp.jstl-api-2.0.0.jar-1}</file>
+=======
+                    <file>${file.reference.jakarta.servlet.jsp.jstl-2.0.0.jar}</file>
+>>>>>>> 689f56e nutriMenu commit
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
@@ -19,11 +23,19 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< Upstream, based on origin/master
                     <file>${file.reference.json-20240303.jar-1}</file>
+=======
+                    <file>${file.reference.jaxb-api-2.1.jar}</file>
+>>>>>>> 689f56e nutriMenu commit
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< Upstream, based on origin/master
                     <file>${file.reference.sqljdbc42.jar-1}</file>
+=======
+                    <file>${file.reference.sqljdbc42.jar}</file>
+>>>>>>> 689f56e nutriMenu commit
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
@@ -35,5 +47,8 @@
                 <root id="test.src.dir"/>
             </test-roots>
         </data>
+        <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>lorem</word>
+        </spellchecker-wordlist>
     </configuration>
 </project>

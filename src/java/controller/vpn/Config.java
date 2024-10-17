@@ -1,4 +1,3 @@
-
 package controller.vpn;
 
 import java.io.UnsupportedEncodingException;
@@ -23,6 +22,7 @@ import java.util.logging.Logger;
  * @author CTT VNPAY
  */
 public class Config {
+
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_ReturnUrl = "http://localhost:9999/HealthyFood/transaction";
     public static String vnp_TmnCode = "J08SZP53";
@@ -65,7 +65,7 @@ public class Config {
         return digest;
     }
 
-    //Util for VNPAY
+//Util for VNPAY
     public static String hashAllFields(Map fields) {
         List fieldNames = new ArrayList(fields.keySet());
         Collections.sort(fieldNames);
@@ -83,9 +83,9 @@ public class Config {
                 sb.append("&");
             }
         }
-        return hmacSHA512(secretKey,sb.toString());
+        return hmacSHA512(secretKey, sb.toString());
     }
-    
+
     public static String hmacSHA512(final String key, final String data) {
         try {
 
@@ -108,7 +108,7 @@ public class Config {
             return "";
         }
     }
-    
+
     public static String getIpAddress(HttpServletRequest request) {
         String ipAdress;
         try {
@@ -122,14 +122,12 @@ public class Config {
         return ipAdress;
     }
 
-
-    public static String getRandomNumber(int len)  {
+    public static String getRandomNumber(int len) {
         Random rnd = new Random();
         String chars = "0123456789";
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
-
         }
         return sb.toString();
     }
