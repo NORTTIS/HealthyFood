@@ -1,6 +1,4 @@
-﻿﻿create database HealthyFood
-
-CREATE TABLE Accounts (
+﻿CREATE TABLE Accounts (
     account_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID tài khoản, tự động tăng
     username NVARCHAR(50) NOT NULL UNIQUE,     -- Tên đăng nhập, không trùng lặp
     password NVARCHAR(255) NOT NULL,           -- Mật khẩu đã mã hóa
@@ -55,7 +53,6 @@ CREATE TABLE Orders (
 	total_calories FLOAT NOT NULL,           -- Tổng calo
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
-
 );
 
 CREATE TABLE Order_Items (
@@ -72,26 +69,28 @@ CREATE TABLE Customer_Type (
     [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
     [type_name] NVARCHAR(255) NOT NULL,                -- Tên loại sản phẩm
 );
+
+
 CREATE TABLE Menu (
     menu_id INT IDENTITY(1,1) PRIMARY KEY,
     [type_id] INT,
     name NVARCHAR(255) NOT NULL,
-	average_calories FLOAT, 
     description NVARCHAR(MAX), 
 	create_by INT,
 	create_at DATETIME DEFAULT GETDATE(),
 	update_at DATETIME DEFAULT GETDATE(),
+	menu_name NVARCHAR(255),
 	FOREIGN KEY (create_by) REFERENCES Accounts(account_id) ON DELETE SET NULL,
 	FOREIGN KEY ([type_id]) REFERENCES Customer_Type([type_id]) ON DELETE SET NULL,
 );
-
+drop table Menu_Detail
 CREATE TABLE Menu_Detail (
-    menu_detail_id INT IDENTITY(1,1) PRIMARY KEY,
+    menu_detail_id INT,
     product_id  INT,
-	menu_id INT,
 	product_qty INT,
+	average_calories FLOAT, 
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
-	FOREIGN KEY (menu_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
+	FOREIGN KEY (menu_detail_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
 );
 CREATE TABLE Reviews (
     review_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -156,7 +155,7 @@ VALUES
 ('datKa1', 'datKa124', 'Yuxly  Manager', '789 Manager St', 'Manages department', 'jane.manager@example.com', '5555555555', 'Manager', 'Active', NULL),
 ('Norttis', 'Bacvu123', 'Nort Nutritionist', '1010 Health St', 'Helps with diets', 'mary.nutritionist@example.com', '6666666666', 'Nutritionist', 'Active', NULL),
 ('guest_user', 'guest123', 'Guest User', 'No Address', 'Guest account', 'guest@example.com', NULL, 'Customer', 'Active', NULL),
-('Norttis1', 'Bacvu124', 'Nort', '1010 Health St', 'Helps with diets', 'mary.nutritionist@example.com', '6666666666', 'Customer', 'Active', NULL);
+('Norttis1', 'Bacvu124', 'Nort', '1010 Health St', 'Helps with diets', 'may.nutritionist@example.com', '6666666666', 'Customer', 'Active', NULL);
 INSERT INTO Category (name)
 VALUES
 ('Fruits'),
@@ -175,3 +174,10 @@ VALUES
 (1, 'Healthy Harvest', 'Bananas', 'Ripe bananas with high potassium content', 28000, 200, 'available', 89.0, 'banana.jpg'),
 (4, 'Vegan Choice', 'Almond Milk', 'Plant-based almond milk, dairy-free', 92000, 80, 'available', 30.0, 'almond_milk.jpg');
 
+INSERT INTO Menu (name, description, create_by, menu_name)
+VALUES ('Dinner', 'đây là bữa ăn cho một người', 4, 'Green Salad'),
+('Breakfast', 'đây là bữa ăn cho một người', 4, 'Cheeseburger'),
+('Breakfast', 'đây là bữa ăn cho một người', 4, 'Spaghetti'),
+('Breakfast', 'đây là bữa ăn cho một người', 4, 'Green Salad');
+
+INSERT INTO Menu_Detail values (1, null, null, 200), (2, null, null, 300), (3, null, null, 300), (4, null, null, 200)

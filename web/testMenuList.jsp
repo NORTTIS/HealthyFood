@@ -19,7 +19,9 @@
                         <strong>Name: ${nameEntry.key}</strong>
                         <div>
                             <c:forEach var="menu" items="${nameEntry.value}">
-                                <div>Menu Name: ${menu.menu_name}</div>
+                                <div>
+                                    
+                                    ${menu.menu_name}</div>
                             </c:forEach>
                         </div>
                 </c:forEach>
