@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="hidden" name="role" value="Manager">
+                        <input type="hidden" name="role" value="Nutritionist">
                         <input type="hidden" name="status" value="Active">
                         <div class="save_button primary_btn default_button" style="text-align: center;">
                             <button type="submit">Create</button>

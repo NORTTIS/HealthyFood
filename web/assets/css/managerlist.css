@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Styling for the table */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px; /* Rounded corners for the table */
+}
+
+th, td {
+    padding: 15px; /* Adjusted padding for a cleaner look */
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap; /* Keep text in one line */
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+td {
+    background-color: #f9f9f9; /* Updated to give a slight gray background */
+}
+
+tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+tr:hover td {
+    background-color: #e6f7ff; /* Lighter hover effect */
+}
+
+/* Button styling inside the table */
+input[type="submit"], a {
+    display: inline-block;
+    padding: 8px 12px; /* More padding for the buttons */
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px; /* Rounder button corners */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+input[type="submit"]:hover, a:hover {
+    background-color: #0056b3;
+}
