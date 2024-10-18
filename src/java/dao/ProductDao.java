@@ -182,4 +182,38 @@ public class ProductDao extends DBContext {
 //        }
 //    }
 
+    public double calculateBMI(double weight, double height){
+        return weight / (height * height);
+    }
+    
+//    public List<Products> getProductByBMI(String bmi) {
+//        List<Products> list = new ArrayList<>();
+//        String sql = "Select * from Products where ";
+//        try {
+//            conn = new DBContext().getConnection();
+//            ps = conn.prepareStatement(sql);
+//            ps.setString(1, "%" + txtSearch + "%");
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                list.add(new Products(
+//                        rs.getInt(1),
+//                        rs.getInt(2),
+//                        rs.getString(3),
+//                        rs.getString(4),
+//                        rs.getString(5),
+//                        rs.getDouble(6),
+//                        rs.getInt(7),
+//                        rs.getString(8),
+//                        rs.getDouble(9),
+//                        rs.getString(10)));
+//
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            return null;
+//        }
+//
+//        return list;
+//    }
+    
 }
