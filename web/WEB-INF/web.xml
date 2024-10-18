@@ -124,7 +124,9 @@
     <servlet-mapping>
         <servlet-name>AllDiscounts</servlet-name>
         <url-pattern>/discountlist</url-pattern>
+
     </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>ChatControl</servlet-name>
         <url-pattern>/chat</url-pattern>

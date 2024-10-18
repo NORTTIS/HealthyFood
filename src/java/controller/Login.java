@@ -90,6 +90,7 @@ public class Login extends HttpServlet {
     }
 
     @Override
+
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     String ac = request.getParameter("ac");
@@ -99,6 +100,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         HttpSession session = request.getSession();
         session.removeAttribute("acc");
         session.removeAttribute("mess"); // Xóa thông báo lỗi
+
     }
     processRequest(request, response);
 }

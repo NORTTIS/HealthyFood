@@ -85,11 +85,11 @@ public class BlogController extends HttpServlet {
         
         List<Accounts> accList = new ArrayList<>();
         if(bListByPageIndex!=null){
-             for (Blog blog : bListByPageIndex) {
+            for (Blog blog : bListByPageIndex) {
             accList.add(accDao.getAccountByid(blog.getAuthor()));
         }
         }
-       
+
         totalPage = blogDao.calNumPageBlog(bListTotal);
          request.setAttribute("searchValue", searchValue);
         request.setAttribute("bList", bListByPageIndex);
