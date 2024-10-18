@@ -103,16 +103,15 @@ public class ProductDao extends DBContext {
         return list;
     }
 
-    public static void main(String[] args) {
-        String cid = "1";
-        ProductDao dao = new ProductDao();
-        List<Products> list = dao.getAllProduct();
-        List<Products> listP = dao.getProductsByCateId(cid);
-        for (Products o : listP) {
-            System.out.println(o);
-        }
-    }
-
+//    public static void main(String[] args) {
+//        String cid = "1";
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByCateId(cid);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
     public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
         try {
@@ -146,7 +145,7 @@ public class ProductDao extends DBContext {
 
     public List<Products> searchByName(String txtSearch) {
         List<Products> list = new ArrayList<>();
-        String sql = "Select * from Products where name =?";
+        String sql = "Select * from Products where [name] LIKE ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
@@ -173,5 +172,14 @@ public class ProductDao extends DBContext {
 
         return list;
     }
+
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        String txtSearch = "organic";
+//        List<Products> list = dao.searchByName(txtSearch);
+//        for (Products o : list) {
+//            System.out.println(o.getName());
+//        }
+//    }
 
 }
