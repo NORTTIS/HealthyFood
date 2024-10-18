@@ -79,27 +79,19 @@
 
                         <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
                             <!--articles block-->
-                            <ul class="posts-list main-post-list">
-                                <!--loop menu here-->
-                                <c:forEach var="m" items="${menuList}">
-                                    <li>
-                                        <strong>Menu for ${m.key}</strong> 
-                                        <ul>
-                                            <c:forEach var="nameEntry" items="${m.value}">
-                                                <li>
-                                                    <strong>Name: ${nameEntry.key}</strong>
-                                                    <ul>
-                                                        <c:forEach var="menu" items="${nameEntry.value}">
-                                                            <li>Menu Name: ${menu.menu_name}</li>
-                                                        </c:forEach>
-                                                    </ul>
-                                                </li>
+                            <c:forEach var="m" items="${menuList}">
+                                <strong>Menu for ${m.key}</strong> 
+                                <div>
+                                    <c:forEach var="nameEntry" items="${m.value}">
+                                        <strong>Name: ${nameEntry.key}</strong>
+                                        <div>
+                                            <c:forEach var="menu" items="${nameEntry.value}">
+                                                <div>Menu Name: ${menu.menu_name}</div>
                                             </c:forEach>
-                                        </ul>
-                                    </li>
-                                </c:forEach>
-
-                            </ul>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

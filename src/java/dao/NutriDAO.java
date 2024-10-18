@@ -17,6 +17,44 @@ import model.Menu;
  */
 public class NutriDAO extends DBContext {
 
+    public Map<String, List<Menu>> getMenu(int id) {
+        Map<String, List<Menu>> menuList = new HashMap<>();
+        String sql = "select * from Menu m join Menu_Detail md on m.menu_id = md.menu_detail_id where create_by = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                // Tạo đối tượng Menu từ ResultSet
+                Menu m = new Menu(
+                        rs.getInt("menu_id"),
+                        rs.getInt("type_id"),
+                        name,
+                        rs.getString("description"),
+                        rs.getInt("create_by"),
+                        rs.getString("menu_name"),
+                        rs.getFloat("average_calories")
+                );
+
+                // Nếu `name` đã có trong Map, thêm `menu_name` vào danh sách
+                if (menuList.containsKey(name)) {
+                    menuList.get(name).add(m);
+                } else {
+                    // Nếu chưa có `name`, tạo một danh sách mới cho các `menu_name`
+                    List<Menu> menuNames = new ArrayList<>();
+                    menuNames.add(m);
+                    menuList.put(name, menuNames);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return menuList;
+    }
+
     public Map<String, Map<String, List<Menu>>> getMenuMap(int id) {
         Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
 
@@ -31,7 +69,7 @@ public class NutriDAO extends DBContext {
                 int type = rs.getInt("type_id");
                 String name = rs.getString("name");
                 String weightSituation = "";
-                if (type == 1){
+                if (type == 1) {
                     weightSituation = "Underweight";
                 } else {
                     weightSituation = "Overweight";
@@ -74,25 +112,33 @@ public class NutriDAO extends DBContext {
 
     public static void main(String[] args) {
         NutriDAO ndb = new NutriDAO();
-        Map<String, Map<String, List<Menu>>> ml = ndb.getMenuMap(4);
-        for (Map.Entry<String, Map<String, List<Menu>>> descriptionEntry : ml.entrySet()) {
-            // Duyệt qua từng description
-            String description = descriptionEntry.getKey();
-            Map<String, List<Menu>> nameMap = descriptionEntry.getValue();
-
-            System.out.println("Menu for " + description);
-
-            // Duyệt qua từng name tương ứng với description
-            for (Map.Entry<String, List<Menu>> nameEntry : nameMap.entrySet()) {
-                String name = nameEntry.getKey();
-                List<Menu> menuList = nameEntry.getValue();
-
-                System.out.println("Name: " + name);
-
-                // Duyệt qua danh sách các Menu tương ứng với name
-                for (Menu menu : menuList) {
-                    System.out.println(menu);
-                }
+//        Map<String, Map<String, List<Menu>>> ml = ndb.getMenuMap(4);
+//        for (Map.Entry<String, Map<String, List<Menu>>> descriptionEntry : ml.entrySet()) {
+//            // Duyệt qua từng description
+//            String description = descriptionEntry.getKey();
+//            Map<String, List<Menu>> nameMap = descriptionEntry.getValue();
+//
+//            System.out.println("Menu for " + description);
+//
+//            // Duyệt qua từng name tương ứng với description
+//            for (Map.Entry<String, List<Menu>> nameEntry : nameMap.entrySet()) {
+//                String name = nameEntry.getKey();
+//                List<Menu> menuList = nameEntry.getValue();
+//
+//                System.out.println("Name: " + name);
+//
+//                // Duyệt qua danh sách các Menu tương ứng với name
+//                for (Menu menu : menuList) {
+//                    System.out.println(menu);
+//                }
+//            }
+//        }
+        Map<String, List<Menu>> mlist = ndb.getMenu(4);
+        for (Map.Entry<String, List<Menu>> i : mlist.entrySet()) {
+            System.out.println(i.getKey());
+            List<Menu> menuList = i.getValue();
+            for(Menu m : menuList){
+                System.out.println(m);
             }
         }
     }
