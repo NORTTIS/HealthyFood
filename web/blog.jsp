@@ -85,7 +85,7 @@
                                         <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
                                     </form>
                                 </div>
-                                            </c:if>
+                                </c:if>
                                 <!--Categories Widget-->
                                 <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; margin-bottom: 37px;">
                                     <h4 class="wgt-title"><a href="blog" class="" style="color:inherit">Category</a></h4>

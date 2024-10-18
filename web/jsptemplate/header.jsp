@@ -89,8 +89,15 @@
                                 <a href="blog" class="menu-name" data-title="Blog">Blog</a>
 
                             </li>
-                            <li class="menu-item"><a href="contact.html">Contact</a></li>
-
+                            <!--nếu đăng nhập là nutritionist thì sẽ hiện ra thanh chuyển xem list menu thay vì contact -->
+                            <c:choose>
+                                <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
+                                    <li class="menu-item"><a href="menuList">Menu</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                     <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </div>
                 </div>
