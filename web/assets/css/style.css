@@ -62,6 +62,20 @@
 /************************
 * Global Settings       *
 *************************/
+.login-btn-google {
+    display: inline-block;
+    background-color: #4285F4; /* Màu của Google */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-btn-google i {
+    margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+}
+
 body{
     font-family: 'Cairo', sans-serif;
     font-size: 15px;

@@ -4,29 +4,26 @@
  */
 package controller;
 
-import dao.AccountsDAO;
-import dao.BlogDao;
-import dao.ProductDao;
+import dao.NutriDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import model.Accounts;
-import model.Blog;
-import model.Cart;
-import model.Products;
+import model.Menu;
 
 /**
  *
- * @author Norttie
+ * @author Minh
  */
-public class HomeControl extends HttpServlet {
+@WebServlet(name = "Z-NutriMenuList", urlPatterns = {"/menuList"})
+public class zNutriMenuList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +42,10 @@ public class HomeControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeControl</title>");
+            out.println("<title>Servlet NutriMenuList</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeControl at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet NutriMenuList at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,34 +63,18 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDao blogDao = new BlogDao();
-        List<Blog> bListByPageIndex = blogDao.getAllBlog("", "", "");
-
-        AccountsDAO accDao = new AccountsDAO();
-        List<Accounts> accList = new ArrayList<>();
         HttpSession session = request.getSession();
-        Accounts acc = (Accounts) session.getAttribute("acc");
-        Cart cart = new Cart();
-        if (acc != null) {
-            String accountId = acc.getAccount_id() + "";
-            cart = new ProductDao().getWishCartByAccountId(accountId);
+        //lấy dữ liệu tài khoản đăng nhập
+        Accounts ac = (Accounts) session.getAttribute("acc");
+        if(ac == null){
+            response.sendRedirect("login.jsp");
         }
-        if (bListByPageIndex != null) {
-            for (Blog blog : bListByPageIndex) {
-                accList.add(accDao.getAccountByid(blog.getAuthor()));
-            }
-            session.setAttribute("totalWish", cart.getCount());
-            request.setAttribute("accList", accList);
-            request.setAttribute("bList", bListByPageIndex);
-        }
-
-        ProductDao prodDao = new ProductDao();
-        List<Products> lProduct = prodDao.getAllDiscountProduct();
-        Map<Integer, String> cates = prodDao.getAllProductCategory();
-        request.setAttribute("lProd", lProduct);
-        request.setAttribute("cates", cates);
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        NutriDAO ndb = new NutriDAO();
+        //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
+        Map<String, Map<String, List<Menu>>> mList = ndb.getMenuMap(ac.getAccount_id());
+        request.setAttribute("menuList", mList);
+        request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
+//        request.getRequestDispatcher("testMenuList.jsp").forward(request, response);
     }
 
     /**

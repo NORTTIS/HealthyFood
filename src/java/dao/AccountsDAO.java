@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.util.List;
@@ -122,8 +121,8 @@ public class AccountsDAO extends DBContext {
     public List<Accounts> getAllAccountByRole(String role) {
         String sql = "SELECT * FROM Accounts where role = ?";
         List<Accounts> al = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(sql)){
-            
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
             st.setString(1, role);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -151,8 +150,8 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getAccountByid(String id) {
         String sql = "SELECT * FROM Accounts where account_id = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)){
-            
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -180,8 +179,8 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getUserEmail(String email) {
         String sql = "SELECT * FROM Accounts WHERE email = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)){
-            
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -352,6 +351,29 @@ public class AccountsDAO extends DBContext {
         }
     }
 
+    public void updateUser(String id, String displayname, String avatar, String desc, String email, String address) {
+        String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?, address = ? WHERE account_id = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, displayname);
+            st.setString(2, avatar);
+            st.setString(3, desc);
+            st.setString(4, email);
+            st.setString(5, address);
+            st.setString(6, id);
+
+            int rowsAffected = st.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected); // Thêm dòng này để kiểm tra
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật thông tin người dùng thành công.");
+            } else {
+                System.out.println("Không tìm thấy người dùng với ID đã cho.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public Accounts login(String username, String password) {
         String sql = "SELECT * FROM Accounts WHERE username = ? AND password = ?";
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -384,15 +406,10 @@ public class AccountsDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-//        List<Accounts> al = adb.getAllAccountByRole("Nutritionist");
-//        for (Accounts a : al) {
-//            System.out.println(a.toString());
-//        }
-//         adb.login("Norttis", "Bacvu123");
-        adb.createAccount("Norttis6", "Bacvu126", "Norttis6", "bacvu126@gmail.com", "Customer");
+        List<Accounts> alist = adb.getAllUser();
+        for(Accounts i : alist){
+            i.getAccount_id();
+        }
     }
 
 }
-
-
-
