@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -7,6 +8,7 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import constants.Iconstant;
+import model.GoogleAccount;
 import java.io.IOException;
 import model.GoogleAccount;
 import org.apache.http.client.ClientProtocolException;
@@ -48,4 +50,3 @@ public class GoogleLogin {
         return googlePojo;
     }
 }
- 

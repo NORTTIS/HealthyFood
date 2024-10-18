@@ -238,6 +238,7 @@ public class AccountsDAO extends DBContext {
             System.out.println(ex);
         }
     }
+    
 
     public List<Accounts> getsearchManager(String username, String search) {
         String sql = "SELECT * FROM Accounts WHERE username = ? LIKE ?";
@@ -351,6 +352,29 @@ public class AccountsDAO extends DBContext {
         } catch (SQLException ex) {
         }
     }
+    public void updateUser(String id, String displayname, String avatar, String desc, String email, String address) {
+    String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?, address = ? WHERE account_id = ?";
+
+    try (PreparedStatement st = connection.prepareStatement(sql)) {
+        st.setString(1, displayname);
+        st.setString(2, avatar);
+        st.setString(3, desc);
+        st.setString(4, email);
+        st.setString(5, address);
+        st.setString(6, id);
+
+        int rowsAffected = st.executeUpdate();
+        System.out.println("Rows affected: " + rowsAffected); // Thêm dòng này để kiểm tra
+        if (rowsAffected > 0) {
+            System.out.println("Cập nhật thông tin người dùng thành công.");
+        } else {
+            System.out.println("Không tìm thấy người dùng với ID đã cho.");
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+}
+
 
     public Accounts login(String username, String password) {
         String sql = "SELECT * FROM Accounts WHERE username = ? AND password = ?";
@@ -393,6 +417,3 @@ public class AccountsDAO extends DBContext {
     }
 
 }
-
-
-

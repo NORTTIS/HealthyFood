@@ -54,9 +54,7 @@
                                         <i class="biolife-icon icon-login"></i>Login/Register
                                     </a>
                                     <!-- Nút đăng nhập bằng Google -->
-                                    <a href="login_google.jsp" class="login-btn-google">
-                                        <i class="biolife-icon icon-google"></i>Login with Google
-                                    </a>
+                                  
                                 </c:otherwise>
                             </c:choose>
                         </div>
