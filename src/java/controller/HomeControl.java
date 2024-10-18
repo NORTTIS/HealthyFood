@@ -68,6 +68,7 @@ public class HomeControl extends HttpServlet {
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
         List<Blog> bListByPageIndex = blogDao.getAllBlog("", "", "");
+
         AccountsDAO accDao = new AccountsDAO();
         List<Accounts> accList = new ArrayList<>();
         HttpSession session = request.getSession();
@@ -85,11 +86,13 @@ public class HomeControl extends HttpServlet {
             request.setAttribute("accList", accList);
             request.setAttribute("bList", bListByPageIndex);
         }
+
         ProductDao prodDao = new ProductDao();
         List<Products> lProduct = prodDao.getAllDiscountProduct();
         Map<Integer, String> cates = prodDao.getAllProductCategory();
         request.setAttribute("lProd", lProduct);
         request.setAttribute("cates", cates);
+
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

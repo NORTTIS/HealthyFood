@@ -37,29 +37,30 @@
                             <option value="VND" selected>VietNam (VND)</option>
                         </select>
                     </li>
-                    <li> <div>
-                            <c:if test="${not empty sessionScope.acc.avatar}">
-                                <a href="profile.jsp">
-                                    <img
-                                        src="./assets/images/${sessionScope.acc.avatar}"
-                                        alt="avatar"
-                                        class="avatar"
+                    <li> 
+                        <div>
+                            <!-- Xóa phần kiểm tra và hiển thị avatar -->
 
-                                        />
-                                </a>
-                            </c:if>
-                            <div class="user__name">${sessionScope.acc.username}</div>
+                            <!-- Hiển thị tên người dùng và chuyển hướng sang cus_profile.jsp khi nhấp vào -->
+                            <a href="cus_profile.jsp" class="user__name">${sessionScope.acc.username}</a>
+
+                            <!-- Kiểm tra xem có sessionScope.acc hay không để hiển thị nút đăng xuất -->
                             <c:choose>
                                 <c:when test="${not empty sessionScope.acc}">
                                     <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
-                                  
                                 </c:when>
                                 <c:otherwise>
-                                     <a href="login.jsp" class="login-link"><i
-                                        class="biolife-icon icon-login"></i>Login/Register</a>
+                                    <a href="login.jsp" class="login-link">
+                                        <i class="biolife-icon icon-login"></i>Login/Register
+                                    </a>
+                                    <!-- Nút đăng nhập bằng Google -->
+                                  
                                 </c:otherwise>
                             </c:choose>
-                        </div></li>
+                        </div>
+
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -69,7 +70,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
                     <a href="home" class="biolife-logo"><img src="assets/images/organic-3-green.png"
-                                                                  alt="biolife logo" width="135" height="36"></a>
+                                                             alt="biolife logo" width="135" height="36"></a>
                 </div>
                 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                     <div class="primary-menu">
