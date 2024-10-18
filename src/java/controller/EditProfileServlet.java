@@ -76,6 +76,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String olduser = request.getParameter("oldusername");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String displayname = request.getParameter("displayname");
@@ -110,7 +111,7 @@ public class EditProfileServlet extends HttpServlet {
         }
         response.sendRedirect("detail?username=" + username);
 
-    }
+    }}
 
     /**
      * Returns a short description of the servlet.
