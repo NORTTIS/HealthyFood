@@ -5,12 +5,15 @@
 
 package controller;
 
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Products;
 
 /**
  *
@@ -27,16 +30,15 @@ public class HomeControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeControl</title>");  
+            out.println("<title>Servlet ShopController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeControl at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ShopController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

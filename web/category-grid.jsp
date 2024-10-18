@@ -4,6 +4,7 @@
     Author     : Norttie
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -50,11 +51,6 @@
         <!--Navigation section-->
         <div class="container">
             <nav class="biolife-nav">
-                <ul>
-                    <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                    <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                    <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
-                </ul>
             </nav>
         </div>
 
@@ -69,45 +65,35 @@
                             <div class="row">
 
                                 <!-- Main content -->
+
                                 <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                                     <div class="block-item recently-products-cat md-margin-bottom-39">
                                         <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" 
                                             data-slick='{"arrows": true, "dots": false, "slidesMargin": 0, "slidesToShow": 1, "infinite": false, "speed": 800}'> 
-                                            <li class="product-item">
-                                                <div class="contain-product layout-02" style="min-height: 380px;">
-                                                    <p>breakfirst: chicken, beefsteak</p>
-                                                </div>
-                                            </li>
-                                        
-                                             
-                                           
-                                           
-
                                         </ul>
                                     </div>
 
                                     <div class="product-category grid-style">
                                         <div class="row">
                                             <ul class="products-list">
-
+                                                <c:forEach items="${listP}" var="o">
                                                 <li class="product-item col-lg-2 col-md-3 col-sm-4 col-xs-6">
                                                     <div class="contain-product layout-default">
                                                         <div class="product-thumb">
                                                             <a href="#" class="link-to-product">
-                                                                <img src="assets/images/products/p-11.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                                                <img src="${o.picture}" alt="dd" width="270" height="270" class="product-thumnail">
                                                             </a>
                                                         </div>
                                                         <div class="info">
-                                                            <b class="categories">Fresh Fruit</b>
-                                                            <h4 class="product-title"><a href="#" class="pr-name">National Fresh Fruit</a></h4>
+                                                            <b class="categories">${o.category}</b>
+                                                            <h4 class="product-title"><a href="#" class="pr-name">${o.name}</a></h4>
                                                             <div class="price">
-                                                                <ins><span class="price-amount">85000.00<span class="currencySymbol">VND</span></span></ins>
-                                                                <del><span class="price-amount">85000.00<span class="currencySymbol">VND</span></span></del>
+                                                                <ins><span class="price-amount">${o.price}<span class="currencySymbol"> VND</span></span></ins>
                                                             </div>
 
                                                             <div class="slide-down-box">
-                                                                <p class="message">All products are carefully selected to ensure food safety.</p>
+                                                                <p class="message">${o.description}</p>
                                                                 <div class="buttons">
                                                                     <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                                     <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
@@ -117,7 +103,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-
+                                                </c:forEach>
                                             </ul>
                                         </div>
 
@@ -175,28 +161,36 @@
                     </div>
                     <div class="sidebar-contain">
 
+                       
 
+                        
+                        
+                        
+                        <div class="widget biolife-filter" >
+                            <h4 class="wgt-title">Category</h4>
+                            <div class="wgt-content">
+                                <ul class="cat-list">
+                                    <li class="cat-list-item "><a href="shop" class="cat-link">All</a></li>
+                                    <c:forEach items="${listC}" var="o">
+                                    <li class="cat-list-item ${tag == o.cid ? "active": ""}"><a href="category?cid=${o.cid}">${o.cname}</a></li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        
                         <div class="widget biolife-filter" style="height: 380px;">
                             <h4 class="wgt-title">BMI menu - your index: </h4>
                             <div class="wgt-content">
                                 <ul class="cat-list">
-                                    <li class="cat-list-item "><a href="#" class="cat-link active">BMI < 18.5</a></li>
+                                    <li class="cat-list-item "><a href="#" class="cat-link">BMI < 18.5</a></li>
                                     <li class="cat-list-item"><a href="#" class="cat-link">18.5 ≤ BMI < 24.9</a></li>
                                     <li class="cat-list-item"><a href="#" class="cat-link">25 ≤ BMI < 29.9</a></li>
                                     <li class="cat-list-item"><a href="#" class="cat-link">BMI ≥ 30</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="widget biolife-filter">
-                            <h4 class="wgt-title">Departements</h4>
-                            <div class="wgt-content">
-                                <ul class="cat-list">
-                                    <li class="cat-list-item"><a href="#" class="cat-link">Organic Food</a></li>
-                                    <li class="cat-list-item"><a href="#" class="cat-link">Fresh Fruit</a></li>
-                                    <li class="cat-list-item"><a href="#" class="cat-link">Dried Fruits</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        
 
                         <div class="widget price-filter biolife-filter">
                             <h4 class="wgt-title">Price</h4>
@@ -222,52 +216,8 @@
                             </div>
                         </div>
 
-                        <div class="widget biolife-filter">
-                            <h4 class="wgt-title">Brand</h4>
-                            <div class="wgt-content">
-                                <ul class="check-list multiple">
-                                    <li class="check-list-item"><a href="#" class="check-link">Great Value Organic</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">Plum Organic</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">Shop to Home</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="widget biolife-filter">
-                            <h4 class="wgt-title">Color</h4>
-                            <div class="wgt-content">
-                                <ul class="color-list">
-                                    <li class="color-item"><a href="#" class="c-link"><span class="symbol img-color"></span>Multi</a></li>
-                                    <li class="color-item"><a href="#" class="c-link"><span class="symbol hex-code color-01"></span>Red</a></li>
-                                    <li class="color-item"><a href="#" class="c-link"><span class="symbol hex-code color-02"></span>Orrange</a></li>
-                                    <li class="color-item"><a href="#" class="c-link"><span class="symbol hex-code color-03"></span>Other</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="widget biolife-filter">
-                            <h4 class="wgt-title">Popular Size</h4>
-                            <div class="wgt-content">
-                                <ul class="check-list bold multiple">
-                                    <li class="check-list-item"><a href="#" class="check-link">8oz</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">15oz</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">6oz</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">30oz</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="widget biolife-filter">
-                            <h4 class="wgt-title">Number of Pieces</h4>
-                            <div class="wgt-content">
-                                <ul class="check-list bold">
-                                    <li class="check-list-item"><a href="#" class="check-link">1 to 9</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">10 to 15</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-
+                        
+                        
                     </div>
 
                 </aside>

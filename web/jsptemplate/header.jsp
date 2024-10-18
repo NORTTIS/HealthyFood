@@ -211,8 +211,8 @@
                         </div>
                         <div class="col-lg-9 col-md-8 padding-top-2px">
                             <div class="header-search-bar layout-01">
-                                <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                                    <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
+                                <form action="search" method="post" class="form-search" name="desktop-seacrh">
+                                    <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
                                       <div class="vertical-menu vertical-category-block bmi-wrap">
                                   <div class="menu-titles">
                                       <span class="menu-title"style="cursor: pointer">BMI search</span>
