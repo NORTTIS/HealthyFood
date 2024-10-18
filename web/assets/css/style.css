@@ -122,7 +122,7 @@ input:focus{
     outline: none;
 }
 .btn-default:hover{
-     background-color: #7faf51;
+    background-color: #7faf51;
     font-size: 16px;
     line-height: 18px;
     color: #ffffff;
@@ -182,7 +182,7 @@ input[type="search"]{
     appearance: none;
 }
 select{
-     border: 2px solid #e6e6e6;
+    border: 2px solid #e6e6e6;
     border-radius: 0;
     padding: 7px 20px;
     max-width: 100%;
@@ -2369,6 +2369,7 @@ body.open-mobile-search .header-area.layout-02{
     margin: 29px 0 0;
     max-width: 356px;
 }
+
 .pr-detail-layout .info .price{
     text-align: left;
     margin: 23px 0 0;
@@ -6713,6 +6714,9 @@ body.open-overlay #overlay{
     list-style: none;
     display: block;
 }
+.main-content>.posts-list li{
+    height: 560px;
+}
 
 .posts-list .post-item .thumbnail{
     padding: 0;
@@ -6741,9 +6745,36 @@ body.open-overlay #overlay{
 .post-item .post-content .excerpt{
     font-size: 15px;
     line-height: 24px;
+    max-height: 71px;
     color: #666666;
     margin: 14px 0 0;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+
 }
+.post-item.style-bottom-info .post-content  .blog-title{
+     font-size: 20px;
+    line-height: 24px;
+    max-height: 71px;
+    color: #666666;
+    margin: 14px 0 0;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.post-item .post-content .excerpt p img{
+    display: none;
+}
+.post-item .post-content .excerpt p {
+    margin:0;
+}
+
 .post-item .post-content .group-buttons{
     display: inline-block;
     width: 100%;
@@ -11682,6 +11713,7 @@ body.open-quickview-block .biolife-quickview-block{
     .main-content>.posts-list li+li{
         margin-top: 10px;
     }
+    
     .hero-section{
         margin-top: 0;
     }
