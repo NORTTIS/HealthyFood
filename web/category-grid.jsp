@@ -74,7 +74,23 @@
                                         </ul>
                                     </div>
 
-                                    
+                                    <div class="product-category grid-style">
+                                        <div class="row">
+                                            <ul class="products-list">
+                                                <c:forEach items="${listP}" var="o">
+                                                <li class="product-item col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                    <div class="contain-product layout-default">
+                                                        <div class="product-thumb">
+                                                            <a href="#" class="link-to-product">
+                                                                <img src="assets/images/products/${o.picture}" alt="dd" width="270" height="270" class="product-thumnail">
+                                                            </a>
+                                                        </div>
+                                                        <div class="info">
+                                                            <b class="categories">${o.category}</b>
+                                                            <h4 class="product-title"><a href="#" class="pr-name">${o.name}</a></h4>
+                                                            <div class="price">
+                                                                <ins><span class="price-amount">${o.price}<span class="currencySymbol"> VND</span></span></ins>
+                                                            </div>
 
                                                             <div class="slide-down-box">
                                                                 <p class="message">${o.description}</p>
