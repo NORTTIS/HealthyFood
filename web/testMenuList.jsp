@@ -19,7 +19,7 @@
                         <strong>Name: ${nameEntry.key}</strong>
                         <div>
                             <c:forEach var="menu" items="${nameEntry.value}">
-                                <div>${menu.menu_name} - ${menu.average_calories}</div>
+                                <div>${menu.menu_name} - ${menu.getAverange_calories()}</div>
                             </c:forEach>
                         </div>
                 </c:forEach>

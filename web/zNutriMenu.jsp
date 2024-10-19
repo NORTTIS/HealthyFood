@@ -57,7 +57,7 @@
                     <div class="row">
                         <!-- Sidebar -->
                         <aside id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                            <div class="sidebar-contain">
+                            <div id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
 
                                 <!--Search Widget-->
                                 <div class="widget search-widget">
@@ -86,7 +86,7 @@
                                         <strong>Name: ${nameEntry.key}</strong>
                                         <div>
                                             <c:forEach var="menu" items="${nameEntry.value}">
-                                                <div>Menu Name: ${menu.menu_name}</div>
+                                                <div>${menu.menu_name} - ${menu.getAverange_calories()}</div>
                                             </c:forEach>
                                         </div>
                                     </c:forEach>

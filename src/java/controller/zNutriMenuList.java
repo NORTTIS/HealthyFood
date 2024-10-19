@@ -74,7 +74,7 @@ public class zNutriMenuList extends HttpServlet {
         Map<String, Map<String, List<Menu>>> mList = ndb.getMenuMap(ac.getAccount_id());
         request.setAttribute("menuList", mList);
 //        request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
-        request.getRequestDispatcher("testMenuList.jsp").forward(request, response);
+        request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
     }
 
     /**
