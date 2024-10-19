@@ -54,7 +54,7 @@
                                         <i class="biolife-icon icon-login"></i>Login/Register
                                     </a>
                                     <!-- Nút đăng nhập bằng Google -->
-                                  
+
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -89,8 +89,15 @@
                                 <a href="blog" class="menu-name" data-title="Blog">Blog</a>
 
                             </li>
-                            <li class="menu-item"><a href="contact.html">Contact</a></li>
-
+                            <!--nếu đăng nhập là nutritionist thì sẽ hiện ra thanh chuyển xem list menu thay vì contact -->
+                            <c:choose>
+                                <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
+                                    <li class="menu-item"><a href="menuList">Menu</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <li class="menu-item"><a href="contact.html">Contact</a></li>
+                                    </c:otherwise>
+                                </c:choose>
                         </ul>
                     </div>
                 </div>
@@ -201,80 +208,77 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-4">
-                    <div class="vertical-menu vertical-category-block ">
-                        <div class=" menu-titles block-title">
+                    <!--                    <div class="vertical-menu vertical-category-block ">
+                                            <div class=" menu-titles block-title">
+                    
+                                                <span class=" menu-title">All departments</span>
+                                                <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up"
+                                                                                                         aria-hidden="true"></i></span>
+                                            </div>
+                                            <div class="wrap-menu">
+                                                <ul class="menu clone-main-menu">
+                                                    <li class="menu-item menu-item-has-children ">
+                                                        <a href="#" class="menu-name" data-title="Fruit & Nut Gifts">Fruit & Nut Gifts</a>
+                                                    </li>
+                                            </div>
+                                        </div>-->
+                    <div class="row"  style="margin-top: 10px">
+                        <div class="vertical-menu vertical-category-block bmi-wrap col-lg-7" >
+                            <div class="menu-titles" style="padding: 10px 10px 10px 15px;
+                                 background: #7faf51;
+                                 color: #fff;
+                                 border-radius: 10px;">
+                                <span class="menu-title"style="cursor: pointer">BMI calculator</span>
+                                <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-down"
+                                                                                         aria-hidden="true"></i></span>
+                            </div>
+                            <form action="bmical" method="post" class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
+                                <table style="margin-bottom: -7px;">
+                                    <tbody>
+                                        <tr>
+                                            <td>Height</td>
+                                            <td>
+                                                <input name="height" type="number" value="" required="true"/>
+                                                <span style="margin-left: -27px; color: #888;" >cm</span>
 
-                            <span class=" menu-title">All departments</span>
-                            <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up"
-                                                                                     aria-hidden="true"></i></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>weight</td>
+                                            <td>
+                                                <input name="weight" type="number" value="" required="true"/>
+                                                <span style="margin-left: -27px; color: #888;" >kg</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="buttons">
+                                                    <button type="submit" class="btn btn-default">submit</button>
+                                                </div>
+                                            </td>
+                                            <td><button type="reset" class="btn btn-reset">clear form</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                            </form>
                         </div>
-                        <div class="wrap-menu">
-                            <ul class="menu clone-main-menu">
-                                <li class="menu-item menu-item-has-children ">
-                                    <a href="#" class="menu-name" data-title="Fruit & Nut Gifts">Fruit & Nut Gifts</a>
-                                </li>
+                        <div class="vertical-menu vertical-category-block bmi-wrap col-lg-5" style="padding: 0px 26px 3px 6px;
+                             background: #ffffff;
+                             color: #000000;
+                             border-radius: 10px;
+                             text-align: center;">
+                            <p>Your BMI index: ${bmiR}</p>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-lg-9 col-md-8 padding-top-2px">
                     <div class="header-search-bar layout-01">
                         <form action="shop" class="form-search" name="desktop-seacrh" method="get">
                             <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                            <div class="vertical-menu vertical-category-block bmi-wrap">
-                                <div class="menu-titles">
-                                    <span class="menu-title"style="cursor: pointer">BMI search</span>
-                                    <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-down"
-                                                                                             aria-hidden="true"></i></span>
-                                </div>
-                                <div class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
-                                    <table style="margin-bottom: -7px;">
-                                        <tbody>
-                                            <tr>
-                                                <td>Age</td>
-                                                <td><input name="age" type="number" value="0"/></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gender</td>
-                                                <td>
-                                                    <label class="text-center" for="male" style="margin-right: 10px;">
-                                                        <input name="gender" id="male" type="radio" value="male" checked="true"/>
-                                                        Male
-                                                    </label>
-                                                    <label for="female">
-                                                        <input name="gender" id="female" type="radio" value="female" />
-                                                        female
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Height</td>
-                                                <td>
-                                                    <input name="height" type="number" value="0"/>
-                                                    <span style="margin-left: -27px; color: #888;" >cm</span>
 
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>weight</td>
-                                                <td>
-                                                    <input name="weight" type="number" value="0"/>
-                                                    <span style="margin-left: -27px; color: #888;" >kg</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="buttons">
-                                                        <button type="submit" class="btn btn-default">submit</button>
-                                                    </div>
-                                                </td>
-                                                <td><button type="reset" class="btn btn-reset">clear form</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
-                                </div>
-                            </div>
                             <button type="submit" class="btn-submit"><i
                                     class="biolife-icon icon-search"></i></button>
                         </form>

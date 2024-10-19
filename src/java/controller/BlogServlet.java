@@ -74,7 +74,9 @@ public class BlogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String ac = request.getParameter("ac");
-
+        BlogDao blogDao = new BlogDao();
+        Map<Integer, String> blogCate = blogDao.getAllBlogCategory();
+        request.setAttribute("blogCate", blogCate);
         request.getRequestDispatcher("createBlog.jsp").forward(request, response);
     }
 
@@ -136,6 +138,7 @@ public class BlogServlet extends HttpServlet {
                 request.setAttribute("error", "fail to create blog");
                 request.getRequestDispatcher("createBlog.jsp").forward(request, response);
             }
+            response.sendRedirect("blog");
         }
 
         if (ac.equals("edit")) {
@@ -154,7 +157,7 @@ public class BlogServlet extends HttpServlet {
                 }
                 Map<Integer, String> blogCate = blogDao.getAllBlogCategory();
                 request.setAttribute("blogCate", blogCate);
-                
+
                 request.getRequestDispatcher("createBlog.jsp").forward(request, response);
 
             } catch (NumberFormatException e) {
@@ -200,20 +203,20 @@ public class BlogServlet extends HttpServlet {
 
                 } catch (IOException | ServletException e) {
                     // Xử lý ngoại lệ
-                    request.setAttribute("error", "fail to create blog");
+                    request.setAttribute("error", "fail to update blog");
                     response.sendRedirect("blog");
                 }
             }
-            response.sendRedirect("blogdetail?blogId="+BlogId);
+            response.sendRedirect("blogdetail?blogId=" + BlogId);
         }
-        
-         if (ac.equals("del")) {
+
+        if (ac.equals("del")) {
             Blog Blog = new Blog();
             if (blogId != null) {
                 blogDao.deleteBlog(blogId);
             }
-            response.sendRedirect("blog" );
-         }
+            response.sendRedirect("blog");
+        }
 
 //        response.sendRedirect("blog");
     }

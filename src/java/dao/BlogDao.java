@@ -31,7 +31,7 @@ public class BlogDao extends DBContext {
             st.setString(index++, image);
             st.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Error cannot insert blog");
+            System.out.println("Error cannot insert blog:" + e.getMessage());
         }
     }
 
@@ -76,11 +76,12 @@ public class BlogDao extends DBContext {
         return null;
     }
 
-    public String getCategoryByBlogId(String id) {
+    public String getCategoryByBlogId(String blogid) {
         String sql = "select * from BlogCategory where category_id = ?";
+        Blog blog = getBlogById(blogid);
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id);
+            st.setString(1, blog.getCategory()+"");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String cate = rs.getString(2);
@@ -240,7 +241,6 @@ public class BlogDao extends DBContext {
     
     public static void main(String[] args) {
         BlogDao b = new BlogDao();
-       b.deleteBlog("7");
 
     }
 
