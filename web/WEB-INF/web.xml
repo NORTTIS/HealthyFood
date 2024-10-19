@@ -143,6 +143,5 @@
     <servlet-mapping>
         <servlet-name>ShopController</servlet-name>
         <url-pattern>/shop</url-pattern>
-
     </servlet-mapping>
 </web-app>
