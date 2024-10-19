@@ -4,7 +4,6 @@
  */
 package controller;
 
-
 import dao.AccountsDAO;
 import dao.ProductDao;
 
@@ -22,12 +21,11 @@ import model.Accounts;
 import model.Cart;
 import model.GoogleAccount;
 
-
 /**
  *
  * @author Norttie
- **/
-
+ *
+ */
 @WebServlet(name = "Login", urlPatterns = {"/login"})
 public class Login extends HttpServlet {
 
@@ -36,7 +34,12 @@ public class Login extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String code = request.getParameter("code");
         String error = request.getParameter("error");
-
+        String ac = request.getParameter("ac");
+        if (ac != null && ac.equals("logout")) {
+            HttpSession session = request.getSession();
+            session.invalidate();
+            
+        }
         // Nếu người dùng hủy ủy quyền
         if (error != null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -62,7 +65,9 @@ public class Login extends HttpServlet {
                 response.sendRedirect("home");
             } else {
                 // Xử lý lỗi trong quá trình lấy thông tin người dùng
+
                 request.setAttribute("mess", "Error during Google login");
+
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } else {
@@ -71,18 +76,23 @@ public class Login extends HttpServlet {
             String password = request.getParameter("password");
             Accounts acc = new AccountsDAO().login(username, password);
             try {
-                if (acc == null) {
-                    request.setAttribute("mess", "wrong username or password");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
-                } else {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("acc", acc);
-                    if (!acc.getRole().equals("admin")) {
-                        response.sendRedirect("home");
+                if (username != null && password != null) {
+                    if (acc == null) {
+                        request.setAttribute("mess", "wrong username or password1");
+
                     } else {
-                        response.sendRedirect("admin");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("acc", acc);
+                        if (!acc.getRole().equals("admin")) {
+                            response.sendRedirect("home");
+                        } else {
+                            response.sendRedirect("admin");
+                        }
                     }
+                } else {
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
+
             } catch (IOException e) {
                 System.out.println("Error occurred while logging in");
             }
@@ -91,19 +101,19 @@ public class Login extends HttpServlet {
 
     @Override
 
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String ac = request.getParameter("ac");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String ac = request.getParameter("ac");
 
-    // Kiểm tra nếu 'ac' không phải là null và có giá trị là 'logout'
-    if (ac != null && ac.equals("logout")) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("acc");
-        session.removeAttribute("mess"); // Xóa thông báo lỗi
+        // Kiểm tra nếu 'ac' không phải là null và có giá trị là 'logout'
+        if (ac != null && ac.equals("logout")) {
+            HttpSession session = request.getSession();
+            session.removeAttribute("acc");
+            session.removeAttribute("mess"); // Xóa thông báo lỗi
 
+        }
+        processRequest(request, response);
     }
-    processRequest(request, response);
-}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -116,5 +126,3 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
         return "Short description";
     }
 }
-
-
