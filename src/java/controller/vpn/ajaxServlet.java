@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,6 +28,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author CTT VNPAY
  */
+@WebServlet(name="ajaxServlet", urlPatterns={"/pay"})
 public class ajaxServlet extends HttpServlet {
 
     /**

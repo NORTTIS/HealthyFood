@@ -64,7 +64,7 @@ public class CartControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("ac");
-        String productid = request.getParameter("productid");
+        String productid = request.getParameter("productId");
         if (action.equals("show")) {
             request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
         }
