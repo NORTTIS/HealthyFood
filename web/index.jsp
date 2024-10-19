@@ -249,7 +249,7 @@
 
                                         </div>
                                         <div class="post-content">
-                                            <h4 class="post-name"><a href="blog?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
+                                            <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
                                             <div class="post-meta">
                                                 <a href="blogdetail?blogId=${i.id}" class="post-meta__item author"><img
                                                         src="assets/images/user-avatar/Avatar.png" width="28" height="28"
@@ -259,8 +259,9 @@
                                                     ${i.createAt}
                                                 </div>
                                             </div>
-                                            <p class="excerpt">Did you know that red-staining foods are excellent lymph-movers?
-                                                In fact, many plants that were historically used as dyes...</p>
+                                           <div class="excerpt">
+                                                    ${i.content}
+                                                </div>
                                             <div class="group-buttons">
                                                 <a href="blogdetail?blogId=${i.id}" class="btn readmore">continue reading</a>
                                             </div>

@@ -77,9 +77,8 @@
                 <div class="col-lg-12">
                     <label for="editor-container">Content:</label><br>
                     <div id="editor-container"></div><br>
-
                     <!-- Hidden input to store blog content -->
-                    <input type="hidden" name="content" value="${blog.content}" id="content">
+                    <input type="hidden" name="content" />
                 </div>
                 <div class="col-lg-12"> 
                     <button type="submit" class="btn btn-default" style="margin-bottom: 10px;">Submit</button>
@@ -108,7 +107,7 @@
                 charset: "UTF-8"
             });
 
-            quill.root.innerHTML = '${blog.content}';
+            quill.root.innerHTML = `${blog.content}`;
 
             // Bắt sự kiện submit form để gán nội dung của Quill vào input hidden
             document.getElementById('editor-form').onsubmit = function () {
@@ -133,16 +132,7 @@
     </body>
 </html>
 
-<!--modules: {
-                    toolbar: [
-                        [{'header': [1, 2, false]}],
-                        ['bold', 'italic', 'underline'],
-                        [{'list': 'ordered'}, {'list': 'bullet'}],
-                        ['link'],
-                        ['clean']
-                    ]
-                },
-                 charset: "UTF-8"-->
+
 
 
 

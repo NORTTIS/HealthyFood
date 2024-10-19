@@ -48,8 +48,8 @@
             <h1 class="page-title">Organic Fruits</h1>
             <nav class="biolife-nav">
                 <ul>
-                    <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                    <li class="nav-item"><span class="current-page">Our Blog</span></li>
+                    <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
+                    <li class="nav-item"><span class="current-page"><a href="blog" class="permal-link">Our Blog</a></span></li>
                 </ul>
             </nav>
         </div>
