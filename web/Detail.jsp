@@ -6,12 +6,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>User Details</title>
     <link rel="stylesheet" type="text/css" href="./assets/css/detail.css">
+    <style>
+        .button-container {
+            display: flex;
+            justify-content: center; /* Căn giữa các nút */
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+            flex-direction: row; /* Đảm bảo các nút nằm ngang */
+        }
+    </style>
 </head>
 <body>
     <c:set var="user" value="${requestScope.user}"/>
     <h2>User Details</h2>
     <table>
-        
         <tr>
             <td><strong>Username:</strong></td>
             <td>${user.username}</td>
@@ -53,9 +62,9 @@
             <td><img src="${user.avatar}" alt="User Avatar" style="width:100px; height:100px;"/></td>
         </tr>
     </table>
-    <div style="margin-top: 20px;">
-        <a href="edit?username=${user.username}">Edit Profile</a>
-        <a href="userlist">Back to User List</a>
+    <div class="button-container">
+        <a href="edit?username=${user.username}" class="edit-button">Edit Profile</a>
+        <a href="userlist" class="back-button">Back to User List</a>
     </div>
 </body>
 </html>

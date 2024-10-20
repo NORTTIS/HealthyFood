@@ -68,7 +68,7 @@ public class createNutritionist extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         String username = request.getParameter("username");
 
         AccountsDAO adb = new AccountsDAO();
@@ -88,7 +88,7 @@ public class createNutritionist extends HttpServlet {
             String status = request.getParameter("status");
             String avatar = request.getParameter("avatar");
 
-            adb.createManager(username, password,displayname,address,description, email, phone_number, role, status, avatar);
+            adb.createNutritionist(username, password, displayname, address, description, email, phone_number, role, status, avatar);
         }
 
         response.sendRedirect("userlist");

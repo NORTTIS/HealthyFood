@@ -19,18 +19,17 @@
             <div class="right-panel">
 
                 <form action="search" method="get">
-    <label for="status">Status:</label>
-    <select name="status" id="status">
-        <option value="active">Active</option>
-        <option value="inactive">Inactive</option>
-        <!-- Add more statuses as needed -->
-    </select>
+                    <label for="status">Status:</label>
+                    <select name="status" id="status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
 
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" placeholder="Enter username (optional)"/>
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Enter username (optional)"/>
 
-    <button type="submit">Search</button>
-</form>
+                    <button type="submit">Search</button>
+                </form>
 
 
 
@@ -55,17 +54,15 @@
                                 <td>${e.getPhone_number()}</td>
                                 <td>${e.getRole()}</td>
                                 <td>${e.getStatus()}</td>
-                                <td>
-                                    <form action="change" method="get" style="display: inline;">
+                                <td class="actions">
+                                    <form action="change" method="get" class="action-form">
                                         <input type="hidden" name="username" value="${e.getUsername()}"/>
                                         <input type="hidden" name="status" value="${e.getStatus()}"/> 
-                                        <input type="submit" value="Change"/>
+                                        <input type="submit" value="Change" class="action-button"/>
                                     </form>
-                                </td>
-                                <td>
-                                    <form action="detail" method="get" style="display: inline;">
+                                    <form action="detail" method="get" class="action-form">
                                         <input type="hidden" name="username" value="${e.getUsername()}"/>
-                                        <input type="submit" value="Detail"/>
+                                        <input type="submit" value="Detail" class="action-button"/>
                                     </form>
                                 </td>
                             </tr>

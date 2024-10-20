@@ -1,66 +1,127 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    padding: 20px;
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    line-height: 1.6;
 }
 
 h1 {
     text-align: center;
-    margin-top: 20px;
-    color: #333;
+    margin-bottom: 30px;
+    color: #1b5e20;
+    font-size: 2.5em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-/* Styling for the table */
 table {
-    width: 80%;
+    width: 90%;
+    max-width: 1000px;
     margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px; /* Rounded corners for the table */
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 15px; /* Adjusted padding for a cleaner look */
-    border: 1px solid #ddd;
-    text-align: center;
+    padding: 15px;
+    text-align: left;
     vertical-align: middle;
-    white-space: nowrap; /* Keep text in one line */
 }
 
 th {
-    background-color: #007BFF;
+    background-color: #4caf50;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #45a049;
 }
 
 td {
-    background-color: #f9f9f9; /* Updated to give a slight gray background */
+    background-color: #f1f8e9;
+    border-bottom: 1px solid #c8e6c9;
+}
+
+tr:last-child td {
+    border-bottom: none;
 }
 
 tr:nth-child(even) td {
-    background-color: #f2f2f2;
+    background-color: #e8f5e9;
 }
 
 tr:hover td {
-    background-color: #e6f7ff; /* Lighter hover effect */
+    background-color: #c8e6c9;
+    transition: background-color 0.3s ease;
 }
 
-/* Button styling inside the table */
 input[type="submit"], a {
     display: inline-block;
-    padding: 8px 12px; /* More padding for the buttons */
-    background-color: #007BFF;
+    padding: 8px 16px;
+    background-color: #66bb6a;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 5px; /* Rounder button corners */
+    border-radius: 30px;
     text-decoration: none;
     font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    margin: 0 5px;
 }
 
 input[type="submit"]:hover, a:hover {
-    background-color: #0056b3;
+    background-color: #43a047;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* Additional styles for better responsiveness */
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    input[type="submit"], a {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Optional: Add some animations for a more dynamic feel */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+table {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Optional: Style for specific data types */
+.status-active {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.status-inactive {
+    color: #f44336;
+    font-weight: bold;
+}
+
+.highlight {
+    background-color: #fff9c4;
+    font-weight: bold;
 }

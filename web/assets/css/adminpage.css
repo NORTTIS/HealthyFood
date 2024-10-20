@@ -1,86 +1,205 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f0f8ea;
+    color: #2c3e50;
+    font-size: 16px;
 }
 
 .container {
-    display: flex;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
 }
 
 .left-panel {
-    flex: 1;
+    background-color: #4caf50;
     padding: 20px;
-    background-color: #f8f9fa;
-    border-right: 1px solid #ddd;
+    color: white;
 }
 
 .right-panel {
-    flex: 2;
     padding: 20px;
+    overflow-x: auto;
+    max-width: calc(100vw - 250px);
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);
 }
 
 .button {
     display: block;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    background-color: #007BFF;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #45a049;
     color: white;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
     border: none;
-    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 16px;
 }
 
 .button:hover {
-    background-color: #0056b3;
+    background-color: #388e3c;
 }
 
-/* Styling for the table */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.1);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #4caf50;
+}
+
+select, input[type="text"], input[type="email"], input[type="password"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #a5d6a7;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+select:focus, input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+button[type="submit"] {
+    grid-column: 1 / -1;
+    padding: 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.1);
+    font-size: 15px;
 }
 
 th, td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: center; 
-    vertical-align: middle; 
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #a5d6a7;
 }
 
 th {
-    background-color: #007BFF;
+    background-color: #4caf50;
     color: white;
     font-weight: bold;
-    text-transform: uppercase;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f1f8e9;
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #e8f5e9;
 }
 
-input[type="submit"] {
-    padding: 5px 10px;
-    background-color: #007BFF;
+.actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+}
+
+.action-form {
+    margin: 0;
+    display: inline;
+}
+
+.action-button {
+    padding: 6px 10px;
+    background-color: #4caf50;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 3px;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    white-space: nowrap;
+    margin-left: 0;
 }
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
+.action-button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .left-panel {
+        padding: 15px;
+    }
+
+    .right-panel {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    .actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Additional Healthy Food Theme Styles */
+.left-panel::before {
+    font-size: 24px;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.button::before {
+    margin-right: 8px;
+}
+
+form::before {
+    font-size: 24px;
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+table::before {
+    font-size: 24px;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
 }

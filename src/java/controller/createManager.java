@@ -89,7 +89,7 @@ public class createManager extends HttpServlet {
             String status = request.getParameter("status");
             String avatar = request.getParameter("avatar");
 
-            adb.createManager(username, password,displayname,address,description, email, phone_number, role, status, avatar);
+            adb.createManager(username, password, displayname, address, description, email, phone_number, role, status, avatar);
         }
 
         response.sendRedirect("userlist");
