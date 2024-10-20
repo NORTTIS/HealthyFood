@@ -182,4 +182,5 @@ VALUES ('Dinner', 'đây là bữa ăn cho một người', 4, 'Green Salad'),
 ('Breakfast', 'đây là bữa ăn cho một người', 4, 'Spaghetti'),
 ('Breakfast', 'đây là bữa ăn cho một người', 4, 'Green Salad');
 
+
 INSERT INTO Menu_Detail values (1, null, null, 200), (2, null, null, 300), (3, null, null, 300), (4, null, null, 200)
