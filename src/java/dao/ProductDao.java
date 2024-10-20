@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import model.Cart;
 import model.LineItem;
+import model.Reviews;
 
 /**
  *
@@ -252,11 +253,115 @@ public class ProductDao extends DBContext {
 
     }
 
+    public void ReviewProduct(String productId, String accountId, String rating, String comment) {
+        String sql = "insert into Reviews (account_id,product_id,comment,rate,status) values(?,?,?,?,'Approved')";
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, accountId);
+            ps.setString(2, productId);
+            ps.setString(3, comment);
+            ps.setString(4, rating);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Reviews> getReviewByProdId(int pageIndex, int star, String prodId) {
+        StringBuilder sql = new StringBuilder("select * from Reviews r where 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reviews> listR = new ArrayList<>();
+        try {
+            if (star != 0) {
+                sql.append(" and r.rate = ?");
+            }
+            sql.append(" and r.product_id = ?");
+            sql.append(" order by r.review_id offset ? rows fetch first 3 rows only");
+
+            System.out.println(sql.toString());
+            ps = conn.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (star != 0) {
+                ps.setInt(paramIndex++, star);
+            }
+            ps.setString(paramIndex++, prodId);
+            ps.setInt(paramIndex, (pageIndex - 1) * 3);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reviews rv = new Reviews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                listR.add(rv);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listR;
+    }
+
+    public List<Reviews> getReviewByProdId( int star, String prodId) {
+        StringBuilder sql = new StringBuilder("select * from Reviews r where 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reviews> listR = new ArrayList<>();
+        try {
+            if (star != 0) {
+                sql.append(" and r.rate = ?");
+            }
+            sql.append(" and r.product_id = ?");
+
+            System.out.println(sql.toString());
+            ps = conn.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (star != 0) {
+                ps.setInt(paramIndex++, star);
+            }
+            ps.setString(paramIndex++, prodId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reviews rv = new Reviews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                listR.add(rv);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listR;
+    }
+
+    public int calNumPageBlog(List<Reviews> list) {
+        int numpage = 0;
+        numpage = list.size() / 3;
+        if (list.size() % 3 != 0) {
+            numpage++;
+        }
+        return numpage;
+    }
+
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
-        Products product = prod.getProductsById("1");
-        Cart cart = prod.getWishCartByAccountId("1");
-        prod.createOrder(cart, "1");
+//        Products product = prod.getProductsById("1");
+//        Cart cart = prod.getWishCartByAccountId("1");
+//        prod.createOrder(cart, "1");
+        List<Reviews> listR = prod.getReviewByProdId(1, 0, "2");
+        for (Reviews reviews : listR) {
+            System.out.println(reviews);
+        }
 
     }
 

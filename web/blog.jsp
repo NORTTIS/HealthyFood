@@ -76,15 +76,15 @@
                                         </form>
                                     </div>
                                 </div>
-                                 <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
-                                                
-                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
-                                    <button class="btn btn-default"><a href="manageblog" style="color: inherit">Create Blog</a></button>
-                                    <form action="blog" method="post" style="display: inline-block;">
-                                        <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
-                                        <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
-                                    </form>
-                                </div>
+                                <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
+
+                                    <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                        <button class="btn btn-default"><a href="manageblog" style="color: inherit">Create Blog</a></button>
+                                        <form action="blog" method="post" style="display: inline-block;">
+                                            <input type="text" name="accId" value="${sessionScope.acc.account_id}" hidden/>
+                                            <button class="btn btn-default" style="margin-left: 20px;" type="submit">My Blogs</button>
+                                        </form>
+                                    </div>
                                 </c:if>
                                 <!--Categories Widget-->
                                 <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; margin-bottom: 37px;">
@@ -122,7 +122,7 @@
                                                 <div class="excerpt">
                                                     ${i.content}
                                                 </div>
-                                                
+
                                                 <div class="group-buttons">
                                                     <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                                 </div>
@@ -135,7 +135,7 @@
                         </div>
                     </div>
 
-
+                    <!--phan trang-->
                     <div class="biolife-panigations-block ">
                         <ul class="panigation-contain">
                             <c:if test="${currentPage > 1}">

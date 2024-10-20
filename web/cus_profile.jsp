@@ -40,7 +40,7 @@
         <c:if test="${sessionScope.acc == null}">
             <c:redirect url="login"/>
         </c:if>
-        <!-- header [component]-->
+        <!-- header -->
         <jsp:include page="./jsptemplate/header.jsp" />
         <!--end header-->
         <section style="margin: 45px 0px; " >
@@ -123,10 +123,10 @@
                 </div>
             </div>
         </section>
-        <!-- footer [component]-->
+        <!-- footer -->
         <jsp:include page="./jsptemplate/footer.jsp" />
         <!--end footer-->
-        <!--end home content-->
+     
         <script>
             document.getElementById('submitBtn').addEventListener('click', function () {
                 document.getElementById('myForm').submit();

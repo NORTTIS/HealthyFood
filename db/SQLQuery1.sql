@@ -98,6 +98,7 @@ CREATE TABLE Reviews (
     account_id INT,
 	product_id INT,
 	comment NVARCHAR(MAX),
+	rate INT,
 	create_at DATETIME DEFAULT GETDATE(),
 	status NVARCHAR(10) CHECK (status IN ('Approved ', 'Rejected ')) NOT NULL,
 	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,

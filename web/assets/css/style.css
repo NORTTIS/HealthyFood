@@ -4103,7 +4103,7 @@ body.open-overlay #overlay{
     clear: both;
     border-top: 1px solid #e6e6e6;
     padding-top: 39px;
-    margin-top: 20px;
+    margin-top: 45px;
     margin-bottom: 80px;
 }
 .biolife-panigations-block ul{
@@ -4451,7 +4451,7 @@ body.open-overlay #overlay{
     border: none;
     background-color: #ffffff;
     font-size: 16px;
-    width: 119px;
+    width: 235px;
     padding: 7px 33px 6px 10px;
     color: #000000;
     text-align: center;
@@ -4626,7 +4626,7 @@ body.open-overlay #overlay{
     clear: both;
 }
 .single-layout.product-tabs{
-    margin-top: 191px;
+    margin-top: 70px;
 }
 .product-tabs.single-layout .tab-head .tabs{
     display: block;
@@ -4695,10 +4695,15 @@ body.open-overlay #overlay{
     border-color: #ffffff;
     padding-top: 28px;
     border-bottom: 1px solid #e6e6e6;
-    padding-bottom: 52px;
+    padding-bottom: 100px;
 }
 .product-tabs.single-layout .tab-content .tab-contain.review-tab{
     padding-top: 33px;
+}
+
+.product-tabs.single-layout .tab-content .tab-contain.review-tab:not(.active){
+    height: 0px;
+    overflow: hidden;
 }
 .product-tabs.single-layout .tab-content .tab-contain.active{
     visibility: visible;
@@ -4909,7 +4914,6 @@ body.open-overlay #overlay{
 .review-tab #comments .commentlist>li{
     list-style: none;
     display: block;
-    border-bottom: 1px solid #f1f1f1;
     padding-top: 20px;
     padding-bottom: 26px;
 }
@@ -5043,6 +5047,16 @@ body.open-overlay #overlay{
     background-color: #ffdd5a;
     border-radius: 9999px;
 }
+
+/*--------------------------*/
+/*.width-100percent{ width: 100%;}
+.width-90percent{width: 90%;}
+.width-80percent{ width: 80%;}
+.width-40percent{ width: 40%;}
+.width-30percent{ width: 30%;}
+.width-20percent{ width: 20%;}
+.width-10percent{ width: 10%;}*/
+.min-height-346px{ min-height: 346px;}
 .rating-info .rating .star-rating > span::before,
 .rating-info .rating .star-rating::before{
     font-size: 20px;
