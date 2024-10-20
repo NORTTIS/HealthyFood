@@ -1,0 +1,35 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 20, 2024, 2:32:47 PM
+    Author     : Minh
+*/
+/* Thiết lập CSS cho các nút accordion */
+.accordion {
+    background-color: #f1f1f1;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 30px;
+    transition: 0.4s;
+}
+
+/* Thêm màu cho nút khi nó được mở */
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+/* Ẩn nội dung mặc định */
+.panel {
+    font-size: 30px;
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+    overflow: hidden;
+}

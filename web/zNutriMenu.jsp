@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="assets/css/slick.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
+        <link rel="stylesheet" href="assets/css/nutriMenu.css">
     </head>
     <body class="biolife-body">
 
@@ -75,13 +76,13 @@
                         </div>
                     </aside>
 
-                    <div>
+                    <div  class="sidebar blog-sidebar col-lg-9 col-md-8 col-sm-12 col-xs-12">
                         <c:forEach var="m" items="${menuList}">
-                            <strong>Menu for ${m.key}</strong> 
-                            <div>
+                            <button class="accordion">Menu for ${m.key}</button>
+                            <div class="panel">
                                 <c:forEach var="nameEntry" items="${m.value}">
-                                    <strong>Name: ${nameEntry.key}</strong>
-                                    <div>
+                                    <button class="accordion">Name: ${nameEntry.key}</button>
+                                    <div class="panel">
                                         <c:forEach var="menu" items="${nameEntry.value}">
                                             <div>${menu.menu_name} - ${menu.getAverage_calories()}</div>
                                         </c:forEach>
@@ -109,7 +110,7 @@
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
-
+        <script src="assets/js/nutriMenu.js"></script>
 
     </body>
 </html>
