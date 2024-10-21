@@ -5,11 +5,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create Manager</title>
-        <link rel="stylesheet" type="text/css" href="./assets/css/createmanager.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/adminpage.css">
     </head>
     <body>
         <form action="createM" method="post">
-            <h2>Create Manager</h2>
+            <h2>Create Nutritionist</h2>
             <table>
                 <tr>
                     <td><label>Username</label></td>
