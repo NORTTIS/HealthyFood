@@ -81,16 +81,16 @@
                             </ul>
                         </div>
                         <div class="product-attribute">
-                            <h3 class="title">Organic Sweet Potatoes</h3>
+                            <h3 class="title">${prod.name}</h3>
                             <div class="rating">
-                                <p class="star-rating"><span class="width-80percent"></span></p>
-                                <span class="review-count">(04 Reviews)</span>
+                                <p class="star-rating"><span style="width:${starAverage * 100 / 5}%; "></span></p>
+                                <span class="review-count">(${totalReview} Reviews)</span>
                                 <b class="category">Type: ${cate.get(prod.category)}</b>
                             </div>
                             <span class="sku">Source: ${prod.supplier}</span>
                             <p class="excerpt">${prod.description}</p>
                             <div class="price">
-                                <ins><span class="price-amount">85000 <span class="currencySymbol">VND</span></span></ins>
+                                <ins><span class="price-amount">${prod.price} <span class="currencySymbol">VND</span></span></ins>
                             </div>
 
                         </div>
@@ -123,8 +123,6 @@
                         <div class="tab-content">
                             <div id="tab_1st" class="tab-contain desc-tab active">
                                 <p class="desc">${prod.description}</p>
-
-
                             </div>
                             <!--review-->
                             <div id="tab_4th" class="tab-contain review-tab">
@@ -133,7 +131,7 @@
                                         <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
                                             <div class="rating-info">
                                                 <p class="index"><strong class="rating">${starAverage}</strong>out of 5</p>
-                                                <div class="rating"><p class="star-rating"><span class="width-80percent"></span></p></div>
+                                                <div class="rating"><p class="star-rating"><span style="width:${starAverage * 100 / 5}%; "></span></p></div>
                                                 <p class="see-all">Total ${totalReview} reviews</p>
                                                 <ul class="options">
                                                     <li>
