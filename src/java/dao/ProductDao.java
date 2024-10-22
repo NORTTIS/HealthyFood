@@ -182,6 +182,44 @@ public class ProductDao extends DBContext {
 //        }
 //    }
 
+    public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
+        List<Products> list = new ArrayList<>();
+        String query = "Select * from Products where price between ? and ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fromPrice);
+            ps.setString(2, toPrice);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        String fromPrice = "23000";
+//        String toPrice = "83000";
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
+    
     public double calculateBMI(double weight, double height){
         return weight / (height * height);
     }
