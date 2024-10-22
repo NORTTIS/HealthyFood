@@ -209,16 +209,16 @@ public class ProductDao extends DBContext {
         return list;
     }
     
-//    public static void main(String[] args) {
-//        ProductDao dao = new ProductDao();
-//        String fromPrice = "23000";
-//        String toPrice = "83000";
-//        List<Products> list = dao.getAllProduct();
-//        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
-//        for (Products o : listP) {
-//            System.out.println(o);
-//        }
-//    }
+    public static void main(String[] args) {
+        ProductDao dao = new ProductDao();
+        String fromPrice = "23000";
+        String toPrice = "83000";
+        List<Products> list = dao.getAllProduct();
+        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
+        for (Products o : listP) {
+            System.out.println(o);
+        }
+    }
     
     public double calculateBMI(double weight, double height){
         return weight / (height * height);
