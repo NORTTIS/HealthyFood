@@ -210,7 +210,10 @@
                                                     </div>
                                                     <div class="slide-down-box" style="margin-top: 25px;">
                                                         <div>
+                                                            <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                
                                                             <a href="wishcart?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            </c:if>
                                                             <a href="cart?ac=addtocart&productId=${i.productId}" class="btn btn-default">add to cart</a>
                                                         </div>
                                                     </div>

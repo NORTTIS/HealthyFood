@@ -86,6 +86,7 @@
                                 <p class="star-rating"><span style="width:${starAverage * 100 / 5}%; "></span></p>
                                 <span class="review-count">(${totalReview} Reviews)</span>
                                 <b class="category">Type: ${cate.get(prod.category)}</b>
+                                <span class="review-count">in stock:${prod.quantityInStock}</span>
                             </div>
                             <span class="sku">Source: ${prod.supplier}</span>
                             <p class="excerpt">${prod.description}</p>
@@ -98,13 +99,13 @@
                             <div class="quantity-box">
                                 <span class="title">Quantity:</span>
                                 <div class="qty-input">
-                                    <input type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
+                                    <input id="quantity" class="input-qty" type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
                                     <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                                     <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                             <div class="buttons">
-                                <a href="cart?ac=addtocart&productId=${prod.productId}" class="btn add-to-cart-btn">add to cart</a>
+                                <a href="cart?ac=addtocart&productId=${prod.productId}&qty=" class="btn add-to-cart-btn">add to cart</a>
                                 <p class="pull-row">
                                     <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
                                 </p>
@@ -301,7 +302,7 @@
 
 
     <!-- Scroll Top Button -->
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+    <!--    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>-->
     <script>
         document.querySelectorAll('.btn-rating').forEach(star => {
             star.addEventListener('click', function (e) {

@@ -143,14 +143,17 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="wishlist-block hidden-sm hidden-xs">
-                            <a href="wishcart?ac=show" class="link-to">
-                                <span class="icon-qty-combine">
-                                    <i class="icon-heart-bold biolife-icon"></i>
-                                    <span class="qty">${sessionScope.totalWish == null?0:sessionScope.totalWish}</span>
-                                </span>
-                            </a>
-                        </div>
+                        <c:if test="${sessionScope.acc.role=='Customer'}">
+                            <div class="wishlist-block hidden-sm hidden-xs">
+                                <a href="wishcart?ac=show" class="link-to">
+                                    <span class="icon-qty-combine">
+                                        <i class="icon-heart-bold biolife-icon"></i>
+                                        <span class="qty">${sessionScope.totalWish == null?0:sessionScope.totalWish}</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </c:if>
+
                         <div class="minicart-block">
                             <div class="minicart-contain">
                                 <a href="javascript:void(0)" class="link-to">
@@ -165,7 +168,7 @@
                                     <div class="cart-inner">
                                         <ul class="products">
                                             <li>
-                                                <c:if test="${ totalitem == 0|| totalitem == null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
+                                                <c:if test="${ sessionScope.totalitem == 0|| sessionScope.totalitem == null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
                                                 <c:forEach items="${sessionScope.cart.getItems()}" var="i">
                                                 <li>
                                                     <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
@@ -187,7 +190,6 @@
 
                                                             <div class="price">
                                                                 <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins><br/>
-                                                                <del><span class="price-amount">${i.product.price*110/100}<span class="currencySymbol">đ</span></span></del>
                                                             </div>
 
                                                         </div>

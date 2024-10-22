@@ -66,7 +66,7 @@
                                 <p class="text-muted mb-4">${sessionScope.acc.address}</p>
                             </div>
                             <div class="card-body text-center rounded-3">
-                                <button id="profile-btn" class="profile-btn btn btn-default">My profile</button>
+                                <button id="profile-btn" class="profile-btn btn btn-def">My profile</button>
                                 <button id="order-btn" class="order-btn btn btn-default2">My Order</button>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-8" id="myorder" style="display: none; overflow: scroll;
+                    <div class="col-lg-8" id="myorder" style="display: none; overflow-y: scroll;
                          height: 450px;">
                         <table class="table order-list">
                             <thead>
@@ -148,7 +148,7 @@
                             </thead>
                             <tbody>
                                 <c:forEach items="${lOrder}" var="i" varStatus="j">
-                                    <tr data-href="OderDetail?orderId=${i.orderId}" class="record-order">
+                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
                                         <th scope="row">${j.index+1}</th>
                                         <th scope="col" >${i.status}</th>
                                         <th scope="col">${i.totalCal}</th>
@@ -200,5 +200,12 @@
             });
 
         </script>
+         <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.countdown.min.js"></script>
+        <script src="assets/js/slick.min.js"></script>
+        <script src="assets/js/biolife.framework.js"></script>
+        <script src="assets/js/jquery.nicescroll.min.js"></script>
+        <script src="assets/js/functions.js"></script>
     </body>
 </html>

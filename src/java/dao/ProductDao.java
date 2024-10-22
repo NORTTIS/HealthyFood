@@ -254,6 +254,42 @@ public class ProductDao extends DBContext {
 
     }
 
+    public Order getOrderById(String orderId) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Orders o WHERE 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement psOrder = null;
+        PreparedStatement psOrderItems = null;
+        ResultSet rs = null;
+        try {
+            if (!orderId.equals("")) {
+                sql.append("and o.order_id = ?");
+            }
+            psOrder = conn.prepareStatement(sql.toString());
+            if (!orderId.equals("")) {
+                psOrder.setString(1, orderId);
+            }
+            rs = psOrder.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6)
+                );
+                return order;
+            }
+            
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+        return null;
+    }
+
     public void ReviewProduct(String productId, String accountId, String rating, String comment) {
         String sql = "insert into Reviews (account_id,product_id,comment,rate,status) values(?,?,?,?,'Approved')";
         Connection conn = new DBContext().getConnection();
@@ -284,7 +320,6 @@ public class ProductDao extends DBContext {
             sql.append(" and r.product_id = ?");
             sql.append(" order by r.review_id offset ? rows fetch first 3 rows only");
 
-            
             ps = conn.prepareStatement(sql.toString());
             int paramIndex = 1;
             if (star != 0) {
@@ -354,28 +389,7 @@ public class ProductDao extends DBContext {
         return numpage;
     }
 
-//    public List<Cart> getOrderByAccountId(String accountId){
-//        Connection conn = new DBContext().getConnection();
-//        PreparedStatement st = null;
-//        ResultSet rs = null;
-//        String wishId = getWishIdByAccountId(accountId);
-//        Cart cart = new Cart();
-//        try {
-//            String getWishItemSql = "select * from Wish_Item where wish_id = ? ";
-//            st = conn.prepareStatement(getWishItemSql);
-//            st.setString(1, wishId);
-//            rs = st.executeQuery();
-//            while (rs.next()) {
-//                Products product = getProductsById(rs.getString(3));
-//                int quantity = rs.getInt(4);
-//                LineItem lineitem = new LineItem(product, quantity);
-//                cart.addItem(lineitem);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return cart;
-//    }
+
     public List<Order> getAllOrderByAccId(String accountId) {
         Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
@@ -390,7 +404,7 @@ public class ProductDao extends DBContext {
                 Order order = new Order(
                         rs.getString(1),
                         rs.getString(2),
-                        rs.getDouble(3),
+                        rs.getInt(3),
                         rs.getString(4),
                         rs.getDouble(5),
                         rs.getDate(6));
@@ -400,6 +414,27 @@ public class ProductDao extends DBContext {
             System.out.println(e.getMessage());
         }
         return lOrder;
+    }
+    
+    public Cart getOrderDetailById(String orderId){
+          Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Cart cartOrder = new Cart();
+        try {
+             String sql = "select * from Order_Items where order_id = ? ";
+            st = conn.prepareStatement(sql);
+            st.setString(1, orderId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products product = getProductsById(rs.getString(3));
+                int quantity = rs.getInt(4);
+                LineItem lineitem = new LineItem(product, quantity);
+                cartOrder.addItem(lineitem);
+            }
+        } catch (SQLException e) {
+        }
+        return cartOrder;
     }
 
     public static void main(String[] args) {
@@ -411,9 +446,13 @@ public class ProductDao extends DBContext {
 //        for (Reviews reviews : listR) {
 //            System.out.println(reviews);
 //        }
-        List<Order> lOrders = prod.getAllOrderByAccId("1");
-        for (Order lOrder : lOrders) {
-            System.out.println(lOrder);
+//        List<Order> lOrders = prod.getAllOrderByAccId("1");
+//        for (Order lOrder : lOrders) {
+//            System.out.println(lOrder);
+//        }
+           Cart cartOrder = prod.getOrderDetailById("1");
+           for (LineItem item : cartOrder.getItems()) {
+               System.out.println(item);
         }
     }
 

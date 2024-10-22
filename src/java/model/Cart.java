@@ -40,12 +40,12 @@ public class Cart {
         items.add(item);
     }
 
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         double total = 0;
         for (LineItem item : items) {
             total += item.getTotal();
         }
-        return total;
+        return (int)total;
     }
 
     public double getTotalCal() {

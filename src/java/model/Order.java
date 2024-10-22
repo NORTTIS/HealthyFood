@@ -14,7 +14,7 @@ import java.util.Date;
 public class Order {
     private String orderId;
     private String author;
-    private double ammount;
+    private int ammount;
     private double totalCal; 
     private String status;
     private Date createAt;
@@ -22,7 +22,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String orderId, String author, double ammount, String status,double totalCal , Date createAt) {
+    public Order(String orderId, String author, int ammount, String status,double totalCal , Date createAt) {
         this.orderId = orderId;
         this.author = author;
         this.ammount = ammount;
@@ -61,7 +61,7 @@ public class Order {
         return ammount;
     }
 
-    public void setAmmount(double ammount) {
+    public void setAmmount(int ammount) {
         this.ammount = ammount;
     }
 

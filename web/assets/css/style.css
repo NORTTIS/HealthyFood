@@ -116,7 +116,41 @@ figure{
 input:focus{
     outline: none;
 }
-.btn-default{
+.btn:focus,
+.btn:hover,
+.btn:active {
+    outline: none !important;
+
+}
+.btn-def,
+.btn-def:focus,
+.btn-def:hover,
+.btn-def:active{
+    background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    border-radius: 999px;
+    outline: none;
+}
+
+.btn-def:hover{
+    background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    opacity: 0.7;
+    outline: none;
+}
+
+.btn-default
+{
     background-color: #7faf51;
     font-size: 16px;
     line-height: 18px;
@@ -140,7 +174,10 @@ input:focus{
     outline: none;
 }
 
-.btn-default2{
+.btn-default2,
+.btn-default2:focus,
+.btn-default2:hover,
+.btn-default2:active{
     background-color: #009172;
     font-size: 16px;
     line-height: 18px;
@@ -153,7 +190,7 @@ input:focus{
 }
 
 .btn-default2:hover{
-        background-color: #009172;
+    background-color: #009172;
     font-size: 16px;
     line-height: 18px;
     color: #ffffff;
@@ -4728,7 +4765,7 @@ body.open-overlay #overlay{
 
 .product-tabs.single-layout .tab-content .tab-contain.review-tab:not(.active){
     height: 0px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 .product-tabs.single-layout .tab-content .tab-contain.active{
     visibility: visible;
@@ -5723,7 +5760,6 @@ body.open-overlay #overlay{
 .order-summary .title-block{
     display: inline-block;
     line-height: 0;
-    font-size: 0;
     width: 100%;
     border-bottom: 1px solid #e6e6e6;
     padding-bottom: 21px;
@@ -5737,7 +5773,8 @@ body.open-overlay #overlay{
     text-align: left;
     line-height: 30px;
 }
-.order-summary .title-block a{
+.order-summary .title-block a,
+.order-summary .title-block .order-date{
     display: inline-block;
     float: right;
     font-size: 14px;
@@ -6257,8 +6294,8 @@ body.open-overlay #overlay{
 
 
 .order-list .record-order:hover{
-  background-color: #f7f7f7;
-  cursor: pointer;
+    background-color: #f7f7f7;
+    cursor: pointer;
 }
 
 
