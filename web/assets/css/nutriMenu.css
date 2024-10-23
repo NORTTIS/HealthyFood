@@ -8,8 +8,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 /* Thiết lập CSS cho các nút accordion */
 .accordion {
-    background-color: #f1f1f1;
-    color: #444;
+    background-color: #7faf51;
+    color: #FFFFFF;
     cursor: pointer;
     padding: 18px;
     width: 100%;
@@ -22,7 +22,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 /* Thêm màu cho nút khi nó được mở */
 .active, .accordion:hover {
-    background-color: #ccc;
+    background-color: #87be00;
 }
 
 /* Ẩn nội dung mặc định */
@@ -32,4 +32,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     display: none;
     background-color: white;
     overflow: hidden;
+    justify-content: flex-end;
 }

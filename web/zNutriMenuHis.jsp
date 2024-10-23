@@ -1,8 +1,9 @@
 <%-- 
-    Document   : zNutriMenu
-    Created on : Oct 18, 2024, 1:54:14 AM
+    Document   : zNutriMenuHis
+    Created on : Oct 23, 2024, 8:36:04 AM
     Author     : Minh
 --%>
+
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -45,7 +46,7 @@
 
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Menu List</h1>
+            <h1 class="page-title">History List</h1>
         </div>
         <!-- Page Contain -->
         <div class="page-contain blog-page">
@@ -84,7 +85,7 @@
                     </aside>
 
                     <div  class="sidebar blog-sidebar col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                        <c:forEach var="m" items="${menuList}">
+                        <c:forEach var="m" items="${historyList}">
                             <button class="accordion" style="margin-bottom: 10px">Menu for ${m.key}</button>
                             <div class="panel">
                                 <c:forEach var="nameEntry" items="${m.value}">
@@ -128,4 +129,3 @@
 
     </body>
 </html>
-
