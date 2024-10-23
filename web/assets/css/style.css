@@ -116,7 +116,16 @@ figure{
 input:focus{
     outline: none;
 }
-.btn-default{
+.btn:focus,
+.btn:hover,
+.btn:active {
+    outline: none !important;
+
+}
+.btn-def,
+.btn-def:focus,
+.btn-def:hover,
+.btn-def:active{
     background-color: #7faf51;
     font-size: 16px;
     line-height: 18px;
@@ -127,8 +136,61 @@ input:focus{
     border-radius: 999px;
     outline: none;
 }
+
+.btn-def:hover{
+    background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    opacity: 0.7;
+    outline: none;
+}
+
+.btn-default
+{
+    background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    border-radius: 999px;
+    outline: none;
+}
+
 .btn-default:hover{
     background-color: #7faf51;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    opacity: 0.7;
+    outline: none;
+}
+
+.btn-default2,
+.btn-default2:focus,
+.btn-default2:hover,
+.btn-default2:active{
+    background-color: #009172;
+    font-size: 16px;
+    line-height: 18px;
+    color: #ffffff;
+    font-weight: 700;
+    display: inline-block;
+    padding-left: 14px;
+    border-radius: 999px;
+    outline: none;
+}
+
+.btn-default2:hover{
+    background-color: #009172;
     font-size: 16px;
     line-height: 18px;
     color: #ffffff;
@@ -4103,7 +4165,7 @@ body.open-overlay #overlay{
     clear: both;
     border-top: 1px solid #e6e6e6;
     padding-top: 39px;
-    margin-top: 20px;
+    margin-top: 45px;
     margin-bottom: 80px;
 }
 .biolife-panigations-block ul{
@@ -4451,7 +4513,7 @@ body.open-overlay #overlay{
     border: none;
     background-color: #ffffff;
     font-size: 16px;
-    width: 119px;
+    width: 235px;
     padding: 7px 33px 6px 10px;
     color: #000000;
     text-align: center;
@@ -4626,7 +4688,7 @@ body.open-overlay #overlay{
     clear: both;
 }
 .single-layout.product-tabs{
-    margin-top: 191px;
+    margin-top: 70px;
 }
 .product-tabs.single-layout .tab-head .tabs{
     display: block;
@@ -4695,10 +4757,15 @@ body.open-overlay #overlay{
     border-color: #ffffff;
     padding-top: 28px;
     border-bottom: 1px solid #e6e6e6;
-    padding-bottom: 52px;
+    padding-bottom: 100px;
 }
 .product-tabs.single-layout .tab-content .tab-contain.review-tab{
     padding-top: 33px;
+}
+
+.product-tabs.single-layout .tab-content .tab-contain.review-tab:not(.active){
+    height: 0px;
+    /*overflow: hidden;*/
 }
 .product-tabs.single-layout .tab-content .tab-contain.active{
     visibility: visible;
@@ -4909,7 +4976,6 @@ body.open-overlay #overlay{
 .review-tab #comments .commentlist>li{
     list-style: none;
     display: block;
-    border-bottom: 1px solid #f1f1f1;
     padding-top: 20px;
     padding-bottom: 26px;
 }
@@ -5042,6 +5108,18 @@ body.open-overlay #overlay{
     display: inline-block;
     background-color: #ffdd5a;
     border-radius: 9999px;
+}
+
+/*--------------------------*/
+/*.width-100percent{ width: 100%;}
+.width-90percent{width: 90%;}
+.width-80percent{ width: 80%;}
+.width-40percent{ width: 40%;}
+.width-30percent{ width: 30%;}
+.width-20percent{ width: 20%;}
+.width-10percent{ width: 10%;}*/
+.min-height-346px{
+    min-height: 346px;
 }
 .rating-info .rating .star-rating > span::before,
 .rating-info .rating .star-rating::before{
@@ -5682,7 +5760,6 @@ body.open-overlay #overlay{
 .order-summary .title-block{
     display: inline-block;
     line-height: 0;
-    font-size: 0;
     width: 100%;
     border-bottom: 1px solid #e6e6e6;
     padding-bottom: 21px;
@@ -5696,7 +5773,8 @@ body.open-overlay #overlay{
     text-align: left;
     line-height: 30px;
 }
-.order-summary .title-block a{
+.order-summary .title-block a,
+.order-summary .title-block .order-date{
     display: inline-block;
     float: right;
     font-size: 14px;
@@ -6213,6 +6291,15 @@ body.open-overlay #overlay{
     line-height: 24px;
     color: #444444;
 }
+
+
+.order-list .record-order:hover{
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
+
+
+
 .testimonial-block .testml-elem .avata img{
     display: inline-block;
 }
@@ -6749,7 +6836,7 @@ body.open-overlay #overlay{
     padding-bottom: 13px;
 }
 /*.post-item .post-content*/
- .excerpt{
+.excerpt{
     font-size: 15px;
     line-height: 24px;
     max-height: 71px;

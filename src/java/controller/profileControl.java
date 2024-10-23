@@ -6,6 +6,7 @@
 package controller;
 
 import dao.AccountsDAO;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,7 +21,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import model.Accounts;
+import model.Order;
 import model.User;
 
 /**
@@ -69,6 +72,11 @@ public class profileControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        ProductDao prodDao = new ProductDao();
+        HttpSession session = request.getSession();
+        Accounts acc = (Accounts) session.getAttribute("acc");
+          List<Order> lOrder = prodDao.getAllOrderByAccId(acc.getAccount_id()+"");
+          request.setAttribute("lOrder", lOrder);
         request.getRequestDispatcher("cus_profile.jsp").forward(request, response);
     }
 

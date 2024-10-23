@@ -14,7 +14,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Biolife - Organic Food</title>
+        <title>Healthy Food - Biolife</title>
         <link href="https://fonts.googleapis.com/css?family=Cairo:400,600,700&amp;display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
@@ -30,7 +30,7 @@
 
     <body class="biolife-body">
 
-<!--         Preloader loading
+         <!--Preloader loading-->
         <div id="biof-loading">
             <div class="biof-loading-center">
                 <div class="biof-loading-center-absolute">
@@ -39,7 +39,7 @@
                     <div class="dot dot-three"></div>
                 </div>
             </div>
-        </div>-->
+        </div>
         <!--HEADER-->
         <jsp:include page="./jsptemplate/header.jsp" />
 
@@ -182,7 +182,7 @@
                             <div class="col-lg-12 col-md-7 col-sm-6">
                                 <div class="advance-product-box">
                                     <div class="biolife-title-box bold-style biolife-title-box__bold-style">
-                                        <h3 class="title">Sale Products</h3>
+                                        <h3 class="title">Suggestion Product & Combo</h3>
                                     </div>
                                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px"
                                         data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 3}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
@@ -191,19 +191,17 @@
                                             <div
                                                 class="contain-product right-info-layout contain-product__right-info-layout">
                                                 <div class="product-thumb">
-                                                    <a href="cart?ac=addtocart&productId=${i.productId}" class="link-to-product">
+                                                    <a href="productDetail?ac=show&productId=${i.productId}" class="link-to-product">
                                                         <img src="assets/images/products/p-01.jpg" alt="dd" width="270"
                                                              height="270" class="product-thumnail">
                                                     </a>
                                                 </div>
                                                 <div class="info">
                                                     <b class="categories">${cates.get(i.category)}</b>
-                                                    <h4 class="product-title"><a href="#" class="pr-name">${i.name}</a></h4>
+                                                    <h4 class="product-title"><a href="productDetail?ac=show&productId=${i.productId}" class="pr-name">${i.name}</a></h4>
                                                     <div class="price ">
                                                         <ins><span class="price-amount"><span
                                                                     class="currencySymbol">${i.price}</span>VND</span></ins>
-                                                        <del><span class="price-amount"><span
-                                                                    class="currencySymbol">${i.price*110/100} </span>VND</span></del>
 
                                                     </div>
                                                     <div class="rating" hidden="">
@@ -212,7 +210,10 @@
                                                     </div>
                                                     <div class="slide-down-box" style="margin-top: 25px;">
                                                         <div>
+                                                            <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                
                                                             <a href="wishcart?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                            </c:if>
                                                             <a href="cart?ac=addtocart&productId=${i.productId}" class="btn btn-default">add to cart</a>
                                                         </div>
                                                     </div>

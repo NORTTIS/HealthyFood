@@ -132,7 +132,7 @@
 
                                             <tr class="cart_item wrap-buttons">
                                                 <td class="wrap-btn-control" colspan="4">
-                                                    <a class="btn back-to-shop">Back to Shop</a>
+                                                    <a class="btn back-to-shop" href="shop">Back to Shop</a>
                                                     <button class="btn btn-update" type="submit" >update</button>
                                                     <button class="btn btn-clear" type="reset">clear all</button>
                                                 </td>
@@ -150,7 +150,10 @@
 
 
                                     <div class="btn-checkout">
-                                        <a href="checkout" class="btn checkout">Check out</a>
+                                        <c:if test="">
+                                            
+                                        </c:if>
+                                        <a href="checkout" class="btn checkout" style=" ${cart==null?"pointer-events:none; background-color: #a5a5a5;":""}" >Check out</a>
                                     </div>
                                     <div class="biolife-progress-bar">
                                         <table>
