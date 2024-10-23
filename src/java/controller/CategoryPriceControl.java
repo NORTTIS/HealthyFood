@@ -59,7 +59,14 @@ public class CategoryPriceControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+        String fromPrice = request.getParameter("fromPrice");
+        String toPrice = request.getParameter("toPrice");
+        String cateID = request.getParameter("cid");
+        ProductDao dao = new ProductDao();
+        List<Products> list = dao.getProductsByPrice(fromPrice, toPrice);
+        List<Category> listC = dao.getAllCategory();
+        request.setAttribute("listP", list);
+        request.setAttribute("listC", listC);
         request.getRequestDispatcher("category-grid.jsp").forward(request, response);        
     } 
 
