@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import model.Cart;
 import model.LineItem;
+import model.Order;
+import model.Reviews;
 
 /**
  *
@@ -252,12 +254,218 @@ public class ProductDao extends DBContext {
 
     }
 
+    public Order getOrderById(String orderId) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Orders o WHERE 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement psOrder = null;
+        PreparedStatement psOrderItems = null;
+        ResultSet rs = null;
+        try {
+            if (!orderId.equals("")) {
+                sql.append("and o.order_id = ?");
+            }
+            psOrder = conn.prepareStatement(sql.toString());
+            if (!orderId.equals("")) {
+                psOrder.setString(1, orderId);
+            }
+            rs = psOrder.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6)
+                );
+                return order;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+        return null;
+    }
+
+    public void ReviewProduct(String productId, String accountId, String rating, String comment) {
+        String sql = "insert into Reviews (account_id,product_id,comment,rate,status) values(?,?,?,?,'Approved')";
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, accountId);
+            ps.setString(2, productId);
+            ps.setString(3, comment);
+            ps.setString(4, rating);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Reviews> getReviewByProdId(int pageIndex, int star, String prodId) {
+        StringBuilder sql = new StringBuilder("select * from Reviews r where 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reviews> listR = new ArrayList<>();
+        try {
+            if (star != 0) {
+                sql.append(" and r.rate = ?");
+            }
+            sql.append(" and r.product_id = ?");
+            sql.append(" order by r.review_id offset ? rows fetch first 3 rows only");
+
+            ps = conn.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (star != 0) {
+                ps.setInt(paramIndex++, star);
+            }
+            ps.setString(paramIndex++, prodId);
+            ps.setInt(paramIndex, (pageIndex - 1) * 3);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reviews rv = new Reviews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                listR.add(rv);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listR;
+    }
+
+    public List<Reviews> getReviewByProdId(int star, String prodId) {
+        StringBuilder sql = new StringBuilder("select * from Reviews r where 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reviews> listR = new ArrayList<>();
+        try {
+            if (star != 0) {
+                sql.append(" and r.rate = ?");
+            }
+            sql.append(" and r.product_id = ?");
+
+            System.out.println(sql.toString());
+            ps = conn.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (star != 0) {
+                ps.setInt(paramIndex++, star);
+            }
+            ps.setString(paramIndex++, prodId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reviews rv = new Reviews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                listR.add(rv);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listR;
+    }
+
+    public int calNumPageBlog(List<Reviews> list) {
+        int numpage = 0;
+        numpage = list.size() / 3;
+        if (list.size() % 3 != 0) {
+            numpage++;
+        }
+        return numpage;
+    }
+
+    public List<Order> getAllOrderByAccId(String accountId) {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Order> lOrder = new ArrayList<>();
+        try {
+            String sql = "select * from Orders where account_id =? order by order_date desc";
+            st = conn.prepareStatement(sql);
+            st.setString(1, accountId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                lOrder.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lOrder;
+    }
+
+    public Cart getOrderDetailById(String orderId) {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Cart cartOrder = new Cart();
+        try {
+            String sql = "select * from Order_Items where order_id = ? ";
+            st = conn.prepareStatement(sql);
+            st.setString(1, orderId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products product = getProductsById(rs.getString(3));
+                int quantity = rs.getInt(4);
+                LineItem lineitem = new LineItem(product, quantity);
+                cartOrder.addItem(lineitem);
+            }
+        } catch (SQLException e) {
+        }
+        return cartOrder;
+    }
+
+    public int getBMICategory(double bmi) {
+        if (bmi < 18.5) {
+            return 1; // Loại 1: BMI < 18.5
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            return 2; // Loại 2: 18.5 <= BMI < 24.9
+        } else if (bmi >= 25 && bmi < 29.9) {
+            return 3; // Loại 3: 25 <= BMI < 29.9
+        } else if (bmi >= 30) {
+            return 4; // Loại 4: BMI >= 30
+        } else {
+            return 5; // Loại 5: All BMIs (trường hợp mặc định)
+        }
+    }
+
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
-        Products product = prod.getProductsById("1");
-        Cart cart = prod.getWishCartByAccountId("1");
-        prod.createOrder(cart, "1");
-
+//        Products product = prod.getProductsById("1");
+//        Cart cart = prod.getWishCartByAccountId("1");
+//        prod.createOrder(cart, "1");
+//        List<Reviews> listR = prod.getReviewByProdId(1, 0, "2");
+//        for (Reviews reviews : listR) {
+//            System.out.println(reviews);
+//        }
+//        List<Order> lOrders = prod.getAllOrderByAccId("1");
+//        for (Order lOrder : lOrders) {
+//            System.out.println(lOrder);
+//        }
+        Cart cartOrder = prod.getOrderDetailById("1");
+        for (LineItem item : cartOrder.getItems()) {
+            System.out.println(item);
+        }
     }
 
 }
