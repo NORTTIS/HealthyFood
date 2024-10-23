@@ -70,6 +70,8 @@ CREATE TABLE Customer_Type (
     [type_name] NVARCHAR(255) NOT NULL,                -- Tên loại sản phẩm
 );
 
+alter table Menu 
+add status NVARCHAR(10) CHECK (status IN ('Accept', 'Reject', 'In Process')) NOT NULL default ('In Process')
 
 CREATE TABLE Menu (
     menu_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -179,5 +181,6 @@ VALUES ('Dinner', 'đây là bữa ăn cho một người', 4, 'Green Salad'),
 ('Breakfast', 'đây là bữa ăn cho một người', 4, 'Cheeseburger'),
 ('Breakfast', 'đây là bữa ăn cho một người', 4, 'Spaghetti'),
 ('Breakfast', 'đây là bữa ăn cho một người', 4, 'Green Salad');
+
 
 INSERT INTO Menu_Detail values (1, null, null, 200), (2, null, null, 300), (3, null, null, 300), (4, null, null, 200)
