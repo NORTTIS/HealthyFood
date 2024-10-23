@@ -12,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,8 +68,14 @@ public class BlogController extends HttpServlet {
         String searchValue = request.getParameter("search");
         int indexPage = 1;
         int totalPage = 0;
+
         BlogDao blogDao = new BlogDao();
         AccountsDAO accDao = new AccountsDAO();
+        HttpSession session = request.getSession();
+        String bmirange = "1";
+        if (session.getAttribute("bmiR") != null) {
+            bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
+        }
         Map<Integer, String> cateList = blogDao.getAllBlogCategory();
         if (page != null && !page.equals("")) {
             indexPage = Integer.parseInt(page);
@@ -76,25 +83,25 @@ public class BlogController extends HttpServlet {
         if (cid == null) {
             cid = "";
         }
-         if (searchValue == null) {
+        if (searchValue == null) {
             searchValue = "";
         }
-        
-        List<Blog> bListByPageIndex = blogDao.getAllBlog("", cid, indexPage, searchValue);
-        List<Blog> bListTotal = blogDao.getAllBlog("", cid, searchValue);
-        
+
+        List<Blog> bListByPageIndex = blogDao.getAllBlog("", cid, indexPage, searchValue, bmirange);
+        List<Blog> bListTotal = blogDao.getAllBlogs("", cid, searchValue, bmirange);
+
         List<Accounts> accList = new ArrayList<>();
-        if(bListByPageIndex!=null){
+        if (bListByPageIndex != null) {
             for (Blog blog : bListByPageIndex) {
-            accList.add(accDao.getAccountByid(blog.getAuthor()));
-        }
+                accList.add(accDao.getAccountByid(blog.getAuthor()));
+            }
         }
 
         totalPage = blogDao.calNumPageBlog(bListTotal);
         request.setAttribute("searchValue", searchValue);
         request.setAttribute("bList", bListByPageIndex);
         request.setAttribute("accList", accList);
-        request.setAttribute("cate",cid);
+        request.setAttribute("cate", cid);
         request.setAttribute("cateList", cateList);
         request.setAttribute("currentPage", indexPage);
         request.setAttribute("totalPages", totalPage);
@@ -118,33 +125,41 @@ public class BlogController extends HttpServlet {
         String accId = request.getParameter("accId");
         int indexPage = 1;
         int totalPage = 0;
+
         BlogDao blogDao = new BlogDao();
         AccountsDAO accDao = new AccountsDAO();
         Map<Integer, String> cateList = blogDao.getAllBlogCategory();
+        HttpSession session = request.getSession();
+        String bmirange = "1";
+        if (session.getAttribute("bmiR") != null) {
+            bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
+        }
         if (page != null && !page.equals("")) {
             indexPage = Integer.parseInt(page);
         }
         if (cid == null) {
             cid = "";
         }
-         if (searchValue == null) {
+        if (searchValue == null) {
             searchValue = "";
         }
-         if(accId == null){
-             accId="";
-         }
-        List<Blog> bListByPageIndex = blogDao.getAllBlog(accId, cid, indexPage, searchValue);
-        List<Blog> bListTotal = blogDao.getAllBlog(accId, cid, searchValue);
-        
+        if (accId == null) {
+            accId = "";
+
+        }
+
+        List<Blog> bListByPageIndex = blogDao.getAllBlog(accId, cid, indexPage, searchValue, bmirange);
+        List<Blog> bListTotal = blogDao.getAllBlogs(accId, cid, searchValue, bmirange);
+
         List<Accounts> accList = new ArrayList<>();
         for (Blog blog : bListByPageIndex) {
             accList.add(accDao.getAccountByid(blog.getAuthor()));
         }
         totalPage = blogDao.calNumPageBlog(bListTotal);
-         request.setAttribute("searchValue", searchValue);
+        request.setAttribute("searchValue", searchValue);
         request.setAttribute("bList", bListByPageIndex);
         request.setAttribute("accList", accList);
-        request.setAttribute("cate",cid);
+        request.setAttribute("cate", cid);
         request.setAttribute("cateList", cateList);
         request.setAttribute("currentPage", indexPage);
         request.setAttribute("totalPages", totalPage);

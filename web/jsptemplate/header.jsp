@@ -96,9 +96,7 @@
 
                             </li>
 
-                            <li class="menu-item">
-                                <a href="#" class="menu-name" data-title="Pages">Location</a>
-                            </li>
+
                             <li class="menu-item menu-item-has-children ">
                                 <a href="blog" class="menu-name" data-title="Blog">Blog</a>
 
@@ -117,32 +115,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
                     <div class="biolife-cart-info">
-                        <div class="mobile-search">
-                            <a href="javascript:void(0)" class="open-searchbox"><i
-                                    class="biolife-icon icon-search"></i></a>
-                            <div class="mobile-search-content">
-                                <form action="#" class="form-search" name="mobile-seacrh" method="get">
-                                    <a href="#" class="btn-close"><span
-                                            class="biolife-icon icon-close-menu"></span></a>
-                                    <input type="text" name="s" class="input-text" value=""
-                                           placeholder="Search here...">
 
-                                    <select name="category">
-                                        <option value="-1" selected>All Categories</option>
-                                        <option value="vegetables">Vegetables</option>
-                                        <option value="fresh_berries">Fresh Berries</option>
-                                        <option value="ocean_foods">Ocean Foods</option>
-                                        <option value="butter_eggs">Butter & Eggs</option>
-                                        <option value="fastfood">Fastfood</option>
-                                        <option value="fresh_meat">Fresh Meat</option>
-                                        <option value="fresh_onion">Fresh Onion</option>
-                                        <option value="papaya_crisps">Papaya & Crisps</option>
-                                        <option value="oatmeal">Oatmeal</option>
-                                    </select>
-                                    <button type="submit" class="btn-submit">go</button>
-                                </form>
-                            </div>
-                        </div>
                         <c:if test="${sessionScope.acc.role=='Customer'}">
                             <div class="wishlist-block hidden-sm hidden-xs">
                                 <a href="wishcart?ac=show" class="link-to">
@@ -162,7 +135,7 @@
                                         <span class="qty">${totalitem == null ? 0 : totalitem}</span>
                                     </span>
                                     <span class="title">My Cart -</span>
-                                    <span class="sub-total">0.00VND</span>
+                                    <span class="sub-total">${sessionScope.cart.totalPrice == null ? 0 : sessionScope.cart.totalPrice} VND</span>
                                 </a>
                                 <div class="cart-content">
                                     <div class="cart-inner">
@@ -202,7 +175,7 @@
                                         </ul>
                                         <p class="btn-control">
                                             <a href="cart?ac=show" class="btn view-cart">view cart</a>
-                                            <a href="checkout" class="btn">checkout</a>
+                                            <a href="checkout" class="btn" ${(totalitem == null||totalitem ==0)?'style=" pointer-events:none; background-color: #a5a5a5;"':''}>checkout</a>
                                         </p>
                                     </div>
                                 </div>
@@ -242,6 +215,23 @@
                                     <form action="bmical" method="post" class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
                                         <table style="margin-bottom: -7px;">
                                             <tbody>
+                                                <tr>
+                                                    <td>Age</td>
+                                                    <td><input name="age" type="number" value="0"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gender</td>
+                                                    <td>
+                                                        <label class="text-center" for="male" style="margin-right: 10px;">
+                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
+                                                            Male
+                                                        </label>
+                                                        <label for="female">
+                                                            <input name="gender" id="female" type="radio" value="female" />
+                                                            female
+                                                        </label>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td>Height</td>
                                                     <td>

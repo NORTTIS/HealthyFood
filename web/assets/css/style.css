@@ -1164,7 +1164,6 @@ body{
     font-family: 'FontAwesome', sans-serif;
     font-size: 14px;
     color: #222222;
-    text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     display: inline-block;
     margin-left: 4px;
@@ -4533,6 +4532,7 @@ body.open-overlay #overlay{
     text-align: center;
 }
 .quantity-box .qty-input .qty-btn.btn-down,
+.quantity-box .qty-input .qty-btn.btn-downs,
 .sumary-product .action-form .qty-input .qty-btn.btn-down{
     top: 23px;
 }
@@ -5872,7 +5872,9 @@ body.open-overlay #overlay{
     right: 17px;
     top: 2px;
 }
-.quantity-box.type1 .qty-input .qty-btn.btn-down{
+.quantity-box.type1 .qty-input .qty-btn.btn-down,
+.quantity-box.type1 .qty-input .qty-btn.btn-downs
+{
     top: 19px;
 }
 .contact-info-container .box-title{
@@ -10704,7 +10706,8 @@ body.open-quickview-block .biolife-quickview-block{
     border-top-right-radius: 999px;
     border-bottom-right-radius: 999px;
 }
-.biolife-quickview-inner .qty-input .btn-down{
+.biolife-quickview-inner .qty-input .btn-down,
+.quantity-box.type1 .qty-input .qty-btn.btn-downs{
     float: left;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -10727,14 +10730,18 @@ body.open-quickview-block .biolife-quickview-block{
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
 }
-.biolife-quickview-inner .qty-input .btn-up::before{
+.biolife-quickview-inner .qty-input .btn-up,
+.biolife-quickview-inner .qty-input .btn-ups
+::before{
     left: 6px;
 }
-.biolife-quickview-inner .qty-input .btn-up::after{
+.biolife-quickview-inner .qty-input .btn-up,
+.biolife-quickview-inner .qty-input .btn-ups::after{
     height: 10px;
     width: 2px;
     left: 10px;
 }
+
 .biolife-quickview-inner .qty-input .qty-btn:hover::after,
 .biolife-quickview-inner .qty-input .qty-btn:hover::before{
     background-color: #000000;

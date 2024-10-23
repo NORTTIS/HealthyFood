@@ -76,12 +76,12 @@
                 </div>
                 <div class="col-lg-4">
                     <label for="title">Bmi range</label><br>
-                    <select id="category" name="category">
+                    <select id="category" name="bmirange">
                         <option value="1">BMI < 18.5</option>
-                        <option value="1">18.5 <= BMI < 24.9</option>
-                        <option value="1">25 <= BMI < 29.9</option> 
-                        <option value="1">BMI >= 30</option>
-
+                        <option value="2">18.5 <= BMI < 24.9</option>
+                        <option value="3">25 <= BMI < 29.9</option> 
+                        <option value="4">BMI >= 30</option>
+                        <option value="5">All BMIs</option>
                     </select>
 
                 </div>
