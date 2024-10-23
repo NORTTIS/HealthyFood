@@ -145,7 +145,7 @@
                     <div id="main-content">
 
                         <!--articles block-->
-                        <form action="submitMenu" method="post">
+                        <form action="createMenu" method="post">
                             <div class="contain" style="width:100%; height: 500px;">
                                 <div class="create-new-meals" style=" display: flex; justify-content:space-between; margin-bottom: 100px">
                                     <div>
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div id="mealsContainer">
-                                        <!<!-- nơi thêm các thẻ bữa ăn mới vào -->
+                                        <!-- nơi thêm các thẻ bữa ăn mới vào -->
                                     </div>
                                 </div>
                             </div>
@@ -168,12 +168,14 @@
                                 <div style="display:flex; justify-content: center; margin-bottom: 50px" >
                                     <div>
                                         <h3>Description</h3>
-                                        <textarea name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
+                                        <textarea required name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
                                     </div>
                                 </div>
                                 <div style="display:flex; justify-content: space-around">
                                     <a href="menuList" style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</a>
-                                    <input style="width:120px" type="submit" value="Create" class="btn btn-default"/>
+                                    <input type="text" value="${sessionScope.acc.getAccount_id()}" name="nutriId" hidden/>
+                                    <input id="countInput" type="number" name="count" hidden/>
+                                    <input onclick="updateCount()" style="width:120px" type="submit" value="Send" class="btn btn-default"/>
                                 </div>
                             </div>
                         </form>
@@ -200,8 +202,9 @@
     <script src="assets/js/biolife.framework.js"></script>
     <script src="assets/js/functions.js"></script>
     <script>
-
+        var count = 0;
         function createMeals() {
+            count++;
             let mealsContainer = document.getElementById('mealsContainer');
 
             // Tạo thẻ lớn Meals
@@ -213,23 +216,26 @@
 
             // Tạo tiêu đề cho thẻ Meals
             let mealsTitle = document.createElement('div');
-            mealsTitle.innerHTML = '<input type="text" name="menuName" placeholder = "Input meals"/>';
-
+            mealsTitle.innerHTML = '<input id="mealsID" type="text" name="name' + count + '" placeholder = "Meals name" required/>';
+            mealsTitle.style.marginBottom = "20px";
             // Tạo nút để thêm MealDetail trong thẻ Meals
             let addMealDetailButton = document.createElement('button');
-            addMealDetailButton.innerText = 'Thêm MealDetail';
+            addMealDetailButton.innerText = 'Add menu';
             addMealDetailButton.setAttribute('type', 'button');
+            addMealDetailButton.classList.add('btn', 'btn-default');
             addMealDetailButton.onclick = function () {
                 createMealDetail(mealsDiv);
             };
 
             // Tạo nút xóa thẻ Meals
             let deleteMealsButton = document.createElement('button');
-            deleteMealsButton.innerText = 'Xóa Meals';
+            deleteMealsButton.innerText = 'Delete menu';
             deleteMealsButton.style.marginLeft = "10px";
             deleteMealsButton.setAttribute('type', 'button');
+            deleteMealsButton.classList.add('btn', 'btn-default');
             deleteMealsButton.onclick = function () {
                 mealsContainer.removeChild(mealsDiv);
+                count--;
             };
 
             // Thêm các phần tử vào thẻ Meals
@@ -250,26 +256,41 @@
             mealDetailDiv.style.border = "1px dashed grey";
             mealDetailDiv.style.padding = "5px";
 
+            var differ =  document.getElementById("mealsID").name;
             // Tạo input để nhập dữ liệu cho MealDetail
             let inputField = document.createElement('input');
             inputField.type = 'text';
-            inputField.placeholder = 'Nhập thông tin MealDetail...';
-
+            inputField.placeholder = 'Input menu name';
+            inputField.name = 'menuName' + differ;
+            inputField.required = true;
+            // Tạo input để nhập calo cho MealDetail
+            let inputCalo = document.createElement('input');
+            inputCalo.type = 'number';
+            inputCalo.placeholder = 'Input calories';
+            inputCalo.style = 'margin: 0 25px; outline: none; padding: 7px 20px';
+            inputCalo.name = 'calories' + differ;
+            inputCalo.required = true;
             // Tạo nút xóa MealDetail
             let deleteMealDetailButton = document.createElement('button');
-            deleteMealDetailButton.innerText = 'Xóa MealDetail';
+            deleteMealDetailButton.innerText = 'Delete menu detail';
             deleteMealDetailButton.style.marginLeft = "10px";
             deleteMealDetailButton.setAttribute('type', 'button');
+            deleteMealDetailButton.classList.add('btn', 'btn-default');
             deleteMealDetailButton.onclick = function () {
                 mealsDiv.removeChild(mealDetailDiv);
             };
 
             // Thêm input và nút xóa vào MealDetail
             mealDetailDiv.appendChild(inputField);
+            mealDetailDiv.appendChild(inputCalo);
             mealDetailDiv.appendChild(deleteMealDetailButton);
 
             // Thêm MealDetail vào Meals
             mealsDiv.appendChild(mealDetailDiv);
+        }
+        function updateCount() {
+            // Gán giá trị count cho input ẩn
+            document.getElementById("countInput").value = count;
         }
     </script>
 </body>
