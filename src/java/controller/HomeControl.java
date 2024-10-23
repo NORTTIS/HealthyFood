@@ -67,11 +67,15 @@ public class HomeControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
-        List<Blog> bListByPageIndex = blogDao.getAllBlog("", "", "");
+        HttpSession session = request.getSession();
+        String bmirange = "1";
+        if (session.getAttribute("bmiR") != null) {
+             bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
+        }
+        List<Blog> bListByPageIndex = blogDao.getAllBlogs("", "", "", bmirange);
 
         AccountsDAO accDao = new AccountsDAO();
         List<Accounts> accList = new ArrayList<>();
-        HttpSession session = request.getSession();
         Accounts acc = (Accounts) session.getAttribute("acc");
         Cart cart = new Cart();
         if (acc != null) {

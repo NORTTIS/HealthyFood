@@ -280,7 +280,6 @@ public class ProductDao extends DBContext {
                 );
                 return order;
             }
-            
 
         } catch (SQLException e) {
 
@@ -389,7 +388,6 @@ public class ProductDao extends DBContext {
         return numpage;
     }
 
-
     public List<Order> getAllOrderByAccId(String accountId) {
         Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
@@ -415,14 +413,14 @@ public class ProductDao extends DBContext {
         }
         return lOrder;
     }
-    
-    public Cart getOrderDetailById(String orderId){
-          Connection conn = new DBContext().getConnection();
+
+    public Cart getOrderDetailById(String orderId) {
+        Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
         Cart cartOrder = new Cart();
         try {
-             String sql = "select * from Order_Items where order_id = ? ";
+            String sql = "select * from Order_Items where order_id = ? ";
             st = conn.prepareStatement(sql);
             st.setString(1, orderId);
             rs = st.executeQuery();
@@ -435,6 +433,20 @@ public class ProductDao extends DBContext {
         } catch (SQLException e) {
         }
         return cartOrder;
+    }
+
+    public int getBMICategory(double bmi) {
+        if (bmi < 18.5) {
+            return 1; // Loại 1: BMI < 18.5
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            return 2; // Loại 2: 18.5 <= BMI < 24.9
+        } else if (bmi >= 25 && bmi < 29.9) {
+            return 3; // Loại 3: 25 <= BMI < 29.9
+        } else if (bmi >= 30) {
+            return 4; // Loại 4: BMI >= 30
+        } else {
+            return 5; // Loại 5: All BMIs (trường hợp mặc định)
+        }
     }
 
     public static void main(String[] args) {
@@ -450,9 +462,9 @@ public class ProductDao extends DBContext {
 //        for (Order lOrder : lOrders) {
 //            System.out.println(lOrder);
 //        }
-           Cart cartOrder = prod.getOrderDetailById("1");
-           for (LineItem item : cartOrder.getItems()) {
-               System.out.println(item);
+        Cart cartOrder = prod.getOrderDetailById("1");
+        for (LineItem item : cartOrder.getItems()) {
+            System.out.println(item);
         }
     }
 

@@ -141,10 +141,11 @@ CREATE TABLE Blogs (
     content NVARCHAR(MAX),
     timestamp DATETIME DEFAULT GETDATE(),
 	image NVARCHAR(MAX),
+	bmi_range INT,
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
-	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
+	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) ,
+	FOREIGN KEY (bmi_range) REFERENCES Customer_Type(type_id)
 );
-
 
 
 

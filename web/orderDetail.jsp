@@ -41,7 +41,10 @@
             <c:redirect url="login"/>
         </c:if>
         <!-- header -->
-        <jsp:include page="./jsptemplate/header.jsp" />
+        <c:if test="${sessionScope.acc.role != 'Manager'}">
+             <jsp:include page="./jsptemplate/header.jsp" />
+        </c:if>
+       
         <section style="margin: 45px 0px; " >
 
             <div class="container py-5">
@@ -123,7 +126,10 @@
             </div>
         </section>
         <!-- footer -->
-        <jsp:include page="./jsptemplate/footer.jsp" />
+        
+         <c:if test="${sessionScope.acc.role != 'Manager'}">
+            <jsp:include page="./jsptemplate/footer.jsp" />
+        </c:if>
         <script src="assets/js/jquery-3.4.1.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.countdown.min.js"></script>

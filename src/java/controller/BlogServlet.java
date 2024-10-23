@@ -96,6 +96,7 @@ public class BlogServlet extends HttpServlet {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         String blogId = request.getParameter("blogId");
+        String bmirange = request.getParameter("bmirange");
         String ac = request.getParameter("ac");
         String filename = "";
         BlogDao blogDao = new BlogDao();
@@ -131,7 +132,7 @@ public class BlogServlet extends HttpServlet {
                     // Xử lý khi không có file được upload
                 }
 
-                blogDao.createBlog(nutriId, title, category, content, filename);
+                blogDao.createBlog(nutriId, title, category, content, filename,bmirange);
 
             } catch (IOException | ServletException e) {
                 // Xử lý ngoại lệ

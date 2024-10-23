@@ -103,7 +103,7 @@
                                                         <a class="prd-name" href="#">${i.product.name}</a>
                                                         <div class="action">
                                                             <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="cart?ac=del&productid=${i.product.productId}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                            <a href="cart?ac=del&productId=${i.product.productId}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                         </div>
                                                     </td>
                                                     <td class="product-price" data-title="Price">

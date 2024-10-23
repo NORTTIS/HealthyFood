@@ -100,12 +100,13 @@
                                 <span class="title">Quantity:</span>
                                 <div class="qty-input">
                                     <input id="quantity" class="input-qty" type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
-                                    <a href="#" class="qty-btn btn-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                                    <a href="#" class="qty-btn btn-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                    <a href="#" class="qty-btn btn-ups"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
+                                    <a href="#" class="qty-btn btn-downs"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+
                                 </div>
                             </div>
                             <div class="buttons">
-                                <a href="cart?ac=addtocart&productId=${prod.productId}&qty=" class="btn add-to-cart-btn">add to cart</a>
+                                <a  id="addToCartLink" href="cart?ac=addtocart&productId=${prod.productId}&qty=1"  class="btn add-to-cart-btn">add to cart</a>
                                 <p class="pull-row">
                                     <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
                                 </p>
@@ -311,6 +312,47 @@
                 document.getElementById('rating-value').value = ratingValue; // Cập nhật giá trị cho input ẩn
                 updateStarDisplay(ratingValue); // Hàm để cập nhật giao diện các sao
             });
+        });
+        // Lấy các phần tử cần thao tác
+        const quantityInput = document.getElementById('quantity');
+        const addToCartLink = document.getElementById('addToCartLink');
+        const btnUp = document.querySelector('.btn-ups');
+        const btnDown = document.querySelector('.btn-downs');
+        const productId = "${prod.productId}"; // Lấy productId từ server-side
+
+        // Cập nhật giá trị href cho link "add to cart"
+        function updateCartLink() {
+            const quantity = quantityInput.value;
+            addToCartLink.href = "cart?ac=addtocart&productId=" + productId + "&qty=" + quantity;
+        }
+
+        // Sự kiện khi nhấn nút "tăng"
+        btnUp.addEventListener('click', function (event) {
+            event.preventDefault();
+            let currentValue = parseInt(quantityInput.value);
+            const maxValue = parseInt(quantityInput.getAttribute('data-max_value'));
+
+            if (currentValue < maxValue) {
+                quantityInput.value = currentValue + 1;
+                updateCartLink(); // Cập nhật link sau khi thay đổi số lượng
+            }
+        });
+
+        // Sự kiện khi nhấn nút "giảm"
+        btnDown.addEventListener('click', function (event) {
+            event.preventDefault();
+            let currentValue = parseInt(quantityInput.value);
+            const minValue = parseInt(quantityInput.getAttribute('data-min_value'));
+
+            if (currentValue > minValue) {
+                quantityInput.value = currentValue - 1;
+                updateCartLink(); // Cập nhật link sau khi thay đổi số lượng
+            }
+        });
+
+        // Cập nhật link khi người dùng nhập trực tiếp vào ô input
+        quantityInput.addEventListener('input', function () {
+            updateCartLink();
         });
 
     </script>

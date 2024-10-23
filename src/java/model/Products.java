@@ -68,8 +68,9 @@ public class Products {
         this.description = description;
     }
 
-    public double getPrice() {
-        return price;
+    public int getPrice() {
+        int prices = (int)price;
+        return prices;
     }
 
     public void setPrice(double price) {
