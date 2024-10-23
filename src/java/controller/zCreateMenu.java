@@ -5,6 +5,7 @@
 
 package controller;
 
+import dao.NutriDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -55,6 +57,9 @@ public class zCreateMenu extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        NutriDAO ndb = new NutriDAO();
+        List<String> typeList = ndb.getTypeList();
+        request.setAttribute("typeList", typeList);
         request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
     } 
 
