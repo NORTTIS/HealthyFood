@@ -45,7 +45,7 @@
 
         <!--Hero Section-->
         <div class="hero-section hero-background">
-            <h1 class="page-title">Organic Fruits</h1>
+            <h1 class="page-title">Shop</h1>
         </div>
 
         <!--Navigation section-->
@@ -78,31 +78,31 @@
                                         <div class="row">
                                             <ul class="products-list">
                                                 <c:forEach items="${listP}" var="o">
-                                                <li class="product-item col-lg-2 col-md-3 col-sm-4 col-xs-6">
-                                                    <div class="contain-product layout-default">
-                                                        <div class="product-thumb">
-                                                            <a href="#" class="link-to-product">
-                                                                <img src="assets/images/products/${o.picture}" alt="dd" width="270" height="270" class="product-thumnail">
-                                                            </a>
-                                                        </div>
-                                                        <div class="info">
-                                                            <b class="categories">${o.category}</b>
-                                                            <h4 class="product-title"><a href="#" class="pr-name">${o.name}</a></h4>
-                                                            <div class="price">
-                                                                <ins><span class="price-amount">${o.price}<span class="currencySymbol"> VND</span></span></ins>
+                                                    <li class="product-item col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                                                        <div class="contain-product layout-default">
+                                                            <div class="product-thumb">
+                                                                <a href="#" class="link-to-product">
+                                                                    <img src="assets/images/products/${o.picture}" alt="dd" width="270" height="270" class="product-thumnail">
+                                                                </a>
                                                             </div>
+                                                            <div class="info">
+                                                                <b class="categories">${o.category}</b>
+                                                                <h4 class="product-title"><a href="#" class="pr-name">${o.name}</a></h4>
+                                                                <div class="price">
+                                                                    <ins><span class="price-amount">${o.price}<span class="currencySymbol"> VND</span></span></ins>
+                                                                </div>
 
-                                                            <div class="slide-down-box">
-                                                                <p class="message">${o.description}</p>
-                                                                <div class="buttons">
-                                                                    <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                                    <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
-                                                                    <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                                                <div class="slide-down-box">
+                                                                    <p class="message">${o.description}</p>
+                                                                    <div class="buttons">
+                                                                        <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                        <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                                        <a href="#" class="btn compare-btn"><i class="fa fa-random" aria-hidden="true"></i></a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </li>
+                                                    </li>
                                                 </c:forEach>
                                             </ul>
                                         </div>
@@ -112,7 +112,7 @@
                                                 <c:if test="${currentPage > 1}">
                                                     <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
                                                     <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-                                                </c:if>
+                                                        </c:if>
 
                                                 <c:choose>
                                                     <c:when test="${currentPage > 3}">
@@ -125,7 +125,7 @@
                                                            var="i">
 
                                                     <li><a href="blogdetail?page=1" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
-                                                </c:forEach>
+                                                    </c:forEach>
 
                                                 <c:choose>
                                                     <c:when test="${currentPage < totalPages - 2}">
@@ -136,7 +136,7 @@
                                                 <c:if test="${currentPage < totalPages}">
                                                     <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                                                     <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                                                </c:if>
+                                                        </c:if>
                                             </ul>
                                             <div/>
                                         </div>
@@ -161,24 +161,24 @@
                     </div>
                     <div class="sidebar-contain">
 
-                       
 
-                        
-                        
-                        
+
+
+
+
                         <div class="widget biolife-filter" >
                             <h4 class="wgt-title">Category</h4>
                             <div class="wgt-content">
                                 <ul class="cat-list">
                                     <li class="cat-list-item "><a href="shop" class="cat-link">All</a></li>
-                                    <c:forEach items="${listC}" var="o">
-                                    <li class="cat-list-item ${tag == o.cid ? "active": ""}"><a href="category?cid=${o.cid}">${o.cname}</a></li>
-                                    </c:forEach>
+                                        <c:forEach items="${listC}" var="o">
+                                        <li class="cat-list-item ${tag == o.cid ? "active": ""}"><a href="category?cid=${o.cid}">${o.cname}</a></li>
+                                        </c:forEach>
                                 </ul>
                             </div>
                         </div>
-                        
-                        
+
+
                         <div class="widget biolife-filter" style="height: 380px;">
                             <h4 class="wgt-title">BMI menu - your index: </h4>
                             <div class="wgt-content">
@@ -190,34 +190,51 @@
                                 </ul>
                             </div>
                         </div>
-                        
 
-                        <div class="widget price-filter biolife-filter">
+
+<!--                        <div class="widget price-filter biolife-filter">
                             <h4 class="wgt-title">Price</h4>
                             <div class="wgt-content">
                                 <div class="frm-contain">
                                     <form action="#" name="price-filter" id="price-filter" method="get">
                                         <p class="f-item">
-                                            <label for="pr-from">$</label>
+                                            <label for="pr-from">from</label>
                                             <input class="input-number" type="number" id="pr-from" value="" name="price-from">
                                         </p>
                                         <p class="f-item">
-                                            <label for="pr-to">to $</label>
+                                            <label for="pr-to">to VND</label>
                                             <input class="input-number" type="number" id="pr-to" value="" name="price-from">
                                         </p>
                                         <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
                                     </form>
                                 </div>
-                                <ul class="check-list bold single">
-                                    <li class="check-list-item"><a href="#" class="check-link">$0 - $5</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">$5 - $10</a></li>
-                                    <li class="check-list-item"><a href="#" class="check-link">$15 - $20</a></li>
-                                </ul>
+                            </div>
+                        </div>-->
+
+                        <div class="widget price-filter biolife-filter">
+                            <h4 class="wgt-title">Price</h4>
+                            <div class="wgt-content">
+                                <div class="frm-contain">
+                                    <!-- Form nhập khoảng giá -->
+                                    <form action="productSearch" name="price-filter" id="price-filter" method="get">
+                                        <p class="f-item">
+                                            <label for="pr-from">From</label>
+                                            <!-- Input number không cho phép giá trị âm -->
+                                            <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
+                                        </p>
+                                        <p class="f-item">
+                                            <label for="pr-to">To</label>
+                                            <!-- Input number không cho phép giá trị âm -->
+                                            <input class="input-number" type="number" id="pr-to" name="toPrice" min="0" required>VND
+                                        </p>
+                                        <p class="f-item">
+                                            <button class="btn-submit" type="submit">Go</button>
+                                        </p>
+                                    </form>
+                                </div>
                             </div>
                         </div>
 
-                        
-                        
                     </div>
 
                 </aside>
