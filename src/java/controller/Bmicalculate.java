@@ -79,7 +79,8 @@ public class Bmicalculate extends HttpServlet {
         try {
             double Weight = Double.parseDouble(weight);
             double Height = Double.parseDouble(height);
-            double bmiResult =  Weight/Height*Height;
+            double bmiResult =  Weight/(Height*Height/10000);
+            bmiResult = Math.round(bmiResult * 100.0) / 100.0;
             HttpSession session = request.getSession();
             session.setAttribute("bmiR", bmiResult);
             response.sendRedirect("home");
