@@ -27,7 +27,9 @@
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body class="biolife-body">
-
+           <c:if test="${sessionScope.bmiR==null}">
+            <c:redirect url="bmi.jsp"/>
+        </c:if>
         <!-- Preloader -->
         <div id="biof-loading">
             <div class="biof-loading-center">

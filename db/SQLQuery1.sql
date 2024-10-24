@@ -70,9 +70,6 @@ CREATE TABLE Customer_Type (
     [type_name] NVARCHAR(255) NOT NULL,                -- Tên loại sản phẩm
 );
 
-alter table Menu 
-add status NVARCHAR(10) CHECK (status IN ('Accept', 'Reject', 'In Process')) NOT NULL default ('In Process')
-
 CREATE TABLE Menu (
     menu_id INT IDENTITY(1,1) PRIMARY KEY,
     [type_id] INT,
@@ -82,6 +79,7 @@ CREATE TABLE Menu (
 	create_at DATETIME DEFAULT GETDATE(),
 	update_at DATETIME DEFAULT GETDATE(),
 	menu_name NVARCHAR(255),
+	status NVARCHAR(10) CHECK (status IN ('Accept', 'Reject', 'In Process')) NOT NULL default ('In Process')
 	FOREIGN KEY (create_by) REFERENCES Accounts(account_id) ON DELETE SET NULL,
 	FOREIGN KEY ([type_id]) REFERENCES Customer_Type([type_id]) ON DELETE SET NULL,
 );

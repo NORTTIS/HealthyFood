@@ -18,6 +18,13 @@
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <!-- Tải jQuery trước -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Sau đó tải DataTables -->
+        <link rel="stylesheet" type="text/css" href="./assets/css/jquery.dataTables.min.css">
+
+
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/css/nice-select.css">
@@ -33,7 +40,44 @@
             .opa-05{
                 opacity: 0.5;
             }
+            .dataTables_paginate {
+                text-align: center; /* Căn giữa */
+                margin-top: 10px; /* Khoảng cách trên */
+            }
+
+            /* Phong cách cho tất cả các nút phân trang */
+            .dataTables_paginate .paginate_button {
+                padding: 10px 15px; /* Kích thước nút */
+                margin: 0 5px; /* Khoảng cách giữa các nút */
+                border: 1px solid #007bff; /* Đường viền */
+                border-radius: 5px; /* Bo tròn góc */
+            
+                color: #fff; /* Màu chữ */
+                cursor: pointer; /* Hiển thị con trỏ tay */
+                transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+            }
+
+            /* Màu nền khi hover */
+            .dataTables_paginate .paginate_button:hover {
+                background-color: #007bff; /* Màu nền khi hover */
+                color: white; /* Màu chữ khi hover */
+            }
+
+            /* Phong cách cho nút đang hoạt động (nút hiện tại) */
+            .dataTables_paginate .paginate_button.current {
+                background-color: #7faf51; /* Màu nền hiện tại */
+                color: white; /* Màu chữ hiện tại */
+                border: 1px solid #007bff; /* Đường viền hiện tại */
+                pointer-events: none; /* Tắt sự kiện click */
+            }
+
+            /* Phong cách cho các nút "Previous" và "Next" */
+            .dataTables_paginate .paginate_button.previous,
+            .dataTables_paginate .paginate_button.next {
+                font-weight: bold; /* Đậm chữ */
+            }
         </style>
+
     </head>
     <body>
 
@@ -136,7 +180,7 @@
                     </div>
                     <div class="col-lg-8" id="myorder" style="display: none; overflow-y: scroll;
                          height: 450px;">
-                        <table class="table order-list">
+                        <table class="table order-list"  id="myOrderTable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -152,10 +196,55 @@
                                         <th scope="row">${j.index+1}</th>
                                         <th scope="col" >${i.status}</th>
                                         <th scope="col">${i.totalCal}</th>
-                                        <th scope="col">${i.ammount}</th>
+                                        <th scope="col">${i.getAmmount()}</th>
                                         <th scope="col">${i.getCreateAt()}</th>
                                     </tr>
                                 </c:forEach>
+                                    <c:forEach items="${lOrder}" var="i" varStatus="j">
+                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
+                                        <th scope="row">${j.index+1}</th>
+                                        <th scope="col" >${i.status}</th>
+                                        <th scope="col">${i.totalCal}</th>
+                                        <th scope="col">${i.getAmmount()}</th>
+                                        <th scope="col">${i.getCreateAt()}</th>
+                                    </tr>
+                                </c:forEach>
+                                    <c:forEach items="${lOrder}" var="i" varStatus="j">
+                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
+                                        <th scope="row">${j.index+1}</th>
+                                        <th scope="col" >${i.status}</th>
+                                        <th scope="col">${i.totalCal}</th>
+                                        <th scope="col">${i.getAmmount()}</th>
+                                        <th scope="col">${i.getCreateAt()}</th>
+                                    </tr>
+                                </c:forEach><c:forEach items="${lOrder}" var="i" varStatus="j">
+                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
+                                        <th scope="row">${j.index+1}</th>
+                                        <th scope="col" >${i.status}</th>
+                                        <th scope="col">${i.totalCal}</th>
+                                        <th scope="col">${i.getAmmount()}</th>
+                                        <th scope="col">${i.getCreateAt()}</th>
+                                    </tr>
+                                </c:forEach><c:forEach items="${lOrder}" var="i" varStatus="j">
+                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
+                                        <th scope="row">${j.index+1}</th>
+                                        <th scope="col" >${i.status}</th>
+                                        <th scope="col">${i.totalCal}</th>
+                                        <th scope="col">${i.getAmmount()}</th>
+                                        <th scope="col">${i.getCreateAt()}</th>
+                                    </tr>
+                                </c:forEach>
+                                    <c:forEach items="${lOrder}" var="i" varStatus="j">
+                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
+                                        <th scope="row">${j.index+1}</th>
+                                        <th scope="col" >${i.status}</th>
+                                        <th scope="col">${i.totalCal}</th>
+                                        <th scope="col">${i.getAmmount()}</th>
+                                        <th scope="col">${i.getCreateAt()}</th>
+                                    </tr>
+                                </c:forEach>
+                                    
+                                    
                             </tbody>
                         </table>
                     </div>
@@ -200,12 +289,20 @@
             });
 
         </script>
-         <script src="assets/js/jquery-3.4.1.min.js"></script>
+
+        <script src="assets/js/jquery-3.4.1.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.countdown.min.js"></script>
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/jquery.nicescroll.min.js"></script>
         <script src="assets/js/functions.js"></script>
+
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#myOrderTable').DataTable();
+            });
+        </script>
     </body>
 </html>
