@@ -27,27 +27,18 @@ public class NutriDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                //kiểm tra type
-                int type = rs.getInt("type_id");
                 String name = rs.getString("name");
-                String weightSituation = "";
-                if (type == 1) {
-                    weightSituation = "Underweight";
-                } else {
-                    weightSituation = "Overweight";
-                }
-                String status = rs.getString("status");
-                String key = weightSituation + " - " + status;
+                String key = rs.getString("description");
                 // Tạo đối tượng Menu từ ResultSet
                 Menu m = new Menu(
                         rs.getInt("menu_id"),
-                        type,
+                        rs.getInt("type_id"),
                         name,
                         rs.getString("description"),
                         rs.getInt("create_by"),
                         rs.getString("menu_name"),
                         rs.getFloat("average_calories"),
-                        status
+                        rs.getString("status")
                 );
 
                 //Kiểm tra xem weightSituation đã có trong menuMap chưa
@@ -86,19 +77,12 @@ public class NutriDAO extends DBContext {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                //kiểm tra type
-                int type = rs.getInt("type_id");
                 String name = rs.getString("name");
-                String weightSituation = "";
-                if (type == 1) {
-                    weightSituation = "Underweight";
-                } else {
-                    weightSituation = "Overweight";
-                }
+                String key = rs.getString("description");
                 // Tạo đối tượng Menu từ ResultSet
                 Menu m = new Menu(
                         rs.getInt("menu_id"),
-                        type,
+                        rs.getInt("type_id"),
                         name,
                         rs.getString("description"),
                         rs.getInt("create_by"),
@@ -108,13 +92,13 @@ public class NutriDAO extends DBContext {
                 );
 
                 //Kiểm tra xem weightSituation đã có trong menuMap chưa
-                if (!menuMap.containsKey(weightSituation)) {
+                if (!menuMap.containsKey(key)) {
                     //Thêm một Map rỗng vào cho `name` nếu chưa có
-                    menuMap.put(weightSituation, new HashMap<>());
+                    menuMap.put(key, new HashMap<>());
                 }
 
                 // Lấy Map của `name` từ menuMap
-                Map<String, List<Menu>> nameMap = menuMap.get(weightSituation);
+                Map<String, List<Menu>> nameMap = menuMap.get(key);
 
                 // Kiểm tra xem name đã có trong nameMap chưa
                 if (!nameMap.containsKey(name)) {
