@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 import model.Accounts;
 
@@ -87,6 +86,7 @@ public class zCreateMenu extends HttpServlet {
             throws ServletException, IOException {
         NutriDAO ndb = new NutriDAO();
         // lấy giá trị chỉ xuất hiện 1 lần
+        String menuTitle = request.getParameter("menuTitle");
         String descrip = request.getParameter("description");
         String type = request.getParameter("type");
         String lst = request.getParameter("lstMeal");
@@ -108,7 +108,7 @@ public class zCreateMenu extends HttpServlet {
             if (menu_detail != null && calo != null) {
                 for (int i = 0; i < menu_detail.length; i++) {
                     float caloFloat = Float.parseFloat(calo[i]);
-                    ndb.insertNewMenu(type_id, meals, descrip, nutriId, menu_detail[i], caloFloat);
+                    ndb.insertNewMenu(menuTitle, type_id, meals, descrip, nutriId, menu_detail[i], caloFloat);
                 }
             } else {
                 System.out.println("menu_detail or calo is null for meal: " + menuValues);

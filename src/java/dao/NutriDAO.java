@@ -28,7 +28,7 @@ public class NutriDAO extends DBContext {
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                String key = rs.getString("description");
+                String key = rs.getString("menuTitle");
                 // Tạo đối tượng Menu từ ResultSet
                 Menu m = new Menu(
                         rs.getInt("menu_id"),
@@ -38,7 +38,8 @@ public class NutriDAO extends DBContext {
                         rs.getInt("create_by"),
                         rs.getString("menu_name"),
                         rs.getFloat("average_calories"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
                 );
 
                 //Kiểm tra xem weightSituation đã có trong menuMap chưa
@@ -78,7 +79,7 @@ public class NutriDAO extends DBContext {
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                String key = rs.getString("description");
+                String key = rs.getString("menuTitle");
                 // Tạo đối tượng Menu từ ResultSet
                 Menu m = new Menu(
                         rs.getInt("menu_id"),
@@ -88,7 +89,8 @@ public class NutriDAO extends DBContext {
                         rs.getInt("create_by"),
                         rs.getString("menu_name"),
                         rs.getFloat("average_calories"),
-                        rs.getString("status")
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
                 );
 
                 //Kiểm tra xem weightSituation đã có trong menuMap chưa
@@ -129,8 +131,8 @@ public class NutriDAO extends DBContext {
         return typeList;
     }
 
-    public void insertNewMenu(int type_id, String name, String description, int create_by, String menu_name, float average_calories){
-        String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories) values (?, ?, ?, ?, ?, ?);";
+    public void insertNewMenu(String menuTitle, int type_id, String name, String description, int create_by, String menu_name, float average_calories){
+        String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories) values (?, ?, ?, ?, ?, ?, ?);";
         try(PreparedStatement st = connection.prepareStatement(sql1)){
             st.setInt(1, type_id);
             st.setString(2, name);
@@ -138,6 +140,7 @@ public class NutriDAO extends DBContext {
             st.setInt(4, create_by);
             st.setString(5, menu_name);
             st.setFloat(6, average_calories);
+            st.setString(7, menuTitle);
             st.executeUpdate();
         }catch(SQLException e){
             System.out.println(e);

@@ -148,9 +148,8 @@
                         <form action="createMenu" method="post">
                             <div class="contain" style="width:100%; height: 500px;">
                                 <div class="create-new-meals" style=" display: flex; justify-content:space-between; margin-bottom: 100px">
-                                    <div>
-                                        <button type="button" class="btn btn-default" style="padding: 10px 35px" onclick="createMeals()">Create</button>
-                                    </div>
+                                    <button type="button" class="btn btn-default" style="padding: 10px 35px" onclick="createMeals()">Create</button>
+                                    <input type="text" name="menuTitle" style="border-radius: 20px" placeholder="Menu title..." required/>
                                     <select name="type" style="border-radius: 20px; padding: 0 35px">
                                         <c:forEach var="type" items="${typeList}">
                                             <option>${type}</option>
@@ -203,104 +202,104 @@
     <script src="assets/js/biolife.framework.js"></script>
     <script src="assets/js/functions.js"></script>
     <script>
-        var count = 0;
-        function createMeals() {
-            count++;
-            let mealsContainer = document.getElementById('mealsContainer');
+                                        var count = 0;
+                                        function createMeals() {
+                                            count++;
+                                            let mealsContainer = document.getElementById('mealsContainer');
 
-            // Tạo thẻ lớn Meals
-            let mealsDiv = document.createElement('div');
-            mealsDiv.classList.add('meals');
-            mealsDiv.style.marginBottom = "20px";
-            mealsDiv.style.border = "1px solid black";
-            mealsDiv.style.padding = "10px";
+                                            // Tạo thẻ lớn Meals
+                                            let mealsDiv = document.createElement('div');
+                                            mealsDiv.classList.add('meals');
+                                            mealsDiv.style.marginBottom = "20px";
+                                            mealsDiv.style.border = "1px solid black";
+                                            mealsDiv.style.padding = "10px";
 
-            // Tạo tiêu đề cho thẻ Meals
-            let mealsTitle = document.createElement('div');
-            mealsTitle.innerHTML = '<input class="mealsID mealsID' + count + '" type="text" name="name' + count + '" placeholder = "Meals name" required/>';
-            mealsTitle.style.marginBottom = "20px";
-            // Tạo nút để thêm MealDetail trong thẻ Meals
-            let addMealDetailButton = document.createElement('button');
-            addMealDetailButton.innerText = 'Add menu';
-            addMealDetailButton.setAttribute('type', 'button');
-            addMealDetailButton.classList.add('btn', 'btn-default');
-            addMealDetailButton.onclick = function () {
-                createMealDetail(mealsDiv);
-            };
+                                            // Tạo tiêu đề cho thẻ Meals
+                                            let mealsTitle = document.createElement('div');
+                                            mealsTitle.innerHTML = '<input class="mealsID mealsID' + count + '" type="text" name="name' + count + '" placeholder = "Meals name" required/>';
+                                            mealsTitle.style.marginBottom = "20px";
+                                            // Tạo nút để thêm MealDetail trong thẻ Meals
+                                            let addMealDetailButton = document.createElement('button');
+                                            addMealDetailButton.innerText = 'Add menu';
+                                            addMealDetailButton.setAttribute('type', 'button');
+                                            addMealDetailButton.classList.add('btn', 'btn-default');
+                                            addMealDetailButton.onclick = function () {
+                                                createMealDetail(mealsDiv);
+                                            };
 
-            // Tạo nút xóa thẻ Meals
-            let deleteMealsButton = document.createElement('button');
-            deleteMealsButton.innerText = 'Delete menu';
-            deleteMealsButton.style.marginLeft = "10px";
-            deleteMealsButton.setAttribute('type', 'button');
-            deleteMealsButton.classList.add('btn', 'btn-default');
-            deleteMealsButton.onclick = function () {
-                mealsContainer.removeChild(mealsDiv);
-            };
+                                            // Tạo nút xóa thẻ Meals
+                                            let deleteMealsButton = document.createElement('button');
+                                            deleteMealsButton.innerText = 'Delete menu';
+                                            deleteMealsButton.style.marginLeft = "10px";
+                                            deleteMealsButton.setAttribute('type', 'button');
+                                            deleteMealsButton.classList.add('btn', 'btn-default');
+                                            deleteMealsButton.onclick = function () {
+                                                mealsContainer.removeChild(mealsDiv);
+                                            };
 
-            // Thêm các phần tử vào thẻ Meals
-            mealsDiv.appendChild(mealsTitle);
-            mealsDiv.appendChild(addMealDetailButton);
-            mealsDiv.appendChild(deleteMealsButton);
+                                            // Thêm các phần tử vào thẻ Meals
+                                            mealsDiv.appendChild(mealsTitle);
+                                            mealsDiv.appendChild(addMealDetailButton);
+                                            mealsDiv.appendChild(deleteMealsButton);
 
-            // Thêm thẻ Meals vào container
-            mealsContainer.appendChild(mealsDiv);
-        }
+                                            // Thêm thẻ Meals vào container
+                                            mealsContainer.appendChild(mealsDiv);
+                                        }
 
 // Hàm tạo thẻ MealDetail
-        function createMealDetail(mealsDiv) {
-            // Tạo thẻ con MealDetail
-            let mealDetailDiv = document.createElement('div');
-            mealDetailDiv.classList.add('meal-detail');
-            mealDetailDiv.style.marginTop = "10px";
-            mealDetailDiv.style.border = "1px dashed grey";
-            mealDetailDiv.style.padding = "5px";
+                                        function createMealDetail(mealsDiv) {
+                                            // Tạo thẻ con MealDetail
+                                            let mealDetailDiv = document.createElement('div');
+                                            mealDetailDiv.classList.add('meal-detail');
+                                            mealDetailDiv.style.marginTop = "10px";
+                                            mealDetailDiv.style.border = "1px dashed grey";
+                                            mealDetailDiv.style.padding = "5px";
 
-            var differ =  document.getElementsByClassName("mealsID" + count);
-            // Tạo input để nhập dữ liệu cho MealDetail
-            let inputField = document.createElement('input');
-            inputField.type = 'text';
-            inputField.placeholder = 'Input menu name';
-            inputField.name = 'menuName' + differ[0].name;
-            inputField.required = true;
-            // Tạo input để nhập calo cho MealDetail
-            let inputCalo = document.createElement('input');
-            inputCalo.type = 'number';
-            inputCalo.placeholder = 'Input calories';
-            inputCalo.style = 'margin: 0 25px; outline: none; padding: 7px 20px';
-            inputCalo.name = 'calories' + differ[0].name;
-            inputCalo.required = true;
-            // Tạo nút xóa MealDetail
-            let deleteMealDetailButton = document.createElement('button');
-            deleteMealDetailButton.innerText = 'Delete menu detail';
-            deleteMealDetailButton.style.marginLeft = "10px";
-            deleteMealDetailButton.setAttribute('type', 'button');
-            deleteMealDetailButton.classList.add('btn', 'btn-default');
-            deleteMealDetailButton.onclick = function () {
-                mealsDiv.removeChild(mealDetailDiv);
-            };
+                                            var differ = document.getElementsByClassName("mealsID" + count);
+                                            // Tạo input để nhập dữ liệu cho MealDetail
+                                            let inputField = document.createElement('input');
+                                            inputField.type = 'text';
+                                            inputField.placeholder = 'Input menu name';
+                                            inputField.name = 'menuName' + differ[0].name;
+                                            inputField.required = true;
+                                            // Tạo input để nhập calo cho MealDetail
+                                            let inputCalo = document.createElement('input');
+                                            inputCalo.type = 'number';
+                                            inputCalo.placeholder = 'Input calories';
+                                            inputCalo.style = 'margin: 0 25px; outline: none; padding: 7px 20px';
+                                            inputCalo.name = 'calories' + differ[0].name;
+                                            inputCalo.required = true;
+                                            // Tạo nút xóa MealDetail
+                                            let deleteMealDetailButton = document.createElement('button');
+                                            deleteMealDetailButton.innerText = 'Delete menu detail';
+                                            deleteMealDetailButton.style.marginLeft = "10px";
+                                            deleteMealDetailButton.setAttribute('type', 'button');
+                                            deleteMealDetailButton.classList.add('btn', 'btn-default');
+                                            deleteMealDetailButton.onclick = function () {
+                                                mealsDiv.removeChild(mealDetailDiv);
+                                            };
 
-            // Thêm input và nút xóa vào MealDetail
-            mealDetailDiv.appendChild(inputField);
-            mealDetailDiv.appendChild(inputCalo);
-            mealDetailDiv.appendChild(deleteMealDetailButton);
+                                            // Thêm input và nút xóa vào MealDetail
+                                            mealDetailDiv.appendChild(inputField);
+                                            mealDetailDiv.appendChild(inputCalo);
+                                            mealDetailDiv.appendChild(deleteMealDetailButton);
 
-            // Thêm MealDetail vào Meals
-            mealsDiv.appendChild(mealDetailDiv);
-        }
-        //function lấy name từ các meals theo class
-        function getAllMeals(){
-            var idOfMeal = document.getElementsByClassName("mealsID");
-            var listMeals = "";
-            for(var i = 0; i < count; i++){
-                listMeals += idOfMeal[i].name; // Thêm giá trị name vào chuỗi
-                if (i < count - 1) {
-                    listMeals += "-"; // Nếu không phải phần tử cuối, thêm dấu ';'
-                }
-            }
-            // Gán chuỗi listMeals là giá trị của input 
-            document.getElementById("allMealList").value = listMeals;
-        }
+                                            // Thêm MealDetail vào Meals
+                                            mealsDiv.appendChild(mealDetailDiv);
+                                        }
+                                        //function lấy name từ các meals theo class
+                                        function getAllMeals() {
+                                            var idOfMeal = document.getElementsByClassName("mealsID");
+                                            var listMeals = "";
+                                            for (var i = 0; i < count; i++) {
+                                                listMeals += idOfMeal[i].name; // Thêm giá trị name vào chuỗi
+                                                if (i < count - 1) {
+                                                    listMeals += "-"; // Nếu không phải phần tử cuối, thêm dấu ';'
+                                                }
+                                            }
+                                            // Gán chuỗi listMeals là giá trị của input 
+                                            document.getElementById("allMealList").value = listMeals;
+                                        }
     </script>
 </body>
 </html>
