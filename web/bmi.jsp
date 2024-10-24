@@ -87,6 +87,66 @@
                 <p>&ge; 30</p>
             </div>
         </section>
+
+        <div id="promotionMessage" style="display: none; margin-top: 20px;">
+            <button onclick="redirectToHome()">Tính toán BMI xong rồi! Hãy ghé thăm cửa hàng của chúng tôi để tìm ra những sản phẩm phù hợp giúp bạn đạt được mục tiêu sức khỏe của mình.</button>
+        </div>
     </div>
+
+    <script>
+        const bmiText = document.getElementById("bmi");
+        const descText = document.getElementById("desc");
+        const form = document.querySelector("form");
+        const promotionMessage = document.getElementById("promotionMessage");
+
+        form.addEventListener("submit", handleSubmit);
+        form.addEventListener("reset", handleReset);
+
+        function handleReset() {
+            bmiText.textContent = 0;
+            bmiText.className = "";
+            descText.textContent = "N/A";
+            promotionMessage.style.display = "none"; // Ẩn thông điệp
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            const weight = parseFloat(form.weight.value);
+            const height = parseFloat(form.height.value);
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                alert("Vui lòng nhập cân nặng và chiều cao hợp lệ");
+                return;
+            }
+
+            const heightInMeters = height / 100; // cm -> m
+            const bmi = weight / Math.pow(heightInMeters, 2);
+            const result = interpretBMI(bmi); // Lấy kết quả từ interpretBMI
+
+            bmiText.textContent = bmi.toFixed(2);
+            bmiText.className = result.desc; // Lớp CSS theo trạng thái
+            descText.innerHTML = `Bạn đang ở trạng thái <strong>${result.desc}</strong> (${result.status})`; // Hiển thị tình trạng
+
+            // Hiển thị thông điệp
+            promotionMessage.style.display = "block";
+        }
+
+        function interpretBMI(bmi) {
+            if (bmi < 18.5) {
+                return { desc: "Gầy", status: "Cần tăng cường dinh dưỡng" };
+            } else if (bmi < 25) {
+                return { desc: "Bình thường", status: "Chúc mừng! Bạn có sức khỏe tốt!" };
+            } else if (bmi < 30) {
+                return { desc: "Thừa cân", status: "Cần chú ý đến chế độ ăn uống" };
+            } else {
+                return { desc: "Béo phì", status: "Cần tham khảo ý kiến bác sĩ" };
+            }
+        }
+
+        function redirectToHome() {
+            window.location.href = '/'; // Chuyển hướng về trang chính
+        }
+    </script>
 </body>
 </html>

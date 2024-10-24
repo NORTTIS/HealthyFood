@@ -1,14 +1,14 @@
-const bmiText = document.getElementById("bmi");
-const descText = document.getElementById("desc");
-const form = document.querySelector("form");
+const homeBtn = document.getElementById("homeBtn"); // Lấy nút "Quay về trang chủ"
 
 form.addEventListener("submit", handleSubmit);
 form.addEventListener("reset", handleReset);
+homeBtn.addEventListener("click", redirectToHome); // Thêm sự kiện click cho nút
 
 function handleReset() {
     bmiText.textContent = 0;
     bmiText.className = "";
     descText.textContent = "N/A";
+    homeBtn.style.display = "none"; // Ẩn nút khi người dùng đặt lại form
 }
 
 function handleSubmit(e) {
@@ -29,6 +29,9 @@ function handleSubmit(e) {
     bmiText.textContent = bmi.toFixed(2);
     bmiText.className = desc;
     descText.innerHTML = `Bạn đang ở trạng thái <strong>${desc}</strong>`;
+
+    // Hiển thị nút "Quay về trang chủ" sau khi tính toán BMI
+    homeBtn.style.display = "inline-block"; // Hiển thị nút sau khi có kết quả BMI
 }
 
 function interpretBMI(bmi) {
@@ -41,4 +44,9 @@ function interpretBMI(bmi) {
     } else {
         return "Béo phì";
     }
+}
+
+function redirectToHome() {
+    // Chuyển hướng về trang "home"
+    window.location.href = "/home"; // URL của trang chủ
 }
