@@ -29,7 +29,9 @@
     </head>
 
     <body class="biolife-body">
-
+        <c:if test="${sessionScope.bmiR==null}">
+            <c:redirect url="bmi.jsp"/>
+        </c:if>
          <!--Preloader loading-->
         <div id="biof-loading">
             <div class="biof-loading-center">
@@ -253,7 +255,7 @@
                                             <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
                                             <div class="post-meta">
                                                 <a href="blogdetail?blogId=${i.id}" class="post-meta__item author"><img
-                                                        src="assets/images/user-avatar/Avatar.png" width="28" height="28"
+                                                        src="./assets/image/${accList.get(j.index).avatar==null?'Avatar.png':accList.get(j.index).avatar}" width="28" height="28"
                                                         alt=""><span>${accList.get(j.index).displayname}</span></a>
 
                                                 <div class="post-meta__item post-meta__item-social-box">

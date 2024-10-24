@@ -27,7 +27,9 @@
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body class="biolife-body">
-
+        <c:if test="${sessionScope.bmiR==null}">
+            <c:redirect url="bmi.jsp"/>
+        </c:if>
         <!-- Preloader -->
         <div id="biof-loading">
             <div class="biof-loading-center">
@@ -41,7 +43,7 @@
 
         <!-- HEADER -->
         <jsp:include page="./jsptemplate/header.jsp" />
-
+        
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
             <h1 class="page-title">Organic Fruits</h1>
