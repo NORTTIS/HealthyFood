@@ -84,11 +84,11 @@
 
                                 <div class="auth-info">
                                     <div class="ath">
-                                        <a href="#" class="avata"><img src="assets/images/user-avatar/Avatar.png" style="width: 30px; height: 30px;" alt="Christian Doe">${author.displayname}</a>
+                                        <a href="#" class="avata"><img src="assets/image/${author.avatar==null?'Avatar.png':author.avatar}" style="width: 30px; height: 30px;" alt="Christian Doe">${author.displayname}</a>
 
                                     </div>
                                     <div class="socials-connection">
-                                        <span class="title">Shared:${blog.createAt}</span>
+                                        <span class="title">Shared: ${blog.createAt}</span>
 
                                     </div>
                                 </div>

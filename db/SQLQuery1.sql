@@ -99,6 +99,7 @@ CREATE TABLE Reviews (
     account_id INT,
 	product_id INT,
 	comment NVARCHAR(MAX),
+	rate INT,
 	create_at DATETIME DEFAULT GETDATE(),
 	status NVARCHAR(10) CHECK (status IN ('Approved ', 'Rejected ')) NOT NULL,
 	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,
@@ -141,10 +142,11 @@ CREATE TABLE Blogs (
     content NVARCHAR(MAX),
     timestamp DATETIME DEFAULT GETDATE(),
 	image NVARCHAR(MAX),
+	bmi_range INT,
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
-	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
+	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) ,
+	FOREIGN KEY (bmi_range) REFERENCES Customer_Type(type_id)
 );
-
 
 
 

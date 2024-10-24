@@ -138,8 +138,8 @@
                                                         <a href="#" class="pr-name">${i.product.name}</a>
                                                     </div>
                                                     <div class="price price-contain">
-                                                        <ins><span class="price-amount">${i.getTotal()}<span class="currencySymbol">VND</span></span></ins>
-                                                        <del><span class="price-amount">${i.getTotal()*110/100}<span class="currencySymbol">VND</span></span></del>
+                                                        <ins><span class="price-amount">${i.getTotal()} <span class="currencySymbol">VND</span></span></ins>
+                                                        
                                                     </div>
                                                 </div>
                                             </li>

@@ -57,7 +57,7 @@
                 <input type="text" name="nutriId" value="${sessionScope.acc.account_id}" hidden/>
                 <input type="text" name="BlogId" value="${blog.id}" hidden/>
                 <input type="text" name="ac" value="${blog==null?'create':'upd'}" hidden/>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label for="title">Blog Title:</label><br>
                     <input type="text" id="title" name="title" value="${blog.title}" required><br><br>
 
@@ -65,12 +65,23 @@
                     <input type="file" id="thumbnail" name="thumbnail" accept="image/*" ${blog == null ? 'required' : ''}><br><br>
                     <p class="text-danger">${error}</p>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <label for="title">Category</label><br>
                     <select id="category" name="category">
                         <c:forEach items="${blogCate}" var="entry">
-                           <option value="${entry.key}" ${blog.category == entry.key ? 'selected' : ''}>${entry.value}</option>
+                            <option value="${entry.key}" ${blog.category == entry.key ? 'selected' : ''}>${entry.value}</option>
                         </c:forEach>
+                    </select>
+
+                </div>
+                <div class="col-lg-4">
+                    <label for="title">Bmi range</label><br>
+                    <select id="category" name="bmirange">
+                        <option value="1">BMI < 18.5</option>
+                        <option value="2">18.5 <= BMI < 24.9</option>
+                        <option value="3">25 <= BMI < 29.9</option> 
+                        <option value="4">BMI >= 30</option>
+                        <option value="5">All BMIs</option>
                     </select>
 
                 </div>

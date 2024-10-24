@@ -4,29 +4,21 @@
  */
 package controller;
 
-import dao.AccountsDAO;
-import dao.BlogDao;
 import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import model.Accounts;
-import model.Blog;
-import model.Cart;
-import model.Products;
 
 /**
  *
  * @author Norttie
  */
-public class HomeControl extends HttpServlet {
+@WebServlet(name = "ReviewControl", urlPatterns = {"/review"})
+public class ReviewControl extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +37,10 @@ public class HomeControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeControl</title>");
+            out.println("<title>Servlet ReviewControl</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeControl at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ReviewControl at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,38 +58,7 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDao blogDao = new BlogDao();
-        HttpSession session = request.getSession();
-        String bmirange = "1";
-        if (session.getAttribute("bmiR") != null) {
-             bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
-        }
-        List<Blog> bListByPageIndex = blogDao.getAllBlogs("", "", "", bmirange);
-
-        AccountsDAO accDao = new AccountsDAO();
-        List<Accounts> accList = new ArrayList<>();
-        Accounts acc = (Accounts) session.getAttribute("acc");
-        Cart cart = new Cart();
-        if (acc != null) {
-            String accountId = acc.getAccount_id() + "";
-            cart = new ProductDao().getWishCartByAccountId(accountId);
-        }
-        if (bListByPageIndex != null) {
-            for (Blog blog : bListByPageIndex) {
-                accList.add(accDao.getAccountByid(blog.getAuthor()));
-            }
-            session.setAttribute("totalWish", cart.getCount());
-            request.setAttribute("accList", accList);
-            request.setAttribute("bList", bListByPageIndex);
-        }
-
-        ProductDao prodDao = new ProductDao();
-        List<Products> lProduct = prodDao.getAllDiscountProduct();
-        Map<Integer, String> cates = prodDao.getAllProductCategory();
-        request.setAttribute("lProd", lProduct);
-        request.setAttribute("cates", cates);
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -111,7 +72,19 @@ public class HomeControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String productId = request.getParameter("productId");
+        String accountId = request.getParameter("accountId");
+        String rate = request.getParameter("rating");
+        String comment = request.getParameter("comment");
+        ProductDao proDao = new ProductDao();
+        try {
+            proDao.ReviewProduct(productId, accountId, rate, comment);
+
+        } catch (Exception e) {
+            PrintWriter out = response.getWriter();
+            out.print("error: "+ e.getMessage());
+        }
+        response.sendRedirect("productDetail?ac=show&productId="+productId);
     }
 
     /**
