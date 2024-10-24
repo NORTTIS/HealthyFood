@@ -71,7 +71,7 @@ public class NutriDAO extends DBContext {
                 nameMap.get(name).add(m);
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
         return menuMap;

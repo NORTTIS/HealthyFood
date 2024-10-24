@@ -205,7 +205,7 @@ public class ProductDao extends DBContext {
     }
 
     public void createOrder(Cart cart, String accountId) {
-        String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
+       
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
         PreparedStatement psOrderItems = null;
@@ -458,14 +458,14 @@ public class ProductDao extends DBContext {
 //        for (Reviews reviews : listR) {
 //            System.out.println(reviews);
 //        }
-//        List<Order> lOrders = prod.getAllOrderByAccId("1");
-//        for (Order lOrder : lOrders) {
-//            System.out.println(lOrder);
-//        }
-        Cart cartOrder = prod.getOrderDetailById("1");
-        for (LineItem item : cartOrder.getItems()) {
-            System.out.println(item);
+        List<Order> lOrders = prod.getAllOrderByAccId("1");
+        for (Order lOrder : lOrders) {
+            System.out.println(lOrder);
         }
+//        Cart cartOrder = prod.getOrderDetailById("1");
+//        for (LineItem item : cartOrder.getItems()) {
+//            System.out.println(item);
+//        }
     }
 
 }

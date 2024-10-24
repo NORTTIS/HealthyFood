@@ -215,7 +215,7 @@
                                     <form action="bmical" method="post" class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
                                         <table style="margin-bottom: -7px;">
                                             <tbody>
-                                                <tr>
+<!--                                                <tr>
                                                     <td>Age</td>
                                                     <td><input name="age" type="number" value="0"/></td>
                                                 </tr>
@@ -231,7 +231,7 @@
                                                             female
                                                         </label>
                                                     </td>
-                                                </tr>
+                                                </tr>-->
                                                 <tr>
                                                     <td>Height</td>
                                                     <td>
