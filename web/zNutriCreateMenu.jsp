@@ -175,7 +175,8 @@
                                     <a href="menuList" style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</a>
                                     <input type="text" value="${sessionScope.acc.getAccount_id()}" name="nutriId" hidden/>
                                     <input id="countInput" type="number" name="count" hidden/>
-                                    <input onclick="updateCount()" style="width:120px" type="submit" value="Send" class="btn btn-default"/>
+                                    <input id="allMealList" type="text" name="lstMeal" hidden/>
+                                    <input onclick="getAllMeals();" style="width:120px" type="submit" value="Send" class="btn btn-default"/>
                                 </div>
                             </div>
                         </form>
@@ -216,7 +217,7 @@
 
             // Tạo tiêu đề cho thẻ Meals
             let mealsTitle = document.createElement('div');
-            mealsTitle.innerHTML = '<input id="mealsID" type="text" name="name' + count + '" placeholder = "Meals name" required/>';
+            mealsTitle.innerHTML = '<input class="mealsID mealsID' + count + '" type="text" name="name' + count + '" placeholder = "Meals name" required/>';
             mealsTitle.style.marginBottom = "20px";
             // Tạo nút để thêm MealDetail trong thẻ Meals
             let addMealDetailButton = document.createElement('button');
@@ -235,7 +236,6 @@
             deleteMealsButton.classList.add('btn', 'btn-default');
             deleteMealsButton.onclick = function () {
                 mealsContainer.removeChild(mealsDiv);
-                count--;
             };
 
             // Thêm các phần tử vào thẻ Meals
@@ -256,19 +256,19 @@
             mealDetailDiv.style.border = "1px dashed grey";
             mealDetailDiv.style.padding = "5px";
 
-            var differ =  document.getElementById("mealsID").name;
+            var differ =  document.getElementsByClassName("mealsID" + count);
             // Tạo input để nhập dữ liệu cho MealDetail
             let inputField = document.createElement('input');
             inputField.type = 'text';
             inputField.placeholder = 'Input menu name';
-            inputField.name = 'menuName' + differ;
+            inputField.name = 'menuName' + differ[0].name;
             inputField.required = true;
             // Tạo input để nhập calo cho MealDetail
             let inputCalo = document.createElement('input');
             inputCalo.type = 'number';
             inputCalo.placeholder = 'Input calories';
             inputCalo.style = 'margin: 0 25px; outline: none; padding: 7px 20px';
-            inputCalo.name = 'calories' + differ;
+            inputCalo.name = 'calories' + differ[0].name;
             inputCalo.required = true;
             // Tạo nút xóa MealDetail
             let deleteMealDetailButton = document.createElement('button');
@@ -288,9 +288,18 @@
             // Thêm MealDetail vào Meals
             mealsDiv.appendChild(mealDetailDiv);
         }
-        function updateCount() {
-            // Gán giá trị count cho input ẩn
-            document.getElementById("countInput").value = count;
+        //function lấy name từ các meals theo class
+        function getAllMeals(){
+            var idOfMeal = document.getElementsByClassName("mealsID");
+            var listMeals = "";
+            for(var i = 0; i < count; i++){
+                listMeals += idOfMeal[i].name; // Thêm giá trị name vào chuỗi
+                if (i < count - 1) {
+                    listMeals += "-"; // Nếu không phải phần tử cuối, thêm dấu ';'
+                }
+            }
+            // Gán chuỗi listMeals là giá trị của input 
+            document.getElementById("allMealList").value = listMeals;
         }
     </script>
 </body>

@@ -14,9 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import model.Accounts;
 
 /**
@@ -46,7 +44,7 @@ public class zCreateMenu extends HttpServlet {
             out.println("<title>Servlet zCreateMenu</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet zCreateMenu at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet zCreateMenu at " + request.getAttribute("lst") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,10 +62,16 @@ public class zCreateMenu extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        NutriDAO ndb = new NutriDAO();
-        List<String> typeList = ndb.getTypeList();
-        request.setAttribute("typeList", typeList);
-        request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        Accounts ac = (Accounts) session.getAttribute("acc");
+        if (ac == null) {
+            response.sendRedirect("login.jsp");
+        } else {
+            NutriDAO ndb = new NutriDAO();
+            List<String> typeList = ndb.getTypeList();
+            request.setAttribute("typeList", typeList);
+            request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -81,31 +85,37 @@ public class zCreateMenu extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Accounts ac = (Accounts) session.getAttribute("acc");
-        if (ac == null) {
-            response.sendRedirect("login.jsp");
-        } else {
-            NutriDAO ndb = new NutriDAO();
-            Map<String, List<String>> menu = new HashMap<>();
-            // lấy 2 giá trị chỉ xuất hiện 1 lần
-            String descrip = request.getParameter("description");
-            String type = request.getParameter("type");
-            int nutriId = Integer.parseInt(request.getParameter("nutriId"));
-            int type_id = 0;
-            //switch với mỗi giá trị type sẽ trả về 1 type_id
-            switch (type) {
-                case "Underweight":
-                    type_id = 1;
-                case "Overweight":
-                    type_id = 2;
-            }
-            String[] name = request.getParameterValues("name");
-            String[] menu_name = request.getParameterValues("menuName");
-            String[] calo = request.getParameterValues("calories");
-
-            request.getRequestDispatcher("menuList").forward(request, response);
+        NutriDAO ndb = new NutriDAO();
+        // lấy giá trị chỉ xuất hiện 1 lần
+        String descrip = request.getParameter("description");
+        String type = request.getParameter("type");
+        String lst = request.getParameter("lstMeal");
+        String[] mealsName = lst.split("-");
+        int nutriId = Integer.parseInt(request.getParameter("nutriId"));
+        int type_id = 0;
+        //switch với mỗi giá trị type sẽ trả về 1 type_id
+        switch (type) {
+            case "Underweight":
+                type_id = 1;
+            case "Overweight":
+                type_id = 2;
         }
+        for (String meals : mealsName) {
+            String menuValues = "menuName" + meals;
+            String caloValues = "calories" + meals;
+            String[] menu_detail = request.getParameterValues(menuValues);
+            String[] calo = request.getParameterValues(caloValues);
+            if (menu_detail != null && calo != null) {
+                for (int i = 0; i < menu_detail.length; i++) {
+                    float caloFloat = Float.parseFloat(calo[i]);
+                    ndb.insertNewMenu(type_id, meals, descrip, nutriId, menu_detail[i], caloFloat);
+                }
+            } else {
+                System.out.println("menu_detail or calo is null for meal: " + menuValues);
+            }
+        }
+        request.getRequestDispatcher("menuList").forward(request, response);
+
     }
 
     /**
