@@ -12,8 +12,8 @@ public class AccountsDAO extends DBContext {
     public List<Accounts> getAllUser() {
         String sql = "SELECT * FROM Accounts";
         List<Accounts> al = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 int row = 1;
@@ -40,8 +40,8 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getAccountByUserName(String username) {
         String sql = "Select * from Accounts where username =?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             ResultSet rs;
             rs = st.executeQuery();
@@ -72,8 +72,8 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getAccountByEmail(String email) {
         String sql = "Select * from Accounts where email =?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
             ResultSet rs;
             rs = st.executeQuery();
@@ -121,8 +121,8 @@ public class AccountsDAO extends DBContext {
     public List<Accounts> getAllAccountByRole(String role) {
         String sql = "SELECT * FROM Accounts where role = ?";
         List<Accounts> al = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, role);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -150,8 +150,8 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getAccountByid(String id) {
         String sql = "SELECT * FROM Accounts where account_id = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -179,8 +179,8 @@ public class AccountsDAO extends DBContext {
 
     public Accounts getUserEmail(String email) {
         String sql = "SELECT * FROM Accounts WHERE email = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -214,8 +214,8 @@ public class AccountsDAO extends DBContext {
         } else {
             change_status = "Active";
         }
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, change_status);
             st.setString(2, username);
             st.executeUpdate();
@@ -224,25 +224,11 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public void updateUser(String username, String email, String phone_number, String password, String olduser) {
-        String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, String password = ? WHERE username = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, username);
-            st.setString(2, email);
-            st.setString(3, phone_number);
-            st.setString(4, password);
-            st.setString(5, olduser);
-            st.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }
-
     public List<Accounts> getsearchManager(String username, String search) {
-        String sql = "SELECT * FROM Accounts WHERE username = ? LIKE ?";
+        String sql = "SELECT * FROM Accounts WHERE username = ? LIKE search";
         List<Accounts> managers = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, "%" + search + "%");
 
@@ -273,8 +259,8 @@ public class AccountsDAO extends DBContext {
     public List<Accounts> getAllManagers() {
         String sql = "select * from Accounts where role = 'Manager'";
         List<Accounts> managers = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 int row = 1;
@@ -299,16 +285,19 @@ public class AccountsDAO extends DBContext {
         return managers;
     }
 
-    public void createManager(String username, String password, String email, String phone_number, String role, String status) {
-        String sql = "insert into Accounts values (?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+    public void createManager(String username, String password, String email, String phone_number, String role, String status, String displayname, String address, String avatar) {
+        String sql = "insert into Accounts values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             st.setString(2, password);
             st.setString(3, email);
             st.setString(4, phone_number);
             st.setString(5, role);
             st.setString(6, status);
+            st.setString(7, displayname);
+            st.setString(8, address);
+            st.setString(9, avatar);
             st.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -317,8 +306,8 @@ public class AccountsDAO extends DBContext {
 
     public boolean isUsernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM Accounts WHERE username = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -328,50 +317,6 @@ public class AccountsDAO extends DBContext {
             System.out.println(ex);
         }
         return false;
-    }
-
-    public void updateUser(String username, String email, String phone_number, String password) {
-
-        String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, password = ? WHERE username = ?";
-
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, username);
-            st.setString(2, email);
-            st.setString(3, phone_number);
-            st.setString(4, password);
-            st.setString(5, username);
-
-            int rowsAffected = st.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Cập nhật mã giảm giá thành công.");
-            } else {
-                System.out.println("Không tìm thấy người dùng với tên đăng nhập đã cho.");
-            }
-        } catch (SQLException ex) {
-        }
-    }
-
-    public void updateUser(String id, String displayname, String avatar, String desc, String email, String address) {
-        String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?, address = ? WHERE account_id = ?";
-
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, displayname);
-            st.setString(2, avatar);
-            st.setString(3, desc);
-            st.setString(4, email);
-            st.setString(5, address);
-            st.setString(6, id);
-
-            int rowsAffected = st.executeUpdate();
-            System.out.println("Rows affected: " + rowsAffected); // Thêm dòng này để kiểm tra
-            if (rowsAffected > 0) {
-                System.out.println("Cập nhật thông tin người dùng thành công.");
-            } else {
-                System.out.println("Không tìm thấy người dùng với ID đã cho.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
 
     public Accounts login(String username, String password) {
@@ -406,10 +351,250 @@ public class AccountsDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-        List<Accounts> alist = adb.getAllUser();
-        for(Accounts i : alist){
-            i.getAccount_id();
+        adb.updateUser("datKa1", "datKa124", "dat1", "123 abc", "description 1234", "jane.manager@example.com", "5555555554", null, "15");
+        Accounts a = adb.getUser("datKa1");
+        System.out.println(a);
+    }
+
+    public Accounts getUser(String username) {
+        String sql = "SELECT * FROM Accounts WHERE username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Accounts a = new Accounts(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("displayname"),
+                        rs.getString("address"),
+                        rs.getString("description"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar")
+                );
+                return a;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
+        return null;
+    }
+
+    public Accounts getUserById(String accountId) {
+        String sql = "SELECT * FROM Accounts WHERE account_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, accountId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Accounts a = new Accounts(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("displayname"),
+                        rs.getString("address"),
+                        rs.getString("description"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar")
+                );
+                return a;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+
+    public void updateUser(String username, String password, String displayname, String address, String description, String email, String phone_number, String avatar, String account_id) {
+        String sql = "UPDATE Accounts SET username = ?, email = ?, displayname = ?, address = ?, description = ?, avatar = ?, phone_number = ?, password = ? WHERE account_id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+
+            st.setString(1, username);
+            st.setString(2, email);
+            st.setString(3, displayname);
+            st.setString(4, address);
+            st.setString(5, description);
+            st.setString(6, avatar);
+            st.setString(7, phone_number);
+            st.setString(8, password);
+            st.setString(9, account_id);
+
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void createManager(String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status, String avatar) {
+        String sql = "insert into Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setString(3, displayname);
+            st.setString(4, address);
+            st.setString(5, description);
+            st.setString(6, email);
+            st.setString(7, phone_number);
+            st.setString(8, role);
+            st.setString(9, status);
+            st.setString(10, avatar);
+
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public List<Accounts> getsearchNutritionist(String username, String search) {
+        String sql = "SELECT * FROM Accounts WHERE username = ? LIKE search";
+        List<Accounts> nutritionists = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, "%" + search + "%");
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Accounts a = new Accounts(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("displayname"),
+                        rs.getString("address"),
+                        rs.getString("description"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar")
+                );
+                nutritionists.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return nutritionists;
+    }
+
+    public List<Accounts> getAllNutritionists() {
+        String sql = "select * from Accounts where role = 'Nutritionist'";
+        List<Accounts> nutritionists = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Accounts a = new Accounts(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("displayname"),
+                        rs.getString("address"),
+                        rs.getString("description"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar")
+                );
+                nutritionists.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return nutritionists;
+    }
+
+    public void createNutritionist(String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status, String avatar) {
+        String sql = "insert into Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setString(3, displayname);
+            st.setString(4, address);
+            st.setString(5, description);
+            st.setString(6, email);
+            st.setString(7, phone_number);
+            st.setString(8, role);
+            st.setString(9, status);
+            st.setString(10, avatar);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public List<Accounts> searchByStatusAndUsername(String status, String username) {
+        String sql = "SELECT * FROM Accounts WHERE status = ? AND username LIKE ?";
+        List<Accounts> users = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+            st.setString(2, "%" + username + "%"); // Use % to match partial username
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Accounts a = new Accounts(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("displayname"),
+                        rs.getString("address"),
+                        rs.getString("description"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar")
+                );
+                users.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        return users;
+    }
+
+    public List<Accounts> searchByStatus(String status) {
+        String sql = "SELECT * FROM Accounts WHERE status = ?";
+        List<Accounts> accountsList = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, status);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Accounts account = new Accounts(
+                        rs.getInt("account_id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("displayname"),
+                        rs.getString("address"),
+                        rs.getString("description"),
+                        rs.getString("email"),
+                        rs.getString("phone_number"),
+                        rs.getString("role"),
+                        rs.getString("status"),
+                        rs.getString("avatar")
+                );
+                accountsList.add(account);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return accountsList;
     }
 
 }

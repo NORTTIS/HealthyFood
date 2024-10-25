@@ -18,7 +18,6 @@ public class Accounts {
     private String role;
     private String status;
     private String avatar;
-    
 
     public Accounts() {
     }
@@ -129,8 +128,7 @@ public class Accounts {
     public String toString() {
         return "Accounts{" + "account_id=" + account_id + ", username=" + username + ", password=" + password + ", displayname=" + displayname + ", address=" + address + ", description=" + description + ", email=" + email + ", phone_number=" + phone_number + ", role=" + role + ", status=" + status + ", avatar=" + avatar + '}';
     }
-    
-    
-    
+
+
 }
 

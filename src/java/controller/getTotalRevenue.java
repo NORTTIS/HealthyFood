@@ -4,10 +4,10 @@
  */
 package controller;
 
-import dao.AccountsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Gosu
  */
-public class changeStatus extends HttpServlet {
+@WebServlet(name = "getTotalRevenue", urlPatterns = {"/revenue"})
+public class getTotalRevenue extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +36,10 @@ public class changeStatus extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet changeStatus</title>");
+            out.println("<title>Servlet getTotalRevenue</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet changeStatus at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet getTotalRevenue at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,43 +57,33 @@ public class changeStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String status = request.getParameter("status");
-        String page = request.getParameter("page");
-
-        AccountsDAO adb = new AccountsDAO();
-        adb.changeStatus(status, username);
-
-        if ("nutritionistList".equals(page)) {
-            request.getRequestDispatcher("NutritionistList").forward(request, response);
-        } else if ("managerList".equals(page)) {
-            request.getRequestDispatcher("ManagerList").forward(request, response);
-        } else {
-            request.getRequestDispatcher("userlist").forward(request, response);
-        }
+        OrderDAO orderDAO = new OrderDAO();
+        double totalRevenue = orderDAO.getTotalRevenue();
+        request.setAttribute("totalRevenue", totalRevenue);
+        request.getRequestDispatcher("revenue.jsp").forward(request, response);
     }
+}
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+/**
+ * Handles the HTTP <code>POST</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

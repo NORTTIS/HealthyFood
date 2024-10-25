@@ -80,12 +80,16 @@ public class createManager extends HttpServlet {
         } else {
             request.setAttribute("message", "Username is available.");
             String password = request.getParameter("password");
+            String displayname = request.getParameter("displayname");
+            String address = request.getParameter("address");
+            String description = request.getParameter("description");
             String email = request.getParameter("email");
             String phone_number = request.getParameter("phone_number");
             String role = request.getParameter("role");
             String status = request.getParameter("status");
+            String avatar = request.getParameter("avatar");
 
-            adb.createManager(username, password, email, phone_number, role, status);
+            adb.createManager(username, password, displayname, address, description, email, phone_number, role, status, avatar);
         }
 
         response.sendRedirect("userlist");

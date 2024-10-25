@@ -8,15 +8,19 @@ import dao.AccountsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
+import model.Accounts;
 
 /**
  *
  * @author Gosu
  */
-public class changeStatus extends HttpServlet {
+@WebServlet(name = "searchStatus", urlPatterns = {"/search"})
+public class searchStatus extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +39,10 @@ public class changeStatus extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet changeStatus</title>");
+            out.println("<title>Servlet searchStatus</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet changeStatus at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet searchStatus at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,23 +58,25 @@ public class changeStatus extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String status = request.getParameter("status");
-        String page = request.getParameter("page");
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String status = request.getParameter("status");
+    String username = request.getParameter("username");
 
-        AccountsDAO adb = new AccountsDAO();
-        adb.changeStatus(status, username);
+    AccountsDAO dao = new AccountsDAO();
+    List<Accounts> users;
 
-        if ("nutritionistList".equals(page)) {
-            request.getRequestDispatcher("NutritionistList").forward(request, response);
-        } else if ("managerList".equals(page)) {
-            request.getRequestDispatcher("ManagerList").forward(request, response);
-        } else {
-            request.getRequestDispatcher("userlist").forward(request, response);
-        }
+    if (username != null && !username.trim().isEmpty()) {
+        // Call searchByStatusAndUsername when both status and username are provided
+        users = dao.searchByStatusAndUsername(status, username);
+    } else {
+        // Call searchByStatus when only status is provided
+        users = dao.searchByStatus(status);
     }
+
+    request.setAttribute("data", users);
+    request.getRequestDispatcher("adminpage.jsp").forward(request, response);
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
