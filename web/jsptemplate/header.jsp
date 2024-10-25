@@ -107,7 +107,7 @@
                                     <li class="menu-item"><a href="menuList">Menu</a></li>
                                     </c:when>
                                     <c:otherwise>
-                                    <li class="menu-item"><a href="contact.html">Contact</a></li>
+<!--                                    <li class="menu-item"><a href="contact.html">Contact</a></li>-->
                                     </c:otherwise>
                                 </c:choose>
                         </ul>

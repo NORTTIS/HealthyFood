@@ -80,7 +80,7 @@ CREATE TABLE Menu (
 	update_at DATETIME DEFAULT GETDATE(),
 	menu_name NVARCHAR(255),
 	average_calories FLOAT,
-	menuTitle NVARCHAR(255)
+	menuTitle NVARCHAR(255),
 	status NVARCHAR(10),
 	FOREIGN KEY (create_by) REFERENCES Accounts(account_id) ON DELETE SET NULL,
 	FOREIGN KEY ([type_id]) REFERENCES Customer_Type([type_id]) ON DELETE SET NULL,
@@ -183,3 +183,15 @@ VALUES ('Dinner', N'đây là bữa ăn cho một người', 4, 'Green Salad', 2
 ('Breakfast', N'đây là bữa ăn cho một người', 4, 'Green Salad', 200, 'Accept');
 
 INSERT INTO Menu_Detail(menu_id, product_id, product_qty) values (1, 1, 12), (2, 2, 13), (3, 3, 20), (4, 4, 26)
+
+INSERT INTO Menu (type_id, name, description, create_by, create_at, update_at, menu_name, status, average_calories, menuTitle)
+VALUES
+( 1, N'Bữa sáng', N'đây là bữa sáng cho một người', 4, '2024-10-18 03:32:58.810', '2024-10-18 03:32:58.810', 'Cheeseburger', 'Accept', 300, 'Menu for underweight'),
+( 1, N'Bữa sáng', N'đây là bữa sáng cho một người', 4, '2024-10-18 03:32:58.810', '2024-10-18 03:32:58.810', 'Spaghetti', 'Accept', 300, 'Menu for underweight'),
+( 1, N'Bữa sáng', N'đây là bữa sáng cho một người', 4, '2024-10-18 03:32:58.810', '2024-10-18 03:32:58.810', 'Green Salad', 'Accept', 300, 'Menu for underweight'),
+( 1, N'Bữa tối', N'đây là bữa sáng cho một người', 4, '2024-10-18 04:32:34.000', '2024-10-18 04:32:34.000', 'Green Salad', 'Accept', 300, 'Menu for underweight'),
+( 2, 'Breakfast', 'demo descript', 4, '2024-10-20 01:56:19.357', '2024-10-20 01:56:19.357', 'Caeser salad', 'Reject', 300, 'demo reject'),
+( 2, 'Dinner', 'demo descript', 4, '2024-10-24 01:12:41.103', '2024-10-24 01:12:41.103', 'Demo Name', 'In Process', 300, 'Demo 2'),
+( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.100', '2024-10-25 02:31:03.100', 'demo1', 'In Process', 100, 'Demo 2'),
+( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.150', '2024-10-25 02:31:03.150', 'demo2', 'In Process', 200, 'Demo 2'),
+( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.170', '2024-10-25 02:31:03.170', 'demo 2.2', 'In Process', 3099, 'Demo 2');
