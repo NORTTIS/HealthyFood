@@ -64,7 +64,12 @@ public class CartControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("ac");
-        String productid = request.getParameter("productid");
+        String productid = request.getParameter("productId");
+        String quantity = request.getParameter("qty");
+        int qty = 2;
+        if(quantity!=null&&!quantity.equals("")){
+            qty = Integer.parseInt(quantity);
+        }
         if (action.equals("show")) {
             request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
         }
@@ -77,7 +82,7 @@ public class CartControl extends HttpServlet {
         }
         if (action.equals("addtocart") && prod != null) {
 
-            LineItem lineItem = new LineItem(prod, 1);
+            LineItem lineItem = new LineItem(prod, qty);
             cart.addItem(lineItem);
             double totalprice = 0;
             double totalcal = 0;

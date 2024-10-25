@@ -38,9 +38,9 @@ public class LineItem {
         return quantity;
     }
 
-    public double getTotal() {
+    public int getTotal() {
         double total = product.getPrice() * quantity;
-        return total;
+        return (int)total;
     }
     public double getTotalCal() {
         double totalCal = product.getAverageCalories() * quantity;

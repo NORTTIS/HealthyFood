@@ -56,6 +56,7 @@
                     <label>
                         <%= request.getAttribute("result") %>
                     </label>
+                    <p><a href="http://localhost:9999/HealthyFood/home">back to homepage</a></p>
                 </div> 
             </div>
             <p>

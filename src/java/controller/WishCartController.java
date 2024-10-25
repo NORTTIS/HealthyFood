@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Accounts;
 import model.Cart;
 import model.LineItem;
 import model.Products;
@@ -21,7 +22,7 @@ import model.Products;
  *
  * @author Norttie
  */
-@WebServlet(name = "WishCartController", urlPatterns = {"/wishlist"})
+@WebServlet(name = "WishCartController", urlPatterns = {"/wishcart"})
 public class WishCartController extends HttpServlet {
 
     /**
@@ -66,47 +67,46 @@ public class WishCartController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("ac");
-        String productid = request.getParameter("productid");
+        String productid = request.getParameter("productId");
+
+        Products prod = new ProductDao().getProductsById(productid);
+        ProductDao prodDao = new ProductDao();
+        HttpSession session = request.getSession();
+        Accounts acc = (Accounts) session.getAttribute("acc");
+        String accountId = acc.getAccount_id() + "";
+        Cart cart = prodDao.getWishCartByAccountId(accountId);
+        String wishid = prodDao.getWishIdByAccountId(accountId);
+
+      
+        //show wishcart 
         if (action.equals("show")) {
+
+            request.setAttribute("wishcart", cart);
+            request.setAttribute("totalcal", cart.getTotalCal());
+            request.setAttribute("totalcart", cart.getTotalPrice());
+            request.setAttribute("totalitem", cart.getCount());
             request.getRequestDispatcher("wish-cart.jsp").forward(request, response);
         }
-        Products prod = new ProductDao().getProductsById(productid);
 
-        HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-        }
-        if (action.equals("addtocart") && prod != null) {
+        //add prodcut to wishcart
+        if (action.equals("add") && prod != null) {
+            try {
+                prodDao.addProductToWishList(prod, wishid, 1);
 
-            LineItem lineItem = new LineItem(prod, 1);
-            cart.addItem(lineItem);
-            double totalprice = 0;
-            double totalcal = 0;
-            int totalitem = 0;
-            for (LineItem item : cart.getItems()) {
-                totalprice += item.getTotal();
-                totalcal += item.getTotalCal();
-                totalitem++;
+            } catch (Exception e) {
+                PrintWriter out = response.getWriter();
+                out.print(e.getMessage());
             }
-            session.setAttribute("totalcal", totalcal);
-            session.setAttribute("totalcart", totalprice);
-            session.setAttribute("totalitem", totalitem);
-            session.setAttribute("cart", cart);
-            PrintWriter out = response.getWriter();
-            for (LineItem item : cart.getItems()) {
-                out.print(item.getProduct());
-            }
-
+            //redirect
             String previousURL = request.getHeader("Referer");
             String currentURL = request.getRequestURL().toString();
 
-// Kiểm tra nếu previousURL không null và không trùng với currentURL
+            // Kiểm tra nếu previousURL không null và không trùng với currentURL
             if (previousURL != null && !previousURL.equals(currentURL)) {
                 // Kiểm tra nếu previousURL chứa từ khóa "cart"
                 if (previousURL.contains("cart")) {
                     // Chuyển hướng đến trang cart?ac=show
-                    response.sendRedirect("cart?ac=show");
+                    response.sendRedirect("wishcart?ac=show");
                 } else {
                     // Chuyển hướng lại trang trước đó nếu không chứa "cart"
                     response.sendRedirect(previousURL);
@@ -115,30 +115,33 @@ public class WishCartController extends HttpServlet {
                 // Nếu không có "Referer" hoặc "Referer" trùng với URL hiện tại, chuyển đến trang mặc định
                 response.sendRedirect("home");
             }
-
         }
 
+        //delete product
         if (action.equals("del") && prod != null) {
-            LineItem lineItem = new LineItem();
-            for (LineItem item : cart.getItems()) {
-                if (item.getProduct().getProductId() == Integer.parseInt(productid)) {
-                    lineItem = item;
+            try {
+                prodDao.deleteWishItem(productid, accountId);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            //redirect
+            String previousURL = request.getHeader("Referer");
+            String currentURL = request.getRequestURL().toString();
+
+            // Kiểm tra nếu previousURL không null và không trùng với currentURL
+            if (previousURL != null && !previousURL.equals(currentURL)) {
+                // Kiểm tra nếu previousURL chứa từ khóa "cart"
+                if (previousURL.contains("cart")) {
+                    // Chuyển hướng đến trang cart?ac=show
+                    response.sendRedirect("wishcart?ac=show");
+                } else {
+                    // Chuyển hướng lại trang trước đó nếu không chứa "cart"
+                    response.sendRedirect(previousURL);
                 }
+            } else {
+                // Nếu không có "Referer" hoặc "Referer" trùng với URL hiện tại, chuyển đến trang mặc định
+                response.sendRedirect("home");
             }
-            cart.getItems().remove(lineItem);
-            double totalprice = 0;
-            double totalcal = 0;
-            int totalitem = 0;
-            for (LineItem item : cart.getItems()) {
-                totalprice += item.getTotal();
-                totalcal += item.getTotalCal();
-                totalitem++;
-            }
-            session.setAttribute("totalcal", totalcal);
-            session.setAttribute("totalcart", totalprice);
-            session.setAttribute("totalitem", totalitem);
-            session.setAttribute("cart", cart);
-            response.sendRedirect("cart?ac=show");
         }
 
     }
@@ -157,46 +160,46 @@ public class WishCartController extends HttpServlet {
         String action = request.getParameter("ac");
         String[] productid = request.getParameterValues("productid[]");
         String[] product_qty = request.getParameterValues("product_qty[]");
+
+        ProductDao prodDao = new ProductDao();
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new Cart();
-        }
-        String outStock = "";
-        try{
+        Accounts acc = (Accounts) session.getAttribute("acc");
+        String accountId = acc.getAccount_id() + "";
+        String wishid = prodDao.getWishIdByAccountId(accountId);
+        Cart wishCart = prodDao.getWishCartByAccountId(accountId);
+
+        try {
             if (action.equals("upd")) {
-            for (int i = 0; i < productid.length; i++) {
-                int productId = Integer.parseInt(productid[i]);
-                int quantity = Integer.parseInt(product_qty[i]);
-                for (LineItem item : cart.getItems()) {
-                    Products prod = new ProductDao().getProductsById(productid[i]);
-                    if (prod.getQuantityInStock() < quantity) {
-                        outStock += prod.getName() + ", ";
-                    } else {
-                        if (item.getProduct().getProductId() == productId) {
-                            item.setQuantity(quantity);
+                for (int i = 0; i < productid.length; i++) {
+                    int productId = Integer.parseInt(productid[i]);
+                    int quantity = Integer.parseInt(product_qty[i]);
+                    for (LineItem item : wishCart.getItems()) {
+                        Products prod = new ProductDao().getProductsById(productid[i]);
+                        if (prod.getQuantityInStock() >= quantity) {
+                            if (item.getProduct().getProductId() == productId) {
+                                item.setQuantity(quantity);
+                                prodDao.addProductToWishList(prod, wishid, quantity);
+                            }
                         }
                     }
+
+                    double totalprice = 0;
+                    double totalcal = 0;
+                    for (LineItem item : wishCart.getItems()) {
+                        totalprice += item.getTotal();
+                        totalcal += item.getTotalCal();
+                    }
+                    request.setAttribute("totalcal", totalcal);
+                    request.setAttribute("totalcart", totalprice);
+                    request.setAttribute("wishcart", wishCart);
                 }
 
-                double totalprice = 0;
-                double totalcal = 0;
-                for (LineItem item : cart.getItems()) {
-                    totalprice += item.getTotal();
-                    totalcal += item.getTotalCal();
-                }
-                request.setAttribute("alert", "Sorry that the" + outStock + "is already in the largest quantity");
-                session.setAttribute("totalcal", totalcal);
-                session.setAttribute("totalcart", totalprice);
-                session.setAttribute("cart", cart);
             }
+        } catch (Exception e) {
 
         }
-        }catch(Exception e){
-            
-        }
-        
-        request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+
+        request.getRequestDispatcher("wish-cart.jsp").forward(request, response);
 
     }
 

@@ -28,41 +28,68 @@
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body class="biolife-body">
-
-        <!-- Preloader -->
-        <div id="biof-loading">
-            <div class="biof-loading-center">
-                <div class="biof-loading-center-absolute">
-                    <div class="dot dot-one"></div>
-                    <div class="dot dot-two"></div>
-                    <div class="dot dot-three"></div>
-                </div>
+   <c:if test="${sessionScope.bmiR==null}">
+            <c:redirect url="bmi.jsp"/>
+        </c:if>
+    <!-- Preloader -->
+    <div id="biof-loading">
+        <div class="biof-loading-center">
+            <div class="biof-loading-center-absolute">
+                <div class="dot dot-one"></div>
+                <div class="dot dot-two"></div>
+                <div class="dot dot-three"></div>
             </div>
         </div>
+    </div>
 
-        <!--HEADER-->
-        <jsp:include page="./jsptemplate/header.jsp" />
+    <!--HEADER-->
+    <jsp:include page="./jsptemplate/header.jsp" />
+
+    <!--Hero Section-->
+    <div class="hero-section hero-background">
+        <h1 class="page-title">Organic Fruits</h1>
+    </div>
+
+    <!--Navigation section-->
+    <div class="container">
+        <nav class="biolife-nav">
+            <ul>
+                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
+                <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+            </ul>
+        </nav>
+    </div>
+
 
         <!--Hero Section-->
         <div class="hero-section hero-background">
             <h1 class="page-title">Shop</h1>
         </div>
 
-        <!--Navigation section-->
+
+    <div class="page-contain category-page left-sidebar">
         <div class="container">
+
             <nav class="biolife-nav">
             </nav>
         </div>
 
 
-        <div class="page-contain category-page left-sidebar">
-            <div class="container">
-                <div class="row">
-                    <!-- Main content -->
-                    <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                        <div class="product-category list-style">
+                        <div class="row">
 
-                            <div class="row">
+                            <!-- Main content -->
+                            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                <div class="block-item recently-products-cat md-margin-bottom-39">
+                                    <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" 
+                                        data-slick='{"arrows": true, "dots": false, "slidesMargin": 0, "slidesToShow": 1, "infinite": false, "speed": 800}'> 
+                                        <li class="product-item">
+                                            <div class="contain-product layout-02" style="min-height: 380px;">
+                                                <p>breakfirst: chicken, beefsteak</p>
+                                            </div>
+                                        </li>
+
 
                                 <!-- Main content -->
 
@@ -140,19 +167,54 @@
                                             </ul>
                                             <div/>
                                         </div>
+
                                     </div>
 
+                                    <div class="biolife-panigations-block ">
+                                        <ul class="panigation-contain">
+                                            <c:if test="${currentPage > 1}">
+                                                <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                                <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                            </c:if>
+
+                                            <c:choose>
+                                                <c:when test="${currentPage > 3}">
+                                                    <li><span>...</span><li/>
+                                                </c:when>
+                                            </c:choose>
+
+                                            <c:forEach begin="${(currentPage - 2) > 1 ? (currentPage - 2) : 1}" 
+                                                       end="${(currentPage + 2) < totalPages ? currentPage + 2 : totalPages}" 
+                                                       var="i">
+
+                                                <li><a href="blogdetail?page=1" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
+                                            </c:forEach>
+
+                                            <c:choose>
+                                                <c:when test="${currentPage < totalPages - 2}">
+                                                    <li><span>...</span><li/>
+                                                </c:when>
+                                            </c:choose>
+
+                                            <c:if test="${currentPage < totalPages}">
+                                                <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                                <li><a href="blogdetail?page=1" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                            </c:if>
+                                        </ul>
+                                        <div/>
+                                    </div>
                                 </div>
 
                             </div>
 
                         </div>
 
-
-
                     </div>
 
+
+
                 </div>
+
                 <!-- Sidebar -->
                 <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
                     <div class="biolife-mobile-panels">
@@ -238,8 +300,16 @@
                                         </p>
                                     </form>      
                                 </div>
+
                             </div>
+                            <ul class="check-list bold single">
+                                <li class="check-list-item"><a href="#" class="check-link">$0 - $5</a></li>
+                                <li class="check-list-item"><a href="#" class="check-link">$5 - $10</a></li>
+                                <li class="check-list-item"><a href="#" class="check-link">$15 - $20</a></li>
+                            </ul>
                         </div>
+                    </div>
+
 
 
                         <div class="widget calorie-filter biolife-filter">
@@ -254,29 +324,34 @@
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
+                    </div>
+
 
                     </div>
                 </aside>
             </div>
+
         </div>
     </div>
-    <!-- FOOTER -->
-    <jsp:include page="./jsptemplate/footer.jsp" />
+</div>
+<!-- FOOTER -->
+<jsp:include page="./jsptemplate/footer.jsp" />
 
 
 
-    <!-- Scroll Top Button -->
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+<!-- Scroll Top Button -->
+<a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.countdown.min.js"></script>
-    <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.min.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/biolife.framework.js"></script>
-    <script src="assets/js/functions.js"></script>
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.countdown.min.js"></script>
+<script src="assets/js/jquery.nice-select.min.js"></script>
+<script src="assets/js/jquery.nicescroll.min.js"></script>
+<script src="assets/js/slick.min.js"></script>
+<script src="assets/js/biolife.framework.js"></script>
+<script src="assets/js/functions.js"></script>
 </body>
 
 </html>
