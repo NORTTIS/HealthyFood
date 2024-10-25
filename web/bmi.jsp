@@ -26,23 +26,8 @@
     <body>
         <div class="container">
             <h1>Máy Tính BMI</h1>
-
             <form id="formBmi" class="calculator" action="bmical" method="post">
-                <div>
-                    <label for="weight">Cân nặng (kg)</label>
-                    <input
-                        type="number"
-                        id="weight"
-                        name="weight"
-                        min="0"
-                        step="any"
-                        value="0"
-                        inputmode="decimal"
-                        onfocus="if (this.value === '0')
-                                    this.value = ''"
-                        />
-                </div>
-
+                
                 <div>
                     <label for="height">Chiều cao (cm)</label>
                     <input
@@ -58,6 +43,21 @@
                         />
                 </div>
 
+                <div>
+                    <label for="weight">Cân nặng (kg)</label>
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        min="0"
+                        step="any"
+                        value="0"
+                        inputmode="decimal"
+                        onfocus="if (this.value === '0')
+                                    this.value = ''"
+                        />
+                </div>
+                
                 <div>
                     <button type="reset">Đặt lại</button>
                     <button type="submit">Tính toán</button>

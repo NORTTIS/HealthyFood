@@ -85,7 +85,7 @@
 
                     <div  class="sidebar blog-sidebar col-lg-9 col-md-8 col-sm-12 col-xs-12">
                         <c:forEach var="m" items="${menuList}">
-                            <button class="accordion" style="margin-bottom: 10px">Menu for ${m.key}</button>
+                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
                             <div class="panel">
                                 <c:forEach var="nameEntry" items="${m.value}">
                                     <button class="accordion">${nameEntry.key}</button>

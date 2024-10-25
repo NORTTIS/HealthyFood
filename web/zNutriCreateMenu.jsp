@@ -22,35 +22,6 @@
         <link rel="stylesheet" href="assets/css/slick.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
-        <style>
-            /* Thiết lập CSS cho các nút accordion */
-            .accordion {
-                background-color: #f1f1f1;
-                color: #444;
-                cursor: pointer;
-                padding: 18px;
-                width: 100%;
-                border: none;
-                text-align: left;
-                outline: none;
-                font-size: 30px;
-                transition: 0.4s;
-            }
-
-            /* Thêm màu cho nút khi nó được mở */
-            .active, .accordion:hover {
-                background-color: #ccc;
-            }
-
-            /* Ẩn nội dung mặc định */
-            .panel {
-                font-size: 30px;
-                padding: 0 18px;
-                display: none;
-                background-color: white;
-                overflow: hidden;
-            }
-        </style>
     </head>
     <body>
         <!-- Preloader -->
@@ -145,11 +116,11 @@
                                     <c:choose>
                                         <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
                                             <li class="menu-item"><a href="menuList">Menu</a></li>
-                                        </c:when>
-                                        <c:otherwise>
+                                            </c:when>
+                                            <c:otherwise>
                                             <li class="menu-item"><a href="contact.html">Contact</a></li>
-                                        </c:otherwise>
-                                    </c:choose>
+                                            </c:otherwise>
+                                        </c:choose>
                                 </ul>
                             </div>
                         </div>
@@ -162,12 +133,6 @@
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
             <h1 class="page-title">Create New Menu</h1>
-            <!--            <nav class="biolife-nav">
-                            <ul>
-                                <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                                <li class="nav-item"><span class="current-page">Our Blog</span></li>
-                            </ul>
-                        </nav>-->
         </div>
 
         <!-- Page Contain -->
@@ -180,98 +145,161 @@
                     <div id="main-content">
 
                         <!--articles block-->
-                        <form action="submitMenu" method="post">
+                        <form action="createMenu" method="post">
                             <div class="contain" style="width:100%; height: 500px;">
                                 <div class="create-new-meals" style=" display: flex; justify-content:space-between; margin-bottom: 100px">
-                                    <div>
-                                        <button type="button" class="btn btn-default" style="padding: 10px 15px" onclick="addMeals()">Create</button>
-                                        <input style="border-radius: 20px; width: 200px;" type="text" id="meals-name" placeholder="What Meal..." />
-                                    </div>
-                                    <input style="border-radius: 20px" type="text" name="name" placeholder="Menu Name..." />
-                                    <input style="border-radius: 20px;" type="number" name="type" placeholder="For Type..."/>
+                                    <button type="button" class="btn btn-default" style="padding: 10px 35px" onclick="createMeals()">Create</button>
+                                    <input type="text" name="menuTitle" style="border-radius: 20px" placeholder="Menu title..." required/>
+                                    <select name="type" style="border-radius: 20px; padding: 0 35px">
+                                        <c:forEach var="type" items="${typeList}">
+                                            <option>${type}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
-                                <div>
+                                <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div id="mealsContainer">
+                                        <!-- nơi thêm các thẻ bữa ăn mới vào -->
+                                    </div>
+                                </div>
+                            </div>
 
-                                </div>
-                                <div>
-                                    <div id="meals">
-                                        <!-- loại bữa ăn(sáng, chiều,...) sẽ được cho vào đây -->
+                            <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div style="display:flex; justify-content: center; margin-bottom: 50px" >
+                                    <div>
+                                        <h3>Description</h3>
+                                        <textarea required name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
                                     </div>
                                 </div>
-                            </div>
-                            <div style="display:flex; justify-content: center; margin-bottom: 50px">
-                                <div>
-                                    <h3>Description</h3>
-                                    <textarea name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
+                                <div style="display:flex; justify-content: space-around">
+                                    <a href="menuList" style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</a>
+                                    <input type="text" value="${sessionScope.acc.getAccount_id()}" name="nutriId" hidden/>
+                                    <input id="countInput" type="number" name="count" hidden/>
+                                    <input id="allMealList" type="text" name="lstMeal" hidden/>
+                                    <input onclick="getAllMeals();" style="width:120px" type="submit" value="Send" class="btn btn-default"/>
                                 </div>
-                            </div>
-                            <div style="display:flex; justify-content: space-around">
-                                <a href="menuList" style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</a>
-                                <input style="width:120px" type="submit" value="Create" class="btn btn-default"/>
                             </div>
                         </form>
                         <!--articles block end-->
-
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- FOOTER -->
-        <jsp:include page="./jsptemplate/footer.jsp" />
-        <!-- Scroll Top Button -->
-        <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-        <script src="assets/js/jquery-3.4.1.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/jquery.countdown.min.js"></script>
-        <script src="assets/js/jquery.nicescroll.min.js"></script>
-        <script src="assets/js/slick.min.js"></script>
-        <script src="assets/js/biolife.framework.js"></script>
-        <script src="assets/js/functions.js"></script>
+    <!-- FOOTER -->
+    <div>
+        <jsp:include page="./jsptemplate/footer.jsp"/>
+    </div>
+    <!-- Scroll Top Button -->
+    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-    </body>
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/biolife.framework.js"></script>
+    <script src="assets/js/functions.js"></script>
     <script>
-                                            function addMeals() {
-                                                // Lấy giá trị từ input
-                                                var mealName = document.getElementById("meals-name").value;
-                                                if (mealName.trim() !== "") {
-                                                    // Tạo một thẻ mới
-                                                    var newMeal = document.createElement("button");
-                                                    // Đặt nội dung cho thẻ mới
-                                                    newMeal.innerHTML = '';
-                                                    // Chèn thẻ mới vào trong div 'meals'
-                                                    document.getElementById("meals").appendChild(newMeal);
-                                                    // Reset lại input sau khi tạo thẻ
-                                                    document.getElementById("meals-name").value = "";
-                                                }
-                                            }
-//                                            let counts = 0;
-//                                            //hàm tạo bữa ăn mới
-//                                            function addMeals() {
-//                                                counts++;
-//                                                const mealsDiv = document.getElementById('meals');
-//
-//                                                // Tạo một div cho mỗi bữa ăn
-//                                                const mealDiv = document.createElement('div');
-//                                                mealDiv.classList.add('Meals');
-//                                                mealDiv.id = `meals_${counts}`;
-//
-//                                                // Tạo nội dung cho câu hỏi
-//                                                mealDiv.innerHTML = `
-//                <label for="meals_${counts}">Meals ${counts}:</label>
-//                <input type="text" name="meals_${counts}" id="question_${counts}" required>
-//                <button type="button" onclick="removeMeals(${counts})">Remove</button><br><br>`;
-//
-//                                                // Thêm câu hỏi vào div chứa câu hỏi
-//                                                mealsDiv.appendChild(mealDiv);
-//                                            }
+                                        var count = 0;
+                                        function createMeals() {
+                                            count++;
+                                            let mealsContainer = document.getElementById('mealsContainer');
 
-                                            function removeMeals(counts) {
-                                                const mealDiv = document.getElementById(`meals_${counts}`);
-                                                if (mealDiv) {
-                                                    mealDiv.remove();
+                                            // Tạo thẻ lớn Meals
+                                            let mealsDiv = document.createElement('div');
+                                            mealsDiv.classList.add('meals');
+                                            mealsDiv.style.marginBottom = "20px";
+                                            mealsDiv.style.border = "1px solid black";
+                                            mealsDiv.style.padding = "10px";
+
+                                            // Tạo tiêu đề cho thẻ Meals
+                                            let mealsTitle = document.createElement('div');
+                                            mealsTitle.innerHTML = '<input class="mealsID mealsID' + count + '" type="text" name="name' + count + '" placeholder = "Meals name" required/>';
+                                            mealsTitle.style.marginBottom = "20px";
+                                            // Tạo nút để thêm MealDetail trong thẻ Meals
+                                            let addMealDetailButton = document.createElement('button');
+                                            addMealDetailButton.innerText = 'Add menu';
+                                            addMealDetailButton.setAttribute('type', 'button');
+                                            addMealDetailButton.classList.add('btn', 'btn-default');
+                                            addMealDetailButton.onclick = function () {
+                                                createMealDetail(mealsDiv);
+                                            };
+
+                                            // Tạo nút xóa thẻ Meals
+                                            let deleteMealsButton = document.createElement('button');
+                                            deleteMealsButton.innerText = 'Delete menu';
+                                            deleteMealsButton.style.marginLeft = "10px";
+                                            deleteMealsButton.setAttribute('type', 'button');
+                                            deleteMealsButton.classList.add('btn', 'btn-default');
+                                            deleteMealsButton.onclick = function () {
+                                                mealsContainer.removeChild(mealsDiv);
+                                            };
+
+                                            // Thêm các phần tử vào thẻ Meals
+                                            mealsDiv.appendChild(mealsTitle);
+                                            mealsDiv.appendChild(addMealDetailButton);
+                                            mealsDiv.appendChild(deleteMealsButton);
+
+                                            // Thêm thẻ Meals vào container
+                                            mealsContainer.appendChild(mealsDiv);
+                                        }
+
+// Hàm tạo thẻ MealDetail
+                                        function createMealDetail(mealsDiv) {
+                                            // Tạo thẻ con MealDetail
+                                            let mealDetailDiv = document.createElement('div');
+                                            mealDetailDiv.classList.add('meal-detail');
+                                            mealDetailDiv.style.marginTop = "10px";
+                                            mealDetailDiv.style.border = "1px dashed grey";
+                                            mealDetailDiv.style.padding = "5px";
+
+                                            var differ = document.getElementsByClassName("mealsID" + count);
+                                            // Tạo input để nhập dữ liệu cho MealDetail
+                                            let inputField = document.createElement('input');
+                                            inputField.type = 'text';
+                                            inputField.placeholder = 'Input menu name';
+                                            inputField.name = 'menuName' + differ[0].name;
+                                            inputField.required = true;
+                                            // Tạo input để nhập calo cho MealDetail
+                                            let inputCalo = document.createElement('input');
+                                            inputCalo.type = 'number';
+                                            inputCalo.placeholder = 'Input calories';
+                                            inputCalo.style = 'margin: 0 25px; outline: none; padding: 7px 20px';
+                                            inputCalo.name = 'calories' + differ[0].name;
+                                            inputCalo.required = true;
+                                            // Tạo nút xóa MealDetail
+                                            let deleteMealDetailButton = document.createElement('button');
+                                            deleteMealDetailButton.innerText = 'Delete menu detail';
+                                            deleteMealDetailButton.style.marginLeft = "10px";
+                                            deleteMealDetailButton.setAttribute('type', 'button');
+                                            deleteMealDetailButton.classList.add('btn', 'btn-default');
+                                            deleteMealDetailButton.onclick = function () {
+                                                mealsDiv.removeChild(mealDetailDiv);
+                                            };
+
+                                            // Thêm input và nút xóa vào MealDetail
+                                            mealDetailDiv.appendChild(inputField);
+                                            mealDetailDiv.appendChild(inputCalo);
+                                            mealDetailDiv.appendChild(deleteMealDetailButton);
+
+                                            // Thêm MealDetail vào Meals
+                                            mealsDiv.appendChild(mealDetailDiv);
+                                        }
+                                        //function lấy name từ các meals theo class
+                                        function getAllMeals() {
+                                            var idOfMeal = document.getElementsByClassName("mealsID");
+                                            var listMeals = "";
+                                            for (var i = 0; i < count; i++) {
+                                                listMeals += idOfMeal[i].name; // Thêm giá trị name vào chuỗi
+                                                if (i < count - 1) {
+                                                    listMeals += "-"; // Nếu không phải phần tử cuối, thêm dấu ';'
                                                 }
                                             }
+                                            // Gán chuỗi listMeals là giá trị của input 
+                                            document.getElementById("allMealList").value = listMeals;
+                                        }
     </script>
+</body>
 </html>

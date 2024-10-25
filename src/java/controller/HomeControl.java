@@ -6,6 +6,7 @@ package controller;
 
 import dao.AccountsDAO;
 import dao.BlogDao;
+import dao.NutriDAO;
 import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +21,7 @@ import java.util.Map;
 import model.Accounts;
 import model.Blog;
 import model.Cart;
+import model.Menu;
 import model.Products;
 
 /**
@@ -70,7 +72,7 @@ public class HomeControl extends HttpServlet {
         HttpSession session = request.getSession();
         String bmirange = "1";
         if (session.getAttribute("bmiR") != null) {
-             bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
+            bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
         }
         List<Blog> bListByPageIndex = blogDao.getAllBlogs("", "", "", bmirange);
 
@@ -96,6 +98,14 @@ public class HomeControl extends HttpServlet {
         Map<Integer, String> cates = prodDao.getAllProductCategory();
         request.setAttribute("lProd", lProduct);
         request.setAttribute("cates", cates);
+
+        NutriDAO nutriDao = new NutriDAO();
+        Map<String, Map<String, List<Menu>>> mList = nutriDao.getMenuByType(Integer.parseInt(bmirange));
+        if (!mList.isEmpty()) {
+            request.setAttribute("menuList", mList);
+        } else {
+            request.setAttribute("error", "Sorry for the inconvenient are on the ways to prepared more menu for you !!!");
+        }
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
