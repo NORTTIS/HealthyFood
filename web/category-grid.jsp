@@ -179,7 +179,7 @@
                         </div>
 
 
-                        <div class="widget biolife-filter" style="height: 380px;">
+<!--                        <div class="widget biolife-filter" style="height: 380px;">
                             <h4 class="wgt-title">BMI menu - your index: </h4>
                             <div class="wgt-content">
                                 <ul class="cat-list">
@@ -189,54 +189,74 @@
                                     <li class="cat-list-item"><a href="#" class="cat-link">BMI ≥ 30</a></li>
                                 </ul>
                             </div>
-                        </div>
-
-
-<!--                        <div class="widget price-filter biolife-filter">
-                            <h4 class="wgt-title">Price</h4>
-                            <div class="wgt-content">
-                                <div class="frm-contain">
-                                    <form action="#" name="price-filter" id="price-filter" method="get">
-                                        <p class="f-item">
-                                            <label for="pr-from">from</label>
-                                            <input class="input-number" type="number" id="pr-from" value="" name="price-from">
-                                        </p>
-                                        <p class="f-item">
-                                            <label for="pr-to">to VND</label>
-                                            <input class="input-number" type="number" id="pr-to" value="" name="price-from">
-                                        </p>
-                                        <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
-                                    </form>
-                                </div>
-                            </div>
                         </div>-->
+
+
+                        <!--                        <div class="widget price-filter biolife-filter">
+                                                    <h4 class="wgt-title">Price</h4>
+                                                    <div class="wgt-content">
+                                                        <div class="frm-contain">
+                                                            <form action="#" name="price-filter" id="price-filter" method="get">
+                                                                <p class="f-item">
+                                                                    <label for="pr-from">from</label>
+                                                                    <input class="input-number" type="number" id="pr-from" value="" name="price-from">
+                                                                </p>
+                                                                <p class="f-item">
+                                                                    <label for="pr-to">to VND</label>
+                                                                    <input class="input-number" type="number" id="pr-to" value="" name="price-from">
+                                                                </p>
+                                                                <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
 
                         <div class="widget price-filter biolife-filter">
                             <h4 class="wgt-title">Price</h4>
-                            <div class="wgt-content">
+                            <div class="wgt-content">  
+                                <ul class="cat-list">
+                                    <li class="cat-list-item">
+                                        <a href="sort?sort=asc" class="cat-link">Ascending</a>
+                                    </li>
+                                    <li class="cat-list-item">
+                                        <a href="sort?sort=desc" class="cat-link">Descending</a>
+                                    </li>
+                                </ul>
                                 <div class="frm-contain">
                                     <!-- Form nhập khoảng giá -->
-                                    <form action="productSearch" name="price-filter" id="price-filter" method="get">
+                                    <form action="CategoryPriceControl" name="price-filter" id="price-filter" method="get">
                                         <p class="f-item">
                                             <label for="pr-from">From</label>
-                                            <!-- Input number không cho phép giá trị âm -->
                                             <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
                                         </p>
                                         <p class="f-item">
                                             <label for="pr-to">To</label>
-                                            <!-- Input number không cho phép giá trị âm -->
                                             <input class="input-number" type="number" id="pr-to" name="toPrice" min="0" required>VND
                                         </p>
                                         <p class="f-item">
                                             <button class="btn-submit" type="submit">Go</button>
                                         </p>
-                                    </form>
+                                    </form>      
                                 </div>
                             </div>
                         </div>
 
-                    </div>
 
+                        <div class="widget calorie-filter biolife-filter">
+                            <h4 class="wgt-title">Calorie</h4>
+                            <div class="wgt-content">  
+                                <ul class="cat-list">
+                                    <li class="cat-list-item">
+                                        <a href="sortC?sort=asc" class="cat-link">Ascending</a>
+                                    </li>
+                                    <li class="cat-list-item">
+                                        <a href="sortC?sort=desc" class="cat-link">Descending</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
                 </aside>
             </div>
         </div>
