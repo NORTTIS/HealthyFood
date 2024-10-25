@@ -4,9 +4,11 @@
  */
 package controller;
 
+
 import dao.AccountsDAO;
 import dao.BlogDao;
 import dao.NutriDAO;
+
 import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +16,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.List;
+
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,7 @@ import model.Accounts;
 import model.Blog;
 import model.Cart;
 import model.Menu;
+
 import model.Products;
 
 /**
@@ -40,17 +46,21 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+
             out.println("<title>Servlet HomeControl</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet HomeControl at " + request.getContextPath() + "</h1>");
+
             out.println("</body>");
             out.println("</html>");
         }
