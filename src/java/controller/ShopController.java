@@ -5,12 +5,18 @@
 
 package controller;
 
+import dao.BlogDao;
+import dao.NutriDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
+import model.Menu;
 
 /**
  *
@@ -53,6 +59,17 @@ public class ShopController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        BlogDao blogDao = new BlogDao();
+        HttpSession session = request.getSession();
+        String bmirange = "1";
+        if (session.getAttribute("bmiR") != null) {
+            bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
+        }
+        NutriDAO nutriDao = new NutriDAO();
+        Map<String, Map<String, List<Menu>>> mList = nutriDao.getMenuByType(Integer.parseInt(bmirange));
+        if (!mList.isEmpty()) {
+            request.setAttribute("menuList", mList);
+        }
        request.getRequestDispatcher("category-grid.jsp").forward(request, response);
     } 
 
