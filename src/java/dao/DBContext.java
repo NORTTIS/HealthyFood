@@ -13,9 +13,10 @@ import java.sql.SQLException;
  * @author Norttie
  */
 public class DBContext {
+
     protected Connection connection;
-    public DBContext()
-    {
+
+    public DBContext() {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
 
@@ -32,5 +33,4 @@ public class DBContext {
     public Connection getConnection() {
         return connection;
     }
-    
 }

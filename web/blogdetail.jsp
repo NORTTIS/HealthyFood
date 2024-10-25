@@ -28,7 +28,9 @@
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
     </head>
     <body class="biolife-body">
-
+        <c:if test="${sessionScope.bmiR==null}">
+            <c:redirect url="bmi.jsp"/>
+        </c:if>
         <!-- Preloader -->
         <div id="biof-loading">
             <div class="biof-loading-center">
@@ -84,26 +86,26 @@
 
                                 <div class="auth-info">
                                     <div class="ath">
-                                        <a href="#" class="avata"><img src="assets/images/user-avatar/Avatar.png" style="width: 30px; height: 30px;" alt="Christian Doe">${author.displayname}</a>
+                                        <a href="#" class="avata"><img src="assets/image/${author.avatar==null?'Avatar.png':author.avatar}" style="width: 30px; height: 30px;" alt="Christian Doe">${author.displayname}</a>
 
                                     </div>
                                     <div class="socials-connection">
-                                        <span class="title">Shared:${blog.createAt}</span>
+                                        <span class="title">Shared: ${blog.createAt}</span>
 
                                     </div>
                                 </div>
 
                             </div>
-                      <c:if test="${sessionScope.acc.account_id == author.account_id}">
+                            <c:if test="${sessionScope.acc.account_id == author.account_id}">
                                 <div class="widget biolife-filter" style=" margin-bottom: 20px; text-align: end;">
                                     <form action="manageblog" method="post" style="display: inline-block;">
                                         <input type="text" name="blogId" value="${blog.id}" hidden/>
-                                         <input type="text" name="ac" value="edit" hidden/>
+                                        <input type="text" name="ac" value="edit" hidden/>
                                         <button class="btn btn-default" style="margin-left: 20px; background-color: #60adeb;" type="submit">Edit Blog</button>
                                     </form>
                                     <form action="manageblog" method="post" style="display: inline-block;">
                                         <input type="text" name="blogId" value="${blog.id}" hidden/>
-                                         <input type="text" name="ac" value="del" hidden/>
+                                        <input type="text" name="ac" value="del" hidden/>
                                         <button class="btn btn-default" style="margin-left: 20px; background-color: #ff6631;" type="submit">Delete</button>
                                     </form>
                                 </div>

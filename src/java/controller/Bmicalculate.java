@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -72,20 +73,35 @@ public class Bmicalculate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
-        String height = request.getParameter("height");
-        String weight = request.getParameter("weight");
 
-        try {
-            double Weight = Double.parseDouble(weight);
-            double Height = Double.parseDouble(height);
-            double bmiResult =  Weight/Height*Height;
-            HttpSession session = request.getSession();
-            session.setAttribute("bmiR", bmiResult);
-            response.sendRedirect("home");
-        } catch (Exception e) {
+        String heightStr = request.getParameter("height");
+        String weightStr = request.getParameter("weight");
+//        String bmiRByCaulator = request.getParameter("bmi");
+        if (heightStr != null && weightStr != null) {
+            try {
+                // Chuyển đổi dữ liệu thành số thực
+                double weight = Double.parseDouble(weightStr);
+                double height = Double.parseDouble(heightStr);
+
+                // Tính toán BMI
+                double heightInMeters = height / 100;
+                double bmi = weight / Math.pow(heightInMeters, 2);
+                DecimalFormat df = new DecimalFormat("#.##");
+                String formattedBmi = df.format(bmi);
+                HttpSession session = request.getSession();
+                session.setAttribute("bmiR", formattedBmi);
+                String previousPage = request.getHeader("referer");
+
+                if (previousPage != null && (previousPage.contains("bmi.jsp") || previousPage.contains("bmical"))) {
+                    request.getRequestDispatcher("bmi.jsp").forward(request, response); // Chuyển về trang bmi.jsp
+                } else {
+                    response.sendRedirect("home"); // Chuyển về trang home
+                }
+
+            } catch (Exception e) {
+            }
         }
-        
+
     }
 
     /**

@@ -25,10 +25,11 @@
         <link rel="stylesheet" href="assets/css/slick.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
+        <link rel="stylesheet" href="assets/css/nutriMenu.css">
     </head>
     <body class="biolife-body">
 
-        <!-- Preloader -->
+        <!--Preloader-->
         <div id="biof-loading">
             <div class="biof-loading-center">
                 <div class="biof-loading-center-absolute">
@@ -40,13 +41,12 @@
         </div>
 
         <!-- HEADER -->
-        <jsp:include page="./jsptemplate/header.jsp" />
+        <jsp:include page="./jsptemplate/header.jsp"/>
 
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
             <h1 class="page-title">Menu List</h1>
         </div>
-
         <!-- Page Contain -->
         <div class="page-contain blog-page">
 
@@ -54,45 +54,56 @@
                 <!-- Main content -->
                 <div id="main-content" class="main-content">
 
-                    <div class="row">
-                        <!-- Sidebar -->
-                        <aside id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                            <div class="sidebar-contain">
+                    <!-- Sidebar -->
+                    <aside id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                        <div class="sidebar-contain">
 
-                                <!--Search Widget-->
-                                <div class="widget search-widget">
-                                    <div class="wgt-content">
-                                        <form action="" name="frm-search" method="get" class="frm-search">
-                                            <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
-                                            <input type="text" name="cate" value="${cate}" hidden/>
-                                            <input type="text" name="page" value="${currentPage}" hidden/>
-                                            <button type="submit"><i class="biolife-icon icon-search"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
-                                    <button class="btn btn-default"><a href="createMenu" style="color: inherit">Create Menu</a></button>
+                            <!--Search Widget-->
+                            <div class="widget search-widget">
+                                <div class="wgt-content">
+                                    <form action="" name="frm-search" method="get" class="frm-search">
+                                        <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
+                                        <input type="text" name="cate" value="${cate}" hidden/>
+                                        <input type="text" name="page" value="${currentPage}" hidden/>
+                                        <button type="submit"><i class="biolife-icon icon-search"></i></button>
+                                    </form>
                                 </div>
                             </div>
-                        </aside>
 
-                        <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                            <!--articles block-->
-                            <c:forEach var="m" items="${menuList}">
-                                <strong>Menu for ${m.key}</strong> 
-                                <div>
-                                    <c:forEach var="nameEntry" items="${m.value}">
-                                        <strong>Name: ${nameEntry.key}</strong>
-                                        <div>
-                                            <c:forEach var="menu" items="${nameEntry.value}">
-                                                <div>Menu Name: ${menu.menu_name}</div>
-                                            </c:forEach>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </c:forEach>
+                            <div class="biolife-filter" style="padding: 37px 0; margin-bottom: 20px;">
+                                <button class="btn btn-default"><a href="createMenu" style="color: inherit">Create Menu</a></button>
+                            </div>
+                            <div class="biolife-filter" style="margin-bottom: 20px;">
+                                <button class="btn btn-default"><a href="menuList" style="color: inherit">Menu List</a></button>
+                            </div>
+                            <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                <button class="btn btn-default"><a href="menuHistory" style="color: inherit">Menu History</a></button>
+                            </div>
+
                         </div>
+                    </aside>
+
+                    <div  class="sidebar blog-sidebar col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                        <c:forEach var="m" items="${menuList}">
+                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
+                            <div class="panel">
+                                <c:forEach var="nameEntry" items="${m.value}">
+                                    <button class="accordion">${nameEntry.key}</button>
+                                    <div class="panel">
+                                        <c:forEach var="menu" items="${nameEntry.value}">
+                                            <div style="margin: 10px; display: flex; justify-content: space-between">
+                                                <div>
+                                                    ${menu.menu_name}
+                                                </div>
+                                                <div>
+                                                    Calories: ${menu.getAverage_calories()}
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -113,7 +124,7 @@
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
-
+        <script src="assets/js/nutriMenu.js"></script>
 
     </body>
 </html>

@@ -22,7 +22,7 @@ import model.Menu;
  *
  * @author Minh
  */
-@WebServlet(name = "Z-NutriMenuList", urlPatterns = {"/menuList"})
+@WebServlet(name = "zNutriMenuList", urlPatterns = {"/menuList"})
 public class zNutriMenuList extends HttpServlet {
 
     /**
@@ -66,15 +66,16 @@ public class zNutriMenuList extends HttpServlet {
         HttpSession session = request.getSession();
         //lấy dữ liệu tài khoản đăng nhập
         Accounts ac = (Accounts) session.getAttribute("acc");
-        if(ac == null){
+        if (ac == null) {
             response.sendRedirect("login.jsp");
+        } else {
+            NutriDAO ndb = new NutriDAO();
+            //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
+            Map<String, Map<String, List<Menu>>> mList = ndb.getMenuByStatus(ac.getAccount_id(), "Accept");
+            request.setAttribute("menuList", mList);
+            request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
+//            request.getRequestDispatcher("testMenuList.jsp").forward(request, response);
         }
-        NutriDAO ndb = new NutriDAO();
-        //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
-        Map<String, Map<String, List<Menu>>> mList = ndb.getMenuMap(ac.getAccount_id());
-        request.setAttribute("menuList", mList);
-//        request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
-        request.getRequestDispatcher("testMenuList.jsp").forward(request, response);
     }
 
     /**
@@ -88,7 +89,7 @@ public class zNutriMenuList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**

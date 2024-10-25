@@ -264,6 +264,7 @@
                     btn.addClass('selected');
                     btn.parents('span').addClass('rated');
                 }
+               
             });
         });
     };

@@ -8,10 +8,16 @@ import model.Products;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.Category;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import model.Cart;
 import model.LineItem;
+import model.Order;
+import model.Reviews;
+
 
 /**
  *
@@ -19,13 +25,111 @@ import model.LineItem;
  */
 public class ProductDao extends DBContext {
 
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
+    public List<Products> getAllProduct() {
+        List<Products> list = new ArrayList<>();
+        String query = "Select * from Products";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        for(Products o : list){
+//            System.out.println(o);
+//        }
+//    }
+    public List<Category> getAllCategory() {
+        List<Category> list = new ArrayList<>();
+        String query = "Select * from Category";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1),
+                        rs.getString(2)));
+
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+//        public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        List<Category> listC = dao.getAllCategory();
+//        for(Category o : listC){
+//            System.out.println(o);
+//        }
+//    }
+    public List<Products> getProductsByCateId(String cid) {
+        List<Products> list = new ArrayList<>();
+        String query = "Select * from Products where category_id = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+
+//    public static void main(String[] args) {
+//        String cid = "1";
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByCateId(cid);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
     public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
+
         try (PreparedStatement st = connection.prepareStatement(sql)) {
 
             st.setString(1, id);
+
             ResultSet rs;
-            rs = st.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Products acc = new Products(
                         rs.getInt(1),
@@ -49,15 +153,17 @@ public class ProductDao extends DBContext {
         return null;
     }
 
-    public List<Products> getAllDiscountProduct() {
-        String sql = "Select * from Products ";
-        List<Products> lProduct = new ArrayList<>();
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
 
-            ResultSet rs;
-            rs = st.executeQuery();
+    public List<Products> searchByName(String txtSearch) {
+        List<Products> list = new ArrayList<>();
+        String sql = "Select * from Products where [name] LIKE ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + txtSearch + "%");
+            rs = ps.executeQuery();
             while (rs.next()) {
-                Products prod = new Products(
+                list.add(new Products(
                         rs.getInt(1),
                         rs.getInt(2),
                         rs.getString(3),
@@ -67,15 +173,18 @@ public class ProductDao extends DBContext {
                         rs.getInt(7),
                         rs.getString(8),
                         rs.getDouble(9),
-                        rs.getString(10));
-                lProduct.add(prod);
+
+                        rs.getString(10)));
+
+
             }
         } catch (SQLException e) {
             System.out.println(e);
             return null;
         }
 
-        return lProduct;
+
+        return list;
     }
 
     public String getWishIdByAccountId(String accountid) {
@@ -203,7 +312,7 @@ public class ProductDao extends DBContext {
     }
 
     public void createOrder(Cart cart, String accountId) {
-        String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
+       
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
         PreparedStatement psOrderItems = null;
@@ -252,12 +361,299 @@ public class ProductDao extends DBContext {
 
     }
 
+    public Order getOrderById(String orderId) {
+        StringBuilder sql = new StringBuilder("SELECT * FROM Orders o WHERE 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement psOrder = null;
+        PreparedStatement psOrderItems = null;
+        ResultSet rs = null;
+        try {
+            if (!orderId.equals("")) {
+                sql.append("and o.order_id = ?");
+            }
+            psOrder = conn.prepareStatement(sql.toString());
+            if (!orderId.equals("")) {
+                psOrder.setString(1, orderId);
+            }
+            rs = psOrder.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6)
+                );
+                return order;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+        return null;
+    }
+
+    public void ReviewProduct(String productId, String accountId, String rating, String comment) {
+        String sql = "insert into Reviews (account_id,product_id,comment,rate,status) values(?,?,?,?,'Approved')";
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, accountId);
+            ps.setString(2, productId);
+            ps.setString(3, comment);
+            ps.setString(4, rating);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Reviews> getReviewByProdId(int pageIndex, int star, String prodId) {
+        StringBuilder sql = new StringBuilder("select * from Reviews r where 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reviews> listR = new ArrayList<>();
+        try {
+            if (star != 0) {
+                sql.append(" and r.rate = ?");
+            }
+            sql.append(" and r.product_id = ?");
+            sql.append(" order by r.review_id offset ? rows fetch first 3 rows only");
+
+            ps = conn.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (star != 0) {
+                ps.setInt(paramIndex++, star);
+            }
+            ps.setString(paramIndex++, prodId);
+            ps.setInt(paramIndex, (pageIndex - 1) * 3);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reviews rv = new Reviews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                listR.add(rv);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listR;
+    }
+
+    public List<Reviews> getReviewByProdId(int star, String prodId) {
+        StringBuilder sql = new StringBuilder("select * from Reviews r where 1=1");
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<Reviews> listR = new ArrayList<>();
+        try {
+            if (star != 0) {
+                sql.append(" and r.rate = ?");
+            }
+            sql.append(" and r.product_id = ?");
+
+            System.out.println(sql.toString());
+            ps = conn.prepareStatement(sql.toString());
+            int paramIndex = 1;
+            if (star != 0) {
+                ps.setInt(paramIndex++, star);
+            }
+            ps.setString(paramIndex++, prodId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Reviews rv = new Reviews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                listR.add(rv);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return listR;
+    }
+
+    public int calNumPageBlog(List<Reviews> list) {
+        int numpage = 0;
+        numpage = list.size() / 3;
+        if (list.size() % 3 != 0) {
+            numpage++;
+        }
+        return numpage;
+    }
+
+    public List<Order> getAllOrderByAccId(String accountId) {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Order> lOrder = new ArrayList<>();
+        try {
+            String sql = "select * from Orders where account_id =? order by order_date desc";
+            st = conn.prepareStatement(sql);
+            st.setString(1, accountId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                lOrder.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lOrder;
+    }
+
+    public Cart getOrderDetailById(String orderId) {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        Cart cartOrder = new Cart();
+        try {
+            String sql = "select * from Order_Items where order_id = ? ";
+            st = conn.prepareStatement(sql);
+            st.setString(1, orderId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products product = getProductsById(rs.getString(3));
+                int quantity = rs.getInt(4);
+                LineItem lineitem = new LineItem(product, quantity);
+                cartOrder.addItem(lineitem);
+            }
+        } catch (SQLException e) {
+        }
+        return cartOrder;
+    }
+
+    public int getBMICategory(double bmi) {
+        if (bmi < 18.5) {
+            return 1; // Loại 1: BMI < 18.5
+        } else if (bmi >= 18.5 && bmi < 24.9) {
+            return 2; // Loại 2: 18.5 <= BMI < 24.9
+        } else if (bmi >= 25 && bmi < 29.9) {
+            return 3; // Loại 3: 25 <= BMI < 29.9
+        } else if (bmi >= 30) {
+            return 4; // Loại 4: BMI >= 30
+        } else {
+            return 5; // Loại 5: All BMIs (trường hợp mặc định)
+        }
+    }
+
     public static void main(String[] args) {
         ProductDao prod = new ProductDao();
-        Products product = prod.getProductsById("1");
-        Cart cart = prod.getWishCartByAccountId("1");
-        prod.createOrder(cart, "1");
+//        Products product = prod.getProductsById("1");
+//        Cart cart = prod.getWishCartByAccountId("1");
+//        prod.createOrder(cart, "1");
+//        List<Reviews> listR = prod.getReviewByProdId(1, 0, "2");
+//        for (Reviews reviews : listR) {
+//            System.out.println(reviews);
+//        }
+        List<Order> lOrders = prod.getAllOrderByAccId("1");
+        for (Order lOrder : lOrders) {
+            System.out.println(lOrder);
+        }
+//        Cart cartOrder = prod.getOrderDetailById("1");
+//        for (LineItem item : cartOrder.getItems()) {
+//            System.out.println(item);
+//        }
 
     }
 
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        String txtSearch = "organic";
+//        List<Products> list = dao.searchByName(txtSearch);
+//        for (Products o : list) {
+//            System.out.println(o.getName());
+//        }
+//    }
+
+    public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
+        List<Products> list = new ArrayList<>();
+        String query = "Select * from Products where price between ? and ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, fromPrice);
+            ps.setString(2, toPrice);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10)));
+            }
+        } catch (SQLException e) {
+        }
+        return list;
+    }
+    
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        String fromPrice = "23000";
+//        String toPrice = "83000";
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
+    
+    public double calculateBMI(double weight, double height){
+        return weight / (height * height);
+    }
+    
+ public List<Products> getAllDiscountProduct() {
+        String sql = "Select * from Products ";
+        List<Products> lProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                lProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return lProduct;
+    }
+    
 }

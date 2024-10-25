@@ -4,8 +4,11 @@
  */
 package controller;
 
+
 import dao.AccountsDAO;
 import dao.BlogDao;
+import dao.NutriDAO;
+
 import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +16,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.util.List;
+
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +26,8 @@ import java.util.Map;
 import model.Accounts;
 import model.Blog;
 import model.Cart;
+import model.Menu;
+
 import model.Products;
 
 /**
@@ -38,17 +46,21 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+
             out.println("<title>Servlet HomeControl</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet HomeControl at " + request.getContextPath() + "</h1>");
+
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,11 +79,15 @@ public class HomeControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogDao blogDao = new BlogDao();
-        List<Blog> bListByPageIndex = blogDao.getAllBlog("", "", "");
+        HttpSession session = request.getSession();
+        String bmirange = "1";
+        if (session.getAttribute("bmiR") != null) {
+            bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
+        }
+        List<Blog> bListByPageIndex = blogDao.getAllBlogs("", "", "", bmirange);
 
         AccountsDAO accDao = new AccountsDAO();
         List<Accounts> accList = new ArrayList<>();
-        HttpSession session = request.getSession();
         Accounts acc = (Accounts) session.getAttribute("acc");
         Cart cart = new Cart();
         if (acc != null) {
@@ -92,6 +108,14 @@ public class HomeControl extends HttpServlet {
         Map<Integer, String> cates = prodDao.getAllProductCategory();
         request.setAttribute("lProd", lProduct);
         request.setAttribute("cates", cates);
+
+        NutriDAO nutriDao = new NutriDAO();
+        Map<String, Map<String, List<Menu>>> mList = nutriDao.getMenuByType(Integer.parseInt(bmirange));
+        if (!mList.isEmpty()) {
+            request.setAttribute("menuList", mList);
+        } else {
+            request.setAttribute("error", "Sorry for the inconvenient are on the ways to prepared more menu for you !!!");
+        }
 
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
