@@ -612,49 +612,48 @@ public class ProductDao extends DBContext {
         return list;
     }
     
-    public static void main(String[] args) {
-        ProductDao dao = new ProductDao();
-        String fromPrice = "23000";
-        String toPrice = "83000";
-        List<Products> list = dao.getAllProduct();
-        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
-        for (Products o : listP) {
-            System.out.println(o);
-        }
-    }
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        String fromPrice = "23000";
+//        String toPrice = "83000";
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
     
     public double calculateBMI(double weight, double height){
         return weight / (height * height);
     }
     
-//    public List<Products> getProductByBMI(String bmi) {
-//        List<Products> list = new ArrayList<>();
-//        String sql = "Select * from Products where ";
-//        try {
-//            conn = new DBContext().getConnection();
-//            ps = conn.prepareStatement(sql);
-//            ps.setString(1, "%" + txtSearch + "%");
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                list.add(new Products(
-//                        rs.getInt(1),
-//                        rs.getInt(2),
-//                        rs.getString(3),
-//                        rs.getString(4),
-//                        rs.getString(5),
-//                        rs.getDouble(6),
-//                        rs.getInt(7),
-//                        rs.getString(8),
-//                        rs.getDouble(9),
-//                        rs.getString(10)));
-//
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//            return null;
-//        }
-//
-//        return list;
-//    }
+ public List<Products> getAllDiscountProduct() {
+        String sql = "Select * from Products ";
+        List<Products> lProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                lProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return lProduct;
+    }
     
 }
