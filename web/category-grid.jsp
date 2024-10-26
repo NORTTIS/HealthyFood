@@ -48,23 +48,38 @@
             <h1 class="page-title">Shop</h1>
         </div>
 
-        <!--Navigation section-->
+
+        <!--Hero Section-->
+        <div class="hero-section hero-background">
+            <h1 class="page-title">Shop</h1>
+        </div>
+
+
+    <div class="page-contain category-page left-sidebar">
         <div class="container">
+
             <nav class="biolife-nav">
             </nav>
         </div>
 
 
-        <div class="page-contain category-page left-sidebar">
-            <div class="container">
-                <div class="row">
-                    <!-- Main content -->
-                    <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                        <div class="product-category list-style">
+                        <div class="row">
 
-                            <div class="row">
+                            <!-- Main content -->
+                            <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                <div class="block-item recently-products-cat md-margin-bottom-39">
+                                    <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" 
+                                        data-slick='{"arrows": true, "dots": false, "slidesMargin": 0, "slidesToShow": 1, "infinite": false, "speed": 800}'> 
+                                        <li class="product-item">
+                                            <div class="contain-product layout-02" style="min-height: 380px;">
+                                                <p>breakfirst: chicken, beefsteak</p>
+                                            </div>
+                                        </li>
+
 
                                 <!-- Main content -->
+
 
                                 <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -152,7 +167,7 @@
 
                     </div>
 
-                </div>
+
                 <!-- Sidebar -->
                 <aside id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
                     <div class="biolife-mobile-panels">
@@ -160,6 +175,7 @@
                         <a class="biolife-close-btn" href="#" data-object="open-mobile-filter">&times;</a>
                     </div>
                     <div class="sidebar-contain">
+
 
 
 
@@ -179,111 +195,95 @@
                         </div>
 
 
-                        <div class="widget biolife-filter" style="height: 380px;">
-                            <!--                        <div class="widget biolife-filter" style="height: 380px;">
-                                                       <h4 class="wgt-title">BMI menu - your index: </h4>
-                                                       <div class="wgt-content">
-                                                           <ul class="cat-list">
-                            <li class="cat-list-item "><a href="#" class="cat-link">BMI < 18.5</a></li>
-                                                               <li class="cat-list-item"><a href="#" class="cat-link">18.5 ≤ BMI < 24.9</a></li>
-                                                               <li class="cat-list-item"><a href="#" class="cat-link">25 ≤ BMI < 29.9</a></li>
-                                                               <li class="cat-list-item"><a href="#" class="cat-link">BMI ≥ 30</a></li>
-                                                           </ul>
-                                                       </div>
+<!--                        <div class="widget biolife-filter" style="height: 380px;">
+                            <h4 class="wgt-title">BMI menu - your index: </h4>
+                            <div class="wgt-content">
+                                <ul class="cat-list">
+                                    <li class="cat-list-item "><a href="#" class="cat-link">BMI < 18.5</a></li>
+                                    <li class="cat-list-item"><a href="#" class="cat-link">18.5 ≤ BMI < 24.9</a></li>
+                                    <li class="cat-list-item"><a href="#" class="cat-link">25 ≤ BMI < 29.9</a></li>
+                                    <li class="cat-list-item"><a href="#" class="cat-link">BMI ≥ 30</a></li>
+                                </ul>
+                            </div>
+                        </div>-->
+
+
+                        <!--                        <div class="widget price-filter biolife-filter">
+                                                    <h4 class="wgt-title">Price</h4>
+                                                    <div class="wgt-content">
+                                                        <div class="frm-contain">
+                                                            <form action="#" name="price-filter" id="price-filter" method="get">
+                                                                <p class="f-item">
+                                                                    <label for="pr-from">from</label>
+                                                                    <input class="input-number" type="number" id="pr-from" value="" name="price-from">
+                                                                </p>
+                                                                <p class="f-item">
+                                                                    <label for="pr-to">to VND</label>
+                                                                    <input class="input-number" type="number" id="pr-to" value="" name="price-from">
+                                                                </p>
+                                                                <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    </div>-->
+                                                </div>-->
 
-
-                            <!--                        <div class="widget price-filter biolife-filter">
-                                                        <h4 class="wgt-title">Price</h4>
-                                                        <div class="wgt-content">
-                                                            <div class="frm-contain">
-                                                                <form action="#" name="price-filter" id="price-filter" method="get">
-                                                                    <p class="f-item">
-                                                                        <label for="pr-from">from</label>
-                                                                        <input class="input-number" type="number" id="pr-from" value="" name="price-from">
-                                                                    </p>
-                                                                    <p class="f-item">
-                                                                        <label for="pr-to">to VND</label>
-                                                                        <input class="input-number" type="number" id="pr-to" value="" name="price-from">
-                                                                    </p>
-                                                                    <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-                            <!--                        <div class="widget price-filter biolife-filter">
-                                                        <h4 class="wgt-title">Price</h4>
-                                                        <div class="wgt-content">
-                                                            <div class="frm-contain">
-                                                                <form action="#" name="price-filter" id="price-filter" method="get">
-                                                                    <p class="f-item">
-                                                                        <label for="pr-from">from</label>
-                                                                        <input class="input-number" type="number" id="pr-from" value="" name="price-from">
-                                                                    </p>
-                                                                    <p class="f-item">
-                                                                        <label for="pr-to">to VND</label>
-    <input class="input-number" type="number" id="pr-to" value="" name="price-from">
-                                                                    </p>
-                                                                    <p class="f-item"><button class="btn-submit" type="submit">go</button></p>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-
-                            <div class="widget price-filter biolife-filter">
-                                <h4 class="wgt-title">Price</h4>
-                                <div class="wgt-content">
-                                    <div class="wgt-content">  
-                                        <ul class="cat-list">
-                                            <li class="cat-list-item">
-                                                <a href="sort?sort=asc" class="cat-link">Ascending</a>
-                                            </li>
-                                            <li class="cat-list-item">
-                                                <a href="sort?sort=desc" class="cat-link">Descending</a>
-                                            </li>
-                                        </ul>
-                                        <div class="frm-contain">
-                                            <!-- Form nhập khoảng giá -->
-                                            <form action="productSearch" name="price-filter" id="price-filter" method="get">
-                                                <form action="CategoryPriceControl" name="price-filter" id="price-filter" method="get">
-                                                    <p class="f-item">
-                                                        <label for="pr-from">From</label>
-                                                        <!-- Input number không cho phép giá trị âm -->
-                                                        <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
-                                                    </p>
-                                                    <p class="f-item">
-                                                        <label for="pr-to">To</label>
-                                                        <!-- Input number không cho phép giá trị âm -->
-                                                        <input class="input-number" type="number" id="pr-to" name="toPrice" min="0" required>VND
-                                                    </p>
-                                                    <p class="f-item">
-                                                        <button class="btn-submit" type="submit">Go</button>
-                                                    </p>
-                                                </form>
-                                            </form>      
-                                        </div>
-                                    </div>
+                        <div class="widget price-filter biolife-filter">
+                            <h4 class="wgt-title">Price</h4>
+                            <div class="wgt-content">  
+                                <ul class="cat-list">
+                                    <li class="cat-list-item">
+                                        <a href="sort?sort=asc" class="cat-link">Ascending</a>
+                                    </li>
+                                    <li class="cat-list-item">
+                                        <a href="sort?sort=desc" class="cat-link">Descending</a>
+                                    </li>
+                                </ul>
+                                <div class="frm-contain">
+                                    <!-- Form nhập khoảng giá -->
+                                    <form action="CategoryPriceControl" name="price-filter" id="price-filter" method="get">
+                                        <p class="f-item">
+                                            <label for="pr-from">From</label>
+                                            <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
+                                        </p>
+                                        <p class="f-item">
+                                            <label for="pr-to">To</label>
+                                            <input class="input-number" type="number" id="pr-to" name="toPrice" min="0" required>VND
+                                        </p>
+                                        <p class="f-item">
+                                            <button class="btn-submit" type="submit">Go</button>
+                                        </p>
+                                    </form>      
                                 </div>
 
                             </div>
-
-                            <div class="widget calorie-filter biolife-filter">
-                                <h4 class="wgt-title">Calorie</h4>
-                                <div class="wgt-content">  
-                                    <ul class="cat-list">
-                                        <li class="cat-list-item">
-                                            <a href="sortC?sort=asc" class="cat-link">Ascending</a>
-                                        </li>
-                                        <li class="cat-list-item">
-                                            <a href="sortC?sort=desc" class="cat-link">Descending</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <ul class="check-list bold single">
+                                <li class="check-list-item"><a href="#" class="check-link">$0 - $5</a></li>
+                                <li class="check-list-item"><a href="#" class="check-link">$5 - $10</a></li>
+                                <li class="check-list-item"><a href="#" class="check-link">$15 - $20</a></li>
+                            </ul>
                         </div>
-                </aside>
-            </div>
+                    </div>
+
+
+
+                        <div class="widget calorie-filter biolife-filter">
+                            <h4 class="wgt-title">Calorie</h4>
+                            <div class="wgt-content">  
+                                <ul class="cat-list">
+                                    <li class="cat-list-item">
+                                        <a href="sortC?sort=asc" class="cat-link">Ascending</a>
+                                    </li>
+                                    <li class="cat-list-item">
+                                        <a href="sortC?sort=desc" class="cat-link">Descending</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+
+
         </div>
     </div>
     <!-- FOOTER -->

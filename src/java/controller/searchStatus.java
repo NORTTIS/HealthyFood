@@ -4,37 +4,23 @@
  */
 package controller;
 
-
 import dao.AccountsDAO;
-import dao.BlogDao;
-import dao.NutriDAO;
-
-import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.util.List;
-
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import model.Accounts;
-import model.Blog;
-import model.Cart;
-import model.Menu;
-
-import model.Products;
 
 /**
  *
- * @author Norttie
+ * @author Gosu
  */
-public class HomeControl extends HttpServlet {
+@WebServlet(name = "searchStatus", urlPatterns = {"/search"})
+public class searchStatus extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,21 +32,17 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-
-            out.println("<title>Servlet HomeControl</title>");
+            out.println("<title>Servlet searchStatus</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeControl at " + request.getContextPath() + "</h1>");
-
+            out.println("<h1>Servlet searchStatus at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,49 +58,25 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        BlogDao blogDao = new BlogDao();
-        HttpSession session = request.getSession();
-        String bmirange = "1";
-        if (session.getAttribute("bmiR") != null) {
-            bmirange = blogDao.getBMICategory(session.getAttribute("bmiR") + "");
-        }
-        List<Blog> bListByPageIndex = blogDao.getAllBlogs("", "", "", bmirange);
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String status = request.getParameter("status");
+    String username = request.getParameter("username");
 
-        AccountsDAO accDao = new AccountsDAO();
-        List<Accounts> accList = new ArrayList<>();
-        Accounts acc = (Accounts) session.getAttribute("acc");
-        Cart cart = new Cart();
-        if (acc != null) {
-            String accountId = acc.getAccount_id() + "";
-            cart = new ProductDao().getWishCartByAccountId(accountId);
-        }
-        if (bListByPageIndex != null) {
-            for (Blog blog : bListByPageIndex) {
-                accList.add(accDao.getAccountByid(blog.getAuthor()));
-            }
-            session.setAttribute("totalWish", cart.getCount());
-            request.setAttribute("accList", accList);
-            request.setAttribute("bList", bListByPageIndex);
-        }
+    AccountsDAO dao = new AccountsDAO();
+    List<Accounts> users;
 
-        ProductDao prodDao = new ProductDao();
-        List<Products> lProduct = prodDao.getAllDiscountProduct();
-        Map<Integer, String> cates = prodDao.getAllProductCategory();
-        request.setAttribute("lProd", lProduct);
-        request.setAttribute("cates", cates);
-
-        NutriDAO nutriDao = new NutriDAO();
-        Map<String, Map<String, List<Menu>>> mList = nutriDao.getMenuByType(Integer.parseInt(bmirange));
-        if (!mList.isEmpty()) {
-            request.setAttribute("menuList", mList);
-        } else {
-            request.setAttribute("error", "Sorry for the inconvenient are on the ways to prepared more menu for you !!!");
-        }
-
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+    if (username != null && !username.trim().isEmpty()) {
+        // Call searchByStatusAndUsername when both status and username are provided
+        users = dao.searchByStatusAndUsername(status, username);
+    } else {
+        // Call searchByStatus when only status is provided
+        users = dao.searchByStatus(status);
     }
+
+    request.setAttribute("data", users);
+    request.getRequestDispatcher("adminpage.jsp").forward(request, response);
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
