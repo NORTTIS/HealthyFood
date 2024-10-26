@@ -18,7 +18,6 @@ import model.LineItem;
 import model.Order;
 import model.Reviews;
 
-
 /**
  *
  * @author Norttie
@@ -153,7 +152,6 @@ public class ProductDao extends DBContext {
         return null;
     }
 
-
     public List<Products> searchByName(String txtSearch) {
         List<Products> list = new ArrayList<>();
         String sql = "Select * from Products where [name] LIKE ?";
@@ -173,16 +171,13 @@ public class ProductDao extends DBContext {
                         rs.getInt(7),
                         rs.getString(8),
                         rs.getDouble(9),
-
                         rs.getString(10)));
-
 
             }
         } catch (SQLException e) {
             System.out.println(e);
             return null;
         }
-
 
         return list;
     }
@@ -312,7 +307,7 @@ public class ProductDao extends DBContext {
     }
 
     public void createOrder(Cart cart, String accountId) {
-       
+
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
         PreparedStatement psOrderItems = null;
@@ -584,7 +579,6 @@ public class ProductDao extends DBContext {
 //            System.out.println(o.getName());
 //        }
 //    }
-
     public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
         List<Products> list = new ArrayList<>();
         String query = "Select * from Products where price between ? and ?";
@@ -611,7 +605,7 @@ public class ProductDao extends DBContext {
         }
         return list;
     }
-    
+
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        String fromPrice = "23000";
@@ -622,12 +616,63 @@ public class ProductDao extends DBContext {
 //            System.out.println(o);
 //        }
 //    }
-    
-    public double calculateBMI(double weight, double height){
+    public double calculateBMI(double weight, double height) {
         return weight / (height * height);
     }
     
- public List<Products> getAllDiscountProduct() {
+    public List<Products> getMonthlyRevenue(String month) {
+        List<Products> revenueList = new ArrayList<>();
+        String sql = "SELECT oi.product_id, SUM(oi.prod_qty) AS totalQuantity, SUM(oi.total_price) AS totalPrice " +
+                     "FROM Order_Items oi " +
+                     "JOIN Orders o ON oi.order_id = o.order_id " +
+                     "WHERE MONTH(o.order_date) = ? " +
+                     "GROUP BY oi.product_id";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, month);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int productId = rs.getInt("product_id");
+                int totalQuantity = rs.getInt("totalQuantity");
+                double totalPrice = rs.getDouble("totalPrice");
+
+                Products revenue = new Products(productId, 0, "", "", "", totalPrice, totalQuantity, "", 0.0, "");
+                revenueList.add(revenue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return revenueList;
+    }
+
+    public double getTotalMonthlyRevenue(int month, int year) {
+        double totalRevenue = 0;
+        String sql = "SELECT SUM(oi.total_price) AS total_price " +
+                     "FROM Order_Items oi " +
+                     "JOIN Orders o ON oi.order_id = o.order_id " +
+                     "WHERE MONTH(o.order_date) = ? AND YEAR(o.order_date) = ?";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             
+            ps.setInt(1, month);
+            ps.setInt(2, year);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                totalRevenue = rs.getDouble("total_price");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return totalRevenue;
+    }
+
+
+    public List<Products> getAllDiscountProduct() {
         String sql = "Select * from Products ";
         List<Products> lProduct = new ArrayList<>();
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -655,5 +700,5 @@ public class ProductDao extends DBContext {
 
         return lProduct;
     }
-    
+
 }

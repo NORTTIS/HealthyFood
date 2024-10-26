@@ -24,6 +24,8 @@
         <link rel="stylesheet" href="assets/css/slick.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
+        <a href="Revenue" class="button">Revenue</a>
+        
         <style>
             .no-border {
                 border: none;
