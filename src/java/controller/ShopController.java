@@ -7,6 +7,7 @@ package controller;
 
 import dao.BlogDao;
 import dao.NutriDAO;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,7 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import model.Category;
 import model.Menu;
+import model.Products;
 
 /**
  *
@@ -70,6 +73,12 @@ public class ShopController extends HttpServlet {
         if (!mList.isEmpty()) {
             request.setAttribute("menuList", mList);
         }
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        List<Category> listC = dao.getAllCategory();
+//        //set data to jsp
+//        request.setAttribute("listP", list);
+//        request.setAttribute("listC", listC);
        request.getRequestDispatcher("category-grid.jsp").forward(request, response);
     } 
 
