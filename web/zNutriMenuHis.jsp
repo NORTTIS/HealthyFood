@@ -62,8 +62,13 @@
                             <!--Search Widget-->
                             <div class="widget search-widget">
                                 <div class="wgt-content">
-                                    <form action="" name="frm-search" method="get" class="frm-search">
-                                        <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
+                                     <form action="menuHistory" name="frm-search" method="get" class="frm-search">
+                                        <select name="search" style="border-radius: 30px;width: 100% ;height: auto; font-size: large;">
+                                            <option>All</option>
+                                            <option value="Accept">Accept</option>
+                                            <option value="Reject">Reject</option>
+                                            <option value="In Process">In Process</option>
+                                        </select>
                                         <button type="submit"><i class="biolife-icon icon-search"></i></button>
                                     </form>
                                 </div>
@@ -84,7 +89,12 @@
 
                     <div  class="sidebar blog-sidebar col-lg-9 col-md-8 col-sm-12 col-xs-12">
                         <c:forEach var="m" items="${historyList}">
-                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
+                            <form action="viewDetail" style="display: inline" method="get">
+                                <input type="text" value="${m.key}" name="theMenu" hidden/>
+                                <button style="margin-bottom: 10px" class="viewDetail">View Detail</button>
+                            </form>
+                            <button class="accordion" style="margin-bottom: 10px; background-color: #7faf51 ">${m.key}</button>
+                            
                             <div class="panel">
                                 <c:forEach var="nameEntry" items="${m.value}">
                                     <button class="accordion">${nameEntry.key}</button>

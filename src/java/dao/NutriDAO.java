@@ -79,7 +79,7 @@ public class NutriDAO extends DBContext {
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                String key = rs.getString("menuTitle");
+                String key = rs.getString("menuTitle") + " - " + rs.getString("status");
                 // Tạo đối tượng Menu từ ResultSet
                 Menu m = new Menu(
                         rs.getInt("menu_id"),
