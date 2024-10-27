@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Accounts;
@@ -71,17 +72,30 @@ public class zMenuDetail extends HttpServlet {
         } else {
             NutriDAO ndb = new NutriDAO();
             Map<String, Map<String, List<Menu>>> allMenu = ndb.getAllMenu(ac.getAccount_id());
-            String mList = request.getParameter("theMenu");
+            String menuTitle = request.getParameter("theMenu");
+            String[] title = menuTitle.split("-");
             for (Map.Entry<String, Map<String, List<Menu>>> entry : allMenu.entrySet()) {
-                if (entry.getKey().equals(mList)) {
+                if (entry.getKey().equals(menuTitle)) {
                     Map<String, List<Menu>> foundMenu = entry.getValue();
+                    request.setAttribute("status", title[1]);
+                    request.setAttribute("menuTitle", title[0]);
                     request.setAttribute("detailMenu", foundMenu);
+                    foundMenu.entrySet().forEach(type -> {
+                        List<Menu> menuList = type.getValue();
+                        // Lặp qua từng đối tượng Menu trong List
+                        menuList.forEach(menu -> {
+                            String typeC = ndb.getTypeByTypeID(menu.getType_id());
+                            request.setAttribute("typeC", typeC);
+                        });
+                    });
+                    List<String> typeList = ndb.getTypeList();
+                    request.setAttribute("typeList", typeList);
                     request.getRequestDispatcher("zNutriMenuDetail.jsp").forward(request, response);
                     return;
                 }
             }
         }
-        
+
     }
 
     /**
@@ -95,7 +109,69 @@ public class zMenuDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Accounts ac = (Accounts) session.getAttribute("acc");
+        if (ac == null) {
+            response.sendRedirect("login.jsp");
+        }
+        String action = request.getParameter("action");
+        NutriDAO ndb = new NutriDAO();
+        // lấy giá trị chỉ xuất hiện 1 lần
+        String menuTitle = request.getParameter("menuTitle");
+        String descrip = request.getParameter("description");
+        String type = request.getParameter("type");
+        //đếm số lượng dish để xóa
+        int firstId = Integer.parseInt(request.getParameter("firstId"));
+        int lastId = Integer.parseInt(request.getParameter("lastId"));
+        if (action.equals("Delete")) {
+            ndb.deleteMenu(firstId, lastId);
+            request.getRequestDispatcher("menuHistory").forward(request, response);
+            return;
+        }
+        //lấy toàn bộ giá trị name của meals
+        String lst = request.getParameter("lstMeal");
+        //lấy toàn bộ giá trị nhập vào của meals
+        String meal = request.getParameter("getMeals");
+        Map<String, String> menuMap = new HashMap<>();
+        if (lst.isEmpty()) {
+            List<String> typeList = ndb.getTypeList();
+            request.setAttribute("typeList", typeList);
+            request.setAttribute("updateCaution", "Failed to update Menu");
+            System.out.println("lỗi này");
+            request.getRequestDispatcher("menuHistory").forward(request, response);
+            return;
+        } else {
+            String[] mealsName = lst.split("-");
+            String[] getMeals = meal.split("-");
+            for (int i = 0; i < mealsName.length; i++) {
+                menuMap.put(mealsName[i], getMeals[i]);
+            }
+            int type_id = 0;
+            //switch với mỗi giá trị type sẽ trả về 1 type_id
+            switch (type) {
+                case "Underweight":
+                    type_id = 1;
+                case "Overweight":
+                    type_id = 2;
+            }
+            for (String meals : mealsName) {
+                String menuValues = "menuName" + meals;
+                String caloValues = "calories" + meals;
+                String[] menu_detail = request.getParameterValues(menuValues);
+                String[] calo = request.getParameterValues(caloValues);
+                if (menu_detail != null && calo != null) {
+                    for (int i = firstId; i <= lastId; i++) {
+                        float caloFloat = Float.parseFloat(calo[i]);
+                        ndb.updateMenuById(i, type_id, menuMap.get(meals), descrip, menu_detail[i], caloFloat, menuTitle);
+                    }
+                } else {
+                    request.setAttribute("updateCaution", "Failed to update Menu");
+                    doGet(request, response);
+                    return;
+                }
+            }
+        }
+        request.getRequestDispatcher("menuHistory").forward(request, response);
     }
 
     /**

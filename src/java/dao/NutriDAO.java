@@ -116,7 +116,7 @@ public class NutriDAO extends DBContext {
         }
         return menuMap;
     }
-    
+
     public Map<String, Map<String, List<Menu>>> getMenuByType(int type) {
         Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
 
@@ -165,24 +165,40 @@ public class NutriDAO extends DBContext {
         }
         return menuMap;
     }
-    
-    public List<String> getTypeList(){
+
+    public List<String> getTypeList() {
         String sql = "select type_name from Customer_Type";
         List<String> typeList = new ArrayList<>();
-        try(PreparedStatement st = connection.prepareStatement(sql)){
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 typeList.add(rs.getString("type_name"));
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return typeList;
     }
 
-    public void insertNewMenu(String menuTitle, int type_id, String name, String description, int create_by, String menu_name, float average_calories){
+    public String getTypeByTypeID(int id) {
+        String sql = "select * from Customer_Type";
+        String type = "";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (id == rs.getInt("type_id")) {
+                    type = rs.getString("type_name");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return type;
+    }
+
+    public void insertNewMenu(String menuTitle, int type_id, String name, String description, int create_by, String menu_name, float average_calories) {
         String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories, menuTitle) values (?, ?, ?, ?, ?, ?, ?);";
-        try(PreparedStatement st = connection.prepareStatement(sql1)){
+        try (PreparedStatement st = connection.prepareStatement(sql1)) {
             st.setInt(1, type_id);
             st.setString(2, name);
             st.setString(3, description);
@@ -191,10 +207,38 @@ public class NutriDAO extends DBContext {
             st.setFloat(6, average_calories);
             st.setString(7, menuTitle);
             st.executeUpdate();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
+    public void deleteMenu(int firstID, int lastID) {
+        String sql = "delete Menu where menu_id between ? and ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, firstID);
+            st.setInt(2, lastID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateMenuById(int menu_id, int type_id, String name, String description, String menu_name, float average_calories, String menuTitle) {
+        String sql = "update Menu set type_id = ?, name = ?, description = ?, menu_name= ?, status='In Process', average_calories = ?, menuTitle = ? where menu_id = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, type_id);
+            st.setString(2, name);
+            st.setString(3, description);
+            st.setString(4, menu_name);
+            st.setFloat(5, average_calories);
+            st.setString(6, menuTitle);
+            st.setInt(7, menu_id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         NutriDAO ndb = new NutriDAO();
 //        Map<String, Map<String, List<Menu>>> ml = ndb.getAllMenu(4);
@@ -218,10 +262,6 @@ public class NutriDAO extends DBContext {
 //                }
 //            }
 //        }
-        List<String> lst = ndb.getTypeList();
-        for(String i : lst){
-            System.out.println(i);
-        }
-        
+        System.out.println(ndb.getTypeByTypeID(1));
     }
 }
