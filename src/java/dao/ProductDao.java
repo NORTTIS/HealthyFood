@@ -53,14 +53,6 @@ public class ProductDao extends DBContext {
         }
         return list;
     }
-
-//    public static void main(String[] args) {
-//        ProductDao dao = new ProductDao();
-//        List<Products> list = dao.getAllProduct();
-//        for(Products o : list){
-//            System.out.println(o);
-//        }
-//    }
     public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
         String query = "Select * from Category";
