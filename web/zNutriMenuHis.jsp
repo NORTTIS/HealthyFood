@@ -62,13 +62,8 @@
                             <!--Search Widget-->
                             <div class="widget search-widget">
                                 <div class="wgt-content">
-                                    <form action="menuHistory" name="frm-search" method="get" class="frm-search">
-                                        <select name="search" style="border-radius: 30px;width: 100% ;height: auto; font-size: large;">
-                                            <option>All</option>
-                                            <option value="Accept">Accept</option>
-                                            <option value="Reject">Reject</option>
-                                            <option value="In Process">In Process</option>
-                                        </select>
+                                    <form action="" name="frm-search" method="get" class="frm-search">
+                                        <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
                                         <button type="submit"><i class="biolife-icon icon-search"></i></button>
                                     </form>
                                 </div>
