@@ -86,7 +86,7 @@ public class TransactionServlet extends HttpServlet {
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
                 request.setAttribute("result", "Thành Công");
-                // tạo order t=khi thanh toán thành công 
+                // tạo order khi thanh toán thành công 
                 HttpSession session = request.getSession();
                 Cart cart = (Cart) session.getAttribute("cart");
                 Accounts acc = (Accounts) session.getAttribute("acc");

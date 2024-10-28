@@ -1,60 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import dao.AccountsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Accounts;
 
-/**
- *
- * @author Gosu
- */
-// url = /edit
 public class EditProfileServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditProfile</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditProfile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,47 +17,53 @@ public class EditProfileServlet extends HttpServlet {
         AccountsDAO adb = new AccountsDAO();
         Accounts user = adb.getAccountByUserName(username);
         request.setAttribute("user", user);
-        request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        request.getRequestDispatcher("chinhsuaprofile.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String oldUsername = request.getParameter("oldusername");
+        String oldEmail = request.getParameter("oldemail");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        String displayname = request.getParameter("displayname");
+        String address = request.getParameter("address");
+        String description = request.getParameter("description");
+        String avatar = request.getParameter("avatar");
         String phone_number = request.getParameter("phone_number");
         String password = request.getParameter("password");
-        String olduser = request.getParameter("oldusername");
+        String account_id = request.getParameter("accountId");
+
         AccountsDAO adb = new AccountsDAO();
-        Accounts username_exist = adb.getAccountByUserName(username);
-        Accounts email_exist = adb.getUserEmail(email);
-        if(username_exist != null || email_exist != null){
-            Accounts old = adb.getAccountByUserName(olduser);
+        Accounts username_exist = null;
+        Accounts email_exist = null;
+
+        if (!oldUsername.equals(username)) {
+            username_exist = adb.getAccountByUserName(username);
+        }
+
+        if (!oldEmail.equals(email)) {
+            email_exist = adb.getUserEmail(email);
+        }
+
+        if ((username_exist != null && !oldUsername.equals(username)) || (email_exist != null && !oldEmail.equals(email))) {
+            Accounts old = adb.getAccountByUserName(oldUsername);
             request.setAttribute("user", old);
             request.setAttribute("error", "Username hoặc email đã tồn tại");
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
+            request.getRequestDispatcher("chinhsuaprofile.jsp").forward(request, response);
         } else {
-            adb.updateUser(username, email, phone_number, password, olduser);
-            response.sendRedirect("userlist");
+            try {
+                adb.updateUser(username, password, displayname, address, description, email, phone_number, avatar, account_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            response.sendRedirect("detail?username=" + username);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Servlet for editing user profile information";
+    }
 }
