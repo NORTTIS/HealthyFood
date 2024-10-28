@@ -351,16 +351,17 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public void updateUser(String id, String displayname, String avatar, String desc, String email, String address) {
-        String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?, address = ? WHERE account_id = ?";
+    public void updateUser(String id, String displayname, String avatar, String desc, String email,String phone, String address) {
+        String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?,phone_number = ?, address = ? WHERE account_id = ?";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, displayname);
             st.setString(2, avatar);
             st.setString(3, desc);
             st.setString(4, email);
-            st.setString(5, address);
-            st.setString(6, id);
+             st.setString(5, phone);
+            st.setString(6, address);
+            st.setString(7, id);
 
             int rowsAffected = st.executeUpdate();
             System.out.println("Rows affected: " + rowsAffected); // Thêm dòng này để kiểm tra

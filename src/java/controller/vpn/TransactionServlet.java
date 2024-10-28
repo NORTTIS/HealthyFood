@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import model.Accounts;
 import model.Cart;
+import model.DeliveryDetail;
 
 /**
  *
@@ -90,7 +91,39 @@ public class TransactionServlet extends HttpServlet {
                 Cart cart = (Cart) session.getAttribute("cart");
                 Accounts acc = (Accounts) session.getAttribute("acc");
                 ProductDao prod = new ProductDao();
-                prod.createOrder(cart, acc.getAccount_id()+"");
+                DeliveryDetail deDetail = (DeliveryDetail) session.getAttribute("deDetail");
+
+                if (deDetail != null) {
+                    if (acc != null) {
+                        String orderId = prod.createOrder(cart, acc.getAccount_id() + "");
+                        if (orderId.equals("outofstock")) {
+                            request.setAttribute("error", "It looks like a certain product is out of stock, please edit your cart!");
+                            request.getRequestDispatcher("checkout").forward(request, response);
+                             return;
+                        } else {
+                            deDetail.setOrderId(orderId);
+                            prod.saveDeliveryDetail(deDetail);
+                        }
+
+                    } else {
+                        String orderId = prod.createOrder(cart,"5");
+                        if (orderId.equals("outofstock")) {
+                            request.setAttribute("error", "It looks like a certain product is out of stock, please edit your cart!");
+                            request.setAttribute("cart", cart);
+                            request.getRequestDispatcher("checkout").forward(request, response);
+                             return;
+                        } else {
+                            deDetail.setOrderId(orderId);
+                            prod.saveDeliveryDetail(deDetail);
+                        }
+                        
+                    }
+                    session.setAttribute("cart", null);
+                    session.setAttribute("totalitem", null);
+                    session.setAttribute("totalcart", null);
+                    session.setAttribute("totalCal", null);
+                }
+
             } else {
                 request.setAttribute("result", "Không thành công");
             }

@@ -54,6 +54,17 @@ CREATE TABLE Orders (
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
 );
+CREATE TABLE DeliveryDetails (
+    delivery_id INT IDENTITY(1,1) PRIMARY KEY,        -- ID giao hàng, tự động tăng
+    order_id INT NOT NULL,                            -- ID đơn hàng
+    full_name NVARCHAR(100) NOT NULL,                 -- Họ tên người nhận
+    email NVARCHAR(100) NOT NULL,                     -- Email người nhận
+    mobile NVARCHAR(15) NOT NULL,                     -- Số điện thoại người nhận
+    address NVARCHAR(255) NOT NULL,                   -- Địa chỉ giao hàng
+    delivery_notes NVARCHAR(MAX),                     -- Ghi chú giao hàng
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE -- Khóa ngoại trỏ đến bảng Orders
+);
+
 
 CREATE TABLE Order_Items (
     order_item_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -64,6 +75,7 @@ CREATE TABLE Order_Items (
 	FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 );
+
 
 CREATE TABLE Customer_Type (
     [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng

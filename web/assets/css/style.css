@@ -4773,8 +4773,7 @@ body.open-overlay #overlay{
 }
 
 .product-tabs.single-layout .tab-content .tab-contain.review-tab:not(.active){
-    height: 0px;
-    /*overflow: hidden;*/
+    display:none;
 }
 .product-tabs.single-layout .tab-content .tab-contain.active{
     visibility: visible;

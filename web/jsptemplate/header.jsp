@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-    <div class="header-middle biolife-sticky-object ">
+    <div class="header-middle biolife-sticky-object" style="border-bottom: 1px solid #f5f5f5;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
@@ -132,7 +132,7 @@
                                 <a href="javascript:void(0)" class="link-to">
                                     <span class="icon-qty-combine">
                                         <i class="icon-cart-mini biolife-icon"></i>
-                                        <span class="qty">${totalitem == null ? 0 : totalitem}</span>
+                                        <span class="qty">${sessionScope.totalitem == null ? 0 : sessionScope.totalitem}</span>
                                     </span>
                                     <span class="title">My Cart -</span>
                                     <span class="sub-total">${sessionScope.cart.totalPrice == null ? 0 : sessionScope.cart.totalPrice} VND</span>
@@ -147,7 +147,7 @@
                                                     <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
                                                     <div class="minicart-item">
                                                         <div class="thumb">
-                                                            <a href="single-product-simple.html"><img src="./assets/images/products/p-01.jpg"
+                                                            <a href="productDetail?ac=show&productId=${i.product.productId}"><img src="./assets/images/products/p-01.jpg"
                                                                                                       width="90" height="90" alt="National Fresh"></a>
                                                         </div>
                                                         <div class="left-info">

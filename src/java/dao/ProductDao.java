@@ -14,10 +14,10 @@ import model.Category;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import model.Cart;
+import model.DeliveryDetail;
 import model.LineItem;
 import model.Order;
 import model.Reviews;
-
 
 /**
  *
@@ -129,7 +129,7 @@ public class ProductDao extends DBContext {
             st.setString(1, id);
 
             ResultSet rs;
-            rs = ps.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 Products acc = new Products(
                         rs.getInt(1),
@@ -153,7 +153,6 @@ public class ProductDao extends DBContext {
         return null;
     }
 
-
     public List<Products> searchByName(String txtSearch) {
         List<Products> list = new ArrayList<>();
         String sql = "Select * from Products where [name] LIKE ?";
@@ -173,16 +172,13 @@ public class ProductDao extends DBContext {
                         rs.getInt(7),
                         rs.getString(8),
                         rs.getDouble(9),
-
                         rs.getString(10)));
-
 
             }
         } catch (SQLException e) {
             System.out.println(e);
             return null;
         }
-
 
         return list;
     }
@@ -311,12 +307,15 @@ public class ProductDao extends DBContext {
         return cateList;
     }
 
-    public void createOrder(Cart cart, String accountId) {
-       
+    public String createOrder(Cart cart, String accountId) {
+
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
         PreparedStatement psOrderItems = null;
         ResultSet rs = null;
+        if (!CheckvalidStockOrderItem(cart)) {
+            return "outofstock";
+        }
         try {
 
             String insertOrderSQL = "INSERT INTO Orders (account_id, total_amount, status, total_calories, order_date) VALUES (?, ?, 'Pending', ?, GETDATE())";
@@ -344,21 +343,66 @@ public class ProductDao extends DBContext {
                 psOrderItems.setInt(2, item.getProduct().getProductId());  // ID sản phẩm
                 psOrderItems.setInt(3, item.getQuantity());  // Số lượng sản phẩm
                 psOrderItems.setDouble(4, item.getTotal());  // Tổng giá trị của sản phẩm đó
-
                 psOrderItems.addBatch();  // Thêm vào batch để thực hiện sau
+
+            }
+            for (LineItem item : cart.getItems()) {
+                updateProductStock(item.getProduct().getProductId(), item.getQuantity());
             }
 
             psOrderItems.executeBatch();  // Thực hiện batch
 
             // Bước 3: Commit giao dịch
             conn.commit();
+            return orderId + "";
 
         } catch (SQLException e) {
 
-            System.out.println(e.getMessage());
+            return "outofstock";
+
+        }
+    }
+
+    public void updateProductStock(int productId, int quantity) {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        Products product = getProductsById(productId + "");
+        int stock = 0;
+        if (product != null) {
+            stock = product.getQuantityInStock();
+            try {
+                String sql = "update Products  set quantity_in_stock = ? where product_id = ? ";
+
+                st = conn.prepareStatement(sql);
+                st.setInt(1, stock - quantity);
+                st.setString(2, productId + "");
+                st.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+    }
+
+    public static void main(String[] args) {
+        ProductDao prod = new ProductDao();
+        prod.updateProductStock(4, 10);
+    }
+
+    public boolean CheckvalidStockOrderItem(Cart cart) {
+        for (LineItem item : cart.getItems()) {
+            Products product = getProductsById(item.getProduct().getProductId() + "");
+            int stock = 0;
+            if (product != null) {
+                stock = product.getQuantityInStock();
+                if (stock < item.getQuantity()) {
+                    return false;
+                }
+            }
 
         }
 
+        return true;
     }
 
     public Order getOrderById(String orderId) {
@@ -394,6 +438,24 @@ public class ProductDao extends DBContext {
 
         }
         return null;
+    }
+
+    public void saveDeliveryDetail(DeliveryDetail deDetail) {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        try {
+            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes) values (?,?,?,?,?,?)";
+            st = conn.prepareStatement(sql);
+            st.setString(1, deDetail.getOrderId());
+            st.setString(2, deDetail.getFullname());
+            st.setString(3, deDetail.getEmail());
+            st.setString(4, deDetail.getPhone());
+            st.setString(5, deDetail.getAddress());
+            st.setString(6, deDetail.getNote());
+            st.executeQuery();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void ReviewProduct(String productId, String accountId, String rating, String comment) {
@@ -556,8 +618,8 @@ public class ProductDao extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        ProductDao prod = new ProductDao();
+//    public static void main(String[] args) {
+//        ProductDao prod = new ProductDao();
 //        Products product = prod.getProductsById("1");
 //        Cart cart = prod.getWishCartByAccountId("1");
 //        prod.createOrder(cart, "1");
@@ -565,17 +627,15 @@ public class ProductDao extends DBContext {
 //        for (Reviews reviews : listR) {
 //            System.out.println(reviews);
 //        }
-        List<Order> lOrders = prod.getAllOrderByAccId("1");
-        for (Order lOrder : lOrders) {
-            System.out.println(lOrder);
-        }
+//        List<Order> lOrders = prod.getAllOrderByAccId("1");
+//        for (Order lOrder : lOrders) {
+//            System.out.println(lOrder);
+//        }
 //        Cart cartOrder = prod.getOrderDetailById("1");
 //        for (LineItem item : cartOrder.getItems()) {
 //            System.out.println(item);
 //        }
-
-    }
-
+//    }
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        String txtSearch = "organic";
@@ -584,7 +644,6 @@ public class ProductDao extends DBContext {
 //            System.out.println(o.getName());
 //        }
 //    }
-
     public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
         List<Products> list = new ArrayList<>();
         String query = "Select * from Products where price between ? and ?";
@@ -611,7 +670,7 @@ public class ProductDao extends DBContext {
         }
         return list;
     }
-    
+
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        String fromPrice = "23000";
@@ -622,12 +681,7 @@ public class ProductDao extends DBContext {
 //            System.out.println(o);
 //        }
 //    }
-    
-    public double calculateBMI(double weight, double height){
-        return weight / (height * height);
-    }
-    
- public List<Products> getAllDiscountProduct() {
+    public List<Products> getAllDiscountProduct() {
         String sql = "Select * from Products ";
         List<Products> lProduct = new ArrayList<>();
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -655,5 +709,5 @@ public class ProductDao extends DBContext {
 
         return lProduct;
     }
-    
+
 }
