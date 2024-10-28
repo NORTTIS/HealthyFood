@@ -22,7 +22,7 @@ import model.Products;
  *
  * @author Norttie
  */
-@WebServlet(name = "WishCartController", urlPatterns = {"/wishcart"})
+@WebServlet(name = "WishCartController", urlPatterns = {"/wishlist"})
 public class WishCartController extends HttpServlet {
 
     /**
@@ -76,8 +76,10 @@ public class WishCartController extends HttpServlet {
         String accountId = acc.getAccount_id() + "";
         Cart cart = prodDao.getWishCartByAccountId(accountId);
         String wishid = prodDao.getWishIdByAccountId(accountId);
+        if (action == null) {
+            action = "show";
+        }
 
-      
         //show wishcart 
         if (action.equals("show")) {
 
@@ -131,10 +133,17 @@ public class WishCartController extends HttpServlet {
             // Kiểm tra nếu previousURL không null và không trùng với currentURL
             if (previousURL != null && !previousURL.equals(currentURL)) {
                 // Kiểm tra nếu previousURL chứa từ khóa "cart"
-                if (previousURL.contains("cart")) {
-                    // Chuyển hướng đến trang cart?ac=show
-                    response.sendRedirect("wishcart?ac=show");
+                if (previousURL.contains("wishlist")) {
+                    // Chuyển hướng đến trang wishcart?ac=show
+                    Object totalWishObj = session.getAttribute("totalWish");
+                    if (totalWishObj != null && totalWishObj instanceof Integer) {
+                        int totalWish = (Integer) totalWishObj;
+                        session.setAttribute("totalWish", totalWish - 1);
+                    }
+                    response.sendRedirect("wishlist?ac=show");
+
                 } else {
+
                     // Chuyển hướng lại trang trước đó nếu không chứa "cart"
                     response.sendRedirect(previousURL);
                 }

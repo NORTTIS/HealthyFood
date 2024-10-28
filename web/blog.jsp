@@ -43,41 +43,41 @@
 
         <!-- HEADER -->
         <jsp:include page="./jsptemplate/header.jsp" />
-        
-        <!--Hero Section-->
-        <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Organic Fruits</h1>
+
+        <!--Navigation section-->
+        <div class="container">
             <nav class="biolife-nav">
                 <ul>
                     <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                    <li class="nav-item"><span class="current-page"><a href="blog" class="permal-link">OurBlog</a></span></li>
+                    <li class="nav-item"><span class="current-page"><a href="blog" class="permal-link">${blogTitle==null? 'OurBlog':blogTitle}</a></span></li>
                 </ul>
             </nav>
+
         </div>
 
         <!-- Page Contain -->
-        <div class="page-contain blog-page">
+        <div class="page-contain blog-page" style="padding-top: 0px;    ">
 
             <div class="container">
                 <!-- Main content -->
                 <div id="main-content" class="main-content">
 
                     <div class="row">
+                     
                         <!-- Sidebar -->
                         <aside id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                              <!--Search Widget-->
+                        <div class="widget search-widget">
+                            <div class="wgt-content">
+                                <form action="" name="frm-search" method="get" class="frm-search" >
+                                    <input type="text" name="search" value="${searchValue}" placeholder="SEARCH..." class="input-text">
+                                    <input type="text" name="cate" value="${cate}" hidden/>
+                                    <input type="text" name="page" value="${currentPage}" hidden/>
+                                    <button type="submit"><i class="biolife-icon icon-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
                             <div class="sidebar-contain">
-
-                                <!--Search Widget-->
-                                <div class="widget search-widget">
-                                    <div class="wgt-content">
-                                        <form action="" name="frm-search" method="get" class="frm-search">
-                                            <input type="text" name="search" value="${searchValue}" placeholder="SEARCH..." class="input-text">
-                                            <input type="text" name="cate" value="${cate}" hidden/>
-                                            <input type="text" name="page" value="${currentPage}" hidden/>
-                                            <button type="submit"><i class="biolife-icon icon-search"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
                                 <c:if test="${sessionScope.acc.role == 'Nutritionist'}">
 
                                     <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
@@ -105,30 +105,44 @@
                         </aside>
 
                         <div id="main-content" class="main-content col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                            <h1 style="margin: 0px 10px 10px;font-weight: 700;">${blogTitle==null? 'OurBlog':blogTitle}</h1>
                             <!--articles block-->
                             <ul class="posts-list main-post-list">
                                 <!--loop post here-->
                                 <c:forEach items="${bList}" var="i" varStatus="j">
-                                    <li class="post-elem col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <li class="post-elem col-lg-12 col-md-4 col-sm-6 col-xs-12" style="    padding: 20px; border-radius: 16px; border: 2px solid #e8e8e8;">
                                         <div class="post-item effect-04 style-bottom-info">
-                                            <div class="thumbnail">
-                                                <a href="blogdetail?blogId=${i.id}" class="link-to-post">
-                                                    <div>
-                                                        <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px;" alt="">
+                                            <div class="post-content col-lg-8">
+                                                <div class="auth-info" style="display: flex; justify-content: space-between">
+                                                    <div class="ath">
+                                                        <a href="#" class="avata"><img src="assets/image/${accList.get(j.index).avatar==null?'Avatar.png': accList.get(j.index).avatar}" style="width: 35px; height: 35px; border-radius: 50%;" alt="Christian Doe">
+                                                            <span style="    color: black;
+                                                                  font-size: 13px; margin-left: 5px;">${accList.get(j.index).displayname}</span></a>
+
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div class="post-content">
-                                                <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title">${i.title}</p></a></h4>
-                                                <p class="post-archive"><b class="post-cat">${cateList.get(i.category)}</b><span class="post-date"> / ${i.createAt}</span><span class="author">Posted By: ${accList.get(j.index).displayname}</span></p>
+                                                    <div class="socials-connection">
+                                                        <p class="title">${i.createAt}</p>
+                                                    </div>
+                                                </div>
+                                                <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" >${i.title}</p></a></h4>
+
                                                 <div class="excerpt">
                                                     ${i.content}
                                                 </div>
 
                                                 <div class="group-buttons">
+                                                    <button class="btn" style="    border-radius: 25px;    min-width: 85px;margin-right: 110px;">${cateList.get(i.category)}</button>
                                                     <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                                 </div>
                                             </div>
+                                            <div class="thumbnail col-lg-4">
+                                                <a href="blogdetail?blogId=${i.id}" class="link-to-post">
+                                                    <div>
+                                                        <img src="assets/images/our-blog/${i.imagePath}" style="width: 265px; height: 200px; border-radius: 20px;" alt="">
+                                                    </div>
+                                                </a>
+                                            </div>
+
                                         </div>
                                     </li>
                                 </c:forEach>
