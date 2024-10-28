@@ -18,174 +18,11 @@ import model.LineItem;
 import model.Order;
 import model.Reviews;
 
-
 /**
  *
  * @author Norttie
  */
 public class ProductDao extends DBContext {
-
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
-    public List<Products> getAllProduct() {
-        List<Products> list = new ArrayList<>();
-        String query = "Select * from Products";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getString(10)));
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
-//    public static void main(String[] args) {
-//        ProductDao dao = new ProductDao();
-//        List<Products> list = dao.getAllProduct();
-//        for(Products o : list){
-//            System.out.println(o);
-//        }
-//    }
-    public List<Category> getAllCategory() {
-        List<Category> list = new ArrayList<>();
-        String query = "Select * from Category";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Category(rs.getInt(1),
-                        rs.getString(2)));
-
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
-//        public static void main(String[] args) {
-//        ProductDao dao = new ProductDao();
-//        List<Products> list = dao.getAllProduct();
-//        List<Category> listC = dao.getAllCategory();
-//        for(Category o : listC){
-//            System.out.println(o);
-//        }
-//    }
-    public List<Products> getProductsByCateId(String cid) {
-        List<Products> list = new ArrayList<>();
-        String query = "Select * from Products where category_id = ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, cid);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getString(10)));
-            }
-        } catch (SQLException e) {
-        }
-        return list;
-    }
-
-//    public static void main(String[] args) {
-//        String cid = "1";
-//        ProductDao dao = new ProductDao();
-//        List<Products> list = dao.getAllProduct();
-//        List<Products> listP = dao.getProductsByCateId(cid);
-//        for (Products o : listP) {
-//            System.out.println(o);
-//        }
-//    }
-    public Products getProductsById(String id) {
-        String sql = "Select * from Products where product_id =?";
-
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
-            st.setString(1, id);
-
-            ResultSet rs;
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Products acc = new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getString(10));
-
-                return acc;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            return null;
-        }
-
-        return null;
-    }
-
-
-    public List<Products> searchByName(String txtSearch) {
-        List<Products> list = new ArrayList<>();
-        String sql = "Select * from Products where [name] LIKE ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, "%" + txtSearch + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-
-                        rs.getString(10)));
-
-
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            return null;
-        }
-
-
-        return list;
-    }
 
     public String getWishIdByAccountId(String accountid) {
         String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
@@ -312,7 +149,7 @@ public class ProductDao extends DBContext {
     }
 
     public void createOrder(Cart cart, String accountId) {
-       
+
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
         PreparedStatement psOrderItems = null;
@@ -556,26 +393,6 @@ public class ProductDao extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        ProductDao prod = new ProductDao();
-//        Products product = prod.getProductsById("1");
-//        Cart cart = prod.getWishCartByAccountId("1");
-//        prod.createOrder(cart, "1");
-//        List<Reviews> listR = prod.getReviewByProdId(1, 0, "2");
-//        for (Reviews reviews : listR) {
-//            System.out.println(reviews);
-//        }
-        List<Order> lOrders = prod.getAllOrderByAccId("1");
-        for (Order lOrder : lOrders) {
-            System.out.println(lOrder);
-        }
-//        Cart cartOrder = prod.getOrderDetailById("1");
-//        for (LineItem item : cartOrder.getItems()) {
-//            System.out.println(item);
-//        }
-
-    }
-
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        String txtSearch = "organic";
@@ -584,77 +401,355 @@ public class ProductDao extends DBContext {
 //            System.out.println(o.getName());
 //        }
 //    }
+    public List<Products> getAllProduct() {
+        List<Products> list = new ArrayList<>();
+        String query = "SELECT * FROM Products";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new Products(
+                        rs.getInt(1), // product_id
+                        rs.getInt(2), // category_id
+                        rs.getString(3), // product_name
+                        rs.getString(4), // description
+                        rs.getString(5), // image_url
+                        rs.getDouble(6), // price
+                        rs.getInt(7), // quantity
+                        rs.getString(8), // status
+                        rs.getDouble(9), // average_calories
+                        rs.getString(10) // other_info
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+
+        return list; // Trả về danh sách sản phẩm (có thể rỗng nếu không tìm thấy)
+    }
+
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        for(Products o : list){
+//            System.out.println(o);
+//        }
+//    }
+    public List<Category> getAllCategory() {
+        List<Category> list = new ArrayList<>();
+        String query = "SELECT * FROM Category";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new Category(
+                        rs.getInt(1), // category_id
+                        rs.getString(2) // category_name
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+
+        return list; // Trả về danh sách danh mục (có thể rỗng nếu không tìm thấy)
+    }
+
+//        public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        List<Category> listC = dao.getAllCategory();
+//        for(Category o : listC){
+//            System.out.println(o);
+//        }
+//    }
+    public List<Products> getProductsByCateId(String cid) {
+        String query = "SELECT * FROM Products WHERE category_id = ?";
+        List<Products> list = new ArrayList<>();
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, cid);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Products(
+                            rs.getInt(1), // product_id
+                            rs.getInt(2), // category_id
+                            rs.getString(3), // product_name
+                            rs.getString(4), // description
+                            rs.getString(5), // image_url
+                            rs.getDouble(6), // price
+                            rs.getInt(7), // quantity
+                            rs.getString(8), // status
+                            rs.getDouble(9), // average_calories
+                            rs.getString(10) // other_info
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+
+        return list; // Trả về danh sách sản phẩm (có thể rỗng nếu không tìm thấy)
+    }
+
+//    public static void main(String[] args) {
+//        String cid = "1";
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByCateId(cid);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
+    public Products getProductsById(String id) {
+        String sql = "SELECT * FROM Products WHERE product_id = ?";
+        Products product = null; // Biến để lưu sản phẩm
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) { // Kiểm tra nếu có kết quả
+                    product = new Products(
+                            rs.getInt(1), // product_id
+                            rs.getInt(2), // category_id
+                            rs.getString(3), // product_name
+                            rs.getString(4), // description
+                            rs.getString(5), // image_url
+                            rs.getDouble(6), // price
+                            rs.getInt(7), // quantity
+                            rs.getString(8), // status
+                            rs.getDouble(9), // average_calories
+                            rs.getString(10) // other_info
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In ra lỗi nếu có
+        }
+
+        return product; // Trả về sản phẩm hoặc null nếu không tìm thấy
+    }
+
+    public List<Products> searchByName(String txtSearch) {
+        List<Products> list = new ArrayList<>();
+        String sql = "SELECT * FROM Products WHERE [name] LIKE ?";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + txtSearch + "%");
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Products(
+                            rs.getInt(1), // product_id
+                            rs.getInt(2), // category_id
+                            rs.getString(3), // product_name
+                            rs.getString(4), // description
+                            rs.getString(5), // image_url
+                            rs.getDouble(6), // price
+                            rs.getInt(7), // quantity
+                            rs.getString(8), // status
+                            rs.getDouble(9), // average_calories
+                            rs.getString(10) // other_info
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Thông báo lỗi
+        }
+
+        return list; // Trả về danh sách rỗng nếu không tìm thấy sản phẩm
+    }
 
     public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
         List<Products> list = new ArrayList<>();
-        String query = "Select * from Products where price between ? and ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, fromPrice);
-            ps.setString(2, toPrice);
-            rs = ps.executeQuery();
+        String query = "SELECT * FROM Products WHERE price BETWEEN ? AND ?";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setDouble(1, Double.parseDouble(fromPrice));
+            ps.setDouble(2, Double.parseDouble(toPrice));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Products(
+                            rs.getInt(1), // id
+                            rs.getInt(2), // category_id
+                            rs.getString(3), // product_name
+                            rs.getString(4), // description
+                            rs.getString(5), // image_url
+                            rs.getDouble(6), // price
+                            rs.getInt(7), // quantity
+                            rs.getString(8), // status
+                            rs.getDouble(9), // discount
+                            rs.getString(10) // other_info
+                    ));
+                }
+            }
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace(); // Xử lý lỗi
+        }
+
+        return list;
+    }
+
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        String fromPrice = "23000";
+//        String toPrice = "83000";
+//        List<Products> list = dao.getAllProduct();
+//        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
+//        for (Products o : listP) {
+//            System.out.println(o);
+//        }
+//    }
+    public List<Products> sortProductsByPrice(String sortType) {
+        List<Products> list = new ArrayList<>();
+        String query = "SELECT * FROM Products ORDER BY price " + (sortType.equals("asc") ? "ASC" : "DESC");
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 list.add(new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getString(10)));
+                        rs.getInt(1), // id
+                        rs.getInt(2), // category_id
+                        rs.getString(3), // product_name
+                        rs.getString(4), // description
+                        rs.getString(5), // image_url
+                        rs.getDouble(6), // price
+                        rs.getInt(7), // quantity
+                        rs.getString(8), // status
+                        rs.getDouble(9), // discount
+                        rs.getString(10) // other_info
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý lỗi
+        }
+
+        return list;
+    }
+
+    public List<Products> sortProductsByCalories(String sortType) {
+        List<Products> list = new ArrayList<>();
+        String query = "SELECT * FROM Products ORDER BY average_calories " + (sortType.equals("asc") ? "ASC" : "DESC");
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new Products(
+                        rs.getInt(1), // id
+                        rs.getInt(2), // category_id
+                        rs.getString(3), // product_name
+                        rs.getString(4), // description
+                        rs.getString(5), // image_url
+                        rs.getDouble(6), // price
+                        rs.getInt(7), // quantity
+                        rs.getString(8), // status
+                        rs.getDouble(9), // average_calories
+                        rs.getString(10) // other_info
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi nếu có
+        }
+
+        return list;
+    }
+
+    // Phương thức để lấy danh sách sản phẩm với phân trang
+    public List<Products> getProducts(int pageNumber, int pageSize) throws SQLException {
+        List<Products> productList = new ArrayList<>();
+        String sql = "SELECT * FROM products LIMIT ? OFFSET ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, pageSize); // số sản phẩm mỗi trang
+        statement.setInt(2, (pageNumber - 1) * pageSize); // tính toán offset
+
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Products product = new Products(
+                    resultSet.getInt("product_id"),
+                    resultSet.getInt("category"),
+                    resultSet.getString("supplier"),
+                    resultSet.getString("name"),
+                    resultSet.getString("description"),
+                    resultSet.getDouble("price"),
+                    resultSet.getInt("quantity_in_stock"),
+                    resultSet.getString("status"),
+                    resultSet.getDouble("average_calories"),
+                    resultSet.getString("picture")
+            );
+            productList.add(product);
+        }
+        return productList;
+    }
+
+    public int getTotalPage(List<Products> list) {
+        int numpage = 0;
+        numpage = list.size() / 12;
+        if (list.size() % 12 != 0) {
+            numpage++;
+        }
+        return numpage;
+    }
+
+    public int getTotalProduct() {
+        String query = "select count(*) from Products";
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = new DBContext().getConnection();
+            st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
             }
         } catch (SQLException e) {
         }
+        return 0;
+    }
+
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        int count = dao.getTotalProduct();
+//        System.out.println(count);
+//    }
+    public List<Products> pagingProduct(int index) {
+        List<Products> list = new ArrayList<>();
+        String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
+
+        try (Connection conn = new DBContext().getConnection();
+             PreparedStatement st = conn.prepareStatement(query)) {
+            st.setInt(1, (index - 1) * 12);
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Products(
+                            rs.getInt(1),
+                            rs.getInt(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getDouble(6),
+                            rs.getInt(7),
+                            rs.getString(8),
+                            rs.getDouble(9),
+                            rs.getString(10)
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return list;
     }
-    
-    public static void main(String[] args) {
-        ProductDao dao = new ProductDao();
-        String fromPrice = "23000";
-        String toPrice = "83000";
-        List<Products> list = dao.getAllProduct();
-        List<Products> listP = dao.getProductsByPrice(fromPrice, toPrice);
-        for (Products o : listP) {
-            System.out.println(o);
-        }
-    }
-    
-    public double calculateBMI(double weight, double height){
-        return weight / (height * height);
-    }
-    
-//    public List<Products> getProductByBMI(String bmi) {
-//        List<Products> list = new ArrayList<>();
-//        String sql = "Select * from Products where ";
-//        try {
-//            conn = new DBContext().getConnection();
-//            ps = conn.prepareStatement(sql);
-//            ps.setString(1, "%" + txtSearch + "%");
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                list.add(new Products(
-//                        rs.getInt(1),
-//                        rs.getInt(2),
-//                        rs.getString(3),
-//                        rs.getString(4),
-//                        rs.getString(5),
-//                        rs.getDouble(6),
-//                        rs.getInt(7),
-//                        rs.getString(8),
-//                        rs.getDouble(9),
-//                        rs.getString(10)));
-//
-//            }
-//        } catch (SQLException e) {
-//            System.out.println(e);
-//            return null;
+
+//    public static void main(String[] args) {
+//        ProductDao dao = new ProductDao();
+//        List<Products> list = dao.pagingProduct(1);
+//        for(Products p : list){
+//            System.out.println(p);
 //        }
-//
-//        return list;
 //    }
-    
 }
