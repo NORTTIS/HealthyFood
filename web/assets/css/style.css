@@ -384,8 +384,14 @@ select option{
     -moz-osx-font-smoothing: grayscale;
 }
 
+
 .icon-arrow-right:before {
     content: "\e900";
+    font-size: 40px;
+}
+biolife-icon icon-arrow-right next slick-arrow{
+    opacity: 1;
+    color: #7faf51;
 }
 .icon-arteries-about:before {
     content: "\e901";
@@ -434,6 +440,7 @@ select option{
 }
 .icon-left-arrow:before {
     content: "\e910";
+    font-size: 40px;
 }
 .icon-like:before {
     content: "\e911";
@@ -4766,8 +4773,7 @@ body.open-overlay #overlay{
 }
 
 .product-tabs.single-layout .tab-content .tab-contain.review-tab:not(.active){
-    height: 0px;
-    /*overflow: hidden;*/
+    display:none;
 }
 .product-tabs.single-layout .tab-content .tab-contain.active{
     visibility: visible;
@@ -7046,6 +7052,9 @@ body.open-overlay #overlay{
     opacity: 1;
     filter: alpha(opacity=100);
     visibility: visible;
+}
+.slick-arrow{
+     opacity: 1;
 }
 .slider-opt04__layout01,
 .slider-opt03__layout02,

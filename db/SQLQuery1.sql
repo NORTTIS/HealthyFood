@@ -54,6 +54,17 @@ CREATE TABLE Orders (
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
 );
+CREATE TABLE DeliveryDetails (
+    delivery_id INT IDENTITY(1,1) PRIMARY KEY,        -- ID giao hàng, tự động tăng
+    order_id INT NOT NULL,                            -- ID đơn hàng
+    full_name NVARCHAR(100) NOT NULL,                 -- Họ tên người nhận
+    email NVARCHAR(100) NOT NULL,                     -- Email người nhận
+    mobile NVARCHAR(15) NOT NULL,                     -- Số điện thoại người nhận
+    address NVARCHAR(255) NOT NULL,                   -- Địa chỉ giao hàng
+    delivery_notes NVARCHAR(MAX),                     -- Ghi chú giao hàng
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE -- Khóa ngoại trỏ đến bảng Orders
+);
+
 
 CREATE TABLE Order_Items (
     order_item_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -64,6 +75,7 @@ CREATE TABLE Order_Items (
 	FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 );
+
 
 CREATE TABLE Customer_Type (
     [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
@@ -79,25 +91,26 @@ CREATE TABLE Menu (
 	create_at DATETIME DEFAULT GETDATE(),
 	update_at DATETIME DEFAULT GETDATE(),
 	menu_name NVARCHAR(255),
-	status NVARCHAR(10) CHECK (status IN ('Accept', 'Reject', 'In Process')) NOT NULL default ('In Process')
+	average_calories FLOAT,
+	menuTitle NVARCHAR(255),
+	status NVARCHAR(10),
 	FOREIGN KEY (create_by) REFERENCES Accounts(account_id) ON DELETE SET NULL,
 	FOREIGN KEY ([type_id]) REFERENCES Customer_Type([type_id]) ON DELETE SET NULL,
 );
-drop table Menu_Detail
+
 CREATE TABLE Menu_Detail (
-    menu_detail_id INT,
+    menu_detail_id INT IDENTITY(1,1) PRIMARY KEY,
+	menu_id INT,
     product_id  INT,
 	product_qty INT,
-	average_calories FLOAT, 
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
-	FOREIGN KEY (menu_detail_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
+	FOREIGN KEY (menu_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
 );
 CREATE TABLE Reviews (
     review_id INT IDENTITY(1,1) PRIMARY KEY,
     account_id INT,
 	product_id INT,
 	comment NVARCHAR(MAX),
-	rate INT,
 	create_at DATETIME DEFAULT GETDATE(),
 	status NVARCHAR(10) CHECK (status IN ('Approved ', 'Rejected ')) NOT NULL,
 	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,
@@ -140,11 +153,10 @@ CREATE TABLE Blogs (
     content NVARCHAR(MAX),
     timestamp DATETIME DEFAULT GETDATE(),
 	image NVARCHAR(MAX),
-	bmi_range INT,
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
-	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) ,
-	FOREIGN KEY (bmi_range) REFERENCES Customer_Type(type_id)
+	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
 );
+
 
 
 
@@ -176,11 +188,22 @@ VALUES
 (1, 'Healthy Harvest', 'Bananas', 'Ripe bananas with high potassium content', 28000, 200, 'available', 89.0, 'banana.jpg'),
 (4, 'Vegan Choice', 'Almond Milk', 'Plant-based almond milk, dairy-free', 92000, 80, 'available', 30.0, 'almond_milk.jpg');
 
-INSERT INTO Menu (name, description, create_by, menu_name)
-VALUES ('Dinner', 'đây là bữa ăn cho một người', 4, 'Green Salad'),
-('Breakfast', 'đây là bữa ăn cho một người', 4, 'Cheeseburger'),
-('Breakfast', 'đây là bữa ăn cho một người', 4, 'Spaghetti'),
-('Breakfast', 'đây là bữa ăn cho một người', 4, 'Green Salad');
+INSERT INTO Menu (name, description, create_by, menu_name, average_calories, status)
+VALUES ('Dinner', N'đây là bữa ăn cho một người', 4, 'Green Salad', 200, 'Accept'),
+('Breakfast', N'đây là bữa ăn cho một người', 4, 'Cheeseburger', 300 , 'Accept'),
+('Breakfast', N'đây là bữa ăn cho một người', 4, 'Spaghetti', 300, 'Accept'),
+('Breakfast', N'đây là bữa ăn cho một người', 4, 'Green Salad', 200, 'Accept');
 
+INSERT INTO Menu_Detail(menu_id, product_id, product_qty) values (1, 1, 12), (2, 2, 13), (3, 3, 20), (4, 4, 26)
 
-INSERT INTO Menu_Detail values (1, null, null, 200), (2, null, null, 300), (3, null, null, 300), (4, null, null, 200)
+INSERT INTO Menu (type_id, name, description, create_by, create_at, update_at, menu_name, status, average_calories, menuTitle)
+VALUES
+( 1, N'Bữa sáng', N'đây là bữa sáng cho một người', 4, '2024-10-18 03:32:58.810', '2024-10-18 03:32:58.810', 'Cheeseburger', 'Accept', 300, 'Menu for underweight'),
+( 1, N'Bữa sáng', N'đây là bữa sáng cho một người', 4, '2024-10-18 03:32:58.810', '2024-10-18 03:32:58.810', 'Spaghetti', 'Accept', 300, 'Menu for underweight'),
+( 1, N'Bữa sáng', N'đây là bữa sáng cho một người', 4, '2024-10-18 03:32:58.810', '2024-10-18 03:32:58.810', 'Green Salad', 'Accept', 300, 'Menu for underweight'),
+( 1, N'Bữa tối', N'đây là bữa sáng cho một người', 4, '2024-10-18 04:32:34.000', '2024-10-18 04:32:34.000', 'Green Salad', 'Accept', 300, 'Menu for underweight'),
+( 2, 'Breakfast', 'demo descript', 4, '2024-10-20 01:56:19.357', '2024-10-20 01:56:19.357', 'Caeser salad', 'Reject', 300, 'demo reject'),
+( 2, 'Dinner', 'demo descript', 4, '2024-10-24 01:12:41.103', '2024-10-24 01:12:41.103', 'Demo Name', 'In Process', 300, 'Demo 2'),
+( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.100', '2024-10-25 02:31:03.100', 'demo1', 'In Process', 100, 'Demo 2'),
+( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.150', '2024-10-25 02:31:03.150', 'demo2', 'In Process', 200, 'Demo 2'),
+( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.170', '2024-10-25 02:31:03.170', 'demo 2.2', 'In Process', 3099, 'Demo 2');

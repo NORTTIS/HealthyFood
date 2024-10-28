@@ -26,23 +26,8 @@
     <body>
         <div class="container">
             <h1>Máy Tính BMI</h1>
-
             <form id="formBmi" class="calculator" action="bmical" method="post">
-                <div>
-                    <label for="weight">Cân nặng (kg)</label>
-                    <input
-                        type="number"
-                        id="weight"
-                        name="weight"
-                        min="0"
-                        step="any"
-                        value="0"
-                        inputmode="decimal"
-                        onfocus="if (this.value === '0')
-                                    this.value = ''"
-                        />
-                </div>
-
+                
                 <div>
                     <label for="height">Chiều cao (cm)</label>
                     <input
@@ -58,6 +43,21 @@
                         />
                 </div>
 
+                <div>
+                    <label for="weight">Cân nặng (kg)</label>
+                    <input
+                        type="number"
+                        id="weight"
+                        name="weight"
+                        min="0"
+                        step="any"
+                        value="0"
+                        inputmode="decimal"
+                        onfocus="if (this.value === '0')
+                                    this.value = ''"
+                        />
+                </div>
+                
                 <div>
                     <button type="reset">Đặt lại</button>
                     <button type="submit">Tính toán</button>
@@ -91,7 +91,7 @@
                 </div>
             </section>
             <div id="promotionMessage" style=" margin-top: 20px;">
-                <c:if test="${sessionScope.bmiR!=null}">
+                <c:if test="${sessionScope.bmiR!=null || (sessionScope.bmiR.equals(''))}">
                     <button id="homeBtn" onclick="redirectToHome()">Tính toán BMI xong rồi! Hãy ghé thăm cửa hàng của chúng tôi để tìm ra những sản phẩm phù hợp giúp bạn đạt được mục tiêu sức khỏe của mình.</button>
                 </c:if>
             </div>

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Accounts;
 import model.Cart;
+import model.DeliveryDetail;
 
 /**
  *
@@ -64,9 +65,12 @@ public class CheckoutController extends HttpServlet {
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         Accounts acc = (Accounts) session.getAttribute("acc");
+        if (acc != null) {
+            request.setAttribute("acc", acc);
+        }
         request.setAttribute("cart", cart);
-        request.setAttribute("totalPrice", (int)cart.getTotalPrice());
-         request.setAttribute("totalCal", cart.getTotalCal());
+        request.setAttribute("totalPrice", (int) cart.getTotalPrice());
+        request.setAttribute("totalCal", cart.getTotalCal());
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
@@ -81,7 +85,32 @@ public class CheckoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String fullName = request.getParameter("fullname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String note = request.getParameter("note");
+        String voucherCode = request.getParameter("voucher");
+        if (note == null) {
+            note = "";
+        }
+        DeliveryDetail deDetail = new DeliveryDetail("5", fullName, email, phone, address, note);
+        HttpSession session = request.getSession();
+        session.setAttribute("deDetail", deDetail);
+        Cart cart = (Cart) session.getAttribute("cart");
+        Accounts acc = (Accounts) session.getAttribute("acc");
+        if (acc != null) {
+            request.setAttribute("acc", acc);
+        }
+        ProductDao prodDao = new ProductDao();
+
+        if (!prodDao.CheckvalidStockOrderItem(cart)) {
+             request.setAttribute("error", "It looks like a certain product is out of stock, please edit your cart!");
+        }
+        request.setAttribute("cart", cart);
+        request.setAttribute("totalPrice", (int) cart.getTotalPrice());
+        request.setAttribute("totalCal", cart.getTotalCal());
+        request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
     /**
