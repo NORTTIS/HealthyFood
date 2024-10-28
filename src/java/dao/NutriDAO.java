@@ -241,27 +241,26 @@ public class NutriDAO extends DBContext {
 
     public static void main(String[] args) {
         NutriDAO ndb = new NutriDAO();
-//        Map<String, Map<String, List<Menu>>> ml = ndb.getAllMenu(4);
-//        for (Map.Entry<String, Map<String, List<Menu>>> descriptionEntry : ml.entrySet()) {
-//            // Duyệt qua từng description
-//            String description = descriptionEntry.getKey();
-//            Map<String, List<Menu>> nameMap = descriptionEntry.getValue();
-//
-//            System.out.println("Menu for " + description);
-//
-//            // Duyệt qua từng name tương ứng với description
-//            for (Map.Entry<String, List<Menu>> nameEntry : nameMap.entrySet()) {
-//                String name = nameEntry.getKey();
-//                List<Menu> menuList = nameEntry.getValue();
-//
-//                System.out.println("Name: " + name);
-//
-//                // Duyệt qua danh sách các Menu tương ứng với name
-//                for (Menu menu : menuList) {
-//                    System.out.println(menu.getAverage_calories());
-//                }
-//            }
-//        }
-        System.out.println(ndb.getTypeByTypeID(1));
+        Map<String, Map<String, List<Menu>>> ml = ndb.getAllMenu(4);
+        for (Map.Entry<String, Map<String, List<Menu>>> descriptionEntry : ml.entrySet()) {
+            // Duyệt qua từng description
+            String description = descriptionEntry.getKey();
+            Map<String, List<Menu>> nameMap = descriptionEntry.getValue();
+
+            System.out.println("Menu for " + description);
+
+            // Duyệt qua từng name tương ứng với description
+            for (Map.Entry<String, List<Menu>> nameEntry : nameMap.entrySet()) {
+                String name = nameEntry.getKey();
+                List<Menu> menuList = nameEntry.getValue();
+
+                System.out.println("Name: " + name);
+
+                // Duyệt qua danh sách các Menu tương ứng với name
+                for (Menu menu : menuList) {
+                    System.out.println(menu.getAverage_calories());
+                }
+            }
+        }
     }
 }

@@ -65,7 +65,7 @@
                         <c:set var="count" value="1"/>
                         <div style="border: 1px solid black; margin-bottom: 15px; padding: 5px; width: 50%"> 
                             Status: ${status} - Type: ${typeC}
-                       </div>
+                        </div>
                         <form action="viewDetail" method="post">
                             <div class="create-new-meals" style=" display: flex; justify-content:space-between; margin-bottom: 15px">
                                 <!--<button type="button" class="btn btn-default" style="padding: 10px 35px" onclick="createMeals()">Create</button>-->
@@ -84,8 +84,8 @@
                                         <div style="margin-bottom: 20px;">
                                             <input class="mealsID" type="text" name="${count}" value="${entry.key}" required />
                                         </div>
-<!--                                        <button type="button" class="btn btn-default" onclick="createMealDetail(this.parentElement)">Add dish</button>
-                                        <button type="button" class="btn btn-default" style="margin-left: 10px;" onclick="document.getElementById('mealsContainer').removeChild(this.parentElement)">Delete meals</button>-->
+                                        <!--                                        <button type="button" class="btn btn-default" onclick="createMealDetail(this.parentElement)">Add dish</button>
+                                                                                <button type="button" class="btn btn-default" style="margin-left: 10px;" onclick="document.getElementById('mealsContainer').removeChild(this.parentElement)">Delete meals</button>-->
                                         <c:forEach var="menu" items="${entry.value}" varStatus="status">
                                             <div class="meal-detail" style="margin-top: 10px; border: 1px dashed grey; padding: 5px;">
                                                 <input type="text" name="menuName${count}" value="${menu.menu_name}" required />
@@ -94,7 +94,7 @@
                                             </div>
                                             <c:set var="cmt" value="${menu.getDescription()}"/>
                                             <!-- lấy id của phần tử đầu tiên và cuối cùng để xóa -->
-                                            <c:if test="${status.first}">
+                                            <c:if test="${status.first && empty firstMenuId}">
                                                 <c:set var="firstMenuId" value="${menu.getMenu_id()}" />
                                             </c:if>
                                             <!-- Kiểm tra nếu là phần tử cuối cùng -->
@@ -245,10 +245,10 @@
                                             var idOfMeal = document.getElementsByClassName("mealsID");
                                             var listDish = "";
                                             var lishMeals = "";
-                                            for (var i = 0; i < count; i++) {
+                                            for (var i = 0; i < idOfMeal.length; i++) {
                                                 listDish += idOfMeal[i].name; // Thêm giá trị name vào chuỗi
                                                 lishMeals += idOfMeal[i].value;
-                                                if (i < count - 1) {
+                                                if (i < idOfMeal.length - 1) {
                                                     listDish += "-"; // Nếu không phải phần tử cuối, thêm dấu ';'
                                                     lishMeals += "-";
                                                 }
@@ -256,6 +256,8 @@
                                             // Gán chuỗi listMeals là giá trị của input 
                                             document.getElementById("allMealList").value = listDish;
                                             document.getElementById("getMeals").value = lishMeals;
+                                            console.log(document.getElementById("allMealList").value);
+                                            console.log(document.getElementById("getMeals").value);
                                         }
         </script>
     </body>

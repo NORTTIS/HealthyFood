@@ -46,7 +46,7 @@ public class zMenuDetail extends HttpServlet {
             out.println("<title>Servlet zMenuDetail</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet zMenuDetail at " + request.getParameter("theMenu") + "</h1>");
+            out.println("<h1>Servlet zMenuDetail at " + request.getAttribute("lst") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -123,23 +123,24 @@ public class zMenuDetail extends HttpServlet {
         //đếm số lượng dish để xóa
         int firstId = Integer.parseInt(request.getParameter("firstId"));
         int lastId = Integer.parseInt(request.getParameter("lastId"));
+        System.out.println(firstId + "  " + lastId);
         if (action.equals("Delete")) {
             ndb.deleteMenu(firstId, lastId);
-            request.getRequestDispatcher("menuHistory").forward(request, response);
+            response.sendRedirect("menuHistory");
             return;
         }
         //lấy toàn bộ giá trị name của meals
         String lst = request.getParameter("lstMeal");
         //lấy toàn bộ giá trị nhập vào của meals
         String meal = request.getParameter("getMeals");
+        System.out.println("lstMeal: " + lst); // Kiểm tra dữ liệu từ JSP
+        System.out.println("getMeals: " + meal);
         Map<String, String> menuMap = new HashMap<>();
         if (lst.isEmpty()) {
             List<String> typeList = ndb.getTypeList();
             request.setAttribute("typeList", typeList);
             request.setAttribute("updateCaution", "Failed to update Menu");
-            System.out.println("lỗi này");
             request.getRequestDispatcher("menuHistory").forward(request, response);
-            return;
         } else {
             String[] mealsName = lst.split("-");
             String[] getMeals = meal.split("-");
@@ -160,18 +161,21 @@ public class zMenuDetail extends HttpServlet {
                 String[] menu_detail = request.getParameterValues(menuValues);
                 String[] calo = request.getParameterValues(caloValues);
                 if (menu_detail != null && calo != null) {
-                    for (int i = firstId; i <= lastId; i++) {
+                    System.out.println("is it here???");
+                    for (int i = 0; i <= (lastId - firstId); i++) {
                         float caloFloat = Float.parseFloat(calo[i]);
-                        ndb.updateMenuById(i, type_id, menuMap.get(meals), descrip, menu_detail[i], caloFloat, menuTitle);
+                        ndb.updateMenuById(firstId, type_id, menuMap.get(meals), descrip, menu_detail[i], caloFloat, menuTitle);
+                        firstId++;
+                        System.out.println("somethings is wrong");
                     }
                 } else {
                     request.setAttribute("updateCaution", "Failed to update Menu");
-                    doGet(request, response);
-                    return;
+                    System.out.println("errorr");
+                    processRequest(request, response);
                 }
             }
+            response.sendRedirect("menuHistory");
         }
-        request.getRequestDispatcher("menuHistory").forward(request, response);
     }
 
     /**
