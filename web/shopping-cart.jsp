@@ -162,20 +162,20 @@
                                                 <c:if test="${sessionScope.totalcal*100/2500 > 100}">
                                                     <td class="mid-position">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2000}%; background-color:red; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2500}%; background-color:red; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </td>
                                                 </c:if>
                                                 <c:if test="${sessionScope.totalcal*100/2500 <= 100}">
                                                     <td class="mid-position">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2000}%; background-color:#7faf51; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2500}%; background-color:#7faf51; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </td>
                                                 </c:if>
 
                                                 <td class="last-position">
-                                                    <span class="index">2000</span>
+                                                    <span class="index">2500</span>
                                                 </td>
                                             </tr>
                                         </table>

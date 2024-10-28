@@ -118,7 +118,7 @@
 
                         <c:if test="${sessionScope.acc.role=='Customer'}">
                             <div class="wishlist-block hidden-sm hidden-xs">
-                                <a href="wishcart?ac=show" class="link-to">
+                                <a href="wishlist?ac=show" class="link-to">
                                     <span class="icon-qty-combine">
                                         <i class="icon-heart-bold biolife-icon"></i>
                                         <span class="qty">${sessionScope.totalWish == null?0:sessionScope.totalWish}</span>

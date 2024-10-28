@@ -45,19 +45,19 @@
         <!-- HEADER -->
         <jsp:include page="./jsptemplate/header.jsp" />
 
-        <!--Hero Section-->
-        <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Organic Fruits</h1>
+        <!--Navigation section-->
+        <div class="container">
             <nav class="biolife-nav">
                 <ul>
                     <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                    <li class="nav-item"><span class="current-page"><a href="blog" class="permal-link">Our Blog</a></span></li>
+                    <li class="nav-item"><span class="current-page"><a href="blog" class="permal-link">${blogTitle==null? 'OurBlog':blogTitle}</a></span></li>
                 </ul>
             </nav>
+
         </div>
 
         <!-- Page Contain -->
-        <div class="page-contain blog-page left-sidebar">
+        <div class="page-contain blog-page left-sidebar" style="padding-top: 0px">
             <div class="container blogdetail">
                 <div class="row">
 
@@ -68,10 +68,11 @@
                         <div class="single-post-contain">
 
                             <div class="post-head">
-                                <h2 class="post-name">${blog.title}</h2>
-                                <p class="post-archive" style="border-bottom: 1px solid #e6e6e6;"><b class="post-cat">${cate}</b><span class="post-date"> / ${blog.createAt}</span><span class="author">Posted By: ${author.displayname}</span></p>
+                                <h2 class="post-name" style="    margin: 0 0 10px;">${blog.title}</h2>
+                                <button class="btn" style="    border-radius: 25px;    min-width: 85px;margin:0 0 20px;">${cate}</button>
+
                                 <div class="thumbnail">
-                                    <figure><img src="assets/images/our-blog//${blog.imagePath}" width="870" height="635" alt=""></figure>
+                                    <figure><img src="assets/images/our-blog//${blog.imagePath}" width="870" height="500px" alt=""></figure>
                                 </div>
 
                             </div>
@@ -86,7 +87,7 @@
 
                                 <div class="auth-info">
                                     <div class="ath">
-                                        <a href="#" class="avata"><img src="assets/image/${author.avatar==null?'Avatar.png':author.avatar}" style="width: 30px; height: 30px;" alt="Christian Doe">${author.displayname}</a>
+                                        <a href="#" class="avata"><img src="assets/image/${author.avatar==null?'Avatar.png':author.avatar}" style="width: 35px; height: 35px; border-radius: 50%" alt="Christian Doe">${author.displayname}</a>
 
                                     </div>
                                     <div class="socials-connection">

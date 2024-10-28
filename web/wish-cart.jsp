@@ -71,9 +71,9 @@
                     <!--Cart Table-->
                     <div class="shopping-cart-container" style="margin-bottom:50px;">
                         <div class="row">
-                            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <h3 class="box-title">Your cart items</h3>
-                                <form class="shopping-cart-form" action="wishcart" method="post">
+                                <form class="shopping-cart-form" action="wishlist" method="post">
                                     <input type="text" name="ac" value="upd" hidden/>
                                     <table class="shop_table cart-form">
                                         <thead>
@@ -83,6 +83,7 @@
                                                 <th class="product-price">Price</th>
                                                 <th class="product-quantity">Quantity</th>
                                                 <th class="product-subtotal">Total</th>
+                                                <th class="product-subtotal">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -101,13 +102,13 @@
                                                         <a class="prd-name" href="#">${i.product.name}</a>
                                                         <div class="action">
                                                             <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                            <a href="wishcart?ac=del&productId=${i.product.productId}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                            <a href="wishlist?ac=del&productId=${i.product.productId}" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                         </div>
                                                     </td>
                                                     <td class="product-price" data-title="Price">
                                                         <div class="price price-contain">
                                                             <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins>
-                                                            <del><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></del>
+                                                           <del><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></del>
                                                         </div>
                                                     </td>
                                                     <td class="product-quantity" data-title="Quantity">
@@ -122,7 +123,11 @@
                                                     <td class="product-subtotal" data-title="Total">
                                                         <div class="price price-contain">
                                                             <ins><span class="price-amount">${i.getTotal()}<span class="currencySymbol">đ</span></span></ins>
-                                                            <del><span class="price-amount">${i.getTotal()}<span class="currencySymbol">đ</span></span></del>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-subtotal" data-title="Action">
+                                                        <div class="price price-contain">
+                                                            <a href="cart?ac=addtocart&productId=${i.product.productId}" class="btn btn-default">Add to cart</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -139,20 +144,7 @@
                                     </table>
                                 </form>
                             </div>
-                            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                                <div class="shpcart-subtotal-block">
-                                    <div class="subtotal-line">
-                                        <b class="stt-name">Total <span class="sub">(${totalitem} items)</span></b>
-                                        <span class="stt-price">${totalcart == null?0:totalcart} đ</span>
-                                    </div>
-                                    
 
-                                    <div class="btn-checkout">
-                                        <a href="#" class="btn checkout">Check out</a>
-                                    </div>
-                                   
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
