@@ -57,11 +57,11 @@ public class getTotalRevenue extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        OrderDAO orderDAO = new OrderDAO();
-        double totalRevenue = orderDAO.getTotalRevenue();
-        request.setAttribute("totalRevenue", totalRevenue);
-        request.getRequestDispatcher("revenue.jsp").forward(request, response);
-    }
+//        OrderDAO orderDAO = new OrderDAO();
+//        double totalRevenue = orderDAO.getTotalRevenue();
+//        request.setAttribute("totalRevenue", totalRevenue);
+//        request.getRequestDispatcher("revenue.jsp").forward(request, response);
+//    }
 }
 
 /**
