@@ -66,7 +66,7 @@ public class CartControl extends HttpServlet {
         String action = request.getParameter("ac");
         String productid = request.getParameter("productId");
         String quantity = request.getParameter("qty");
-        int qty = 2;
+        int qty = 1;
         if(quantity!=null&&!quantity.equals("")){
             qty = Integer.parseInt(quantity);
         }

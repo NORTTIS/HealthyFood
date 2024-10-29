@@ -4,7 +4,6 @@
  */
 package controller;
 
-
 import dao.AccountsDAO;
 import dao.BlogDao;
 import dao.NutriDAO;
@@ -21,6 +20,7 @@ import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Accounts;
@@ -46,7 +46,6 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
@@ -112,7 +111,22 @@ public class HomeControl extends HttpServlet {
         NutriDAO nutriDao = new NutriDAO();
         Map<String, Map<String, List<Menu>>> mList = nutriDao.getMenuByType(Integer.parseInt(bmirange));
         if (!mList.isEmpty()) {
-            request.setAttribute("menuList", mList);
+            Map<String, Map<String, List<Products>>> productMap = new HashMap<>();
+            for (String key : mList.keySet()) {
+                Map<String, List<Menu>> innerMap = mList.get(key);
+                Map<String, List<Products>> innerProductMap = new HashMap<>();
+                for (String innerKey : innerMap.keySet()) {
+                    List<Products> products = new ArrayList<>();
+                    for (Menu menu : innerMap.get(innerKey)) {
+                        products.addAll(prodDao.getMenuProduct(menu.getMenu_id())); // Lấy sản phẩm từ từng menu
+                    }
+                    innerProductMap.put(innerKey, products);
+                }
+                productMap.put(key, innerProductMap);
+            }
+            request.setAttribute("menuList", productMap);
+//            request.setAttribute("menuList", mList);
+            
         } else {
             request.setAttribute("error", "Sorry for the inconvenient are on the ways to prepared more menu for you !!!");
         }

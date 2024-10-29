@@ -191,20 +191,48 @@
                                     <div style="margin-bottom: 50px; color: #dc143c; font-size: 30px">
                                         ${requestScope.error}
                                     </div>
-                                    <div>
+                                    <div style="margin-bottom: 20px">
                                         <c:forEach var="m" items="${menuList}">
-                                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
+                                            <button class="accordion" style="margin-bottom: 10px">${m.key}
+<!--                                                <span style="margin-left: 50%">
+                                                    <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                        <a href="wishcart?ac=add&dayCombo=${m}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                        </c:if>
+                                                    <a href="cart?ac=addtocart&dayCombo=${m}" class="btn btn-default">add to cart</a>
+                                                </span>-->
+                                            </button>
+
                                             <div class="panel">
                                                 <c:forEach var="nameEntry" items="${m.value}">
-                                                    <button class="accordion">${nameEntry.key}</button>
+                                                    <button class="accordion">${nameEntry.key}
+<!--                                                        <span style="margin-left: 50%">
+                                                            <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                <a href="wishcart?ac=add&mealCombo=${nameEntry}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                </c:if>
+                                                            <a href="cart?ac=addtocart&mealCombo=${nameEntry}" class="btn btn-default">add to cart</a>
+                                                        </span>-->
+                                                    </button>
+
                                                     <div class="panel">
                                                         <c:forEach var="menu" items="${nameEntry.value}">
                                                             <div style="margin: 10px;">
                                                                 <div>
-                                                                    ${menu.menu_name}
+                                                                    <a href="productDetail?ac=show&productId=${menu.productId}" class="link-to-product">
+                                                                        ${menu.getName()}
+                                                                    </a>
+                                                                    
                                                                     <span style="margin-left: 10%">
-                                                                    Calories: ${menu.getAverage_calories()}
-                                                                </span>
+                                                                        Calories: ${menu.getAverageCalories()}
+                                                                    </span>
+                                                                    <span style="margin-left: 10%">
+                                                                        Prices: ${menu.getPrice()}
+                                                                    </span>
+                                                                    <span>
+                                                                        <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                            <a href="wishcart?ac=add&productId=${menu.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                            </c:if>
+                                                                        <a href="cart?ac=addtocart&productId=${menu.productId}" class="btn btn-default">add to cart</a>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </c:forEach>
@@ -213,7 +241,10 @@
                                             </div>
                                         </c:forEach>
                                     </div>
-                                    <!-- menu để tạm nma không hiểu nó như nào :3 -->
+
+                                    <div class="biolife-title-box bold-style biolife-title-box__bold-style">
+                                        <h3 class="title">Others Product</h3>
+                                    </div>
                                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px"
                                         data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 3}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
                                         <c:forEach items="${lProd}" var="i" varStatus="j">

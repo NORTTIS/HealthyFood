@@ -79,12 +79,12 @@ public class ProductDao extends DBContext {
 
         return lProduct;
     }
-    
-    public List<Products> getMenuProduct(){
-        String sql = "Select * from Products ";
+
+    public List<Products> getMenuProduct(int menuId) {
+        String sql = "select * from Products p join Menu_Detail md on p.product_id = md.product_id join Menu m on md.menu_id = m.menu_id where m.menu_id = ?";
         List<Products> mProduct = new ArrayList<>();
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+            st.setInt(1, menuId);
             ResultSet rs;
             rs = st.executeQuery();
             while (rs.next()) {
@@ -107,8 +107,8 @@ public class ProductDao extends DBContext {
         }
 
         return mProduct;
-    } 
-    
+    }
+
     public String getWishIdByAccountId(String accountid) {
         String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
         String wishId = "";
@@ -234,7 +234,7 @@ public class ProductDao extends DBContext {
     }
 
     public void createOrder(Cart cart, String accountId) {
-       
+
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
         PreparedStatement psOrderItems = null;

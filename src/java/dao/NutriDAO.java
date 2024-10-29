@@ -66,6 +66,55 @@ public class NutriDAO extends DBContext {
 
         return menuMap;
     }
+    
+    public Map<String, Map<String, List<Menu>>> seeAllMenu() {
+        Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
+
+        String sql = "select * from Menu";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String key = rs.getString("menuTitle") + " - " + rs.getString("status");
+                // Tạo đối tượng Menu từ ResultSet
+                Menu m = new Menu(
+                        rs.getInt("menu_id"),
+                        rs.getInt("type_id"),
+                        name,
+                        rs.getString("description"),
+                        rs.getInt("create_by"),
+                        rs.getString("menu_name"),
+                        rs.getFloat("average_calories"),
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
+                );
+
+                //Kiểm tra xem weightSituation đã có trong menuMap chưa
+                if (!menuMap.containsKey(key)) {
+                    //Thêm một Map rỗng vào cho `name` nếu chưa có
+                    menuMap.put(key, new HashMap<>());
+                }
+
+                // Lấy Map của `name` từ menuMap
+                Map<String, List<Menu>> nameMap = menuMap.get(key);
+
+                // Kiểm tra xem name đã có trong nameMap chưa
+                if (!nameMap.containsKey(name)) {
+                    // Nếu chưa có, thêm một danh sách rỗng vào cho các Menu
+                    nameMap.put(name, new ArrayList<>());
+                }
+
+                // Thêm đối tượng Menu vào danh sách tương ứng với `name`
+                nameMap.get(name).add(m);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return menuMap;
+    }
 
     public Map<String, Map<String, List<Menu>>> getMenuByStatus(int id, String status) {
         Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
