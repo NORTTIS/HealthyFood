@@ -123,7 +123,38 @@
                                             </ul>
                                         </div>
 
-                                        
+                                        <!-- Pagination -->
+                                        <div class="biolife-panigations-block">
+                                            <ul class="panigation-contain">
+                                                <c:if test="${currentPage > 1}">
+                                                    <li><a href="shop?page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                                    <li><a href="shop?page=${currentPage - 1}" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                                        </c:if>
+
+                                                <c:choose>
+                                                    <c:when test="${currentPage > 3}">
+                                                        <li><span>...</span></li>
+                                                        </c:when>
+                                                    </c:choose>
+
+                                                <c:forEach begin="${(currentPage - 2) > 1 ? (currentPage - 2) : 1}"
+                                                           end="${(currentPage + 2) < totalPages ? (currentPage + 2) : totalPages}"
+                                                           var="i">
+                                                    <li><a href="shop?page=${i}" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
+                                                    </c:forEach>
+
+                                                <c:choose>
+                                                    <c:when test="${currentPage < totalPages - 2}">
+                                                        <li><span>...</span></li>
+                                                        </c:when>
+                                                    </c:choose>
+
+                                                <c:if test="${currentPage < totalPages}">
+                                                    <li><a href="shop?page=${currentPage + 1}" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                                    <li><a href="shop?page=${totalPages}" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                                        </c:if>
+                                            </ul>
+                                        </div>
 
 
                                     </div>
