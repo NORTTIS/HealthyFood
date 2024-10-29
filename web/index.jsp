@@ -176,10 +176,9 @@
                                             <li class="product-item">
                                                 <div
                                                     class="contain-product right-info-layout contain-product__right-info-layout">
-                                                    <div class="product-thumb">
+                                                    <div class="product-thumb" style="width: 180px; height: 180px">
                                                         <a href="productDetail?ac=show&productId=${i.productId}" class="link-to-product">
-                                                            <img src="assets/images/products/p-01.jpg" alt="dd" width="270"
-                                                                 height="270" class="product-thumnail">
+                                                            <img src="assets/images/products/${i.picture}" alt="dd"  style="width: 1800px; height: 180px; object-fit: cover; border-radius: 20px" class="product-thumnail">
                                                         </a>
                                                     </div>
                                                     <div class="info">
@@ -188,8 +187,10 @@
                                                         <div class="price ">
                                                             <ins><span class="price-amount"><span
                                                                         class="currencySymbol">${i.price}</span>VND</span></ins>
-
                                                         </div>
+                                                        <di>
+                                                            <p style=" text-align: center; margin-top: 10px">${i.averageCalories} cal</p> 
+                                                        </di>
                                                         <div class="rating" hidden="">
                                                             <p class="star-rating"><span class="" style="width: 80%;"></span></p>
                                                             <span class="review-count">(05 Reviews)</span>

@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Map;
 import model.Category;
 
 import model.Products;
@@ -73,6 +74,7 @@ public class ShopController extends HttpServlet {
         // Lấy tất cả danh mục
         List<Category> listC = dao.getAllCategory();
         request.setAttribute("listC", listC);
+         Map<Integer, String> cates = dao.getAllProductCategory();
 
         // Lấy các tham số từ request
         String categoryId = request.getParameter("category");
@@ -119,6 +121,7 @@ public class ShopController extends HttpServlet {
         // Thiết lập thuộc tính cho JSP
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);
+        request.setAttribute("cates", cates);
 
         // Set danh sách sản phẩm vào request
         request.setAttribute("listP", listP);

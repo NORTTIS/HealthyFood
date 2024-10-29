@@ -147,8 +147,7 @@
                                                     <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
                                                     <div class="minicart-item">
                                                         <div class="thumb">
-                                                            <a href="productDetail?ac=show&productId=${i.product.productId}"><img src="./assets/images/products/p-01.jpg"
-                                                                                                      width="90" height="90" alt="National Fresh"></a>
+                                                            <a href="productDetail?ac=show&productId=${i.product.productId}"> <img src="assets/images/products/${i.product.picture}" alt="dd" style="width: 120px;height: 90px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail"></a>
                                                         </div>
                                                         <div class="left-info">
                                                             <div>

@@ -104,7 +104,8 @@ public class HomeControl extends HttpServlet {
         }
 
         ProductDao prodDao = new ProductDao();
-        List<Products> lProduct = prodDao.getAllDiscountProduct();
+//        lProduct menu combo
+        List<Products> lProduct = prodDao.getAllProduct();
         Map<Integer, String> cates = prodDao.getAllProductCategory();
         request.setAttribute("lProd", lProduct);
         request.setAttribute("cates", cates);

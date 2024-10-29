@@ -44,21 +44,17 @@
         <!--HEADER-->
         <jsp:include page="./jsptemplate/header.jsp" />
 
-        <!--Hero Section-->
-        <div class="hero-section hero-background">
-            <h1 class="page-title">Shop</h1>
-        </div>
 
 
- 
+
+
 
         <!--Navigation section-->
         <div class="container">
             <nav class="biolife-nav">
                 <ul>
-                    <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                    <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                    <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                    <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
+                    <li class="nav-item"><span class="current-page">shop</span></li>
                 </ul>
             </nav>
         </div>
@@ -97,10 +93,11 @@
                                                 <c:forEach items="${listP}" var="o">
                                                     <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
 
-                                                        <div class="contain-product layout-default">
-                                                            <div class="product-thumb">
+                                                        <div class="contain-product layout-default" style="    border: 1px solid #d8d8d8;
+                                                             border-radius: 20px;     margin-bottom: 20px;">
+                                                            <div class="product-thumb" style="text-align: center;">
                                                                 <a href="productDetail" class="link-to-product">
-                                                                    <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto;" class="product-thumnail">
+                                                                    <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail">
                                                                 </a>
                                                             </div>
 
@@ -110,13 +107,19 @@
                                                                 <div class="price">
                                                                     <ins><span class="price-amount">${o.price}<span class="currencySymbol"> VND</span></span></ins>
                                                                 </div>
+                                                                <div style="    display: flex;
+                                                                     gap: 50px;
+                                                                     justify-content: center;">
+                                                                    <span style="text-align: center;">${cates.get(o.category)}</span>
+                                                                    <span style="text-align: center;">${o.averageCalories} cal</span> 
+                                                                </div>
 
 
                                                                 <div class="slide-down-box">
                                                                     <p class="message">${o.description}</p>
                                                                     <div class="buttons">
-                                                                        <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                                        <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                                        <a href="wishlist?ac=add&productId=${o.productId}" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                        <a href="cart?ac=addtocart&productId=${o.productId}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
 
                                                                     </div>
                                                                 </div>
