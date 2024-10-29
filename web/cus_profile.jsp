@@ -51,7 +51,7 @@
                 margin: 0 5px; /* Khoảng cách giữa các nút */
                 border: 1px solid #007bff; /* Đường viền */
                 border-radius: 5px; /* Bo tròn góc */
-            
+
                 color: #fff; /* Màu chữ */
                 cursor: pointer; /* Hiển thị con trỏ tay */
                 transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
@@ -147,7 +147,18 @@
                                             <p class="mb-0">Email</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="mb-0 no-border text-muted " name="email" value="${sessionScope.acc.email}" />
+                                            <input type="text" id="email" class="mb-0 no-border text-muted " name="email" value="${sessionScope.acc.email}" oninput="checkEmail()"/>
+                                            <div id="emailError" class="text-danger" style="display:none;">Invalid email format.</div>
+                                        </div>
+                                    </div>
+                                            <hr>
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Phone</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="tel" id="mobile" class="mb-0 no-border text-muted " name="phone" value="${sessionScope.acc.phone_number}" oninput="checkPhoneNumber()" />
+                                            <div id="phoneError" class="text-danger" style="display:none;">Invalid phone number format.</div>
                                         </div>
                                     </div>
                                     <hr>
@@ -200,51 +211,8 @@
                                         <th scope="col">${i.getCreateAt()}</th>
                                     </tr>
                                 </c:forEach>
-                                    <c:forEach items="${lOrder}" var="i" varStatus="j">
-                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
-                                        <th scope="row">${j.index+1}</th>
-                                        <th scope="col" >${i.status}</th>
-                                        <th scope="col">${i.totalCal}</th>
-                                        <th scope="col">${i.getAmmount()}</th>
-                                        <th scope="col">${i.getCreateAt()}</th>
-                                    </tr>
-                                </c:forEach>
-                                    <c:forEach items="${lOrder}" var="i" varStatus="j">
-                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
-                                        <th scope="row">${j.index+1}</th>
-                                        <th scope="col" >${i.status}</th>
-                                        <th scope="col">${i.totalCal}</th>
-                                        <th scope="col">${i.getAmmount()}</th>
-                                        <th scope="col">${i.getCreateAt()}</th>
-                                    </tr>
-                                </c:forEach><c:forEach items="${lOrder}" var="i" varStatus="j">
-                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
-                                        <th scope="row">${j.index+1}</th>
-                                        <th scope="col" >${i.status}</th>
-                                        <th scope="col">${i.totalCal}</th>
-                                        <th scope="col">${i.getAmmount()}</th>
-                                        <th scope="col">${i.getCreateAt()}</th>
-                                    </tr>
-                                </c:forEach><c:forEach items="${lOrder}" var="i" varStatus="j">
-                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
-                                        <th scope="row">${j.index+1}</th>
-                                        <th scope="col" >${i.status}</th>
-                                        <th scope="col">${i.totalCal}</th>
-                                        <th scope="col">${i.getAmmount()}</th>
-                                        <th scope="col">${i.getCreateAt()}</th>
-                                    </tr>
-                                </c:forEach>
-                                    <c:forEach items="${lOrder}" var="i" varStatus="j">
-                                    <tr data-href="OrderDetail?orderId=${i.orderId}" class="record-order">
-                                        <th scope="row">${j.index+1}</th>
-                                        <th scope="col" >${i.status}</th>
-                                        <th scope="col">${i.totalCal}</th>
-                                        <th scope="col">${i.getAmmount()}</th>
-                                        <th scope="col">${i.getCreateAt()}</th>
-                                    </tr>
-                                </c:forEach>
-                                    
-                                    
+
+
                             </tbody>
                         </table>
                     </div>
@@ -254,6 +222,7 @@
         <!-- footer -->
         <jsp:include page="./jsptemplate/footer.jsp" />
         <!--end footer-->
+
 
         <script>
             document.getElementById('submitBtn').addEventListener('click', function () {
@@ -288,6 +257,59 @@
                 });
             });
 
+
+        </script>
+        <script>
+            function validateEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+
+            function isVietnamesePhoneNumber(number) {
+                const phonePattern = /^(03|05|07|08|09|01[2|6|8|9])[0-9]{8}$/;
+                return phonePattern.test(number);
+            }
+
+            function checkEmail() {
+                const email = document.getElementById("email").value;
+                const emailError = document.getElementById("emailError");
+
+                if (validateEmail(email)) {
+                    emailError.style.display = "none"; // Ẩn thông báo lỗi
+                } else {
+                    emailError.style.display = "block"; // Hiện thông báo lỗi
+                }
+            }
+
+            function checkPhoneNumber() {
+                const mobile = document.getElementById("mobile").value;
+                const phoneError = document.getElementById("phoneError");
+
+                if (isVietnamesePhoneNumber(mobile)) {
+                    phoneError.style.display = "none"; // Ẩn thông báo lỗi
+                } else {
+                    phoneError.style.display = "block"; // Hiện thông báo lỗi
+                }
+            }
+
+            function validateForm() {
+                const email = document.getElementById("email").value;
+                const mobile = document.getElementById("mobile").value;
+
+                // Kiểm tra email
+                if (!validateEmail(email)) {
+                    alert("Invalid email format. Please enter a valid email address.");
+                    return false; // Ngăn chặn form gửi đi
+                }
+
+                // Kiểm tra số điện thoại
+                if (!isVietnamesePhoneNumber(mobile)) {
+                    alert("Invalid phone number format. Please enter a valid phone number (e.g., 0123456789).");
+                    return false; // Ngăn chặn form gửi đi
+                }
+
+                return true; // Cho phép gửi form
+            }
         </script>
 
         <script src="assets/js/jquery-3.4.1.min.js"></script>

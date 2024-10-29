@@ -61,12 +61,12 @@
                             <!--Search Widget-->
                             <div class="widget search-widget">
                                 <div class="wgt-content">
-                                    <form action="" name="frm-search" method="get" class="frm-search">
+<!--                                    <form action="" name="frm-search" method="get" class="frm-search">
                                         <input type="text" name="search" value="${searchValue}" placeholder="SEACH..." class="input-text">
                                         <input type="text" name="cate" value="${cate}" hidden/>
                                         <input type="text" name="page" value="${currentPage}" hidden/>
                                         <button type="submit"><i class="biolife-icon icon-search"></i></button>
-                                    </form>
+                                    </form>-->
                                 </div>
                             </div>
 
