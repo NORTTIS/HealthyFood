@@ -57,7 +57,7 @@
 
 
         <div class="page-contain checkout">
-            
+
             <!-- Main content -->
             <div id="main-content" class="main-content">
                 <div class="container">
@@ -86,6 +86,29 @@
                                         </div>
                                     </div>
 
+                                    <div class="row mb-3" style="margin-top: 10px;" >
+                                        <div class="col-md-4">
+                                            <label for="province" class="form-label">Select city/province </label>
+                                            <select name="" id="province">
+                                                <option value="">chọn tỉnh/thành phố</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <label for="province" class="form-label">Select district </label>
+                                            <select name="" id="district">
+                                                <option value="">chọn quận</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label for="province" class="form-label">Select ward </label>
+                                            <select name="" id="ward">
+                                                <option value="">chọn phường</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                            
 
 
                                     <div class="mb-3" style="margin-top: 10px;" >
@@ -266,6 +289,13 @@
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+            integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="assets/js/address-select-api.js"></script>
     </body>
 
 </html>
