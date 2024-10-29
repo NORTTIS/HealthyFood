@@ -109,7 +109,11 @@ public class ShopController extends HttpServlet {
         }
 
         // Phân trang các sản phẩm theo trang hiện tại
-        
+        listP = dao.pagingProduct(currentPage);
+
+        // Thiết lập thuộc tính cho JSP
+        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("currentPage", currentPage);
 
         // Set danh sách sản phẩm vào request
         request.setAttribute("listP", listP);
