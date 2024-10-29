@@ -716,34 +716,7 @@ public class ProductDao extends DBContext {
 //        int count = dao.getTotalProduct();
 //        System.out.println(count);
 //    }
-    public List<Products> pagingProduct(int index) {
-        List<Products> list = new ArrayList<>();
-        String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
 
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement st = conn.prepareStatement(query)) {
-            st.setInt(1, (index - 1) * 12);
-            try (ResultSet rs = st.executeQuery()) {
-                while (rs.next()) {
-                    list.add(new Products(
-                            rs.getInt(1),
-                            rs.getInt(2),
-                            rs.getString(3),
-                            rs.getString(4),
-                            rs.getString(5),
-                            rs.getDouble(6),
-                            rs.getInt(7),
-                            rs.getString(8),
-                            rs.getDouble(9),
-                            rs.getString(10)
-                    ));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
 
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
