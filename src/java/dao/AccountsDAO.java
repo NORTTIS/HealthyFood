@@ -8,8 +8,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class AccountsDAO extends DBContext {
-
-    public List<Accounts> getAllUser() {
+        public List<Accounts> getAllUser() {
         String sql = "SELECT * FROM Accounts";
         List<Accounts> al = new ArrayList<>();
         try {
@@ -349,12 +348,95 @@ public class AccountsDAO extends DBContext {
         return null;
     }
 
+   
+
+    public void updateUser(String username, String email, String phone_number, String password, String olduser) {
+        String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, String password = ? WHERE username = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, email);
+            st.setString(3, phone_number);
+            st.setString(4, password);
+            st.setString(5, olduser);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    
+
+    public void createManager(String username, String password, String email, String phone_number, String role, String status) {
+        String sql = "insert into Accounts values (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setString(3, email);
+            st.setString(4, phone_number);
+            st.setString(5, role);
+            st.setString(6, status);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+
+    public void updateUser(String username, String email, String phone_number, String password) {
+
+        String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, password = ? WHERE username = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, email);
+            st.setString(3, phone_number);
+            st.setString(4, password);
+            st.setString(5, username);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật mã giảm giá thành công.");
+            } else {
+                System.out.println("Không tìm thấy người dùng với tên đăng nhập đã cho.");
+            }
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void updateUser(String id, String displayname, String avatar, String desc, String email,String phone, String address) {
+        String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?,phone_number = ?, address = ? WHERE account_id = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, displayname);
+            st.setString(2, avatar);
+            st.setString(3, desc);
+            st.setString(4, email);
+             st.setString(5, phone);
+            st.setString(6, address);
+            st.setString(7, id);
+
+            int rowsAffected = st.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected); // Thêm dòng này để kiểm tra
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật thông tin người dùng thành công.");
+            } else {
+                System.out.println("Không tìm thấy người dùng với ID đã cho.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-        adb.updateUser("datKa1", "datKa124", "dat1", "123 abc", "description 1234", "jane.manager@example.com", "5555555554", null, "15");
-        Accounts a = adb.getUser("datKa1");
-        System.out.println(a);
+        List<Accounts> alist = adb.getAllUser();
+        for(Accounts i : alist){
+            i.getAccount_id();
+        }
     }
+
 
     public Accounts getUser(String username) {
         String sql = "SELECT * FROM Accounts WHERE username = ?";
