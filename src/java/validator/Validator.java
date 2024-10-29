@@ -11,17 +11,20 @@ import java.util.regex.Pattern;
  *
  * @author Norttie
  */
-public class Validator{
-     public static boolean checkUsername(String username){
+public class Validator {
+
+    public static boolean checkUsername(String username) {
         String regex = "^(?=.*[a-zA-Z])[a-zA-Z0-9]{5,10}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(username);
         return matcher.matches();
     }
-    public static boolean checkPassWord(String passWord){
+
+    public static boolean checkPassWord(String passWord) {
         String regex = "^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,31}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(passWord);
         return matcher.matches();
     }
+
 }

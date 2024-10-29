@@ -58,9 +58,18 @@ public class changeStatus extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String status = request.getParameter("status");
+        String page = request.getParameter("page");
+
         AccountsDAO adb = new AccountsDAO();
         adb.changeStatus(status, username);
-        request.getRequestDispatcher("userlist").forward(request, response);
+
+        if ("nutritionistList".equals(page)) {
+            request.getRequestDispatcher("NutritionistList").forward(request, response);
+        } else if ("managerList".equals(page)) {
+            request.getRequestDispatcher("ManagerList").forward(request, response);
+        } else {
+            request.getRequestDispatcher("userlist").forward(request, response);
+        }
     }
 
     /**

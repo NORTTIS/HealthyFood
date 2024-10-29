@@ -1,7 +1,7 @@
 <%-- 
-    Document   : category-grid
-    Created on : Oct 7, 2024, 3:48:59 PM
-    Author     : Norttie
+   Document   : category-grid
+   Created on : Oct 7, 2024, 3:48:59 PM
+   Author     : Norttie
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -40,13 +40,17 @@
             </div>
         </div>
 
+
         <!--HEADER-->
         <jsp:include page="./jsptemplate/header.jsp" />
 
         <!--Hero Section-->
         <div class="hero-section hero-background">
-            <h1 class="page-title">Organic Fruits</h1>
+            <h1 class="page-title">Shop</h1>
         </div>
+
+
+ 
 
         <!--Navigation section-->
         <div class="container">
@@ -70,6 +74,7 @@
                             <div class="row">
 
                                 <!-- Main content -->
+
                                 <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
                                     <div class="block-item recently-products-cat md-margin-bottom-39">
@@ -157,7 +162,9 @@
                                         </div>
 
 
+
                                     </div>
+
 
                                 </div>
 
@@ -166,6 +173,7 @@
 
 
                         </div>
+
 
                     </div>
                     <!-- Sidebar -->
@@ -184,6 +192,7 @@
                                         <li class="cat-list-item">
                                             <a href="shop" class="cat-link ${tag == null ? 'active' : ''}">All</a>
                                         </li>
+
                                         <c:forEach items="${listC}" var="o">
                                             <li class="cat-list-item ${tag != null && tag == o.cid ? 'active' : ''}">
                                                 <a href="shop?category=${o.cid}" class="cat-link">${o.cname}</a>
@@ -238,6 +247,7 @@
 
 
 
+
                 </div>
             </div>
         </div>
@@ -259,4 +269,13 @@
         <script src="assets/js/functions.js"></script>
     </body>
 
-</html>
+
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/jquery.nicescroll.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/biolife.framework.js"></script>
+    <script src="assets/js/functions.js"></script>
+</body>

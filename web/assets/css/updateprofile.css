@@ -1,0 +1,120 @@
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f1f8e9;
+}
+
+h1 {
+    color: #33691e;
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Georgia', serif;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #33691e;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #aed581;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background-color: #8bc34a;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #689f38;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #33691e;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: #c62828;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.food-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.nutrition-info {
+    background-color: #dcedc8;
+    border: 1px solid #aed581;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.recipe-card {
+    background-color: #ffffff;
+    border: 1px solid #aed581;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(76, 175, 80, 0.1);
+}
+
+.recipe-card h3 {
+    color: #33691e;
+    margin-top: 0;
+}
+
+.ingredient-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.ingredient-list li:before {
+    content: "🥬";
+    margin-right: 10px;
+}

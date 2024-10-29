@@ -50,10 +50,7 @@
         <!-- HEADER -->
         <jsp:include page="./jsptemplate/header.jsp" />
 
-        <!--Hero Section-->
-        <div class="hero-section hero-background">
-            <h1 class="page-title">Organic Fruits</h1>
-        </div>
+     
 
         <!--Navigation section-->
         <div class="container">

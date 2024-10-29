@@ -4,8 +4,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="./assets/css/createmanager.css">
+        <title>Create Manager</title>
+        <link rel="stylesheet" type="text/css" href="./assets/css/adminpage.css">
     </head>
     <body>
         <form action="createM" method="post">
@@ -26,6 +26,23 @@
                 <tr>
                     <td><label>Password</label></td>
                     <td><input class="input_type" type="password" name="password" required></td>
+                </tr>
+                
+                <tr>
+                    <td><label>Display Name</label></td>
+                    <td><input class="input_type" type="text" name="displayname" required></td>
+                </tr>
+                <tr>
+                    <td><label>Address</label></td>
+                    <td><input class="input_type" type="text" name="address"></td>
+                </tr>
+                <tr>
+                    <td><label>Description</label></td>
+                    <td><textarea class="input_type" name="description"></textarea></td>
+                </tr>
+                <tr>
+                    <td><label>Avatar</label></td>
+                    <td><input class="input_type" type="file" name="avatar" accept="image/*"></td>
                 </tr>
                 <tr>
                     <td colspan="2">
