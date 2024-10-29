@@ -182,7 +182,7 @@
                                 <div class="wgt-content">
                                     <ul class="cat-list">
                                         <li class="cat-list-item">
-                                            <a href="shop" class="cat-link ${tag == null ? '' : ''}">All</a>
+                                            <a href="shop" class="cat-link ${tag == null ? 'active' : ''}">All</a>
                                         </li>
                                         <c:forEach items="${listC}" var="o">
                                             <li class="cat-list-item ${tag != null && tag == o.cid ? 'active' : ''}">
