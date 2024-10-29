@@ -79,7 +79,36 @@ public class ProductDao extends DBContext {
 
         return lProduct;
     }
+    
+    public List<Products> getMenuProduct(){
+        String sql = "Select * from Products ";
+        List<Products> mProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
 
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                mProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return mProduct;
+    } 
+    
     public String getWishIdByAccountId(String accountid) {
         String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
         String wishId = "";

@@ -199,12 +199,12 @@
                                                     <button class="accordion">${nameEntry.key}</button>
                                                     <div class="panel">
                                                         <c:forEach var="menu" items="${nameEntry.value}">
-                                                            <div style="margin: 10px; display: flex; justify-content: space-between">
+                                                            <div style="margin: 10px;">
                                                                 <div>
                                                                     ${menu.menu_name}
-                                                                </div>
-                                                                <div>
+                                                                    <span style="margin-left: 10%">
                                                                     Calories: ${menu.getAverage_calories()}
+                                                                </span>
                                                                 </div>
                                                             </div>
                                                         </c:forEach>

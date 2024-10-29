@@ -90,7 +90,6 @@ CREATE TABLE Menu_Detail (
     menu_detail_id INT IDENTITY(1,1) PRIMARY KEY,
 	menu_id INT,
     product_id  INT,
-	product_qty INT,
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 	FOREIGN KEY (menu_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
 );
