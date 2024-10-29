@@ -15,6 +15,7 @@
                 <a href="ManagerList" class="button">Manager List</a>
                 <a href="NutritionistList" class="button">Nutritionist List</a>
                 <a href="userlist" class="button">Reset</a>
+                <a href="Revenue" class="button">Monthly Revenue</a>
             </div>
             <div class="right-panel">
 

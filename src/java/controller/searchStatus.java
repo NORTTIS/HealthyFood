@@ -19,7 +19,7 @@ import model.Accounts;
  *
  * @author Gosu
  */
-@WebServlet(name = "searchStatus", urlPatterns = {"/search"})
+@WebServlet(name = "searchStatus", urlPatterns = {"/searchStatus"})
 public class searchStatus extends HttpServlet {
 
     /**
