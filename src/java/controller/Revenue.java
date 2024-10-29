@@ -70,23 +70,12 @@ public class Revenue extends HttpServlet {
             List<Products> revenueList = prodDao.getMonthlyRevenue(String.valueOf(month));
             double totalRevenue = prodDao.getTotalMonthlyRevenue(month, year);
 
-            StringBuilder htmlResponse = new StringBuilder();
-            htmlResponse.append("<h2>Revenue Report for ").append(month).append(" / ").append(year).append("</h2>");
-            htmlResponse.append("<h3>Total Revenue: $").append(totalRevenue).append("</h3>");
-            htmlResponse.append("<table border='1'>");
-            htmlResponse.append("<tr><th>Product ID</th><th>Total Quantity Sold</th><th>Total Revenue</th></tr>");
+            request.setAttribute("month", month);
+            request.setAttribute("year", year);
+            request.setAttribute("totalRevenue", totalRevenue);
+            request.setAttribute("revenueList", revenueList);
 
-            for (Products product : revenueList) {
-                htmlResponse.append("<tr>");
-                htmlResponse.append("<td>").append(product.getProductId()).append("</td>");
-                htmlResponse.append("<td>").append(product.getQuantityInStock()).append("</td>");
-                htmlResponse.append("<td>").append(product.getPrice()).append("</td>");
-                htmlResponse.append("</tr>");
-            }
-            htmlResponse.append("</table>");
-
-            response.setContentType("text/html");
-            response.getWriter().write(htmlResponse.toString());
+            request.getRequestDispatcher("revenueInput.jsp").forward(request, response);
         } else {
             response.sendRedirect("revenueInput.jsp");
         }
