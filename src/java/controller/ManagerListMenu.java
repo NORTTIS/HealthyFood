@@ -5,7 +5,7 @@
 
 package controller;
 
-import dao.AccountsDAO;
+import dao.NutriDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +13,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 import model.Accounts;
+import model.Menu;
 
 /**
  *
  * @author Gosu
  */
-@WebServlet(name="Nutritionist", urlPatterns={"/Nutritionist"})
-public class Nutritionist extends HttpServlet {
+@WebServlet(name="ManagerListMenu", urlPatterns={"/listMenu"})
+public class ManagerListMenu extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +41,10 @@ public class Nutritionist extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Nutritionist</title>");  
+            out.println("<title>Servlet ManagerListMenu</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Nutritionist at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManagerListMenu at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,10 +61,24 @@ public class Nutritionist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AccountsDAO adb = new AccountsDAO();
-        List<Accounts> al = adb.getAllNutritionists();
-        request.setAttribute("data", al);
-        request.getRequestDispatcher("nutritionistpage.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        //lấy dữ liệu tài khoản đăng nhập
+        Accounts ac = (Accounts) session.getAttribute("acc");
+        if (ac == null) {
+            response.sendRedirect("login.jsp");
+        } else {
+            String search = request.getParameter("search");
+            NutriDAO ndb = new NutriDAO();
+            if (search == null || search.equals("All")) {
+                //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
+                Map<String, Map<String, List<Menu>>> mList = ndb.seeAllMenu();
+                request.setAttribute("historyList", mList);
+            } else {
+                Map<String, Map<String, List<Menu>>> mList = ndb.allMenuStatus(search);
+                request.setAttribute("historyList", mList);
+            }
+            request.getRequestDispatcher("managerMenuList.jsp").forward(request, response);
+        }
     }  
 
     /** 

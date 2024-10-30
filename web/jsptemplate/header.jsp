@@ -50,7 +50,7 @@
                                             <img src="./assets/image/${sessionScope.acc.avatar}" style="height: 35px; width: 35px; margin-right: 5px; border-radius: 50%;"/>
                                         </a>
                                         <a href="cus_profile" class="user__name">
-                                            ${sessionScope.acc.username}</a>
+                                            ${sessionScope.acc.displayname}</a>
                                         <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
                                     </c:if>
                                     <c:if test="${sessionScope.acc.avatar==null}">
@@ -58,7 +58,7 @@
                                             <i class="biolife-icon icon-login"></i>
                                         </a>
                                         <a href="cus_profile" class="user__name">
-                                            ${sessionScope.acc.username}</a>
+                                            ${sessionScope.acc.displayname}</a>
                                         <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
                                     </c:if>
                                     <!-- Hiển thị tên người dùng và chuyển hướng sang cus_profile.jsp khi nhấp vào -->
@@ -106,9 +106,10 @@
                                 <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
                                     <li class="menu-item"><a href="menuList">Menu</a></li>
                                     </c:when>
-                                    <c:otherwise>
-<!--                                    <li class="menu-item"><a href="contact.html">Contact</a></li>-->
-                                    </c:otherwise>
+                                    <c:when test="${sessionScope.acc.role == 'Manager'}">
+                                    <li class="menu-item"><a href="Revenue">Revenue</a></li>
+                                    <li class="menu-item"><a href="listMenu">Menu</a></li>
+                                    </c:when>
                                 </c:choose>
                         </ul>
                     </div>
@@ -147,8 +148,7 @@
                                                     <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
                                                     <div class="minicart-item">
                                                         <div class="thumb">
-                                                            <a href="productDetail?ac=show&productId=${i.product.productId}"><img src="./assets/images/products/p-01.jpg"
-                                                                                                      width="90" height="90" alt="National Fresh"></a>
+                                                            <a href="productDetail?ac=show&productId=${i.product.productId}"> <img src="assets/images/products/${i.product.picture}" alt="dd" style="width: 120px;height: 90px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail"></a>
                                                         </div>
                                                         <div class="left-info">
                                                             <div>
@@ -272,16 +272,17 @@
 
                         </div>
                         <div class="col-lg-9 col-md-8 padding-top-2px">
+                            <div class="col-lg-9 col-md-8 padding-top-2px">
                             <div class="header-search-bar layout-01">
 
-                                <form action="shop" class="form-search" name="desktop-seacrh" method="get">
-                                    <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-
-
+                                <form action="search" class="form-search" name="desktop-seacrh" method="post">
+                                    <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
                                     <button type="submit" class="btn-submit"><i
                                             class="biolife-icon icon-search"></i></button>
                                 </form>
                             </div>
+
+                        </div>
 
                         </div>
                     </div>

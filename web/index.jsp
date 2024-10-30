@@ -132,7 +132,7 @@
                 </div>
 
 
-             
+
                 <!--Block 04: Products-->
                 <div class="Product-box sm-margin-top-96px">
                     <div class="container">
@@ -175,11 +175,10 @@
                                         <c:forEach items="${lProd}" var="i" varStatus="j">
                                             <li class="product-item">
                                                 <div
-                                                    class="contain-product right-info-layout contain-product__right-info-layout">
-                                                    <div class="product-thumb">
+                                                    class="contain-product right-info-layout contain-product__right-info-layout" style="border-radius: 20px">
+                                                    <div class="product-thumb" style="width: 180px; height: 180px">
                                                         <a href="productDetail?ac=show&productId=${i.productId}" class="link-to-product">
-                                                            <img src="assets/images/products/p-01.jpg" alt="dd" width="270"
-                                                                 height="270" class="product-thumnail">
+                                                            <img src="assets/images/products/${i.picture}" alt="dd"  style="width: 1800px; height: 180px; object-fit: cover; border-radius: 20px" class="product-thumnail">
                                                         </a>
                                                     </div>
                                                     <div class="info">
@@ -187,14 +186,17 @@
                                                         <h4 class="product-title"><a href="productDetail?ac=show&productId=${i.productId}" class="pr-name">${i.name}</a></h4>
                                                         <div class="price ">
                                                             <ins><span class="price-amount"><span
-                                                                        class="currencySymbol">${i.price}</span>VND</span></ins>
-
+                                                                        class="currencySymbol">${i.price}</span> VND</span></ins>
                                                         </div>
+                                                        <di>
+                                                            <p style="  margin-top: 10px">${i.averageCalories} cal</p> 
+                                                            <div class="rating"><p class="star-rating"><span style="width:${(i.rate!=null?i.rate:0) * 100 / 5}%; "></span></p></div>
+                                                        </di>
                                                         <div class="rating" hidden="">
                                                             <p class="star-rating"><span class="" style="width: 80%;"></span></p>
                                                             <span class="review-count">(05 Reviews)</span>
                                                         </div>
-                                                        <div class="slide-down-box" style="margin-top: 25px;">
+                                                        <div class="slide-down-box" style="margin-top: 10px;">
                                                             <div>
                                                                 <c:if test="${sessionScope.acc.role=='Customer'}">
 
@@ -269,7 +271,7 @@
                                                     <p class="title">${i.createAt}</p>
                                                 </div>
                                             </div>
-                                            <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" >${i.title}</p></a></h4>
+                                                    <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" style="font-weight: 700" >${i.title}</p></a></h4>
 
                                             <div class="excerpt">
                                                 ${i.content}
@@ -279,10 +281,10 @@
                                                 <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                             </div>
                                         </div>
-                                        <div class="thumbnail col-lg-4">
+                                            <div class="thumbnail col-lg-4" style="border-radius: 20px">
                                             <a href="blogdetail?blogId=${i.id}" class="link-to-post">
                                                 <div>
-                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px;" alt="">
+                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px; border-radius: 20px" alt="">
                                                 </div>
                                             </a>
                                         </div>

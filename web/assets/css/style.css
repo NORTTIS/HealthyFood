@@ -1038,7 +1038,6 @@ body{
     outline: none;
 }
 .biolife-carousel .row-item{
-    font-size: 0;
     line-height: 0;
 }
 .biolife-carousel.row-space-29px .row-item+.row-item{

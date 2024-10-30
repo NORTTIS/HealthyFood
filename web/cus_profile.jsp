@@ -167,7 +167,7 @@
                                             <p class="mb-0">Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="mb-0 no-border text-muted " name="address" value="${sessionScope.acc.address}" />
+                                            <input type="text" class="mb-0 no-border text-muted " name="address" value="" readonly="true" required="true" />
                                         </div>
                                     </div>
                                     <hr>

@@ -12,8 +12,11 @@
     status NVARCHAR(10) DEFAULT 'Active' CHECK (status IN ('Active', 'Inactive')),  -- Trạng thái tài khoản
 	avatar NVARCHAR(MAX),					   -- Avatar người dùng
 	create_at DATETIME DEFAULT GETDATE(),
-	update_at DATETIME DEFAULT GETDATE()
+	update_at DATETIME DEFAULT GETDATE(),
 );
+ALTER TABLE Accounts
+ADD google_id NVARCHAR(50) NULL;
+
 
 CREATE TABLE User_Health_Profile (
     profile_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID hồ sơ sức khỏe, tự động tăng
@@ -64,6 +67,10 @@ CREATE TABLE DeliveryDetails (
     delivery_notes NVARCHAR(MAX),                     -- Ghi chú giao hàng
     FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE -- Khóa ngoại trỏ đến bảng Orders
 );
+ALTER TABLE DeliveryDetails
+ADD voucher NVARCHAR(50) NULL;
+	
+
 
 
 CREATE TABLE Order_Items (
@@ -187,6 +194,18 @@ VALUES
 (3, 'Ocean Harvest', 'Salmon Fillets', 'Premium quality salmon fillets', 295000, 30, 'available', 208.0, 'salmon.jpg'),
 (1, 'Healthy Harvest', 'Bananas', 'Ripe bananas with high potassium content', 28000, 200, 'available', 89.0, 'banana.jpg'),
 (4, 'Vegan Choice', 'Almond Milk', 'Plant-based almond milk, dairy-free', 92000, 80, 'available', 30.0, 'almond_milk.jpg');
+
+INSERT INTO Products (category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture)
+VALUES
+(2, 'Bake House', 'Multigrain Bread', 'Bread made with multiple grains for added nutrients', 75000, 60, 'available', 265.0, 'multigrain_bread.jpg'),
+(3, 'Sea Fresh Co.', 'Shrimp', 'Fresh, high-quality shrimp', 175000, 40, 'available', 99.0, 'shrimp.jpg'),
+(1, 'Sunshine Farms', 'Strawberries', 'Sweet, juicy strawberries', 52000, 150, 'available', 32.0, 'strawberries.jpg'),
+(4, 'NutriChoice', 'Oat Milk', 'Non-dairy milk made from oats', 87000, 70, 'available', 43.0, 'oat_milk.jpg'),
+(1, 'Green Valley', 'Oranges', 'Vitamin C rich oranges', 45000, 120, 'available', 47.0, 'oranges.jpg'),
+(2, 'Bake House', 'Gluten-Free Bread', 'Bread made without gluten for gluten-sensitive consumers', 99000, 45, 'available', 250.0, 'gluten_free_bread.jpg'),
+(3, 'Sea Fresh Co.', 'Tuna Fillets', 'Fresh tuna fillets with high protein content', 320000, 25, 'available', 144.0, 'tuna.jpg'),
+(4, 'Vegan Choice', 'Soy Milk', 'Dairy-free soy milk with added calcium', 89000, 85, 'available', 54.0, 'soy_milk.jpg');
+
 
 INSERT INTO Menu (name, description, create_by, menu_name, average_calories, status)
 VALUES ('Dinner', N'đây là bữa ăn cho một người', 4, 'Green Salad', 200, 'Accept'),
