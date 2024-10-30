@@ -70,14 +70,14 @@ public class NutriDAO extends DBContext {
     public Map<String, Map<String, List<Menu>>> seeAllMenu() {
         Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
 
-        String sql = "select * from Menu";
+        String sql = "select * from Menu m join Accounts a on m.create_by = a.account_id";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
                 String name = rs.getString("name");
-                String key = rs.getString("menuTitle") + " - " + rs.getString("status");
+                String key = rs.getString("menuTitle") + " - " + rs.getString("displayname") + " - "+ rs.getString("status");
                 // Tạo đối tượng Menu từ ResultSet
                 Menu m = new Menu(
                         rs.getInt("menu_id"),
@@ -124,6 +124,55 @@ public class NutriDAO extends DBContext {
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, id);
             st.setString(2, status);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String key = rs.getString("menuTitle") + " - " + rs.getString("status");
+                // Tạo đối tượng Menu từ ResultSet
+                Menu m = new Menu(
+                        rs.getInt("menu_id"),
+                        rs.getInt("type_id"),
+                        name,
+                        rs.getString("description"),
+                        rs.getInt("create_by"),
+                        rs.getString("menu_name"),
+                        rs.getFloat("average_calories"),
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
+                );
+
+                //Kiểm tra xem weightSituation đã có trong menuMap chưa
+                if (!menuMap.containsKey(key)) {
+                    //Thêm một Map rỗng vào cho `name` nếu chưa có
+                    menuMap.put(key, new HashMap<>());
+                }
+
+                // Lấy Map của `name` từ menuMap
+                Map<String, List<Menu>> nameMap = menuMap.get(key);
+
+                // Kiểm tra xem name đã có trong nameMap chưa
+                if (!nameMap.containsKey(name)) {
+                    // Nếu chưa có, thêm một danh sách rỗng vào cho các Menu
+                    nameMap.put(name, new ArrayList<>());
+                }
+
+                // Thêm đối tượng Menu vào danh sách tương ứng với `name`
+                nameMap.get(name).add(m);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return menuMap;
+    }
+    
+    public Map<String, Map<String, List<Menu>>> allMenuStatus(String status) {
+        Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
+
+        String sql = "select * from Menu where status = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, status);
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
@@ -282,6 +331,18 @@ public class NutriDAO extends DBContext {
             st.setFloat(5, average_calories);
             st.setString(6, menuTitle);
             st.setInt(7, menu_id);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void rejectMenu(int firstId, int lastId, String description) {
+        String sql = "update Menu set description = ?, status='Reject' where menu_id between ? and ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, description);
+            st.setInt(2, firstId);
+            st.setInt(3, lastId);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);

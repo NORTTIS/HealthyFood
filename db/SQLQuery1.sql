@@ -143,7 +143,11 @@ CREATE TABLE Blogs (
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
 	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
 );
-
+CREATE TABLE Discount(
+	id INT IDENTITY(1,1) PRIMARY KEY
+	discountValue int,
+	discountName nvarchar(255)
+)
 
 
 
@@ -194,3 +198,4 @@ VALUES
 ( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.100', '2024-10-25 02:31:03.100', 'demo1', 'In Process', 100, 'Demo 2'),
 ( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.150', '2024-10-25 02:31:03.150', 'demo2', 'In Process', 200, 'Demo 2'),
 ( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.170', '2024-10-25 02:31:03.170', 'demo 2.2', 'In Process', 3099, 'Demo 2');
+

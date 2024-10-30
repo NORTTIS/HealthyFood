@@ -44,7 +44,6 @@
         <servlet-name>TransactionServlet</servlet-name>
         <url-pattern>/transaction</url-pattern>
     </servlet-mapping>
-
     <servlet>
         <servlet-name>AdminController</servlet-name>
         <servlet-class>controller.AdminController</servlet-class>
@@ -73,18 +72,6 @@
         <servlet-name>createManager</servlet-name>
         <servlet-class>controller.createManager</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>CreateDiscounts</servlet-name>
-        <servlet-class>controller.CreateDiscounts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateDiscounts</servlet-name>
-        <servlet-class>controller.UpdateDiscounts</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AllDiscounts</servlet-name>
-        <servlet-class>controller.AllDiscounts</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/userlist</url-pattern>
@@ -112,18 +99,6 @@
     <servlet-mapping>
         <servlet-name>EditProfileServlet</servlet-name>
         <url-pattern>/edit</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CreateDiscounts</servlet-name>
-        <url-pattern>/discounts</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateDiscounts</servlet-name>
-        <url-pattern>/updatedis</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AllDiscounts</servlet-name>
-        <url-pattern>/discountlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChatControl</servlet-name>
