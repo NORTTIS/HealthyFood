@@ -10,10 +10,31 @@
     <body>
         <div class="container">
             <div class="left-panel">
-                <a href="discountlist" class="button">Discount</a> 
                 <a href="createM" class="button">Create Manager</a>
+                <a href="createNutritionist" class="button">Create Nutritionist</a>
+                <a href="ManagerList" class="button">Manager List</a>
+                <a href="NutritionistList" class="button">Nutritionist List</a>
+                <a href="userlist" class="button">Reset</a>
+                <a href="login" class="button">Log out</a>
+                
             </div>
             <div class="right-panel">
+
+                <form action="search" method="get">
+                    <label for="status">Status:</label>
+                    <select name="status" id="status">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Enter username (optional)"/>
+
+                    <button type="submit">Search</button>
+                </form>
+
+
+
                 <table>
                     <thead>
                         <tr>
@@ -21,6 +42,7 @@
                             <th>Password</th>
                             <th>Email</th>
                             <th>Phone Number</th>
+                            <th>Role</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -32,16 +54,17 @@
                                 <td>${e.getPassword()}</td>
                                 <td>${e.getEmail()}</td>
                                 <td>${e.getPhone_number()}</td>
+                                <td>${e.getRole()}</td>
                                 <td>${e.getStatus()}</td>
-                                <td>
-                                    <form action="change" method="get">
-                                        <input type="text" name="username" value="${e.getUsername()}" hidden/>
-                                        <input type="text" name="status" value="${e.getStatus()}" hidden/>
-                                        <input type="submit" value="Thay Đổi"/>
+                                <td class="actions">
+                                    <form action="change" method="get" class="action-form">
+                                        <input type="hidden" name="username" value="${e.getUsername()}"/>
+                                        <input type="hidden" name="status" value="${e.getStatus()}"/> 
+                                        <input type="submit" value="Change" class="action-button"/>
                                     </form>
-                                    <form action="edit" method="get">
-                                        <input type="text" name="username" value="${e.getUsername()}" hidden/>
-                                        <input type="submit" value="Cập nhật"/>
+                                    <form action="detail" method="get" class="action-form">
+                                        <input type="hidden" name="username" value="${e.getUsername()}"/>
+                                        <input type="submit" value="Detail" class="action-button"/>
                                     </form>
                                 </td>
                             </tr>

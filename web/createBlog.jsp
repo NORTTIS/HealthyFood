@@ -36,6 +36,9 @@
         </style>
     </head>
     <body class="biolife-body">
+         <c:if test="${sessionScope.bmiR==null}">
+            <c:redirect url="bmi.jsp"/>
+        </c:if>
         <div id="biof-loading">
             <div class="biof-loading-center">
                 <div class="biof-loading-center-absolute">

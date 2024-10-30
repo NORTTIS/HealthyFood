@@ -98,6 +98,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     String desc = request.getParameter("desc");
     String email = request.getParameter("email");
     String address = request.getParameter("address");
+    String phone =  request.getParameter("phone");
     String filename = ""; // Sử dụng để lưu tên file mới nếu có upload
 
      try {
@@ -145,7 +146,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
         // Cập nhật thông tin người dùng trong cơ sở dữ liệu
         AccountsDAO dao = new AccountsDAO();
-        dao.updateUser(id, displayname, filename, desc, email, address); // Gọi hàm đã đổi tên
+        dao.updateUser(id, displayname, filename, desc, email,phone, address); // Gọi hàm đã đổi tên
 
         // Cập nhật lại session với thông tin người dùng mới
         Accounts updatedAccount = dao.getAccountByid(id);

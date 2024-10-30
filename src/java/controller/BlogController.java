@@ -156,6 +156,11 @@ public class BlogController extends HttpServlet {
             accList.add(accDao.getAccountByid(blog.getAuthor()));
         }
         totalPage = blogDao.calNumPageBlog(bListTotal);
+        if(accId !=null){
+            request.setAttribute("blogTitle","MyBlog");
+        }else{
+             request.setAttribute("blogTitle","OurBlog");
+        }
         request.setAttribute("searchValue", searchValue);
         request.setAttribute("bList", bListByPageIndex);
         request.setAttribute("accList", accList);
