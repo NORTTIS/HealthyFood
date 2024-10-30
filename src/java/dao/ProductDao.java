@@ -421,7 +421,7 @@ public class ProductDao extends DBContext {
         Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
         try {
-            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes) values (?,?,?,?,?,?)";
+            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes,voucher) values (?,?,?,?,?,?)";
             st = conn.prepareStatement(sql);
             st.setString(1, deDetail.getOrderId());
             st.setString(2, deDetail.getFullname());
@@ -429,10 +429,39 @@ public class ProductDao extends DBContext {
             st.setString(4, deDetail.getPhone());
             st.setString(5, deDetail.getAddress());
             st.setString(6, deDetail.getNote());
+            st.setString(6, deDetail.getVoucher());
             st.executeQuery();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public DeliveryDetail getDeliveryDetailByOrderId(String orderId){
+         Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            String sql = "select * from DeliveryDetails where order_id = ?";
+            st = conn.prepareStatement(sql);
+            st.setString(1, orderId);
+            rs = st.executeQuery();
+            while(rs.next()){
+                DeliveryDetail deDetail = new DeliveryDetail(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)
+                );
+                return deDetail;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public void ReviewProduct(String productId, String accountId, String rating, String comment) {
@@ -831,10 +860,16 @@ public class ProductDao extends DBContext {
 
     public static void main(String[] args) {
         ProductDao dao = new ProductDao();
-        List<Products> list = dao.pagingProduct(1);
-        for(Products p : list){
-            System.out.println(p);
+//        List<Products> list = dao.pagingProduct(1);
+//        for(Products p : list){
+//            System.out.println(p);
+//        }
+        Cart cart = dao.getOrderDetailById("22");
+        DeliveryDetail detail = dao.getDeliveryDetailByOrderId("22");
+        for (LineItem item : cart.getItems()) {
+            System.out.println(item);
         }
+        System.out.println(detail);
     }
 
 }

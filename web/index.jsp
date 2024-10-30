@@ -271,7 +271,7 @@
                                                     <p class="title">${i.createAt}</p>
                                                 </div>
                                             </div>
-                                            <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" >${i.title}</p></a></h4>
+                                                    <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" style="font-weight: 700" >${i.title}</p></a></h4>
 
                                             <div class="excerpt">
                                                 ${i.content}

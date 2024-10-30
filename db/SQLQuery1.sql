@@ -12,10 +12,11 @@
     status NVARCHAR(10) DEFAULT 'Active' CHECK (status IN ('Active', 'Inactive')),  -- Trạng thái tài khoản
 	avatar NVARCHAR(MAX),					   -- Avatar người dùng
 	create_at DATETIME DEFAULT GETDATE(),
-	update_at DATETIME DEFAULT GETDATE()
+	update_at DATETIME DEFAULT GETDATE(),
 );
 ALTER TABLE Accounts
 ADD google_id NVARCHAR(50) NULL;
+
 
 CREATE TABLE User_Health_Profile (
     profile_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID hồ sơ sức khỏe, tự động tăng
@@ -66,6 +67,10 @@ CREATE TABLE DeliveryDetails (
     delivery_notes NVARCHAR(MAX),                     -- Ghi chú giao hàng
     FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE -- Khóa ngoại trỏ đến bảng Orders
 );
+ALTER TABLE DeliveryDetails
+ADD voucher NVARCHAR(50) NULL;
+	
+
 
 
 CREATE TABLE Order_Items (
