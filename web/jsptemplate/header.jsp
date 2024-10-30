@@ -50,7 +50,7 @@
                                             <img src="./assets/image/${sessionScope.acc.avatar}" style="height: 35px; width: 35px; margin-right: 5px; border-radius: 50%;"/>
                                         </a>
                                         <a href="cus_profile" class="user__name">
-                                            ${sessionScope.acc.username}</a>
+                                            ${sessionScope.acc.displayname}</a>
                                         <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
                                     </c:if>
                                     <c:if test="${sessionScope.acc.avatar==null}">
@@ -58,7 +58,7 @@
                                             <i class="biolife-icon icon-login"></i>
                                         </a>
                                         <a href="cus_profile" class="user__name">
-                                            ${sessionScope.acc.username}</a>
+                                            ${sessionScope.acc.displayname}</a>
                                         <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
                                     </c:if>
                                     <!-- Hiển thị tên người dùng và chuyển hướng sang cus_profile.jsp khi nhấp vào -->
@@ -271,16 +271,17 @@
 
                         </div>
                         <div class="col-lg-9 col-md-8 padding-top-2px">
+                            <div class="col-lg-9 col-md-8 padding-top-2px">
                             <div class="header-search-bar layout-01">
 
-                                <form action="shop" class="form-search" name="desktop-seacrh" method="get">
-                                    <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-
-
+                                <form action="search" class="form-search" name="desktop-seacrh" method="post">
+                                    <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
                                     <button type="submit" class="btn-submit"><i
                                             class="biolife-icon icon-search"></i></button>
                                 </form>
                             </div>
+
+                        </div>
 
                         </div>
                     </div>

@@ -20,6 +20,7 @@ public class Products {
     private String status;
     private double averageCalories;
     private String picture;
+    private double rate;
 
     // Constructor
     public Products(int productId, int category, String supplier,String name,String description, double price, int quantityInStock, String status, double averageCalories, String picture) {
@@ -116,6 +117,16 @@ public class Products {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+    
+    
 
     @Override
     public String toString() {

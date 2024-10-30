@@ -361,10 +361,10 @@ public class ProductDao extends DBContext {
 
     }
 
-    public static void main(String[] args) {
-        ProductDao prod = new ProductDao();
-        prod.updateProductStock(4, 10);
-    }
+//    public static void main(String[] args) {
+//        ProductDao prod = new ProductDao();
+//        prod.updateProductStock(4, 10);
+//    }
 
     public boolean CheckvalidStockOrderItem(Cart cart) {
         for (LineItem item : cart.getItems()) {
@@ -802,11 +802,11 @@ public class ProductDao extends DBContext {
 //    }
     public List<Products> pagingProduct(int index) {
         List<Products> list = new ArrayList<>();
-        String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
+        String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
 
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement st = conn.prepareStatement(query)) {
-            st.setInt(1, (index - 1) * 12);
+            st.setInt(1, (index - 1) * 8);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Products(
@@ -829,12 +829,12 @@ public class ProductDao extends DBContext {
         return list;
     }
 
-//    public static void main(String[] args) {
-//        ProductDao dao = new ProductDao();
-//        List<Products> list = dao.pagingProduct(1);
-//        for(Products p : list){
-//            System.out.println(p);
-//        }
-//    }
+    public static void main(String[] args) {
+        ProductDao dao = new ProductDao();
+        List<Products> list = dao.pagingProduct(1);
+        for(Products p : list){
+            System.out.println(p);
+        }
+    }
 
 }

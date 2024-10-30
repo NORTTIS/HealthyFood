@@ -73,7 +73,7 @@
 
                                 <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                                    <div class="block-item recently-products-cat md-margin-bottom-39">
+                                    <div class="block-item recently-products-cat">
                                         <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" 
                                             data-slick='{"arrows": true, "dots": false, "slidesMargin": 0, "slidesToShow": 1, "infinite": false, "speed": 800}'> 
                                             <li class="product-item">
@@ -216,7 +216,6 @@
                                     <div class="frm-contain">
                                         <form action="shop" name="price-filter" id="price-filter" method="get">
                                             <p class="f-item">
-                                                <label for="pr-from">From</label>
                                                 <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
                                             </p>
                                             <p class="f-item">
