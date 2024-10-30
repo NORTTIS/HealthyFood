@@ -106,9 +106,10 @@
                                 <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
                                     <li class="menu-item"><a href="menuList">Menu</a></li>
                                     </c:when>
-                                    <c:otherwise>
-<!--                                    <li class="menu-item"><a href="contact.html">Contact</a></li>-->
-                                    </c:otherwise>
+                                    <c:when test="${sessionScope.acc.role == 'Manager'}">
+                                    <li class="menu-item"><a href="Revenue">Revenue</a></li>
+                                    <li class="menu-item"><a href="listMenu">Menu</a></li>
+                                    </c:when>
                                 </c:choose>
                         </ul>
                     </div>

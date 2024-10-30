@@ -3,6 +3,7 @@
 <html>
     <head>
         <title>Revenue Input</title>
+        <link rel="stylesheet" type="text/css" href="./assets/css/revenue.css">
     </head>
     <body>
         <h2>Enter Month and Year for Revenue Report</h2>
