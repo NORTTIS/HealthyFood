@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-9">
                     <section class="footer-item">
-                        <a href="index.jsp" class="logo footer-logo"
+                        <a href="home" class="logo footer-logo"
                             ><img
                                 src="assets/images/organic-3-green.png"
                                 alt="biolife logo"

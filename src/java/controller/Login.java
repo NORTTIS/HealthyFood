@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
         if (ac != null && ac.equals("logout")) {
             HttpSession session = request.getSession();
             session.invalidate();
-            
+
         }
         // Nếu người dùng hủy ủy quyền
         if (error != null) {
@@ -53,14 +53,11 @@ public class Login extends HttpServlet {
             GoogleAccount googleAccount = gg.getUserInfo(accessToken);
 
             if (googleAccount != null) {
-                // Tạo một đối tượng Accounts mới từ GoogleAccount
-                Accounts accounts = new Accounts();
-                accounts.setUsername(googleAccount.getName()); // Sử dụng tên thay vì email
-                accounts.setRole("user"); // Gán vai trò nếu cần, có thể thay đổi theo yêu cầu
-
+                // Lưu đối tượng Accounts vào session
+                AccountsDAO accDao = new AccountsDAO();
+                Accounts accounts = accDao.getUserById(accDao.loginByGoogle(googleAccount)+"");
                 HttpSession session = request.getSession();
-                session.setAttribute("acc", accounts); // Lưu đối tượng Accounts vào session
-
+                session.setAttribute("acc", accounts);
                 // Chuyển hướng người dùng đến trang home
                 response.sendRedirect("home");
             } else {

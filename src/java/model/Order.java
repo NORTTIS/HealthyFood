@@ -57,7 +57,7 @@ public class Order {
         this.author = author;
     }
 
-    public double getAmmount() {
+    public int getAmmount() {
         return ammount;
     }
 

@@ -95,8 +95,8 @@ public class BlogDao extends DBContext {
 
     public int calNumPageBlog(List<Blog> list) {
         int numpage = 0;
-        numpage = list.size() / 6;
-        if (list.size() % 6 != 0) {
+        numpage = list.size() / 3;
+        if (list.size() % 3 != 0) {
             numpage++;
         }
         return numpage;
@@ -110,19 +110,19 @@ public class BlogDao extends DBContext {
             // Xây dựng câu truy vấn động dựa trên điều kiện đầu vào
             if (!nutriId.equals("")) {
                 sql.append(" and r.nutri_id = ?");
-            } else {
-                if (!bmirange.equals("")) {
-                    sql.append(" and r.bmi_range = ? or r.bmi_range = 5");
-                }
             }
+
             if (!cateId.equals("")) {
                 sql.append(" and r.cate_id = ?");
             }
             if (!searchValue.equals("")) {
                 sql.append(" and r.title like ?");
             }
+            if (!bmirange.equals("")) {
+                sql.append(" and (r.bmi_range = ? or r.bmi_range = 5)");
+            }
 
-            sql.append(" order by r.id offset ? rows fetch first 6 rows only");
+            sql.append(" order by r.id offset ? rows fetch first 3 rows only");
 
             PreparedStatement st = connection.prepareStatement(sql.toString());
             int paramIndex = 1;
@@ -130,19 +130,18 @@ public class BlogDao extends DBContext {
             // Thiết lập các tham số cho PreparedStatement
             if (!nutriId.equals("")) {
                 st.setString(paramIndex++, nutriId);
-            }else{
-                if (!bmirange.equals("")) {
-                st.setString(paramIndex++, bmirange);
-            }
             }
             if (!cateId.equals("")) {
                 st.setString(paramIndex++, cateId);
             }
             if (!searchValue.equals("")) {
-                st.setString(paramIndex++, "%" + searchValue + "%");  // Thêm wildcards cho LIKE
+                st.setString(paramIndex++, "%" + searchValue + "%");  
             }
-            
-            st.setInt(paramIndex, (pageIndex - 1) * 6);  // Thiết lập giá trị offset
+            if (!bmirange.equals("")) {
+                st.setString(paramIndex++, bmirange);
+            }
+
+            st.setInt(paramIndex, (pageIndex - 1) * 3);  // Thiết lập giá trị offset
 
             ResultSet rs = st.executeQuery();
 
@@ -183,7 +182,7 @@ public class BlogDao extends DBContext {
                 sql.append(" and r.title like ?");
             }
             if (!bmirange.equals("")) {
-                sql.append(" and r.bmi_range = ? or r.bmi_range = 5");
+                sql.append(" and (r.bmi_range = ? or r.bmi_range = 5)");
             }
             sql.append(" order by r.id ");
 
@@ -198,7 +197,7 @@ public class BlogDao extends DBContext {
                 st.setString(paramIndex++, cateId);
             }
             if (!searchValue.equals("")) {
-                st.setString(paramIndex++, "%" + searchValue + "%");  // Thêm wildcards cho LIKE
+                st.setString(paramIndex++, "%" + searchValue + "%");
             }
             if (!bmirange.equals("")) {
                 st.setString(paramIndex++, bmirange);
@@ -272,7 +271,7 @@ public class BlogDao extends DBContext {
 
     public static void main(String[] args) {
         BlogDao b = new BlogDao();
-        List<Blog> lBlog = b.getAllBlog("10", "", 1, "", "1");
+        List<Blog> lBlog = b.getAllBlog("", "", 1, "", "1");
         for (Blog blog : lBlog) {
             System.out.println(blog);
         }

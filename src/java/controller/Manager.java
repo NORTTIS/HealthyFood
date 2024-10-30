@@ -57,7 +57,7 @@ public class Manager extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         AccountsDAO adb = new AccountsDAO();
-        List<Accounts> al = adb.getAllManagers();
+        List<Accounts> al = adb.getAllNutritionists();
         request.setAttribute("data", al);
         request.getRequestDispatcher("Managerpage.jsp").forward(request, response);
     } 
