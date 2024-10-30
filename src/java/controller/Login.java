@@ -88,7 +88,7 @@ public class Login extends HttpServlet {
                         } else {
                             response.sendRedirect("userlist");
                         }
-                    }
+                    }   
                 } else {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
