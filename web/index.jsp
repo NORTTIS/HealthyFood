@@ -192,54 +192,45 @@
                                         ${requestScope.error}
                                     </div>
                                     <div style="margin-bottom: 20px">
-                                        <c:forEach var="m" items="${menuList}">
-                                            <button class="accordion" style="margin-bottom: 10px">${m.key}
-<!--                                                <span style="margin-left: 50%">
-                                                    <c:if test="${sessionScope.acc.role=='Customer'}">
-                                                        <a href="wishcart?ac=add&dayCombo=${m}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                        </c:if>
-                                                    <a href="cart?ac=addtocart&dayCombo=${m}" class="btn btn-default">add to cart</a>
-                                                </span>-->
-                                            </button>
+                                        <form method="get" action="comboCart">
+                                            <input onclick="getProID()" style="background-color: #7faf51; border: none; color: white" type="submit" value="add to cart"/>
+                                            <c:forEach var="m" items="${menuList}">
+                                                <button type="button" class="accordion" style="margin-bottom: 10px">${m.key}</button>
+                                                <div class="panel">
+                                                    <c:forEach var="nameEntry" items="${m.value}">
+                                                        <button type="button" class="accordion">${nameEntry.key}
+                                                        </button>
 
-                                            <div class="panel">
-                                                <c:forEach var="nameEntry" items="${m.value}">
-                                                    <button class="accordion">${nameEntry.key}
-<!--                                                        <span style="margin-left: 50%">
-                                                            <c:if test="${sessionScope.acc.role=='Customer'}">
-                                                                <a href="wishcart?ac=add&mealCombo=${nameEntry}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                                </c:if>
-                                                            <a href="cart?ac=addtocart&mealCombo=${nameEntry}" class="btn btn-default">add to cart</a>
-                                                        </span>-->
-                                                    </button>
+                                                        <div class="panel">
+                                                            <c:forEach var="menu" items="${nameEntry.value}">
+                                                                <div style="margin: 10px;">
+                                                                    <div>
+                                                                        <a href="productDetail?ac=show&productId=${menu.productId}" class="link-to-product">
+                                                                            ${menu.getName()}
+                                                                        </a>
 
-                                                    <div class="panel">
-                                                        <c:forEach var="menu" items="${nameEntry.value}">
-                                                            <div style="margin: 10px;">
-                                                                <div>
-                                                                    <a href="productDetail?ac=show&productId=${menu.productId}" class="link-to-product">
-                                                                        ${menu.getName()}
-                                                                    </a>
-                                                                    
-                                                                    <span style="margin-left: 10%">
-                                                                        Calories: ${menu.getAverageCalories()}
-                                                                    </span>
-                                                                    <span style="margin-left: 10%">
-                                                                        Prices: ${menu.getPrice()}
-                                                                    </span>
-                                                                    <span>
-                                                                        <c:if test="${sessionScope.acc.role=='Customer'}">
-                                                                            <a href="wishcart?ac=add&productId=${menu.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                                            </c:if>
-                                                                        <a href="cart?ac=addtocart&productId=${menu.productId}" class="btn btn-default">add to cart</a>
-                                                                    </span>
+                                                                        <span style="margin-left: 10%">
+                                                                            Calories: ${menu.getAverageCalories()}
+                                                                        </span>
+                                                                        <span style="margin-left: 10%">
+                                                                            Prices: ${menu.getPrice()}
+                                                                        </span>
+                                                                        <input hidden class="proId" value="${menu.getProductId()}"/>
+                                                                        <span>
+                                                                            <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                                <a href="wishcart?ac=add&productId=${menu.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                                </c:if>
+                                                                            <a href="cart?ac=addtocart&productId=${menu.productId}" class="btn btn-default">add to cart</a>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-                                        </c:forEach>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </c:forEach>
+                                            <input type="hidden" id="productId" name="productId">
+                                        </form>
                                     </div>
 
                                     <div class="biolife-title-box bold-style biolife-title-box__bold-style">
@@ -358,6 +349,22 @@
         <script src="assets/js/jquery.nicescroll.min.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/nutriMenu.js"></script>
+        <script>
+            function getProID() {
+                var idOfProd = document.getElementsByClassName("proId");
+                var list = "";
+                for (var i = 0; i < idOfProd.length; i++) {
+                    list += idOfProd[i].value;
+                    if (i < idOfProd.length - 1) {
+                        list += "-";
+                    }
+                }
+                // Gán chuỗi listMeals là giá trị của input 
+                document.getElementById("productId").value = list;
+                Console.log(list);
+            }
+
+        </script>
     </body>
 
 
