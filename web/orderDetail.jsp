@@ -52,15 +52,6 @@
                 <div class="row form-log" style="border-right: 0.5px solid #eaeaea;
                      border-left: 1px solid #eaeaea;
                      min-height: 450px;">
-<!--                    <div class="orderside-left col-lg-4" style="padding: 50px 20px 0px 35px;">
-                       
-                        <h3 style="font-size:30px"><b>Delivery address</b></h3>
-                        <span style="font-size: 20px;font-weight: 600;">${customer.displayname}</span>
-                        <br/>
-                        <span style="font-size: 15px;">${customer.phone_number}</span>
-                         <br/>
-                        <span style="font-size: 15px;">${customer.address}</span>
-                    </div>-->
                  <div class=" orderside-left col-lg-7 col-md-7 col-sm-6 col-xs-12">
                             <div class="mt-4">
                                 <h2>Delivery Details</h2>

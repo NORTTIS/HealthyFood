@@ -55,7 +55,7 @@ public class Login extends HttpServlet {
             if (googleAccount != null) {
                 // Lưu đối tượng Accounts vào session
                 AccountsDAO accDao = new AccountsDAO();
-                Accounts accounts = accDao.getUserById(accDao.loginByGoogle(googleAccount)+"");
+                Accounts accounts = accDao.getUserById(accDao.loginByGoogle(googleAccount) + "");
                 HttpSession session = request.getSession();
                 session.setAttribute("acc", accounts);
                 // Chuyển hướng người dùng đến trang home
@@ -75,8 +75,8 @@ public class Login extends HttpServlet {
             try {
                 if (username != null && password != null) {
                     if (acc == null) {
-                        request.setAttribute("mess", "wrong username or password1");
-
+                        request.setAttribute("mess", "Wrong username or password");
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
                     } else {
                         HttpSession session = request.getSession();
                         session.setAttribute("acc", acc);
@@ -85,7 +85,7 @@ public class Login extends HttpServlet {
                         } else {
                             response.sendRedirect("userlist");
                         }
-                    }   
+                    }
                 } else {
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }

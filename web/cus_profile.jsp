@@ -22,7 +22,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <!-- Sau đó tải DataTables -->
-        <link rel="stylesheet" type="text/css" href="./assets/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/jquery.dataTables.min.css"> 
 
 
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -167,7 +167,8 @@
                                             <p class="mb-0">Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="mb-0 no-border text-muted " name="address" value="" readonly="true" required="true" />
+                                            <input type="text" class="mb-0 no-border text-muted" name="address" value="${sessionScope.acc.address}" required="true" />
+
                                         </div>
                                     </div>
                                     <hr>
@@ -189,6 +190,7 @@
                         </div>
 
                     </div>
+                    <!--Order list-->
                     <div class="col-lg-8" id="myorder" style="display: none; overflow-y: scroll;
                          height: 450px;">
                         <table class="table order-list"  id="myOrderTable">
