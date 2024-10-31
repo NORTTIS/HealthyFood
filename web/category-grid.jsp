@@ -53,12 +53,12 @@
  
 
         <!--Navigation section-->
-        <div class="container">
+                <div class="container">
             <nav class="biolife-nav">
                 <ul>
-                    <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
-                    <li class="nav-item"><a href="#" class="permal-link">Natural Organic</a></li>
-                    <li class="nav-item"><span class="current-page">Fresh Fruit</span></li>
+                    <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
+                    <li class="nav-item"><a href="shop" class="permal-link">Shop</a></li>
+                    
                 </ul>
             </nav>
         </div>
@@ -99,7 +99,7 @@
 
                                                         <div class="contain-product layout-default">
                                                             <div class="product-thumb">
-                                                                <a href="productDetail" class="link-to-product">
+                                                                <a href="productDetail.jsp" class="link-to-product">
                                                                     <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto;" class="product-thumnail">
                                                                 </a>
                                                             </div>
@@ -213,7 +213,7 @@
                                     <div class="frm-contain">
                                         <form action="shop" name="price-filter" id="price-filter" method="get">
                                             <p class="f-item">
-                                                <label for="pr-from">From</label>
+                                               
                                                 <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
                                             </p>
                                             <p class="f-item">
