@@ -30,6 +30,14 @@ public class NewPassword extends HttpServlet {
 
         // Kiểm tra xem mật khẩu mới và xác nhận có khớp không
         if (newPassword != null && confPassword != null && newPassword.equals(confPassword)) {
+            // Kiểm tra tính hợp lệ của mật khẩu
+            if (!isValidPassword(newPassword)) {
+                request.setAttribute("status", "invalidPassword");
+                dispatcher = request.getRequestDispatcher("newPassword.jsp"); // Quay lại trang nhập mật khẩu mới
+                dispatcher.forward(request, response);
+                return;
+            }
+
             Connection con = null;
             PreparedStatement pst = null;
             try {
@@ -74,5 +82,32 @@ public class NewPassword extends HttpServlet {
             dispatcher = request.getRequestDispatcher("newPassword.jsp"); // Quay lại trang nhập mật khẩu mới
             dispatcher.forward(request, response);
         }
+    }
+
+    // Phương thức kiểm tra tính hợp lệ của mật khẩu
+    private boolean isValidPassword(String password) {
+        if (password.length() < 6) {
+            return false; // Mật khẩu phải có ít nhất 6 ký tự
+        }
+
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+        String specialCharacters = "!@#$%^&*()-+";
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowerCase = true;
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (specialCharacters.contains(String.valueOf(c))) {
+                hasSpecialChar = true;
+            }
+        }
+
+        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
     }
 }
