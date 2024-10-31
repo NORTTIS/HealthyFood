@@ -67,18 +67,21 @@ public class ChatControl extends HttpServlet {
         Accounts acc = (Accounts) session.getAttribute("acc");
         boolean isCustomer = acc.getRole().equals("Customer");
         if (isCustomer) {
-                accs = new AccountsDAO().getAllAccountByRole("Nutritionist");
-            }
-        if (accId != null) {
-            
+            accs = new AccountsDAO().getAllAccountByRole("Nutritionist");
+        }
+        if (accId != null && (!accId.equals("-1"))) {
+
             Accounts account = new AccountsDAO().getAccountByid(accId);
             List<Messages> listMes = new MessageDao().getMessagesByConversation(accId, "" + acc.getAccount_id());
-            request.setAttribute("accName", account.getDisplayname());
+            request.setAttribute("accN", account);
             request.setAttribute("listMes", listMes);
             request.setAttribute("receiveId", accId);
+        } else {
+            request.setAttribute("receiveId", "-1");
+
         }
         request.setAttribute("lacc", accs);
-        
+
         request.getRequestDispatcher("chat.jsp").forward(request, response);
     }
 
