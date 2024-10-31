@@ -1,7 +1,6 @@
 <%-- 
     Document   : managerMenuList
-    Created on : Oct 30, 2024, 3:16:41 PM
-    Author     : Minh
+
 --%>
 
 <!DOCTYPE html>
@@ -62,7 +61,9 @@
                             <!--Search Widget-->
                             <div class="widget search-widget">
                                 <div class="wgt-content">
+
                                     <form action="listMenu" name="frm-search" method="get" class="frm-search">
+
                                         <select name="search" style="border-radius: 30px;width: 100% ;height: auto; font-size: large;">
                                             <option>All</option>
                                             <option value="Accept">Accept</option>
@@ -125,4 +126,6 @@
         <script src="assets/js/nutriMenu.js"></script>
 
     </body>
+
 </html>
+

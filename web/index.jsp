@@ -132,50 +132,6 @@
                 </div>
 
 
-                <!--Block 02: Banner Promotion 01-->
-
-                <div class="banner-promotion-01 xs-margin-top-50px sm-margin-top-70px">
-                    <div class="biolife-banner promotion3 biolife-banner__promotion3 green-style">
-                        <div class="banner-contain">
-                            <div class="media">
-                                <div class="img-moving position-1">
-                                    <img src="assets/images/home-03/img-moving-pst-1-geen.png" width="149" height="139"
-                                         alt="img msv">
-                                </div>
-                            </div>
-                            <div class="text-content">
-                                <div class="container text-wrap">
-                                    <span class="first-line">Healthy Food1111</span>
-                                    <b class="second-line">Vegetable Always fresh</b>
-                                    <p class="third-line">Food Heaven Made Easy sounds like the name of an amazingly
-                                        delicious food delivery service, but don't be fooled...</p>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!--Block 03: Banner promotion 02-->
-                <div class="banner-promotion-02 z-index-20">
-                    <div class="biolife-banner promotion2 biolife-banner__promotion2 advance">
-                        <div class="banner-contain">
-                            <div class="container">
-                                <div class="media"></div>
-                                <div class="text-content">
-                                    <b class="first-line">Food Heaven Made</b>
-                                    <span class="second-line">Easy <i>Healthy, Happy Life</i></span>
-                                    <p class="third-line">Food Heaven Made Easy sounds like the name of an amazingly
-                                        delicious food delivery service, but don't be fooled. The blog is actually a
-                                        compilation of recipes, cooking videos, and nutrition tips.</p>
-                                    <p class="buttons">
-                                        <a href="blog" class="btn btn-bold">Read More</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <!--Block 04: Products-->
                 <div class="Product-box sm-margin-top-96px">
@@ -241,11 +197,10 @@
                                         <c:forEach items="${lProd}" var="i" varStatus="j">
                                             <li class="product-item">
                                                 <div
-                                                    class="contain-product right-info-layout contain-product__right-info-layout">
-                                                    <div class="product-thumb">
+                                                    class="contain-product right-info-layout contain-product__right-info-layout" style="border-radius: 20px">
+                                                    <div class="product-thumb" style="width: 180px; height: 180px">
                                                         <a href="productDetail?ac=show&productId=${i.productId}" class="link-to-product">
-                                                            <img src="assets/images/products/p-01.jpg" alt="dd" width="270"
-                                                                 height="270" class="product-thumnail">
+                                                            <img src="assets/images/products/${i.picture}" alt="dd"  style="width: 1800px; height: 180px; object-fit: cover; border-radius: 20px" class="product-thumnail">
                                                         </a>
                                                     </div>
                                                     <div class="info">
@@ -253,18 +208,21 @@
                                                         <h4 class="product-title"><a href="productDetail?ac=show&productId=${i.productId}" class="pr-name">${i.name}</a></h4>
                                                         <div class="price ">
                                                             <ins><span class="price-amount"><span
-                                                                        class="currencySymbol">${i.price}</span>VND</span></ins>
-
+                                                                        class="currencySymbol">${i.price}</span> VND</span></ins>
                                                         </div>
+                                                        <di>
+                                                            <p style="  margin-top: 10px">${i.averageCalories} cal</p> 
+                                                            <div class="rating"><p class="star-rating"><span style="width:${(i.rate!=null?i.rate:0) * 100 / 5}%; "></span></p></div>
+                                                        </di>
                                                         <div class="rating" hidden="">
                                                             <p class="star-rating"><span class="" style="width: 80%;"></span></p>
                                                             <span class="review-count">(05 Reviews)</span>
                                                         </div>
-                                                        <div class="slide-down-box" style="margin-top: 25px;">
+                                                        <div class="slide-down-box" style="margin-top: 10px;">
                                                             <div>
                                                                 <c:if test="${sessionScope.acc.role=='Customer'}">
 
-                                                                    <a href="wishcart?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                    <a href="wishlist?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                                     </c:if>
                                                                 <a href="cart?ac=addtocart&productId=${i.productId}" class="btn btn-default">add to cart</a>
                                                             </div>
@@ -292,33 +250,67 @@
                             <h3 class="main-title">From the Blog</h3>
                         </div>
                         <ul class="biolife-carousel nav-center nav-none-on-mobile xs-margin-top-36px"
-                            data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 3}},{"breakpoint":992, "settings":{ "slidesToShow": 2}},{"breakpoint":768, "settings":{ "slidesToShow": 2}},{"breakpoint":600, "settings":{ "slidesToShow": 1}}]}'>
+                            data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":1, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 1}},{"breakpoint":992, "settings":{ "slidesToShow": 1}},{"breakpoint":768, "settings":{ "slidesToShow": 1}},{"breakpoint":600, "settings":{ "slidesToShow": 1}}]}'>
                             <c:forEach items="${bList}" var="i" varStatus="j">
-                                <li>
-                                    <div class="post-item effect-01 style-bottom-info layout-02 ">
-                                        <div class="thumbnail">
-                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
-                                                                                                          style="width: 360px; height: 270px;" alt=""></a>
+                                <!--                                <li>
+                                                                    <div class="post-item effect-01 style-bottom-info layout-02 ">
+                                                                        <div class="thumbnail">
+                                                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
+                                                                                                                                          style="width: 360px; height: 270px;" alt=""></a>
+                                
+                                                                        </div>
+                                                                        <div class="post-content">
+                                                                            <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
+                                                                            <div class="post-meta">
+                                                                                <a href="blogdetail?blogId=${i.id}" class="post-meta__item author"><img
+                                                                                        src="./assets/image/${accList.get(j.index).avatar==null?'Avatar.png':accList.get(j.index).avatar}" width="28" height="28"
+                                                                                        alt=""><span>${accList.get(j.index).displayname}</span></a>
+                                
+                                                                                <div class="post-meta__item post-meta__item-social-box">
+                                ${i.createAt}
+                            </div>
+                        </div>
+                        <div class="excerpt">
+                                ${i.content}
+                            </div>
+                            <div class="group-buttons">
+                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">continue reading</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>-->
+                                <li class="post-elem col-lg-12 col-md-4 col-sm-6 col-xs-12" style="    padding: 20px; border-radius: 16px; border: 2px solid #e8e8e8;">
+                                    <div class="post-item effect-04 style-bottom-info">
+                                        <div class="post-content col-lg-8">
+                                            <div class="auth-info" style="display: flex; justify-content: space-between">
+                                                <div class="ath">
+                                                    <a href="#" class="avata"><img src="assets/image/${accList.get(j.index).avatar==null?'Avatar.png': accList.get(j.index).avatar}" style="width: 35px; height: 35px; border-radius: 50%;" alt="Christian Doe">
+                                                        <span style="    color: black;
+                                                              font-size: 13px; margin-left: 5px;">${accList.get(j.index).displayname}</span></a>
 
-                                        </div>
-                                        <div class="post-content">
-                                            <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
-                                            <div class="post-meta">
-                                                <a href="blogdetail?blogId=${i.id}" class="post-meta__item author"><img
-                                                        src="./assets/image/${accList.get(j.index).avatar==null?'Avatar.png':accList.get(j.index).avatar}" width="28" height="28"
-                                                        alt=""><span>${accList.get(j.index).displayname}</span></a>
-
-                                                <div class="post-meta__item post-meta__item-social-box">
-                                                    ${i.createAt}
+                                                </div>
+                                                <div class="socials-connection">
+                                                    <p class="title">${i.createAt}</p>
                                                 </div>
                                             </div>
+                                                    <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" style="font-weight: 700" >${i.title}</p></a></h4>
+
                                             <div class="excerpt">
                                                 ${i.content}
                                             </div>
+
                                             <div class="group-buttons">
-                                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">continue reading</a>
+                                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                             </div>
                                         </div>
+                                            <div class="thumbnail col-lg-4" style="border-radius: 20px">
+                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post">
+                                                <div>
+                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px; border-radius: 20px" alt="">
+                                                </div>
+                                            </a>
+                                        </div>
+
                                     </div>
                                 </li>
                             </c:forEach>

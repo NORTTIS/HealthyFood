@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Accounts;
 import model.Cart;
+import model.DeliveryDetail;
 import model.Order;
 
 /**
@@ -63,11 +64,14 @@ public class OrderDetailControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String orderId = request.getParameter("orderId");
+       
         ProductDao prodDao = new ProductDao();
         Order order = prodDao.getOrderById(orderId);
         AccountsDAO accDao = new AccountsDAO();
         Accounts acc = accDao.getAccountByid(order.getAuthor());
+        DeliveryDetail deDetail = prodDao.getDeliveryDetailByOrderId(orderId);
         Cart cartOrder = prodDao.getOrderDetailById(orderId);
+        request.setAttribute("deDetail", deDetail);
         request.setAttribute("order", order);
         request.setAttribute("cart", cartOrder);
         request.setAttribute("customer", acc);

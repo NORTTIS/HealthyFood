@@ -1,10 +1,8 @@
 <%-- 
     Document   : managerReviewMenu
-    Created on : Oct 30, 2024, 3:17:36 PM
+
     Author     : Minh
---%>
-<%-- 
-    Document   : managerReviewMenu
+
     Created on : Oct 30, 2024, 3:10:47 PM
     Author     : Gosu
 --%>
@@ -165,4 +163,6 @@
                                         }
         </script>
     </body>
+
 </html>
+

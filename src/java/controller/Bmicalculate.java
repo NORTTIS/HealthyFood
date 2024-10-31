@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 /**
  *
@@ -86,7 +88,8 @@ public class Bmicalculate extends HttpServlet {
                 // Tính toán BMI
                 double heightInMeters = height / 100;
                 double bmi = weight / Math.pow(heightInMeters, 2);
-                DecimalFormat df = new DecimalFormat("#.##");
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.ENGLISH);
+                DecimalFormat df = new DecimalFormat("#.##", symbols);
                 String formattedBmi = df.format(bmi);
                 HttpSession session = request.getSession();
                 session.setAttribute("bmiR", formattedBmi);

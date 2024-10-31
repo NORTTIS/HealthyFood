@@ -165,6 +165,7 @@ public class NutriDAO extends DBContext {
         }
         return menuMap;
     }
+
     
     public Map<String, Map<String, List<Menu>>> allMenuStatus(String status) {
         Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
@@ -214,6 +215,7 @@ public class NutriDAO extends DBContext {
         }
         return menuMap;
     }
+
 
     public Map<String, Map<String, List<Menu>>> getMenuByType(int type) {
         Map<String, Map<String, List<Menu>>> menuMap = new HashMap<>();
@@ -278,6 +280,7 @@ public class NutriDAO extends DBContext {
         return typeList;
     }
 
+
     public String getTypeByTypeID(int id) {
         String sql = "select * from Customer_Type";
         String type = "";
@@ -294,6 +297,7 @@ public class NutriDAO extends DBContext {
         return type;
     }
 
+
     public void insertNewMenu(String menuTitle, int type_id, String name, String description, int create_by, String menu_name, float average_calories) {
         String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories, menuTitle) values (?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement st = connection.prepareStatement(sql1)) {
@@ -306,6 +310,7 @@ public class NutriDAO extends DBContext {
             st.setString(7, menuTitle);
             st.executeUpdate();
         } catch (SQLException e) {
+
             System.out.println(e);
         }
     }
@@ -317,9 +322,11 @@ public class NutriDAO extends DBContext {
             st.setInt(2, lastID);
             st.executeUpdate();
         } catch (SQLException e) {
+
             System.out.println(e);
         }
     }
+
 
     public void updateMenuById(int menu_id, int type_id, String name, String description, String menu_name, float average_calories, String menuTitle) {
         String sql = "update Menu set type_id = ?, name = ?, description = ?, menu_name= ?, status='In Process', average_calories = ?, menuTitle = ? where menu_id = ?";
@@ -337,6 +344,7 @@ public class NutriDAO extends DBContext {
         }
     }
     
+
     public void rejectMenu(int firstId, int lastId, String description) {
         String sql = "update Menu set description = ?, status='Reject' where menu_id between ? and ?";
         try (PreparedStatement st = connection.prepareStatement(sql)) {
@@ -348,6 +356,7 @@ public class NutriDAO extends DBContext {
             System.out.println(e);
         }
     }
+
 
     public static void main(String[] args) {
         NutriDAO ndb = new NutriDAO();
@@ -372,5 +381,6 @@ public class NutriDAO extends DBContext {
                 }
             }
         }
+
     }
 }

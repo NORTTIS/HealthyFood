@@ -84,7 +84,7 @@ public class CartControl extends HttpServlet {
 
             LineItem lineItem = new LineItem(prod, qty);
             cart.addItem(lineItem);
-            double totalprice = 0;
+            int totalprice = 0;
             double totalcal = 0;
             int totalitem = 0;
             for (LineItem item : cart.getItems()) {
@@ -173,15 +173,17 @@ public class CartControl extends HttpServlet {
                 for (LineItem item : cart.getItems()) {
                     Products prod = new ProductDao().getProductsById(productid[i]);
                     if (prod.getQuantityInStock() < quantity) {
-                        outStock += prod.getName() + ", ";
+                         item.getProduct().setQuantityInStock(prod.getQuantityInStock());
+                          item.setQuantity(1);
                     } else {
                         if (item.getProduct().getProductId() == productId) {
                             item.setQuantity(quantity);
+                            item.getProduct().setQuantityInStock(prod.getQuantityInStock());
                         }
                     }
                 }
 
-                double totalprice = 0;
+                int totalprice = 0;
                 double totalcal = 0;
                 for (LineItem item : cart.getItems()) {
                     totalprice += item.getTotal();

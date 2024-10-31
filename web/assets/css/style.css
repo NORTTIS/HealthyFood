@@ -110,7 +110,8 @@ img{
 }
 .blogdetail img{
     max-width:870px;
-    height:635px;
+    height:500px;
+    border-radius: 20px;
 }
 figure{
     max-width: 100%;
@@ -1037,7 +1038,6 @@ body{
     outline: none;
 }
 .biolife-carousel .row-item{
-    font-size: 0;
     line-height: 0;
 }
 .biolife-carousel.row-space-29px .row-item+.row-item{
@@ -3887,7 +3887,7 @@ body.open-overlay #overlay{
 .search-widget .wgt-content{
     font-size: 0;
     line-height: 0;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
 .posts-widget .wgt-content{
     line-height: 0;
@@ -4773,8 +4773,7 @@ body.open-overlay #overlay{
 }
 
 .product-tabs.single-layout .tab-content .tab-contain.review-tab:not(.active){
-    height: 0px;
-    /*overflow: hidden;*/
+    display:none;
 }
 .product-tabs.single-layout .tab-content .tab-contain.active{
     visibility: visible;
@@ -6431,7 +6430,6 @@ body.open-overlay #overlay{
 }
 .single-post-contain .post-head .post-name{
     display: block;
-    margin: 20px 0 0;
     font-size: 34px;
     color: #222222;
     line-height: 1;
@@ -6795,8 +6793,6 @@ body.open-overlay #overlay{
     z-index: 5;
 }
 .main-content>.row{
-    font-size: 0;
-    line-height: 0;
 }
 .main-content .main-post-list{
     display: inline-block;
@@ -6819,7 +6815,6 @@ body.open-overlay #overlay{
     display: block;
 }
 .main-content>.posts-list li{
-    height: 560px;
 }
 
 .posts-list .post-item .thumbnail{
@@ -6858,6 +6853,7 @@ body.open-overlay #overlay{
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
+    text-align: justify;
 
 }
 .post-item.style-bottom-info .post-content  .blog-title{
@@ -6881,9 +6877,8 @@ body.open-overlay #overlay{
 }
 
 .post-item .post-content .group-buttons{
-    display: inline-block;
+    display: flex;
     width: 100%;
-    font-size: 0;
     line-height: 0;
     margin-top: 19px;
 }
@@ -7055,7 +7050,7 @@ body.open-overlay #overlay{
     visibility: visible;
 }
 .slick-arrow{
-     opacity: 1;
+    opacity: 1;
 }
 .slider-opt04__layout01,
 .slider-opt03__layout02,
@@ -11992,6 +11987,7 @@ body.open-quickview-block .biolife-quickview-block{
     }
     .single-post-contain .post-foot .auth-info .avata{
         margin-right: 5px;
+       
     }
     .single-post-contain .post-content blockquote{
         padding: 10px;

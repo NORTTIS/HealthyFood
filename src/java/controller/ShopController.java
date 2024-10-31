@@ -9,11 +9,15 @@ import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.ArrayList;
+
 import java.util.List;
+import java.util.Map;
 import model.Category;
 
 import model.Products;
@@ -22,6 +26,7 @@ import model.Products;
  *
  * @author Norttie
  */
+@WebServlet(name = "ShopController", urlPatterns = {"/shop"})
 public class ShopController extends HttpServlet {
 
     /**
@@ -63,13 +68,66 @@ public class ShopController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 
             throws ServletException, IOException {
-        //get data from dao
+
         ProductDao dao = new ProductDao();
-        List<Products> list = dao.getAllProduct();
+
+        // Lấy tất cả danh mục
         List<Category> listC = dao.getAllCategory();
-        //set data to jsp
-        request.setAttribute("listP", list);
         request.setAttribute("listC", listC);
+         Map<Integer, String> cates = dao.getAllProductCategory();
+
+        // Lấy các tham số từ request
+        String categoryId = request.getParameter("category");
+        String sortType = request.getParameter("sortType");
+        request.setAttribute("tag", categoryId);
+        request.setAttribute("sortType", sortType);
+        String fromPrice = request.getParameter("fromPrice");
+        String toPrice = request.getParameter("toPrice");
+        String page = request.getParameter("page");
+        
+        int currentPage = 1;
+        int totalPage = 0;
+        if(page!=null&&!page.equals("")){
+            currentPage = Integer.parseInt(page);
+        }
+
+        // Khởi tạo danh sách sản phẩm
+        List<Products> listP = new ArrayList<>();
+
+        // Lọc theo danh mục nếu có categoryId
+        if (categoryId != null) {
+            listP = dao.getProductsByCateId(categoryId);
+        } // Sắp xếp theo giá hoặc calo nếu có sortType
+        else if (sortType != null) {
+            if (sortType.equals("priceAsc") || sortType.equals("priceDesc")) {
+                listP = dao.sortProductsByPrice(sortType.equals("priceAsc") ? "asc" : "desc");
+            } else if (sortType.equals("caloriesAsc") || sortType.equals("caloriesDesc")) {
+                listP = dao.sortProductsByCalories(sortType.equals("caloriesAsc") ? "asc" : "desc");
+            }
+        } // Lọc theo khoảng giá nếu có fromPrice và toPrice
+        else if (fromPrice != null && toPrice != null) {
+            listP = dao.getProductsByPrice(fromPrice, toPrice);
+        } // Lấy tất cả sản phẩm nếu không có tham số nào
+        else {
+            listP = dao.getAllProduct();
+        }
+
+        totalPage = dao.getTotalPage(listP); // Sử dụng hàm getTotalPage
+
+       
+
+        // Phân trang các sản phẩm theo trang hiện tại
+        listP = dao.pagingProduct(currentPage);
+
+        // Thiết lập thuộc tính cho JSP
+        request.setAttribute("totalPages", totalPage);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("cates", cates);
+
+        // Set danh sách sản phẩm vào request
+        request.setAttribute("listP", listP);
+
+        // Chuyển tiếp tới trang category-grid.jsp
         request.getRequestDispatcher("category-grid.jsp").forward(request, response);
     }
 

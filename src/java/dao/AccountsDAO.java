@@ -5,7 +5,9 @@ import model.Accounts;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import model.GoogleAccount;
 
 public class AccountsDAO extends DBContext {
 
@@ -349,11 +351,87 @@ public class AccountsDAO extends DBContext {
         return null;
     }
 
+    public void updateUser(String username, String email, String phone_number, String password, String olduser) {
+        String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, String password = ? WHERE username = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, email);
+            st.setString(3, phone_number);
+            st.setString(4, password);
+            st.setString(5, olduser);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void createManager(String username, String password, String email, String phone_number, String role, String status) {
+        String sql = "insert into Accounts values (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            st.setString(1, username);
+            st.setString(2, password);
+            st.setString(3, email);
+            st.setString(4, phone_number);
+            st.setString(5, role);
+            st.setString(6, status);
+            st.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public void updateUser(String username, String email, String phone_number, String password) {
+
+        String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, password = ? WHERE username = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, username);
+            st.setString(2, email);
+            st.setString(3, phone_number);
+            st.setString(4, password);
+            st.setString(5, username);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật mã giảm giá thành công.");
+            } else {
+                System.out.println("Không tìm thấy người dùng với tên đăng nhập đã cho.");
+            }
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void updateUser(String id, String displayname, String avatar, String desc, String email, String phone, String address) {
+        String sql = "UPDATE Accounts SET displayname = ?, avatar = ?, description = ?, email = ?,phone_number = ?, address = ? WHERE account_id = ?";
+
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, displayname);
+            st.setString(2, avatar);
+            st.setString(3, desc);
+            st.setString(4, email);
+            st.setString(5, phone);
+            st.setString(6, address);
+            st.setString(7, id);
+
+            int rowsAffected = st.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected); // Thêm dòng này để kiểm tra
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật thông tin người dùng thành công.");
+            } else {
+                System.out.println("Không tìm thấy người dùng với ID đã cho.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-        adb.updateUser("datKa1", "datKa124", "dat1", "123 abc", "description 1234", "jane.manager@example.com", "5555555554", null, "15");
-        Accounts a = adb.getUser("datKa1");
-        System.out.println(a);
+        List<Accounts> alist = adb.getAllUser();
+        for (Accounts i : alist) {
+            i.getAccount_id();
+        }
     }
 
     public Accounts getUser(String username) {
@@ -597,4 +675,54 @@ public class AccountsDAO extends DBContext {
         return accountsList;
     }
 
+    public int loginByGoogle(GoogleAccount googleAccount) {
+        try {
+            // Check if the Google account email exists
+            String checkQuery = "SELECT account_id, google_id FROM Accounts WHERE email = ?";
+            PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
+            checkStmt.setString(1, googleAccount.getEmail());
+            ResultSet rs = checkStmt.executeQuery();
+
+            if (rs.next()) {
+                // Email exists in the database
+                String googleId = rs.getString("google_id");
+
+                if (googleId != null) {
+                    // This is already a Google-linked account, so proceed with Google login
+                    return rs.getInt("account_id");
+                } else {
+                    // This is a regular account; prompt to link or handle accordingly
+                    String updateQuery = "UPDATE Accounts SET google_id = ?, update_at = GETDATE() WHERE account_id = ?";
+                    PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
+                    updateStmt.setString(1, googleAccount.getId()); // Assuming googleAccount.getId() provides Google’s unique user ID
+                    updateStmt.setInt(2, rs.getInt("account_id"));
+
+                    int rowsUpdated = updateStmt.executeUpdate();
+                    return rowsUpdated > 0 ? rs.getInt("account_id") : -1;
+                }
+            } else {
+                // No account with this email exists, so create a new Google-linked account
+                String insertQuery = "INSERT INTO Accounts (username, password, displayname, email, role, status, google_id) VALUES (?, ?, ?, ?, 'Customer', 'Active', ?)";
+                PreparedStatement insertStmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+                insertStmt.setString(1, googleAccount.getEmail());  // Username as email
+                insertStmt.setString(2, "GoogleUser");              // Default password placeholder
+                insertStmt.setString(3, googleAccount.getName());   // Display name
+                insertStmt.setString(4, googleAccount.getEmail());  // Email
+                insertStmt.setString(5, googleAccount.getId());     // Google unique ID
+
+                int rowsInserted = insertStmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);  // Return the new account_id
+                    }
+                }
+                return -1;  // Indicate failure to insert
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;  // Indicate an error occurred
+        }
+
+    }
 }

@@ -91,7 +91,7 @@
                 </div>
             </section>
             <div id="promotionMessage" style=" margin-top: 20px;">
-                <c:if test="${sessionScope.bmiR!=null}">
+                <c:if test="${sessionScope.bmiR!=null || (sessionScope.bmiR.equals(''))}">
                     <button id="homeBtn" onclick="redirectToHome()">Tính toán BMI xong rồi! Hãy ghé thăm cửa hàng của chúng tôi để tìm ra những sản phẩm phù hợp giúp bạn đạt được mục tiêu sức khỏe của mình.</button>
                 </c:if>
             </div>

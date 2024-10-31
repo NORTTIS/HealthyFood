@@ -109,7 +109,6 @@
                                                     <td class="product-price" data-title="Price">
                                                         <div class="price price-contain">
                                                             <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins>
-                                                            <del><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></del>
                                                         </div>
                                                     </td>
                                                     <td class="product-quantity" data-title="Quantity">
@@ -124,7 +123,6 @@
                                                     <td class="product-subtotal" data-title="Total">
                                                         <div class="price price-contain">
                                                             <ins><span class="price-amount">${i.getTotal()}<span class="currencySymbol">đ</span></span></ins>
-                                                            <del><span class="price-amount">${i.getTotal()}<span class="currencySymbol">đ</span></span></del>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -161,23 +159,23 @@
                                                 <td class="first-position">
                                                     <span class="index">${sessionScope.totalcal}</span>
                                                 </td>
-                                                <c:if test="${sessionScope.totalcal*100/2000 > 100}">
+                                                <c:if test="${sessionScope.totalcal*100/2500 > 100}">
                                                     <td class="mid-position">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2000}%; background-color:red; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2500}%; background-color:red; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${sessionScope.totalcal*100/2000 <= 100}">
+                                                <c:if test="${sessionScope.totalcal*100/2500 <= 100}">
                                                     <td class="mid-position">
                                                         <div class="progress">
-                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2000}%; background-color:#7faf51; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
+                                                            <div class="progress-bar" role="progressbar" style="width: ${sessionScope.totalcal*100/2500}%; background-color:#7faf51; " aria-valuenow="25%" aria-valuemin="0" aria-valuemax="100"></div>
                                                         </div>
                                                     </td>
                                                 </c:if>
 
                                                 <td class="last-position">
-                                                    <span class="index">2000</span>
+                                                    <span class="index">2500</span>
                                                 </td>
                                             </tr>
                                         </table>

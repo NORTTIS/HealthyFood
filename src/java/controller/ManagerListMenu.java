@@ -21,7 +21,9 @@ import model.Menu;
 
 /**
  *
+
  * @author Minh
+
  */
 @WebServlet(name="ManagerListMenu", urlPatterns={"/listMenu"})
 public class ManagerListMenu extends HttpServlet {
@@ -79,7 +81,9 @@ public class ManagerListMenu extends HttpServlet {
             }
             request.getRequestDispatcher("managerMenuList.jsp").forward(request, response);
         }
+
     } 
+
 
     /** 
      * Handles the HTTP <code>POST</code> method.
