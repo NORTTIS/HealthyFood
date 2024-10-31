@@ -22,7 +22,8 @@
             <br />
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="${user.email}" />
+            <input type="email" id="email" name="email" value="${user.email}" oninput="checkEmail()" />
+            <div id="emailError"  style="display:none; color: red">Invalid email format.</div>
             <br />
 
             <label for="displayname">Display Name:</label>
@@ -38,7 +39,8 @@
             <br />
 
             <label for="phone_number">Phone Number:</label>
-            <input type="text" id="phone_number" name="phone_number" value="${user.phone_number}" />
+            <input type="text" id="mobile" name="phone_number" value="${user.phone_number}"  oninput="checkPhoneNumber()"/>
+            <div id="phoneError" class="" style="display:none; color: red">Invalid phone number format.</div>
             <br />
 
             <label for="avatar">Avatar:</label>
@@ -56,5 +58,58 @@
         <div class="button-container">
             <a href="detail?username=${user.username}">Back</a>
         </div>
+        
+        <script>
+            function validateEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+
+            function isVietnamesePhoneNumber(number) {
+                const phonePattern = /^(03|05|07|08|09|01[2|6|8|9])[0-9]{8}$/;
+                return phonePattern.test(number);
+            }
+
+            function checkEmail() {
+                const email = document.getElementById("email").value;
+                const emailError = document.getElementById("emailError");
+
+                if (validateEmail(email)) {
+                    emailError.style.display = "none"; // Ẩn thông báo lỗi
+                } else {
+                    emailError.style.display = "block"; // Hiện thông báo lỗi
+                }
+            }
+
+            function checkPhoneNumber() {
+                const mobile = document.getElementById("mobile").value;
+                const phoneError = document.getElementById("phoneError");
+
+                if (isVietnamesePhoneNumber(mobile)) {
+                    phoneError.style.display = "none"; // Ẩn thông báo lỗi
+                } else {
+                    phoneError.style.display = "block"; // Hiện thông báo lỗi
+                }
+            }
+
+            function validateForm() {
+                const email = document.getElementById("email").value;
+                const mobile = document.getElementById("mobile").value;
+
+                // Kiểm tra email
+                if (!validateEmail(email)) {
+                    alert("Invalid email format. Please enter a valid email address.");
+                    return false; // Ngăn chặn form gửi đi
+                }
+
+                // Kiểm tra số điện thoại
+                if (!isVietnamesePhoneNumber(mobile)) {
+                    alert("Invalid phone number format. Please enter a valid phone number (e.g., 0123456789).");
+                    return false; // Ngăn chặn form gửi đi
+                }
+
+                return true; // Cho phép gửi form
+            }
+             </script>
     </body>
 </html>

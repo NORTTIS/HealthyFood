@@ -9,11 +9,11 @@
     <style>
         .button-container {
             display: flex;
-            justify-content: center; /* Căn giữa các nút */
+            justify-content: center;
             align-items: center;
             margin-top: 30px;
             gap: 20px;
-            flex-direction: row; /* Đảm bảo các nút nằm ngang */
+            flex-direction: row;
         }
     </style>
 </head>

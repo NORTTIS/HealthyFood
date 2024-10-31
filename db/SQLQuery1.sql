@@ -157,7 +157,9 @@ CREATE TABLE Blogs (
 	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
 );
 
-
+INSERT INTO Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar)
+VALUES
+('admin', 'admin', 'admin', 'admin', 'admin', 'john@example.com', '1234567890', 'Admin', 'Active', NULL),
 
 
 
