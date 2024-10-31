@@ -100,12 +100,11 @@
                                 <h4 class="box-title">Benefits of Creating an Account</h4>
                                 <p class="sub-title">With an account, you can:</p>
                                 <ul class="lis">
-                                    <li>Check out faster</li>
-                                    <li>Access your order history</li>
-                                    <li>Track new orders</li>
-                                    <li>Save items to your Wishlist</li>
+                                    <li><i class="fa fa-check-circle"></i> Fast checkout</li>
+                                    <li><i class="fa fa-check-circle"></i> Easy tracking of your orders</li>
+                                    <li><i class="fa fa-check-circle"></i> Save your favorite products</li>
+                                    <li><i class="fa fa-check-circle"></i> Manage your account information</li>
                                 </ul>
-                                <a href="signup.jsp" class="btn btn-bold">Learn More</a>
                             </div>
                         </div>
                     </div>
@@ -114,28 +113,13 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
+    <!-- Footer -->
     <jsp:include page="./jsptemplate/footer.jsp" />
 
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.countdown.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/jquery.nice-select.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.min.js"></script>
     <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/biolife.framework.js"></script>
-    <script src="assets/js/functions.js"></script>
-    <script type="text/javascript">
-    function checkCaptcha() {
-        var response = grecaptcha.getResponse();
-        var errorMessage = document.getElementById('error-message');
-        if (response.length === 0) {
-            errorMessage.textContent = "Please verify that you are not a robot.";
-            return false; // Ngăn không cho gửi form
-        }
-        errorMessage.textContent = ""; // Xóa thông báo lỗi nếu reCAPTCHA đã được xác minh
-        return true; // Cho phép gửi form
-    }
-    </script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
