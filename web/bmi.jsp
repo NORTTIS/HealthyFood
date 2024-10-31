@@ -38,6 +38,7 @@
                         step="any"
                         value="0"
                         inputmode="decimal"
+                        required="true"
                         onfocus="if (this.value === '0')
                                     this.value = ''"
                         />
@@ -53,6 +54,7 @@
                         step="any"
                         value="0"
                         inputmode="decimal"
+                        required="true"
                         onfocus="if (this.value === '0')
                                     this.value = ''"
                         />
@@ -91,7 +93,7 @@
                 </div>
             </section>
             <div id="promotionMessage" style=" margin-top: 20px;">
-                <c:if test="${sessionScope.bmiR!=null || (sessionScope.bmiR.equals(''))}">
+                <c:if test="${sessionScope.bmiR!=null && (sessionScope.bmiR.equals('')) && sessionScope.bmiR != 'NaN' }">
                     <button id="homeBtn" onclick="redirectToHome()">Tính toán BMI xong rồi! Hãy ghé thăm cửa hàng của chúng tôi để tìm ra những sản phẩm phù hợp giúp bạn đạt được mục tiêu sức khỏe của mình.</button>
                 </c:if>
             </div>
@@ -103,7 +105,6 @@
             const descText = document.getElementById("desc");
             const promotionMessage = document.getElementById("promotionMessage");
 
-            formBmi.addEventListener("submit", handleSubmit);
             formBmi.addEventListener("reset", handleReset);
 
             function handleReset() {
@@ -113,16 +114,7 @@
                 promotionMessage.style.display = "none"; // Ẩn thông điệp
             }
 
-            function handleSubmit(e) {
-                e.preventDefault();
-                formBmi.submit();
-                bmiText.className = result.desc; // Lớp CSS theo trạng thái
-                descText.innerHTML = `Bạn đang ở trạng thái <strong>${result.desc}</strong> (${result.status})`; // Hiển thị tình trạng
-
-                promotionMessage.style.display = "block";
-
-
-            }
+          
 
 
             function redirectToHome() {
