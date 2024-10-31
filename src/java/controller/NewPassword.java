@@ -38,10 +38,10 @@ public class NewPassword extends HttpServlet {
 
                 // Thiết lập kết nối tới cơ sở dữ liệu SQL Server
                 String url = "jdbc:sqlserver://localhost:1433;databaseName=HealthyFood"; // Địa chỉ kết nối
-                con = DriverManager.getConnection(url, "your_username", "your_password"); // Thay thế username và password
+                con = DriverManager.getConnection(url, "sa", "123"); // Thay thế username và password
 
                 // Chuẩn bị câu lệnh SQL
-                pst = con.prepareStatement("UPDATE users SET upwd = ? WHERE uemail = ?");
+                pst = con.prepareStatement("UPDATE Accounts SET password = ? WHERE email = ?");
                 pst.setString(1, newPassword); // Cập nhật mật khẩu mới
                 pst.setString(2, (String) session.getAttribute("email")); // Sử dụng email từ phiên làm việc
 

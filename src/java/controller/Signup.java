@@ -65,7 +65,6 @@ public class Signup extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String comfirmpassword = request.getParameter("comfirmpassword");
-        String role = request.getParameter("permission");
         try {
             boolean isValidForm = true;
             boolean isNotValidUsername = !validator.Validator.checkUsername(userName);
@@ -103,7 +102,7 @@ public class Signup extends HttpServlet {
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
 
             } else {
-             new AccountsDAO().createAccount(userName, password, userName, email, role);
+             new AccountsDAO().createAccount(userName, password, userName, email, "Customer");
                 response.sendRedirect("login");
             }
 
