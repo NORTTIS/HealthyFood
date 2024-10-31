@@ -344,43 +344,98 @@ public class NutriDAO extends DBContext {
         }
     }
     
-
-    public void rejectMenu(int firstId, int lastId, String description) {
-        String sql = "update Menu set description = ?, status='Reject' where menu_id between ? and ?";
+    public void menuDecide(int firstId, int lastId, String description, String decide) {
+        String sql = "update Menu set description = ?, status= ? where menu_id between ? and ?";
         try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, description);
-            st.setInt(2, firstId);
-            st.setInt(3, lastId);
+            st.setString(2, decide);
+            st.setInt(3, firstId);
+            st.setInt(4, lastId);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
-
-
-    public static void main(String[] args) {
-        NutriDAO ndb = new NutriDAO();
-        Map<String, Map<String, List<Menu>>> ml = ndb.getAllMenu(4);
-        for (Map.Entry<String, Map<String, List<Menu>>> descriptionEntry : ml.entrySet()) {
-            // Duyệt qua từng description
-            String description = descriptionEntry.getKey();
-            Map<String, List<Menu>> nameMap = descriptionEntry.getValue();
-
-            System.out.println("Menu for " + description);
-
-            // Duyệt qua từng name tương ứng với description
-            for (Map.Entry<String, List<Menu>> nameEntry : nameMap.entrySet()) {
-                String name = nameEntry.getKey();
-                List<Menu> menuList = nameEntry.getValue();
-
-                System.out.println("Name: " + name);
-
-                // Duyệt qua danh sách các Menu tương ứng với name
-                for (Menu menu : menuList) {
-                    System.out.println(menu.getAverage_calories());
+    
+    public boolean checkMenuTitle(int userId, String menuTitle){
+        List<Menu> mList = new ArrayList<>();
+        String sql = "select * from Menu where create_by = ?";
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Menu m = new Menu(
+                        rs.getInt("menu_id"),
+                        rs.getInt("type_id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getInt("create_by"),
+                        rs.getString("menu_name"),
+                        rs.getFloat("average_calories"),
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
+                );
+                mList.add(m);
+            }
+            for(Menu menu : mList){
+                if(menu.getMenuTitle().equals(menuTitle)){
+                    return true;
                 }
             }
+        } catch(SQLException e){
+            System.out.println(e);
         }
+        return false;
+    }
 
+    public Menu getMenuByID(int menu_id){
+        String sql = "select * from Menu where menu_id = ?";
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setInt(1, menu_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Menu m = new Menu(
+                        rs.getInt("menu_id"),
+                        rs.getInt("type_id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getInt("create_by"),
+                        rs.getString("menu_name"),
+                        rs.getFloat("average_calories"),
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
+                );
+                return m;
+            }
+        } catch(SQLException e ){
+            System.out.println(e);
+        }
+          return null;
+    }
+    
+    public static void main(String[] args) {
+        NutriDAO ndb = new NutriDAO();
+//        Map<String, Map<String, List<Menu>>> ml = ndb.getAllMenu(4);
+//        for (Map.Entry<String, Map<String, List<Menu>>> descriptionEntry : ml.entrySet()) {
+//            // Duyệt qua từng description
+//            String description = descriptionEntry.getKey();
+//            Map<String, List<Menu>> nameMap = descriptionEntry.getValue();
+//
+//            System.out.println("Menu for " + description);
+//
+//            // Duyệt qua từng name tương ứng với description
+//            for (Map.Entry<String, List<Menu>> nameEntry : nameMap.entrySet()) {
+//                String name = nameEntry.getKey();
+//                List<Menu> menuList = nameEntry.getValue();
+//
+//                System.out.println("Name: " + name);
+//
+//                // Duyệt qua danh sách các Menu tương ứng với name
+//                for (Menu menu : menuList) {
+//                    System.out.println(menu.getAverage_calories());
+//                }
+//            }
+//        }
+        System.out.println(ndb.checkMenuTitle(4, "Menu for underweight"));
     }
 }

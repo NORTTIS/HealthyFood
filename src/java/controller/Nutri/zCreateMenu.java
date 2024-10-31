@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.Nutri;
 
 import dao.NutriDAO;
 import java.io.IOException;
@@ -90,56 +90,63 @@ public class zCreateMenu extends HttpServlet {
         Accounts ac = (Accounts) session.getAttribute("acc");
         if (ac == null) {
             response.sendRedirect("login.jsp");
-        }
-        NutriDAO ndb = new NutriDAO();
-        // lấy giá trị chỉ xuất hiện 1 lần
-        String menuTitle = request.getParameter("menuTitle");
-        String descrip = request.getParameter("description");
-        String type = request.getParameter("type");
-        String lst = request.getParameter("lstMeal");
-        String meal = request.getParameter("getMeals");
-        Map<String, String> menuMap = new HashMap<>();
+        } else {
+            NutriDAO ndb = new NutriDAO();
+            // lấy giá trị chỉ xuất hiện 1 lần
+            String menuTitle = request.getParameter("menuTitle");
+            if (ndb.checkMenuTitle(ac.getAccount_id(), menuTitle)) {
+                request.setAttribute("createMenuCaution", "This menu title already exist");
+                request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
+                return;
+            }
+            String descrip = request.getParameter("description");
+            String type = request.getParameter("type");
+            String lst = request.getParameter("lstMeal");
+            String meal = request.getParameter("getMeals");
+            Map<String, String> menuMap = new HashMap<>();
 //        request.setAttribute("lst", lst);
 //        processRequest(request, response);
-        if (lst.isEmpty()) {
-            List<String> typeList = ndb.getTypeList();
-            request.setAttribute("typeList", typeList);
-            request.setAttribute("createMenuCaution", "Failed to create new Menu");
-            System.out.println("lỗi này");
-            request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
-        } else {
-            String[] mealsName = lst.split("-");
-            String[] getMeals = meal.split("-");
-            for (int i = 0; i < mealsName.length; i++) {
-                menuMap.put(mealsName[i], getMeals[i]);
-            }
-            int nutriId = Integer.parseInt(request.getParameter("nutriId"));
-            int type_id = 0;
-            //switch với mỗi giá trị type sẽ trả về 1 type_id
-            switch (type) {
-                case "Underweight":
-                    type_id = 1;
-                case "Overweight":
-                    type_id = 2;
-            }
-            for (String meals : mealsName) {
-                String menuValues = "menuName" + meals;
-                String caloValues = "calories" + meals;
-                String[] menu_detail = request.getParameterValues(menuValues);
-                String[] calo = request.getParameterValues(caloValues);
-                if (menu_detail != null && calo != null) {
-                    for (int i = 0; i < menu_detail.length; i++) {
-                        float caloFloat = Float.parseFloat(calo[i]);
-                        ndb.insertNewMenu(menuTitle, type_id, menuMap.get(meals), descrip, nutriId, menu_detail[i], caloFloat);
-                    }
-                } else {
-                    request.setAttribute("createMenuCaution", "Failed to create new Menu");
-                    request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
-                    return;
+            if (lst.isEmpty()) {
+                List<String> typeList = ndb.getTypeList();
+                request.setAttribute("typeList", typeList);
+                request.setAttribute("createMenuCaution", "Failed to create new Menu");
+                System.out.println("lỗi này");
+                request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
+            } else {
+                String[] mealsName = lst.split("-");
+                String[] getMeals = meal.split("-");
+                for (int i = 0; i < mealsName.length; i++) {
+                    menuMap.put(mealsName[i], getMeals[i]);
                 }
+                int nutriId = Integer.parseInt(request.getParameter("nutriId"));
+                int type_id = 0;
+                //switch với mỗi giá trị type sẽ trả về 1 type_id
+                switch (type) {
+                    case "Underweight":
+                        type_id = 1;
+                    case "Overweight":
+                        type_id = 2;
+                }
+                for (String meals : mealsName) {
+                    String menuValues = "menuName" + meals;
+                    String caloValues = "calories" + meals;
+                    String[] menu_detail = request.getParameterValues(menuValues);
+                    String[] calo = request.getParameterValues(caloValues);
+                    if (menu_detail != null && calo != null) {
+                        for (int i = 0; i < menu_detail.length; i++) {
+                            float caloFloat = Float.parseFloat(calo[i]);
+                            ndb.insertNewMenu(menuTitle, type_id, menuMap.get(meals), descrip, nutriId, menu_detail[i], caloFloat);
+                        }
+                    } else {
+                        request.setAttribute("createMenuCaution", "Failed to create new Menu");
+                        request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
+                        return;
+                    }
+                }
+                request.getRequestDispatcher("menuList").forward(request, response);
             }
-            request.getRequestDispatcher("menuList").forward(request, response);
         }
+
     }
 
     /**

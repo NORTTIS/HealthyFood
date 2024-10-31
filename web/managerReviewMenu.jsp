@@ -1,8 +1,5 @@
 <%-- 
     Document   : managerReviewMenu
-
-    Author     : Minh
-
     Created on : Oct 30, 2024, 3:10:47 PM
     Author     : Gosu
 --%>
@@ -65,7 +62,6 @@
                           box-shadow: 5px 10px 90px 10px #888888;
                           margin: 10px 25%;
                           width: 55%;">
-                        <c:set var="count" value="1"/>
                         <div style="border: 1px solid black; margin-bottom: 15px; padding: 5px; width: 50%"> 
                             Status: ${status} - Type: ${typeC}
                         </div>
@@ -96,7 +92,6 @@
                                                 <c:set var="lastMenuId" value="${menu.getMenu_id()}" />
                                             </c:if>
                                         </c:forEach>
-                                        <c:set var="count" value="${count + 1}"/>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -109,13 +104,10 @@
                                 </div>
                                 <div style="display:flex; justify-content: space-around">
                                     <a href="listMenu" style="background-color: #ccc; width: 120px;" class="btn btn-default">Return</a>
-                                    <input type="text" value="${sessionScope.acc.getAccount_id()}" name="nutriId" hidden/>
-                                    <input id="getMeals" type="text" name="getMeals" hidden/>
-                                    <input id="allMealList" type="text" name="lstMeal" hidden/>
                                     <input type="number" hidden value="${lastMenuId}" name="lastId"/>
                                     <input type="number" hidden value="${firstMenuId}" name="firstId"/>
                                     <input onclick="getAllMeals();" style="width:120px; background-color: red" type="submit" name="action" value="Reject" class="btn btn-default"/>
-                                    <input onclick="getAllMeals();" style="width:120px" type="submit" name="action" value="Accept" class="btn btn-default"/>
+                                    <input style="width:120px" type="submit" name="action" value="Accept" class="btn btn-default"/>
                                 </div>
                             </div>
                         </form>

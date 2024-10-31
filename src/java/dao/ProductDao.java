@@ -25,7 +25,6 @@ import model.Reviews;
  */
 public class ProductDao extends DBContext {
 
-
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -160,7 +159,6 @@ public class ProductDao extends DBContext {
         return list;
     }
 
-
     public String getWishIdByAccountId(String accountid) {
         String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
         String wishId = "";
@@ -282,8 +280,6 @@ public class ProductDao extends DBContext {
         return cateList;
     }
 
-
-
     public String createOrder(Cart cart, String accountId) {
 
         Connection conn = new DBContext().getConnection();
@@ -365,7 +361,6 @@ public class ProductDao extends DBContext {
 //        ProductDao prod = new ProductDao();
 //        prod.updateProductStock(4, 10);
 //    }
-
     public boolean CheckvalidStockOrderItem(Cart cart) {
         for (LineItem item : cart.getItems()) {
             Products product = getProductsById(item.getProduct().getProductId() + "");
@@ -435,9 +430,9 @@ public class ProductDao extends DBContext {
             System.out.println(e.getMessage());
         }
     }
-    
-    public DeliveryDetail getDeliveryDetailByOrderId(String orderId){
-         Connection conn = new DBContext().getConnection();
+
+    public DeliveryDetail getDeliveryDetailByOrderId(String orderId) {
+        Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -445,7 +440,7 @@ public class ProductDao extends DBContext {
             st = conn.prepareStatement(sql);
             st.setString(1, orderId);
             rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 DeliveryDetail deDetail = new DeliveryDetail(
                         rs.getString(1),
                         rs.getString(2),
@@ -624,8 +619,6 @@ public class ProductDao extends DBContext {
         }
     }
 
-
-
     public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
         List<Products> list = new ArrayList<>();
         String query = "SELECT * FROM Products WHERE price BETWEEN ? AND ?";
@@ -650,13 +643,32 @@ public class ProductDao extends DBContext {
                             rs.getString(10) // other_info
                     ));
                 }
+                return list;
             }
         } catch (SQLException | NumberFormatException e) {
             e.printStackTrace(); // Xử lý lỗi
         }
-
-        return list;
+        return null;
     }
+    
+
+    public void createProduct(int category_id, String supplier, String name, String description, double price, int quanty, double calo, String picture) {
+        String sql = "  insert into Products(category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture) values (?,?,?,?,?,?,'available',?,?)";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, category_id);
+            st.setString(2, supplier);
+            st.setString(3, name);
+            st.setString(4, description);
+            st.setDouble(5, price);
+            st.setInt(6, quanty);
+            st.setDouble(7, calo);
+            st.setString(8, picture);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 
 
     public double calculateBMI(double weight, double height) {
@@ -664,33 +676,33 @@ public class ProductDao extends DBContext {
     }
 
     public List<Products> getMonthlyRevenue(String month) {
-    List<Products> revenueList = new ArrayList<>();
-    String sql = "SELECT oi.product_id, SUM(oi.prod_qty) AS totalQuantity, SUM(oi.total_price) AS totalPrice "
+        List<Products> revenueList = new ArrayList<>();
+        String sql = "SELECT oi.product_id, SUM(oi.prod_qty) AS totalQuantity, SUM(oi.total_price) AS totalPrice "
                 + "FROM Order_Items oi "
                 + "JOIN Orders o ON oi.order_id = o.order_id "
                 + "WHERE MONTH(o.order_date) = ? "
                 + "GROUP BY oi.product_id";
 
-    try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-        pstmt.setString(1, month);
-        ResultSet rs = pstmt.executeQuery();
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, month);
+            ResultSet rs = pstmt.executeQuery();
 
-        while (rs.next()) {
-            int productId = rs.getInt("product_id");
-            int totalQuantity = rs.getInt("totalQuantity");
-            double totalPrice = rs.getDouble("totalPrice");
+            while (rs.next()) {
+                int productId = rs.getInt("product_id");
+                int totalQuantity = rs.getInt("totalQuantity");
+                double totalPrice = rs.getDouble("totalPrice");
 
-            Products revenue = new Products(productId, 0, "", "", "", totalPrice, totalQuantity, "", 0.0, "");
-            revenueList.add(revenue);
+                Products revenue = new Products(productId, 0, "", "", "", totalPrice, totalQuantity, "", 0.0, "");
+                revenueList.add(revenue);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
 
-    // Debugging: Print revenueList contents
-    System.out.println("Revenue List: " + revenueList);
-    return revenueList;
-}
+        // Debugging: Print revenueList contents
+        System.out.println("Revenue List: " + revenueList);
+        return revenueList;
+    }
 
     public double getTotalMonthlyRevenue(int month, int year) {
         double totalRevenue = 0;
@@ -714,8 +726,6 @@ public class ProductDao extends DBContext {
 
         return totalRevenue;
     }
-
-
 
     public List<Products> sortProductsByPrice(String sortType) {
         List<Products> list = new ArrayList<>();
@@ -833,8 +843,7 @@ public class ProductDao extends DBContext {
         List<Products> list = new ArrayList<>();
         String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
 
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement st = conn.prepareStatement(query)) {
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement st = conn.prepareStatement(query)) {
             st.setInt(1, (index - 1) * 8);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -856,20 +865,6 @@ public class ProductDao extends DBContext {
             e.printStackTrace();
         }
         return list;
-    }
-
-    public static void main(String[] args) {
-        ProductDao dao = new ProductDao();
-//        List<Products> list = dao.pagingProduct(1);
-//        for(Products p : list){
-//            System.out.println(p);
-//        }
-        Cart cart = dao.getOrderDetailById("22");
-        DeliveryDetail detail = dao.getDeliveryDetailByOrderId("22");
-        for (LineItem item : cart.getItems()) {
-            System.out.println(item);
-        }
-        System.out.println(detail);
     }
 
     public List<Products> getAllDiscountProduct() {
@@ -929,7 +924,5 @@ public class ProductDao extends DBContext {
 
         return mProduct;
     }
-
- 
 
 }
