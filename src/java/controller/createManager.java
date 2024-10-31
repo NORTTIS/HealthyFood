@@ -87,9 +87,9 @@ public class createManager extends HttpServlet {
             String phone_number = request.getParameter("phone_number");
             String role = request.getParameter("role");
             String status = request.getParameter("status");
-            String avatar = request.getParameter("avatar");
 
-            adb.createManager(username, password, displayname, address, description, email, phone_number, role, status, avatar);
+
+            adb.createManager(username, password, displayname, address, description, email, phone_number, role, status);
         }
 
         response.sendRedirect("userlist");

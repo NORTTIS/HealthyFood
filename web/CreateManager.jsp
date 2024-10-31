@@ -47,10 +47,6 @@
                     <td><textarea class="input_type" name="description"></textarea></td>
                 </tr>
                 <tr>
-                    <td><label>Avatar</label></td>
-                    <td><input class="input_type" type="file" name="avatar" accept="image/*"></td>
-                </tr>
-                <tr>
                     <td colspan="2">
                         <input type="hidden" name="role" value="Manager">
                         <input type="hidden" name="status" value="Active">

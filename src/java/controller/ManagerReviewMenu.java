@@ -6,6 +6,7 @@
 package controller;
 
 import dao.NutriDAO;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,39 +122,26 @@ public class ManagerReviewMenu extends HttpServlet {
         int lastId = Integer.parseInt(request.getParameter("lastId"));
         System.out.println(firstId + "  " + lastId);
         if (action.equals("Reject")) {
-            ndb.rejectMenu(firstId, lastId, descrip);
+            ndb.menuDecide(firstId, lastId, descrip, "Reject");
             response.sendRedirect("listMenu");
-            return;
         }
-        //lấy toàn bộ giá trị name của meals
-        String lst = request.getParameter("lstMeal");
-        //lấy toàn bộ giá trị nhập vào của meals
-        String meal = request.getParameter("getMeals");
-        System.out.println("lstMeal: " + lst); // Kiểm tra dữ liệu từ JSP
-        System.out.println("getMeals: " + meal);
-        Map<String, String> menuMap = new HashMap<>();
-        if (lst.isEmpty()) {
-            List<String> typeList = ndb.getTypeList();
-            request.setAttribute("typeList", typeList);
-            request.setAttribute("updateCaution", "Failed to update Menu");
-            request.getRequestDispatcher("menuHistory").forward(request, response);
-        } else {
-            String[] mealsName = lst.split("-");
-            String[] getMeals = meal.split("-");
-            for (int i = 0; i < mealsName.length; i++) {
-                menuMap.put(mealsName[i], getMeals[i]);
-            }
-
-            for (String meals : mealsName) {
-                String menuValues = "menuName" + meals;
-                String caloValues = "calories" + meals;
-                String[] menu_detail = request.getParameterValues(menuValues);
-                String[] calo = request.getParameterValues(caloValues);
-                if (menu_detail != null && calo != null) {
-
+        
+        if(action.equals("Accept")){
+            List<Menu> mList = new ArrayList<>();
+            for(int i = firstId; i <= lastId; i++){
+                Menu m = ndb.getMenuByID(i);
+                if(!m.getMenu_name().equals(ndb.getMenuByID(i++).getName())){
+                    mList.add(m);
                 }
             }
-            response.sendRedirect("menuHistory");
+            ndb.menuDecide(firstId, lastId, descrip, "Accept");
+            ProductDao pd = new ProductDao();
+            Map<Integer, String> cate = pd.getAllProductCategory();
+            request.setAttribute("firstId", firstId);
+            request.setAttribute("lastId", lastId);
+            request.setAttribute("cate", cate);
+            request.setAttribute("list", mList);
+            request.getRequestDispatcher("managerSetProduct.jsp").forward(request, response);
         }
     }
 

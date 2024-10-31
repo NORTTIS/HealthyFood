@@ -795,6 +795,22 @@ public class ProductDao extends DBContext {
         return 0;
     }
 
+    public void createProduct(int category_id, String supplier, String name, String description, double price, int quanty, double calo, String picture){
+        String sql = "  insert into Products(category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture) values (?,?,?,?,?,?,'available',?,?)";
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setInt(1, category_id);
+            st.setString(2, supplier);
+            st.setString(3, name);
+            st.setString(4, description);
+            st.setDouble(5, price);
+            st.setInt(6, quanty);
+            st.setDouble(7, calo);
+            st.setString(8, picture);
+            st.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        int count = dao.getTotalProduct();

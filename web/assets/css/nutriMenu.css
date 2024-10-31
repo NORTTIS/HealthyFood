@@ -12,7 +12,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     color: #FFFFFF;
     cursor: pointer;
     padding: 18px;
-    width: 100%;
+    width: 80%;
     border: none;
     text-align: left;
     outline: none;
@@ -20,8 +20,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     transition: 0.4s;
 }
 
+.viewDetail {
+    background-color: #7faf51;
+    color: #FFFFFF;
+    border: none;
+}
+
 /* Thêm màu cho nút khi nó được mở */
-.active, .accordion:hover {
+.active, .accordion, .viewDetail:hover {
     background-color: #87be00;
 }
 

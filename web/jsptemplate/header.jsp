@@ -115,7 +115,8 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
-                    <div class="biolife-cart-info">
+                    <c:if test="${sessionScope.acc.role !='Manager'}">
+                        <div class="biolife-cart-info">
 
                         <c:if test="${sessionScope.acc.role=='Customer'}">
                             <div class="wishlist-block hidden-sm hidden-xs">
@@ -182,6 +183,7 @@
                             </div>
                         </div>
                     </div>
+                    </c:if>
                 </div>
             </div>
             <div class="header-bottom hidden-sm hidden-xs">

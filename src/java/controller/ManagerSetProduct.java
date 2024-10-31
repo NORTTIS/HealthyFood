@@ -5,7 +5,7 @@
 
 package controller;
 
-import dao.AccountsDAO;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,13 +13,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  *
  * @author Gosu
  */
-@WebServlet(name="createNutritionist", urlPatterns={"/createNutritionist"})
-public class createNutritionist extends HttpServlet {
+@WebServlet(name="ManagerSetProduct", urlPatterns={"/setProduct"})
+public class ManagerSetProduct extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +37,10 @@ public class createNutritionist extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createNutritionist</title>");  
+            out.println("<title>Servlet ManagerSetProduct</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createNutritionist at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManagerSetProduct at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +57,7 @@ public class createNutritionist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("createNutritionist.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -69,29 +70,29 @@ public class createNutritionist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-
-        AccountsDAO adb = new AccountsDAO();
-        boolean exists = adb.isUsernameExists(username);
-
-        if (exists) {
-            request.setAttribute("message", "Username already exists.");
-        } else {
-            request.setAttribute("message", "Username is available.");
-            String password = request.getParameter("password");
-            String displayname = request.getParameter("displayname");
-            String address = request.getParameter("address");
-            String description = request.getParameter("description");
-            String email = request.getParameter("email");
-            String phone_number = request.getParameter("phone_number");
-            String role = request.getParameter("role");
-            String status = request.getParameter("status");
-
-
-            adb.createNutritionist(username, password, displayname, address, description, email, phone_number, role, status);
+        String[] name = request.getParameterValues("name");
+        String[] category = request.getParameterValues("category");
+        String[] supplier = request.getParameterValues("supplier");
+        String[] description = request.getParameterValues("description");
+        String[] price = request.getParameterValues("price");
+        String[] qty = request.getParameterValues("qty");
+        String[] calo = request.getParameterValues("calo");
+        String[] picture = request.getParameterValues("picture");
+        String firstId = request.getParameter("firstId");
+        String lastId = request.getParameter("lastId");
+        
+        ProductDao pdb = new ProductDao();
+        Map<Integer, String> map = pdb.getAllProductCategory();
+        for (int i = 0; i < name.length; i++) {
+            int cateId = 0;
+            for (Map.Entry<Integer, String> entry : map.entrySet()) {
+                if (entry.getValue().equals(category[i])) {
+                    cateId = entry.getKey();
+                }
+            }
+            pdb.createProduct(cateId, supplier[i], name[i], description[i], Double.parseDouble(price[i]), Integer.parseInt(qty[i]), Double.parseDouble(calo[i]), picture[i]);
         }
-
-        response.sendRedirect("userlist");
+        response.sendRedirect("menuList");
     }
 
     /** 
