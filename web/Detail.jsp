@@ -59,9 +59,9 @@
         </tr>
         <tr>
             <td><strong>Avatar:</strong></td>
-            <td><img src="${user.avatar}" alt="User Avatar" style="width:100px; height:100px;"/></td>
+            <td><img src="./assets/image/${user.avatar}" alt="User Avatar" style="width:40px; height:40px;"/></td>
         </tr>
-    </table>
+    </table>4
     <div class="button-container">
         <a href="edit?username=${user.username}" class="edit-button">Edit Profile</a>
         <a href="userlist" class="back-button">Back to User List</a>
