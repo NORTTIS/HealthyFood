@@ -120,7 +120,7 @@
                                         <c:otherwise>
                                         <li class="menu-item"><a href="contact.html">Contact</a></li>
                                         </c:otherwise>
-                                </c:choose>
+                                    </c:choose>
                             </ul>
                         </div>
                     </div>
@@ -168,45 +168,44 @@
                                 </div>
                             </div>
                         </div>
-                </div>
 
-                <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div style="display:flex; justify-content: center; margin-bottom: 50px" >
-                        <div>
-                            <h3>Description</h3>
-                            <textarea required name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
+                        <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div style="display:flex; justify-content: center; margin-bottom: 50px" >
+                                <div>
+                                    <h3>Description</h3>
+                                    <textarea required name="description" cols="80" rows="6" placeholder="Add Description..."></textarea>
+                                </div>
+                            </div>
+                            <div style="display:flex; justify-content: space-around">
+                                <a href="menuList" style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</a>
+                                <input type="text" value="${sessionScope.acc.getAccount_id()}" name="nutriId" hidden/>
+                                <input id="getMeals" type="text" name="getMeals" hidden/>
+                                <input id="allMealList" type="text" name="lstMeal" hidden/>
+                                <input onclick="getAllMeals();" style="width:120px" type="submit" value="Send" class="btn btn-default"/>
+                            </div>
                         </div>
-                    </div>
-                    <div style="display:flex; justify-content: space-around">
-                        <a href="menuList" style="background-color: #ccc; width: 120px;" class="btn btn-default"> Return</a>
-                        <input type="text" value="${sessionScope.acc.getAccount_id()}" name="nutriId" hidden/>
-                        <input id="getMeals" type="text" name="getMeals" hidden/>
-                        <input id="allMealList" type="text" name="lstMeal" hidden/>
-                        <input onclick="getAllMeals();" style="width:120px" type="submit" value="Send" class="btn btn-default"/>
-                    </div>
+                    </form>
+                    <!--articles block end-->
                 </div>
-                </form>
-                <!--articles block end-->
             </div>
         </div>
-    </div>
 
 
-    <!-- FOOTER -->
-    <div>
-        <jsp:include page="./jsptemplate/footer.jsp"/>
-    </div>
-    <!-- Scroll Top Button -->
-    <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
+        <!-- FOOTER -->
+        <div>
+            <jsp:include page="./jsptemplate/footer.jsp"/>
+        </div>
+        <!-- Scroll Top Button -->
+        <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
 
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.countdown.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.min.js"></script>
-    <script src="assets/js/slick.min.js"></script>
-    <script src="assets/js/biolife.framework.js"></script>
-    <script src="assets/js/functions.js"></script>
-    <script>
+        <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.countdown.min.js"></script>
+        <script src="assets/js/jquery.nicescroll.min.js"></script>
+        <script src="assets/js/slick.min.js"></script>
+        <script src="assets/js/biolife.framework.js"></script>
+        <script src="assets/js/functions.js"></script>
+        <script>
                                     var count = 0;
                                     function createMeals() {
                                         count++;
@@ -254,7 +253,7 @@
                                         mealsContainer.appendChild(mealsDiv);
                                     }
 
-    // Function to create meal details
+                                    // Function to create meal details
                                     function createMealDetail(mealsDiv) {
                                         // Create meal detail div
                                         let mealDetailDiv = document.createElement('div');
@@ -317,6 +316,6 @@
                                         document.getElementById("allMealList").value = listDish;
                                         document.getElementById("getMeals").value = lishMeals;
                                     }
-    </script>
+        </script>
 
 </html>

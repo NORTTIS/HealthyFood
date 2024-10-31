@@ -107,8 +107,13 @@
                                     <li class="menu-item"><a href="menuList">Menu</a></li>
                                     </c:when>
                                     <c:when test="${sessionScope.acc.role == 'Manager'}">
+
+                                    <li class="menu-item"><a href="menuList">Menu</a></li>
+                                    <li class="menu-item"><a href="discountList">Discount</a></li>
+
                                     <li class="menu-item"><a href="Revenue">Revenue</a></li>
                                     <li class="menu-item"><a href="listMenu">Menu</a></li>
+
                                     </c:when>
                                 </c:choose>
                         </ul>
@@ -215,23 +220,23 @@
                                     <form action="bmical" method="post" class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
                                         <table style="margin-bottom: -7px;">
                                             <tbody>
-<!--                                                <tr>
-                                                    <td>Age</td>
-                                                    <td><input name="age" type="number" value="0"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Gender</td>
-                                                    <td>
-                                                        <label class="text-center" for="male" style="margin-right: 10px;">
-                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
-                                                            Male
-                                                        </label>
-                                                        <label for="female">
-                                                            <input name="gender" id="female" type="radio" value="female" />
-                                                            female
-                                                        </label>
-                                                    </td>
-                                                </tr>-->
+                                                <!--                                                <tr>
+                                                                                                    <td>Age</td>
+                                                                                                    <td><input name="age" type="number" value="0"/></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Gender</td>
+                                                                                                    <td>
+                                                                                                        <label class="text-center" for="male" style="margin-right: 10px;">
+                                                                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
+                                                                                                            Male
+                                                                                                        </label>
+                                                                                                        <label for="female">
+                                                                                                            <input name="gender" id="female" type="radio" value="female" />
+                                                                                                            female
+                                                                                                        </label>
+                                                                                                    </td>
+                                                                                                </tr>-->
                                                 <tr>
                                                     <td>Height</td>
                                                     <td>

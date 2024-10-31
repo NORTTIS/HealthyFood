@@ -1,5 +1,8 @@
 <%-- 
     Document   : managerReviewMenu
+
+    Author     : Minh
+
     Created on : Oct 30, 2024, 3:10:47 PM
     Author     : Gosu
 --%>
@@ -138,7 +141,7 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/nutriMenu.js"></script>
         <script>
-                                       
+
                                         //function lấy name từ các meals theo class
                                         function getAllMeals() {
                                             var idOfMeal = document.getElementsByClassName("mealsID");
@@ -160,4 +163,6 @@
                                         }
         </script>
     </body>
+
 </html>
+

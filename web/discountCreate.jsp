@@ -1,6 +1,6 @@
 <%-- 
-    Document   : zNutriMenu
-    Created on : Oct 18, 2024, 1:54:14 AM
+    Document   : discountCreate
+    Created on : Oct 30, 2024, 5:00:06 PM
     Author     : Minh
 --%>
 <!DOCTYPE html>
@@ -25,7 +25,13 @@
         <link rel="stylesheet" href="assets/css/slick.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
-        <link rel="stylesheet" href="assets/css/nutriMenu.css">
+        <style>
+            .information{
+                display: flex;
+                justify-content: space-between;
+                margin: 15px 0;
+            }
+        </style>
     </head>
     <body class="biolife-body">
 
@@ -45,7 +51,7 @@
 
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Menu List</h1>
+            <h1 class="page-title">Create Discount</h1>
         </div>
         <!-- Page Contain -->
         <div class="page-contain blog-page">
@@ -53,50 +59,23 @@
             <div class="container">
                 <!-- Main content -->
                 <div id="main-content" class="main-content">
+                    <center><div><h2 style="color: red">${error}</h2></div></center>
+                    <div class="sidebar blog-sidebar col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: 25%; background-color: #acd8a7">
 
-                    <!-- Sidebar -->
-                    <aside id="sidebar" class="sidebar blog-sidebar col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                        <div class="sidebar-contain">
-
-                            <!--Search Widget-->
-                            <div class="widget search-widget">
-                                
+                        <form action="createDiscount" method="post">
+                            <div class="information">
+                                <label for="discountName">Discount Code</label>
+                                <input type="text" id="discountName" name="discountName" required>
                             </div>
-
-                            <div class="biolife-filter" style="padding: 37px 0; margin-bottom: 20px;">
-                                <button class="btn btn-default"><a href="createMenu" style="color: inherit">Create Menu</a></button>
+                            <div class="information">
+                                <label for="discountValue">Discount Value</label>
+                                <input type="number" id="discountValue" name="discountValue" required>
                             </div>
-                            <div class="biolife-filter" style="margin-bottom: 20px;">
-                                <button class="btn btn-default"><a href="menuList" style="color: inherit">Menu List</a></button>
+                            <div style="display: flex; justify-content: space-evenly; margin: 25px 0">
+                                <button class="btn btn-default" type="button"><a style="color: #ffffff" href="discountList">Return</a></button>
+                                <button class="btn btn-default" type="submit">Create</button>
                             </div>
-                            <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
-                                <button class="btn btn-default"><a href="menuHistory" style="color: inherit">Menu History</a></button>
-                            </div>
-
-                        </div>
-                    </aside>
-
-                    <div  class="sidebar blog-sidebar col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                        <c:forEach var="m" items="${menuList}">
-                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
-                            <div class="panel">
-                                <c:forEach var="nameEntry" items="${m.value}">
-                                    <button class="accordion">${nameEntry.key}</button>
-                                    <div class="panel">
-                                        <c:forEach var="menu" items="${nameEntry.value}">
-                                            <div style="margin: 10px; display: flex; justify-content: space-between">
-                                                <div>
-                                                    ${menu.menu_name}
-                                                </div>
-                                                <div>
-                                                    Calories: ${menu.getAverage_calories()}
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </c:forEach>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -117,8 +96,6 @@
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
-        <script src="assets/js/nutriMenu.js"></script>
 
     </body>
 </html>
-

@@ -872,4 +872,64 @@ public class ProductDao extends DBContext {
         System.out.println(detail);
     }
 
+    public List<Products> getAllDiscountProduct() {
+        String sql = "Select * from Products ";
+        List<Products> lProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                lProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return lProduct;
+    }
+
+    public List<Products> getMenuProduct(int menuId) {
+        String sql = "select * from Products p join Menu_Detail md on p.product_id = md.product_id join Menu m on md.menu_id = m.menu_id where m.menu_id = ?";
+        List<Products> mProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, menuId);
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                mProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return mProduct;
+    }
+
+ 
+
 }
