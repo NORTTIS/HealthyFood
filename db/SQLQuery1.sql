@@ -162,6 +162,9 @@ CREATE TABLE Blogs (
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
 	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
 );
+ALTER TABLE Blogs
+ADD bmi_range int NULL;
+
 CREATE TABLE Discount(
 	id INT IDENTITY(1,1) PRIMARY KEY
 	discountValue int,
