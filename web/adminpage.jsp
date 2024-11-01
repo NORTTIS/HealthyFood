@@ -15,7 +15,7 @@
                 <a href="ManagerList" class="button">Manager List</a>
                 <a href="NutritionistList" class="button">Nutritionist List</a>
                 <a href="userlist" class="button">Reset</a>
-                <a href="login" class="button">Log out</a>
+                <a href="logout" class="button">Log out</a>
                 
             </div>
             <div class="right-panel">

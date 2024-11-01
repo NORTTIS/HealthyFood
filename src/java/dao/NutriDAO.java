@@ -297,6 +297,19 @@ public class NutriDAO extends DBContext {
         return type;
     }
 
+public void menuDecide(int firstId, int lastId, String description, String decide) {
+        String sql = "update Menu set description = ?, status= ? where menu_id between ? and ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setString(1, description);
+            st.setString(2, decide);
+            st.setInt(3, firstId);
+            st.setInt(4, lastId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
 
     public void insertNewMenu(String menuTitle, int type_id, String name, String description, int create_by, String menu_name, float average_calories) {
         String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories, menuTitle) values (?, ?, ?, ?, ?, ?, ?);";
@@ -338,11 +351,40 @@ public class NutriDAO extends DBContext {
             st.setFloat(5, average_calories);
             st.setString(6, menuTitle);
             st.setInt(7, menu_id);
+
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
+     
+     public Menu getMenuByID(int menu_id){
+        String sql = "select * from Menu where menu_id = ?";
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setInt(1, menu_id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                Menu m = new Menu(
+                        rs.getInt("menu_id"),
+                        rs.getInt("type_id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getInt("create_by"),
+                        rs.getString("menu_name"),
+                        rs.getFloat("average_calories"),
+                        rs.getString("status"),
+                        rs.getString("menuTitle")
+                );
+                return m;
+            }
+        } catch(SQLException e ){
+            System.out.println(e);
+        }
+          return null;
+    }
+     
+
     
 
     public void rejectMenu(int firstId, int lastId, String description) {
@@ -356,6 +398,7 @@ public class NutriDAO extends DBContext {
             System.out.println(e);
         }
     }
+
 
 
     public static void main(String[] args) {

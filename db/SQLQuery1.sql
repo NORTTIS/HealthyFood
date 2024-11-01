@@ -165,11 +165,17 @@ CREATE TABLE Blogs (
 ALTER TABLE Blogs
 ADD bmi_range int NULL;
 
+
+INSERT INTO Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar)
+VALUES
+('admin', 'admin', 'admin', 'admin', 'admin', 'john@example.com', '1234567890', 'Admin', 'Active', NULL),
+
 CREATE TABLE Discount(
 	id INT IDENTITY(1,1) PRIMARY KEY
 	discountValue int,
 	discountName nvarchar(255)
 )
+
 
 
 
