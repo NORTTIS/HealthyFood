@@ -107,15 +107,27 @@
                                     <li class="menu-item"><a href="menuList">Menu</a></li>
                                     </c:when>
                                     <c:when test="${sessionScope.acc.role == 'Manager'}">
+                                    <li class="menu-item"><a href="listMenu">Menu</a></li>
+                                    <li class="menu-item"><a href="discountList">Discount</a></li>
+
                                     <li class="menu-item"><a href="Revenue">Revenue</a></li>
                                     <li class="menu-item"><a href="listMenu">Menu</a></li>
-                                    </c:when>
-                                </c:choose>
+
+                                </c:when>
+                            </c:choose>
+                                    <c:if test="${sessionScope.acc.role == 'Nutritionist' ||sessionScope.acc.role == 'Customer' }">
+                                    <li class="menu-item menu-item-has-children ">
+                                <a href="chat" class="menu-name" data-title="chat">Chat</a>
+
+                            </li>
+                                </c:if>
+                            
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
-                    <div class="biolife-cart-info">
+                    <c:if test="${sessionScope.acc.role !='Manager'}">
+                        <div class="biolife-cart-info">
 
                         <c:if test="${sessionScope.acc.role=='Customer'}">
                             <div class="wishlist-block hidden-sm hidden-xs">
@@ -182,6 +194,7 @@
                             </div>
                         </div>
                     </div>
+                    </c:if>
                 </div>
             </div>
             <div class="header-bottom hidden-sm hidden-xs">
@@ -215,23 +228,23 @@
                                     <form action="bmical" method="post" class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
                                         <table style="margin-bottom: -7px;">
                                             <tbody>
-<!--                                                <tr>
-                                                    <td>Age</td>
-                                                    <td><input name="age" type="number" value="0"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Gender</td>
-                                                    <td>
-                                                        <label class="text-center" for="male" style="margin-right: 10px;">
-                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
-                                                            Male
-                                                        </label>
-                                                        <label for="female">
-                                                            <input name="gender" id="female" type="radio" value="female" />
-                                                            female
-                                                        </label>
-                                                    </td>
-                                                </tr>-->
+                                                <!--                                                <tr>
+                                                                                                    <td>Age</td>
+                                                                                                    <td><input name="age" type="number" value="0"/></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Gender</td>
+                                                                                                    <td>
+                                                                                                        <label class="text-center" for="male" style="margin-right: 10px;">
+                                                                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
+                                                                                                            Male
+                                                                                                        </label>
+                                                                                                        <label for="female">
+                                                                                                            <input name="gender" id="female" type="radio" value="female" />
+                                                                                                            female
+                                                                                                        </label>
+                                                                                                    </td>
+                                                                                                </tr>-->
                                                 <tr>
                                                     <td>Height</td>
                                                     <td>
@@ -273,16 +286,16 @@
                         </div>
                         <div class="col-lg-9 col-md-8 padding-top-2px">
                             <div class="col-lg-9 col-md-8 padding-top-2px">
-                            <div class="header-search-bar layout-01">
+                                <div class="header-search-bar layout-01">
 
-                                <form action="search" class="form-search" name="desktop-seacrh" method="post">
-                                    <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
-                                    <button type="submit" class="btn-submit"><i
-                                            class="biolife-icon icon-search"></i></button>
-                                </form>
+                                    <form action="search" class="form-search" name="desktop-seacrh" method="post">
+                                        <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
+                                        <button type="submit" class="btn-submit"><i
+                                                class="biolife-icon icon-search"></i></button>
+                                    </form>
+                                </div>
+
                             </div>
-
-                        </div>
 
                         </div>
                     </div>

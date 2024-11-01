@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.NutriDAO;
+import dao.DiscountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,16 +14,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Map;
 import model.Accounts;
-import model.Menu;
+import model.Discount;
 
 /**
  *
  * @author Minh
  */
-@WebServlet(name = "zNutriHistory", urlPatterns = {"/menuHistory"})
-public class zNutriHistory extends HttpServlet {
+@WebServlet(name = "DiscountList", urlPatterns = {"/discountList"})
+public class DiscountList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class zNutriHistory extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet zNutriHistory</title>");
+            out.println("<title>Servlet DiscountList</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet zNutriHistory at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DiscountList at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,17 +68,27 @@ public class zNutriHistory extends HttpServlet {
         if (ac == null) {
             response.sendRedirect("login.jsp");
         } else {
-            String search = request.getParameter("search");
-            NutriDAO ndb = new NutriDAO();
-            if (search == null || search.equals("All")) {
-                //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
-                Map<String, Map<String, List<Menu>>> mList = ndb.getAllMenu(ac.getAccount_id());
-                request.setAttribute("historyList", mList);
-            } else {
-                Map<String, Map<String, List<Menu>>> mList = ndb.getMenuByStatus(ac.getAccount_id(), search);
-                request.setAttribute("historyList", mList);
+            DiscountDAO ddb = new DiscountDAO();
+            String action = request.getParameter("ac");
+            String id = request.getParameter("id");
+            if(action != null && id != null){
+                ddb.deleteDiscount(Integer.parseInt(id));
             }
-            request.getRequestDispatcher("zNutriMenuHis.jsp").forward(request, response);
+            int totalObj = 3; // Số bản ghi mỗi trang
+            int totalPages = ddb.getTotalPages(totalObj);
+            String pageParam = request.getParameter("page");
+            int page = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+            if (page < 1) {
+                page = 1;
+            }
+            if (page > totalPages) {
+                page = totalPages; 
+            }
+            List<Discount> lst = ddb.getAllDiscounts(page, totalObj);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("list", lst);
+            request.getRequestDispatcher("discountList.jsp").forward(request, response);
         }
     }
 

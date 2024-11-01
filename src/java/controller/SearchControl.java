@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import model.Category;
 import model.Products;
 
@@ -66,7 +67,8 @@ public class SearchControl extends HttpServlet {
         
         List<Products> list = dao.searchByName(txtSearch);
         List<Category> listC = dao.getAllCategory();
-
+         Map<Integer, String> cates = dao.getAllProductCategory();
+        request.setAttribute("cates", cates );
         request.setAttribute("listP", list);
         request.setAttribute("listC", listC);
 

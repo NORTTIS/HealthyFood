@@ -121,6 +121,7 @@
                             <div class="card-body rounded-3 ">
                                 <form action="cus_profile" method="POST" id="myForm" enctype="multipart/form-data">
                                     <div class="row align-items-center">
+
                                         <input type="text" name="id" value="${sessionScope.acc.account_id}" hidden />
                                     </div>
 
@@ -151,7 +152,7 @@
                                             <div id="emailError" class="text-danger" style="display:none;">Invalid email format.</div>
                                         </div>
                                     </div>
-                                            <hr>
+                                    <hr>
                                     <div class="row align-items-center">
                                         <div class="col-sm-3">
                                             <p class="mb-0">Phone</p>

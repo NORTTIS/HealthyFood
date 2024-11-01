@@ -1,3 +1,8 @@
+<%-- 
+    Document   : discountCreate
+    Created on : Oct 30, 2024, 5:00:06 PM
+    Author     : Minh
+--%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,7 +25,13 @@
         <link rel="stylesheet" href="assets/css/slick.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/main-color03-green.css">
-        <link rel="stylesheet" href="assets/css/nutriMenu.css">
+        <style>
+            .information{
+                display: flex;
+                justify-content: space-between;
+                margin: 15px 0;
+            }
+        </style>
     </head>
     <body class="biolife-body">
 
@@ -40,7 +51,7 @@
 
         <!--Hero Section-->
         <div class="hero-section hero-background style-02">
-            <h1 class="page-title">Payment Result</h1>
+            <h1 class="page-title">Create Discount</h1>
         </div>
         <!-- Page Contain -->
         <div class="page-contain blog-page">
@@ -48,18 +59,24 @@
             <div class="container">
                 <!-- Main content -->
                 <div id="main-content" class="main-content">
-                    <c:choose>
-                        <c:when test="${result == 'Succesful'}">
-                            <center><h2>You have successfully paid</h2></center>
-                                </c:when>
-                                <c:otherwise>
-                            <center><h2>Your payment have not done</h2></center>
-                                </c:otherwise>
-                            </c:choose>
-                    <div style="margin: 25px 0;" class="form-group">
-                        <center><p><a href="home">back to homepage</a></p></center>
-                    </div> 
+                    <center><div><h2 style="color: red">${error}</h2></div></center>
+                    <div class="sidebar blog-sidebar col-lg-6 col-md-6 col-sm-6 col-xs-6" style="margin-left: 25%; background-color: #acd8a7">
 
+                        <form action="createDiscount" method="post">
+                            <div class="information">
+                                <label for="discountName">Discount Code</label>
+                                <input type="text" id="discountName" name="discountName" required>
+                            </div>
+                            <div class="information">
+                                <label for="discountValue">Discount Value</label>
+                                <input type="number" id="discountValue" name="discountValue" required>
+                            </div>
+                            <div style="display: flex; justify-content: space-evenly; margin: 25px 0">
+                                <button class="btn btn-default" type="button"><a style="color: #ffffff" href="discountList">Return</a></button>
+                                <button class="btn btn-default" type="submit">Create</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,7 +96,6 @@
         <script src="assets/js/slick.min.js"></script>
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
-        <script src="assets/js/nutriMenu.js"></script>
 
     </body>
 </html>

@@ -1,8 +1,4 @@
-<%-- 
-    Document   : managerMenuList
-    Created on : Oct 30, 2024, 3:09:27 PM
-    Author     : Gosu
---%>
+
 
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -62,7 +58,9 @@
                             <!--Search Widget-->
                             <div class="widget search-widget">
                                 <div class="wgt-content">
-                                     <form action="listMenu" name="frm-search" method="get" class="frm-search">
+
+                                    <form action="listMenu" name="frm-search" method="get" class="frm-search">
+
                                         <select name="search" style="border-radius: 30px;width: 100% ;height: auto; font-size: large;">
                                             <option>All</option>
                                             <option value="Accept">Accept</option>
@@ -83,7 +81,7 @@
                                 <button style="margin-bottom: 10px" class="viewDetail">Review menu</button>
                             </form>
                             <button class="accordion" style="margin-bottom: 10px; background-color: #7faf51 ">${m.key}</button>
-                            
+
                             <div class="panel">
                                 <c:forEach var="nameEntry" items="${m.value}">
                                     <button class="accordion">${nameEntry.key}</button>
@@ -125,4 +123,6 @@
         <script src="assets/js/nutriMenu.js"></script>
 
     </body>
+
 </html>
+

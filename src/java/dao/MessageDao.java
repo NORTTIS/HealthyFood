@@ -49,7 +49,7 @@ public class MessageDao extends DBContext {
                          rs.getInt(2),
                          rs.getInt(3),
                          rs.getString(4),
-                         rs.getDate(5));
+                         rs.getTimestamp(5));
                  lmes.add(mes);
             }
         } catch (SQLException ex) {
