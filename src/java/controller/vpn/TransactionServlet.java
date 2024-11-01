@@ -125,11 +125,10 @@ public class TransactionServlet extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("result", "Không thành công");
+                request.setAttribute("result", "Unsucess");
             }
-
         } else {
-            request.setAttribute("result", "invalid signature");
+            request.setAttribute("result", "Unsucess");
         }
 
         request.getRequestDispatcher("vnpay_return.jsp").forward(request, response);

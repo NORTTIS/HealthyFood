@@ -107,8 +107,7 @@
                                     <li class="menu-item"><a href="menuList">Menu</a></li>
                                     </c:when>
                                     <c:when test="${sessionScope.acc.role == 'Manager'}">
-
-                                    <li class="menu-item"><a href="menuList">Menu</a></li>
+                                    <li class="menu-item"><a href="listMenu">Menu</a></li>
                                     <li class="menu-item"><a href="discountList">Discount</a></li>
 
                                     <li class="menu-item"><a href="Revenue">Revenue</a></li>
