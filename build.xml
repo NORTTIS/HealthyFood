@@ -3,5 +3,3 @@
     <description>Builds, tests, and runs the project HealthyFood.</description>
     <import file="nbproject/build-impl.xml"/>
 </project>
-
-

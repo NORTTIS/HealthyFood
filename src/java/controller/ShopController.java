@@ -83,8 +83,13 @@ public class ShopController extends HttpServlet {
         request.setAttribute("sortType", sortType);
         String fromPrice = request.getParameter("fromPrice");
         String toPrice = request.getParameter("toPrice");
-        int indexPage = 1;
+        String page = request.getParameter("page");
+        
+        int currentPage = 1;
         int totalPage = 0;
+        if(page!=null&&!page.equals("")){
+            currentPage = Integer.parseInt(page);
+        }
 
         // Khởi tạo danh sách sản phẩm
         List<Products> listP = new ArrayList<>();
@@ -107,19 +112,15 @@ public class ShopController extends HttpServlet {
             listP = dao.getAllProduct();
         }
 
-        int totalPages = dao.getTotalPage(listP); // Sử dụng hàm getTotalPage
+        totalPage = dao.getTotalPage(listP); // Sử dụng hàm getTotalPage
 
-        int currentPage = 1;
-        String pageParam = request.getParameter("page");
-        if (pageParam != null) {
-            currentPage = Integer.parseInt(pageParam);
-        }
+       
 
         // Phân trang các sản phẩm theo trang hiện tại
         listP = dao.pagingProduct(currentPage);
 
         // Thiết lập thuộc tính cho JSP
-        request.setAttribute("totalPages", totalPages);
+        request.setAttribute("totalPages", totalPage);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("cates", cates);
 

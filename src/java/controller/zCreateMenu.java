@@ -110,7 +110,7 @@ public class zCreateMenu extends HttpServlet {
         } else {
             String[] mealsName = lst.split("-");
             String[] getMeals = meal.split("-");
-            for(int i =0; i < mealsName.length; i++){
+            for (int i = 0; i < mealsName.length; i++) {
                 menuMap.put(mealsName[i], getMeals[i]);
             }
             int nutriId = Integer.parseInt(request.getParameter("nutriId"));
@@ -132,6 +132,10 @@ public class zCreateMenu extends HttpServlet {
                         float caloFloat = Float.parseFloat(calo[i]);
                         ndb.insertNewMenu(menuTitle, type_id, menuMap.get(meals), descrip, nutriId, menu_detail[i], caloFloat);
                     }
+                } else {
+                    request.setAttribute("createMenuCaution", "Failed to create new Menu");
+                    request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
+                    return;
                 }
             }
             request.getRequestDispatcher("menuList").forward(request, response);

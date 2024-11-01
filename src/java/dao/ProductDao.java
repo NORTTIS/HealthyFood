@@ -361,10 +361,10 @@ public class ProductDao extends DBContext {
 
     }
 
-    public static void main(String[] args) {
-        ProductDao prod = new ProductDao();
-        prod.updateProductStock(4, 10);
-    }
+//    public static void main(String[] args) {
+//        ProductDao prod = new ProductDao();
+//        prod.updateProductStock(4, 10);
+//    }
 
     public boolean CheckvalidStockOrderItem(Cart cart) {
         for (LineItem item : cart.getItems()) {
@@ -421,7 +421,7 @@ public class ProductDao extends DBContext {
         Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
         try {
-            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes) values (?,?,?,?,?,?)";
+            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes,voucher) values (?,?,?,?,?,?)";
             st = conn.prepareStatement(sql);
             st.setString(1, deDetail.getOrderId());
             st.setString(2, deDetail.getFullname());
@@ -429,10 +429,39 @@ public class ProductDao extends DBContext {
             st.setString(4, deDetail.getPhone());
             st.setString(5, deDetail.getAddress());
             st.setString(6, deDetail.getNote());
+            st.setString(6, deDetail.getVoucher());
             st.executeQuery();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public DeliveryDetail getDeliveryDetailByOrderId(String orderId){
+         Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            String sql = "select * from DeliveryDetails where order_id = ?";
+            st = conn.prepareStatement(sql);
+            st.setString(1, orderId);
+            rs = st.executeQuery();
+            while(rs.next()){
+                DeliveryDetail deDetail = new DeliveryDetail(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8)
+                );
+                return deDetail;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public void ReviewProduct(String productId, String accountId, String rating, String comment) {
@@ -818,11 +847,11 @@ public class ProductDao extends DBContext {
 //    }
     public List<Products> pagingProduct(int index) {
         List<Products> list = new ArrayList<>();
-        String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
+        String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
 
         try (Connection conn = new DBContext().getConnection();
              PreparedStatement st = conn.prepareStatement(query)) {
-            st.setInt(1, (index - 1) * 12);
+            st.setInt(1, (index - 1) * 8);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
                     list.add(new Products(
@@ -845,12 +874,78 @@ public class ProductDao extends DBContext {
         return list;
     }
 
-//    public static void main(String[] args) {
-//        ProductDao dao = new ProductDao();
+    public static void main(String[] args) {
+        ProductDao dao = new ProductDao();
 //        List<Products> list = dao.pagingProduct(1);
 //        for(Products p : list){
 //            System.out.println(p);
 //        }
-//    }
+        Cart cart = dao.getOrderDetailById("22");
+        DeliveryDetail detail = dao.getDeliveryDetailByOrderId("22");
+        for (LineItem item : cart.getItems()) {
+            System.out.println(item);
+        }
+        System.out.println(detail);
+    }
+
+    public List<Products> getAllDiscountProduct() {
+        String sql = "Select * from Products ";
+        List<Products> lProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                lProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return lProduct;
+    }
+
+    public List<Products> getMenuProduct(int menuId) {
+        String sql = "select * from Products p join Menu_Detail md on p.product_id = md.product_id join Menu m on md.menu_id = m.menu_id where m.menu_id = ?";
+        List<Products> mProduct = new ArrayList<>();
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            st.setInt(1, menuId);
+            ResultSet rs;
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Products prod = new Products(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getString(8),
+                        rs.getDouble(9),
+                        rs.getString(10));
+                mProduct.add(prod);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
+        }
+
+        return mProduct;
+    }
+
+ 
 
 }

@@ -4,23 +4,26 @@
  */
 package model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.sql.Timestamp;
 
 /**
  *
  * @author Norttie
  */
 public class Messages {
+
     private int id;
     private int sender_id;
     private int receive_id;
     private String message;
-    private Date time;
+    private Timestamp time;
 
     public Messages() {
     }
 
-    public Messages(int id, int sender_id, int receive_id, String message, Date time) {
+    public Messages(int id, int sender_id, int receive_id, String message, Timestamp time) {
         this.id = id;
         this.sender_id = sender_id;
         this.receive_id = receive_id;
@@ -60,20 +63,23 @@ public class Messages {
         this.message = message;
     }
 
-    public Date getTime() {
-        return time;
+    public String getTime() {
+        // Chuyển đổi từ Timestamp sang LocalDateTime
+        LocalDateTime localDateTime = time != null ? time.toLocalDateTime() : null;
+        if (localDateTime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a"); // Định dạng giờ
+            return localDateTime.format(formatter);
+        }
+        return null; // Hoặc bạn có thể trả về một giá trị mặc định nào đó
     }
 
-    public void setTime(Date time) {
+    public void setTime(Timestamp time) {
         this.time = time;
     }
 
     @Override
     public String toString() {
-        return "Messages{" + "id=" + id + ", sender_id=" + sender_id + ", receive_id=" + receive_id + ", message=" + message + ", time=" + time + '}';
+        return "Messages{" + "id=" + id + ", sender_id=" + sender_id + ", receive_id=" + receive_id + ", message=" + message + ", time=" + getTime() + '}';
     }
-    
-    
-    
-    
+
 }

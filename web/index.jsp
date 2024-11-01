@@ -132,7 +132,7 @@
                 </div>
 
 
-             
+
                 <!--Block 04: Products-->
                 <div class="Product-box sm-margin-top-96px">
                     <div class="container">
@@ -147,35 +147,57 @@
                                     <div style="margin-bottom: 50px; color: #dc143c; font-size: 30px">
                                         ${requestScope.error}
                                     </div>
-                                    <div>
-                                        <c:forEach var="m" items="${menuList}">
-                                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
-                                            <div class="panel">
-                                                <c:forEach var="nameEntry" items="${m.value}">
-                                                    <button class="accordion">${nameEntry.key}</button>
-                                                    <div class="panel">
-                                                        <c:forEach var="menu" items="${nameEntry.value}">
-                                                            <div style="margin: 10px; display: flex; justify-content: space-between">
-                                                                <div>
-                                                                    ${menu.menu_name}
+                                    <div style="margin-bottom: 20px">
+                                        <form method="get" action="comboCart">
+                                            <input onclick="getProID()" style="background-color: #7faf51; border: none; color: white" type="submit" value="add to cart"/>
+                                            <c:forEach var="m" items="${menuList}">
+                                                <button type="button" class="accordion" style="margin-bottom: 10px">${m.key}</button>
+                                                <div class="panel">
+                                                    <c:forEach var="nameEntry" items="${m.value}">
+                                                        <button type="button" class="accordion">${nameEntry.key}
+                                                        </button>
+
+                                                        <div class="panel">
+                                                            <c:forEach var="menu" items="${nameEntry.value}">
+                                                                <div style="margin: 10px;">
+                                                                    <div>
+                                                                        <a href="productDetail?ac=show&productId=${menu.productId}" class="link-to-product">
+                                                                            ${menu.getName()}
+                                                                        </a>
+
+                                                                        <span style="margin-left: 10%">
+                                                                            Calories: ${menu.getAverageCalories()}
+                                                                        </span>
+                                                                        <span style="margin-left: 10%">
+                                                                            Prices: ${menu.getPrice()}
+                                                                        </span>
+                                                                        <input hidden class="proId" value="${menu.getProductId()}"/>
+                                                                        <span>
+                                                                            <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                                <a href="wishcart?ac=add&productId=${menu.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                                </c:if>
+                                                                            <a href="cart?ac=addtocart&productId=${menu.productId}" class="btn btn-default">add to cart</a>
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                                <div>
-                                                                    Calories: ${menu.getAverage_calories()}
-                                                                </div>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-                                        </c:forEach>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </c:forEach>
+                                            <input type="hidden" id="productId" name="productId">
+                                        </form>
                                     </div>
-                                    <!-- menu để tạm nma không hiểu nó như nào :3 -->
+
+                                    <div class="biolife-title-box bold-style biolife-title-box__bold-style">
+                                        <h3 class="title">Others Product</h3>
+                                    </div>
                                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px"
                                         data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 3}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
                                         <c:forEach items="${lProd}" var="i" varStatus="j">
                                             <li class="product-item">
                                                 <div
-                                                    class="contain-product right-info-layout contain-product__right-info-layout">
+                                                    class="contain-product right-info-layout contain-product__right-info-layout" style="border-radius: 20px">
                                                     <div class="product-thumb" style="width: 180px; height: 180px">
                                                         <a href="productDetail?ac=show&productId=${i.productId}" class="link-to-product">
                                                             <img src="assets/images/products/${i.picture}" alt="dd"  style="width: 1800px; height: 180px; object-fit: cover; border-radius: 20px" class="product-thumnail">
@@ -186,16 +208,17 @@
                                                         <h4 class="product-title"><a href="productDetail?ac=show&productId=${i.productId}" class="pr-name">${i.name}</a></h4>
                                                         <div class="price ">
                                                             <ins><span class="price-amount"><span
-                                                                        class="currencySymbol">${i.price}</span>VND</span></ins>
+                                                                        class="currencySymbol">${i.price}</span> VND</span></ins>
                                                         </div>
                                                         <di>
-                                                            <p style=" text-align: center; margin-top: 10px">${i.averageCalories} cal</p> 
+                                                            <p style="  margin-top: 10px">${i.averageCalories} cal</p> 
+                                                            <div class="rating"><p class="star-rating"><span style="width:${(i.rate!=null?i.rate:0) * 100 / 5}%; "></span></p></div>
                                                         </di>
                                                         <div class="rating" hidden="">
                                                             <p class="star-rating"><span class="" style="width: 80%;"></span></p>
                                                             <span class="review-count">(05 Reviews)</span>
                                                         </div>
-                                                        <div class="slide-down-box" style="margin-top: 25px;">
+                                                        <div class="slide-down-box" style="margin-top: 10px;">
                                                             <div>
                                                                 <c:if test="${sessionScope.acc.role=='Customer'}">
 
@@ -270,7 +293,7 @@
                                                     <p class="title">${i.createAt}</p>
                                                 </div>
                                             </div>
-                                            <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" >${i.title}</p></a></h4>
+                                                    <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" style="font-weight: 700" >${i.title}</p></a></h4>
 
                                             <div class="excerpt">
                                                 ${i.content}
@@ -280,10 +303,10 @@
                                                 <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                             </div>
                                         </div>
-                                        <div class="thumbnail col-lg-4">
+                                            <div class="thumbnail col-lg-4" style="border-radius: 20px">
                                             <a href="blogdetail?blogId=${i.id}" class="link-to-post">
                                                 <div>
-                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px;" alt="">
+                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px; border-radius: 20px" alt="">
                                                 </div>
                                             </a>
                                         </div>
@@ -318,6 +341,22 @@
         <script src="assets/js/jquery.nicescroll.min.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/nutriMenu.js"></script>
+        <script>
+            function getProID() {
+                var idOfProd = document.getElementsByClassName("proId");
+                var list = "";
+                for (var i = 0; i < idOfProd.length; i++) {
+                    list += idOfProd[i].value;
+                    if (i < idOfProd.length - 1) {
+                        list += "-";
+                    }
+                }
+                // Gán chuỗi listMeals là giá trị của input 
+                document.getElementById("productId").value = list;
+                Console.log(list);
+            }
+
+        </script>
     </body>
 
 

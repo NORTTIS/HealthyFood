@@ -72,6 +72,7 @@
         <servlet-name>createManager</servlet-name>
         <servlet-class>controller.createManager</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>UpdateDiscounts</servlet-name>
         <servlet-class>controller.UpdateDiscounts</servlet-class>
@@ -80,6 +81,7 @@
         <servlet-name>AllDiscounts</servlet-name>
         <servlet-class>controller.AllDiscounts</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/userlist</url-pattern>
@@ -109,6 +111,7 @@
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>UpdateDiscounts</servlet-name>
         <url-pattern>/updatedis</url-pattern>
     </servlet-mapping>
@@ -117,6 +120,7 @@
         <url-pattern>/discountlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>ChatControl</servlet-name>
         <url-pattern>/chat</url-pattern>
     </servlet-mapping>

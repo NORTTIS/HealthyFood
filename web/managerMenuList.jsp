@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -57,7 +58,9 @@
                             <!--Search Widget-->
                             <div class="widget search-widget">
                                 <div class="wgt-content">
+
                                     <form action="listMenu" name="frm-search" method="get" class="frm-search">
+
                                         <select name="search" style="border-radius: 30px;width: 100% ;height: auto; font-size: large;">
                                             <option>All</option>
                                             <option value="Accept">Accept</option>
@@ -120,4 +123,6 @@
         <script src="assets/js/nutriMenu.js"></script>
 
     </body>
+
 </html>
+

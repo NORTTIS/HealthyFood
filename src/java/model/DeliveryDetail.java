@@ -16,11 +16,12 @@ public class DeliveryDetail {
     private String phone;
     private String address;
     private String note;
+    private String voucher;
 
     public DeliveryDetail() {
     }
 
-    public DeliveryDetail(String deliveryId, String orderId, String fullname, String email, String phone, String address, String note) {
+    public DeliveryDetail(String deliveryId, String orderId, String fullname, String email, String phone, String address, String note, String voucher) {
         this.deliveryId = deliveryId;
         this.orderId = orderId;
         this.fullname = fullname;
@@ -28,6 +29,7 @@ public class DeliveryDetail {
         this.phone = phone;
         this.address = address;
         this.note = note;
+         this.voucher = voucher;
     }
     public DeliveryDetail( String orderId, String fullname, String email, String phone, String address, String note) {
         this.orderId = orderId;
@@ -94,10 +96,20 @@ public class DeliveryDetail {
         this.note = note;
     }
 
+    public String getVoucher() {
+        return voucher;
+    }
+
+    public void setVoucher(String voucher) {
+        this.voucher = voucher;
+    }
+
     @Override
     public String toString() {
-        return "DeliveryDetail{" + "deliveryId=" + deliveryId + ", orderId=" + orderId + ", fullname=" + fullname + ", email=" + email + ", phone=" + phone + ", address=" + address + ", note=" + note + '}';
+        return "DeliveryDetail{" + "deliveryId=" + deliveryId + ", orderId=" + orderId + ", fullname=" + fullname + ", email=" + email + ", phone=" + phone + ", address=" + address + ", note=" + note + ", voucher=" + voucher + '}';
     }
+    
+  
     
     
 }

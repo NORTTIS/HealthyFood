@@ -2,24 +2,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-//discountlist
+
 package controller;
 
-import dao.DiscountsDao;
+import dao.DiscountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Discounts;
+import model.Accounts;
+import model.Discount;
 
 /**
  *
- * @author Gosu
+ * @author Minh
  */
-public class AllDiscounts extends HttpServlet {
+@WebServlet(name="DiscountCreate", urlPatterns={"/createDiscount"})
+public class DiscountCreate extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +40,10 @@ public class AllDiscounts extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AllDiscounts</title>");  
+            out.println("<title>Servlet DiscountCreate</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AllDiscounts at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DiscountCreate at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,10 +60,14 @@ public class AllDiscounts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DiscountsDao adb = new DiscountsDao();
-        List<Discounts> al = adb.getDiscounts();
-        request.setAttribute("data", al);
-        request.getRequestDispatcher("discountlist.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        //lấy dữ liệu tài khoản đăng nhập
+        Accounts ac = (Accounts) session.getAttribute("acc");
+        if (ac == null) {
+            response.sendRedirect("login");
+        } else {
+            request.getRequestDispatcher("discountCreate.jsp").forward(request, response);
+        }
     } 
 
     /** 
@@ -72,7 +80,19 @@ public class AllDiscounts extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        DiscountDAO ddb = new DiscountDAO();
+        String discountName = request.getParameter("discountName");
+        List<Discount> lst = ddb.getAllDiscounts();
+        for(Discount d : lst){
+            if(d.getDiscountName().equals(discountName)){
+                request.setAttribute("error", "Discount code already exist");
+                request.getRequestDispatcher("discountCreate.jsp").forward(request, response);
+                return;
+            }
+        }
+        String discountValue = request.getParameter("discountValue");
+        ddb.createDiscount(Integer.parseInt(discountValue), discountName);
+        response.sendRedirect("discountList");
     }
 
     /** 
