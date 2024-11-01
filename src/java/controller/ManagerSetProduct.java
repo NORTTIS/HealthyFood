@@ -92,6 +92,7 @@ public class ManagerSetProduct extends HttpServlet {
             }
             pdb.createProduct(cateId, supplier[i], name[i], description[i], Double.parseDouble(price[i]), Integer.parseInt(qty[i]), Double.parseDouble(calo[i]), picture[i]);
         }
+        
         response.sendRedirect("menuList");
     }
 

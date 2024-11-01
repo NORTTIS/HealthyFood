@@ -65,7 +65,6 @@ public class ManagerReviewMenu extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        //lấy dữ liệu tài khoản đăng nhập
         Accounts ac = (Accounts) session.getAttribute("acc");
         if (ac == null) {
             response.sendRedirect("login.jsp");
@@ -82,7 +81,6 @@ public class ManagerReviewMenu extends HttpServlet {
                     request.setAttribute("detailMenu", foundMenu);
                     foundMenu.entrySet().forEach(type -> {
                         List<Menu> menuList = type.getValue();
-                        // Lặp qua từng đối tượng Menu trong List
                         menuList.forEach(menu -> {
                             String typeC = ndb.getTypeByTypeID(menu.getType_id());
                             request.setAttribute("typeC", typeC);
