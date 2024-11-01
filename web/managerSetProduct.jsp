@@ -1,8 +1,10 @@
 <%-- 
-    Document   : managerReviewMenu
-    Created on : Oct 30, 2024, 3:10:47 PM
+    Document   : managerSetProduct
+    Created on : Nov 1, 2024, 1:24:30 AM
     Author     : Gosu
 --%>
+
+
 
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -62,7 +64,9 @@
                           box-shadow: 5px 10px 90px 10px #888888;
                           margin: 10px 25%;
                           width: 55%;">
-                        <form action="setProduct" method="post">
+
+                        <form action="setProduct" method="post" enctype="multipart/form-data">
+
                             <div id="mealsContainer">
                                 <!-- nơi thêm các thẻ bữa ăn mới vào -->
                                 <c:forEach var="i" items="${list}">
@@ -79,7 +83,9 @@
                                         <input type="number" name="qty" placeholder="Input quantity" required/>
                                         <input type="number" name="calo" step="0.01" min="0" value="${i.getAverage_calories()}" readonly/>
                                         <!<!-- picture -->
-                                        <input type="file" name="picture" required/>
+
+                                        <input type="file" name="picture" accept="image/*" required/>
+
                                         <input type="number" hidden value="${lastMenuId}" name="lastId"/>
                                         <input type="number" hidden value="${firstMenuId}" name="firstId"/>
                                     </div>
@@ -133,4 +139,6 @@
             }
         </script>
     </body>
+
 </html>
+
