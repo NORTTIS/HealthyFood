@@ -384,21 +384,6 @@ public void menuDecide(int firstId, int lastId, String description, String decid
           return null;
     }
      
-
-    
-    public void menuDecide(int firstId, int lastId, String description, String decide) {
-        String sql = "update Menu set description = ?, status= ? where menu_id between ? and ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-            st.setString(1, description);
-            st.setString(2, decide);
-            st.setInt(3, firstId);
-            st.setInt(4, lastId);
-            st.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
     
     public boolean checkMenuTitle(int userId, String menuTitle){
         List<Menu> mList = new ArrayList<>();
@@ -423,8 +408,6 @@ public void menuDecide(int firstId, int lastId, String description, String decid
             for(Menu menu : mList){
                 if(menu.getMenuTitle().equals(menuTitle)){
                     return true;
-
-
                 }
             }
         } catch(SQLException e){
@@ -432,30 +415,20 @@ public void menuDecide(int firstId, int lastId, String description, String decid
         }
         return false;
     }
-
-    public Menu getMenuByID(int menu_id){
-        String sql = "select * from Menu where menu_id = ?";
+    
+    public int getTypeIdByName(String name){
+        String sql = "select * from Customer_Type where type_name = ?";
+        int id = 0;
         try(PreparedStatement st = connection.prepareStatement(sql)){
-            st.setInt(1, menu_id);
+            st.setString(1, name);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                Menu m = new Menu(
-                        rs.getInt("menu_id"),
-                        rs.getInt("type_id"),
-                        rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getInt("create_by"),
-                        rs.getString("menu_name"),
-                        rs.getFloat("average_calories"),
-                        rs.getString("status"),
-                        rs.getString("menuTitle")
-                );
-                return m;
+                id = rs.getInt("type_id");
             }
-        } catch(SQLException e ){
+        } catch (SQLException e){
             System.out.println(e);
         }
-          return null;
+        return id;
     }
     
     public static void main(String[] args) {

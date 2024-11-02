@@ -37,7 +37,7 @@ CREATE TABLE Category (
 CREATE TABLE Products (
     product_id INT IDENTITY(1,1) PRIMARY KEY,   -- ID sản phẩm, tự động tăng
     category_id INT,                            -- ID loại sản phẩm (liên kết với bảng Category)
-    supplier NVARCHAR(255) NOT NULL,                            -- ID nhà cung cấp
+    supplier NVARCHAR(255) NOT NULL,            -- ID nhà cung cấp
     name NVARCHAR(255) NOT NULL,                -- Tên sản phẩm
     description TEXT,                           -- Mô tả sản phẩm
     price DECIMAL(10, 2) NOT NULL,              -- Giá sản phẩm
@@ -82,7 +82,6 @@ CREATE TABLE Order_Items (
 	FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE,
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 );
-
 
 CREATE TABLE Customer_Type (
     [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
