@@ -101,9 +101,7 @@ public class ProductDao extends DBContext {
         String sql = "Select * from Products where product_id =?";
 
         try (PreparedStatement st = connection.prepareStatement(sql)) {
-
             st.setString(1, id);
-
             ResultSet rs;
             rs = st.executeQuery();
             while (rs.next()) {
@@ -280,7 +278,7 @@ public class ProductDao extends DBContext {
         return cateList;
     }
 
-    public String createOrder(Cart cart, String accountId) {
+    public String createOrder(Cart cart, String accountId, String orderType) {
 
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
@@ -291,12 +289,12 @@ public class ProductDao extends DBContext {
         }
         try {
 
-            String insertOrderSQL = "INSERT INTO Orders (account_id, total_amount, status, total_calories, order_date) VALUES (?, ?, 'Pending', ?, GETDATE())";
+            String insertOrderSQL = "INSERT INTO Orders (account_id, total_amount, status, total_calories, order_date, order_type) VALUES (?, ?, 'Pending', ?, GETDATE(),?)";
             psOrder = conn.prepareStatement(insertOrderSQL, Statement.RETURN_GENERATED_KEYS);
             psOrder.setString(1, accountId);
             psOrder.setDouble(2, cart.getTotalPrice());
             psOrder.setDouble(3, cart.getTotalCal());
-
+            psOrder.setString(4, orderType);
             int affectedRows = psOrder.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException("Creating order failed, no rows affected.");
@@ -416,7 +414,7 @@ public class ProductDao extends DBContext {
         Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
         try {
-            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes,voucher) values (?,?,?,?,?,?)";
+            String sql = "insert into DeliveryDetails (order_id,full_name,email,mobile,address,delivery_notes,voucher) values (?,?,?,?,?,?,?)";
             st = conn.prepareStatement(sql);
             st.setString(1, deDetail.getOrderId());
             st.setString(2, deDetail.getFullname());
@@ -424,7 +422,7 @@ public class ProductDao extends DBContext {
             st.setString(4, deDetail.getPhone());
             st.setString(5, deDetail.getAddress());
             st.setString(6, deDetail.getNote());
-            st.setString(6, deDetail.getVoucher());
+            st.setString(7, deDetail.getVoucher());
             st.executeQuery();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -650,7 +648,6 @@ public class ProductDao extends DBContext {
         }
         return null;
     }
-    
 
     public void createProduct(int category_id, String supplier, String name, String description, double price, int quanty, double calo, String picture) {
         String sql = "  insert into Products(category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture) values (?,?,?,?,?,?,'available',?,?)";
@@ -668,8 +665,6 @@ public class ProductDao extends DBContext {
             System.out.println(e);
         }
     }
-
-
 
     public double calculateBMI(double weight, double height) {
         return weight / (height * height);
@@ -834,7 +829,6 @@ public class ProductDao extends DBContext {
         return 0;
     }
 
-
     public List<Products> pagingProduct(int index) {
         List<Products> list = new ArrayList<>();
         String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
@@ -919,6 +913,25 @@ public class ProductDao extends DBContext {
         }
 
         return mProduct;
+    }
+    
+    public int getVoucherValueByVouderCode(String vourcherCode){
+        String sql = "select discountValue from Discount where discountName = ?";
+        try (PreparedStatement st = connection.prepareStatement(sql)){
+            st.setString(1, vourcherCode);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                int discountValue = rs.getInt(1);
+                return discountValue;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+    public static void main(String[] args) {
+       ProductDao prod = new ProductDao();
+        System.out.println(prod.getVoucherValueByVouderCode("SALE10"));
     }
 
 }

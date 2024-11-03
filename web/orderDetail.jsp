@@ -119,7 +119,7 @@
                                                 <div class="cart-item">
                                                     <div class="product-thumb">
                                                         <a class="prd-thumb" href="#">
-                                                            <figure><img src="./assets/images/products/p-01.jpg" width="113" height="113" alt="shop-cart" ></figure>
+                                                            <figure><img src="./assets/images/products/${i.product.picture}" width="113" height="113" style="border-radius: 20px" alt="shop-cart" ></figure>
                                                         </a>
                                                     </div>
                                                     <div class="info">
