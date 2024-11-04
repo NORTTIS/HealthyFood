@@ -84,9 +84,6 @@ public class ManagerSetProduct extends HttpServlet {
         String[] calo = request.getParameterValues("calo");
         String[] picture = request.getParameterValues("picture");
 
-        String firstId = request.getParameter("firstId");
-        String lastId = request.getParameter("lastId");
-
         ProductDao pdb = new ProductDao();
         Map<Integer, String> map = pdb.getAllProductCategory();
         for (int i = 0; i < name.length; i++) {
@@ -101,7 +98,9 @@ public class ManagerSetProduct extends HttpServlet {
         String totalMenuId = request.getParameter("totalMenuId");
         String[] listId = totalMenuId.split("-");
         int lastProductId = pdb.getLastProductId();
-        for (int i = 0; i < listId.length; i++) {
+
+        for(int i = 0; i < listId.length; i++){
+
             int productId = lastProductId - listId.length + i;
             pdb.setMenuDetail(Integer.parseInt(listId[i]), productId);
         }

@@ -119,14 +119,7 @@ public class zCreateMenu extends HttpServlet {
                     menuMap.put(mealsName[i], getMeals[i]);
                 }
                 int nutriId = Integer.parseInt(request.getParameter("nutriId"));
-                int type_id = 0;
-                //switch với mỗi giá trị type sẽ trả về 1 type_id
-                switch (type) {
-                    case "Underweight":
-                        type_id = 1;
-                    case "Overweight":
-                        type_id = 2;
-                }
+                int type_id = ndb.getTypeIdByName(type);
                 for (String meals : mealsName) {
                     String menuValues = "menuName" + meals;
                     String caloValues = "calories" + meals;

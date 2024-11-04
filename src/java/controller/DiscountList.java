@@ -66,7 +66,7 @@ public class DiscountList extends HttpServlet {
         //lấy dữ liệu tài khoản đăng nhập
         Accounts ac = (Accounts) session.getAttribute("acc");
         if (ac == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
         } else {
             DiscountDAO ddb = new DiscountDAO();
             String action = request.getParameter("ac");
@@ -88,6 +88,7 @@ public class DiscountList extends HttpServlet {
             request.setAttribute("totalPages", totalPages);
             request.setAttribute("currentPage", page);
             request.setAttribute("list", lst);
+            System.out.println("ra được đây chưa");
             request.getRequestDispatcher("discountList.jsp").forward(request, response);
         }
     }

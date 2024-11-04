@@ -383,9 +383,6 @@ public void menuDecide(int firstId, int lastId, String description, String decid
         }
           return null;
     }
-     
-
-    
 
     
     public boolean checkMenuTitle(int userId, String menuTitle){
@@ -411,14 +408,27 @@ public void menuDecide(int firstId, int lastId, String description, String decid
             for(Menu menu : mList){
                 if(menu.getMenuTitle().equals(menuTitle)){
                     return true;
-
-
                 }
             }
         } catch(SQLException e){
             System.out.println(e);
         }
         return false;
+    }
+    
+    public int getTypeIdByName(String name){
+        String sql = "select * from Customer_Type where type_name = ?";
+        int id = 0;
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setString(1, name);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("type_id");
+            }
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+        return id;
     }
 
     
