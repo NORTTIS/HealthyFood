@@ -4,7 +4,6 @@
  */
 package dao;
 
-
 import model.DeliveryDetail;
 import model.Order;
 import org.junit.Test;
