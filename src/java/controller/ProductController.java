@@ -60,12 +60,36 @@ public class ProductController extends HttpServlet {
         String description = request.getParameter("description");
         String price = request.getParameter("price");
         String quantityInStock = request.getParameter("quantityInStock");
-        String status = request.getParameter("status");
         String averageCalories = request.getParameter("averageCalories");
         String productId = request.getParameter("productId"); // Khai báo productId chỉ một lần
         String ac = request.getParameter("ac");
         String filename = "";
         ProductDao productDao = new ProductDao();
+        // Kiểm tra quantityInStock
+        String status = "unavailable"; // Mặc định là không có hàng
+        if (quantityInStock != null && !quantityInStock.trim().isEmpty()) {
+            try {
+                int quantity = Integer.parseInt(quantityInStock);
+                status = quantity > 0 ? "available" : "unavailable";
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Quantity in stock must be a valid number.");
+                request.getRequestDispatcher("createProduct.jsp").forward(request, response);
+                return; // Thoát khỏi hàm sau khi xử lý lỗi
+            }
+        } else {
+            request.setAttribute("error", "Quantity in stock cannot be null or empty.");
+            request.getRequestDispatcher("createProduct.jsp").forward(request, response);
+            return; // Thoát khỏi hàm nếu không có giá trị
+        }
+        System.out.println("Action (ac): " + ac);
+        System.out.println("Category ID: " + categoryId);
+        System.out.println("Supplier: " + supplier);
+        System.out.println("Name: " + name);
+        System.out.println("Description: " + description);
+        System.out.println("Price: " + price);
+        System.out.println("Quantity in Stock: " + quantityInStock);
+        System.out.println("Average Calories: " + averageCalories);
+        System.out.println("Product ID: " + productId);
 
         if (ac.equals("create")) {
             // Tạo sản phẩm mới
@@ -73,7 +97,7 @@ public class ProductController extends HttpServlet {
                 Part part = request.getPart("picture");
                 if (part != null && part.getSize() > 0) {
                     String appPath = request.getServletContext().getRealPath("/");
-                    String path = "web/assets/images/our-products";
+                    String path = "web/assets/images/products";
                     Path uploadDir = Paths.get(appPath).getParent().getParent().resolve(path);
                     String originalFileName = Path.of(part.getSubmittedFileName()).getFileName().toString();
 
@@ -87,12 +111,15 @@ public class ProductController extends HttpServlet {
                     part.write(filePath.toString());
                 }
 
-                productDao.createProduct(categoryId, supplier, name, description, price, quantityInStock, status, averageCalories, filename);
+                // Gọi hàm createProduct không truyền status
+                productDao.createProduct(categoryId, supplier, name, description, price, quantityInStock, averageCalories, filename);
             } catch (IOException | ServletException e) {
-                request.setAttribute("error", "Failed to create product");
+                request.setAttribute("error", "Failed to create product: " + e.getMessage());
                 request.getRequestDispatcher("createProduct.jsp").forward(request, response);
+                return;
             }
             response.sendRedirect("shop");
+            return;
         }
 
         if (ac.equals("edit")) {
@@ -106,9 +133,10 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("productCate", productCate);
                 request.getRequestDispatcher("createProduct.jsp").forward(request, response);
             } catch (Exception e) {
-                request.setAttribute("error", "Failed to edit product");
+                request.setAttribute("error", "Failed to edit product: " + e.getMessage());
                 request.getRequestDispatcher("createProduct.jsp").forward(request, response);
             }
+            return;
         }
 
         if (ac.equals("upd")) {
@@ -119,7 +147,7 @@ public class ProductController extends HttpServlet {
                     Part part = request.getPart("picture");
                     if (part != null && part.getSize() > 0) {
                         String appPath = request.getServletContext().getRealPath("/");
-                        String path = "web/assets/images/our-products";
+                        String path = "web/assets/images/products";
                         Path uploadDir = Paths.get(appPath).getParent().getParent().resolve(path);
                         String originalFileName = Path.of(part.getSubmittedFileName()).getFileName().toString();
 
@@ -132,13 +160,15 @@ public class ProductController extends HttpServlet {
                         part.write(filePath.toString());
                     }
 
-                    productDao.updateProduct(productId, categoryId, supplier, name, description, price, quantityInStock, status, averageCalories, filename);
+                    productDao.updateProduct(productId, categoryId, supplier, name, description, price, quantityInStock, averageCalories, filename);
                 } catch (IOException | ServletException e) {
-                    request.setAttribute("error", "Failed to update product");
+                    request.setAttribute("error", "Failed to update product: " + e.getMessage());
                     response.sendRedirect("shop");
+                    return;
                 }
             }
             response.sendRedirect("productdetail?productId=" + productId);
+            return;
         }
 
         if (ac.equals("del")) {
