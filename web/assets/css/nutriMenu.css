@@ -53,6 +53,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.item-nav{
+     padding: 0;
+  background-color: initial;
+  border-radius: 0;
+  box-shadow: none;
+}
 
 /* Styling for input fields and select */
 .menu-item input[type="text"],

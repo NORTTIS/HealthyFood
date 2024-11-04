@@ -96,7 +96,7 @@
                                                         <div class="contain-product layout-default" style="    border: 1px solid #d8d8d8;
                                                              border-radius: 20px;     margin-bottom: 20px;">
                                                             <div class="product-thumb" style="text-align: center;">
-                                                                <a href="productDetail" class="link-to-product">
+                                                                <a href="productDetail?ac=show&productId=${o.productId}" class="link-to-product">
                                                                     <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail">
                                                                 </a>
                                                             </div>

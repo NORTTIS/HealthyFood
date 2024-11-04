@@ -83,22 +83,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                    <a href="home" class="biolife-logo"><img src="assets/images/organic-3-green.png"
-                                                             alt="biolife logo" width="135" height="36"></a>
+                    <a href="home" class="biolife-logo"><img src="./assets/images/logo.png"
+                                                             alt="biolife logo" style="width: 125px; height: 70px;"></a>
                 </div>
                 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                     <div class="primary-menu">
                         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu"
                             data-menuname="main menu">
-                            <li class="menu-item"><a href="home">Home</a></li>
+                            <li class="menu-item item-nav"><a href="home">Home</a></li>
 
                             <c:if test="${sessionScope.acc.role != 'Nutritionist'&& sessionScope.acc.role !='Manager'}">
-                                <li class="menu-item menu-item-has-children ">
+                                <li class="menu-item menu-item-has-children item-nav">
                                     <a href="shop" class="menu-name" data-title="Shop">Shop</a>
                                 </li>
                             </c:if>
                             <c:if test="${sessionScope.acc.role !='Manager'}">
-                                <li class="menu-item menu-item-has-children ">
+                                <li class="menu-item menu-item-has-children item-nav">
                                 <a href="blog" class="menu-name" data-title="Blog">Blog</a>
 
                             </li>
@@ -107,18 +107,18 @@
                             <!--nếu đăng nhập là nutritionist thì sẽ hiện ra thanh chuyển xem list menu thay vì contact -->
                             <c:choose>
                                 <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
-                                    <li class="menu-item"><a href="menuList">Menu</a></li>
+                                    <li class="menu-item item-nav"><a href="menuList">Menu</a></li>
                                     </c:when>
                                     <c:when test="${sessionScope.acc.role == 'Manager'}">
-                                    <li class="menu-item"><a href="discountList">Discount</a></li>
+                                    <li class="menu-item item-nav"><a href="discountList">Discount</a></li>
 
-                                    <li class="menu-item"><a href="Revenue">Revenue</a></li>
-                                    <li class="menu-item"><a href="listMenu">Menu</a></li>
+                                    <li class="menu-item item-nav"><a href="Revenue">Revenue</a></li>
+                                    <li class="menu-item item-nav"><a href="listMenu">Menu</a></li>
 
                                 </c:when>
                             </c:choose>
                             <c:if test="${sessionScope.acc.role == 'Nutritionist' ||sessionScope.acc.role == 'Customer' }">
-                                <li class="menu-item menu-item-has-children ">
+                                <li class="menu-item menu-item-has-children  item-nav">
                                     <a href="chat" class="menu-name" data-title="chat">Chat</a>
 
                                 </li>
@@ -201,24 +201,12 @@
                     </c:if>
                 </div>
             </div>
-            <div class="header-bottom hidden-sm hidden-xs">
+            <c:if test="${sessionScope.acc.role != 'Nutritionist'&& sessionScope.acc.role !='Manager'}">
+                <div class="header-bottom hidden-sm hidden-xs">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-4">
-                            <!--                    <div class="vertical-menu vertical-category-block ">
-                                                    <div class=" menu-titles block-title">
-                            
-                                                        <span class=" menu-title">All departments</span>
-                                                        <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up"
-                                                                                                                 aria-hidden="true"></i></span>
-                                                    </div>
-                                                    <div class="wrap-menu">
-                                                        <ul class="menu clone-main-menu">
-                                                            <li class="menu-item menu-item-has-children ">
-                                                                <a href="#" class="menu-name" data-title="Fruit & Nut Gifts">Fruit & Nut Gifts</a>
-                                                            </li>
-                                                    </div>
-                                                </div>-->
+                          
                             <div class="row"  style="margin-top: 10px">
                                 <div class="vertical-menu vertical-category-block bmi-wrap col-lg-7" >
                                     <div class="menu-titles" style="padding: 10px 10px 10px 15px;
@@ -305,6 +293,8 @@
                     </div>
                 </div>
             </div>
+            </c:if>
+            
 
             </header>
 

@@ -50,7 +50,7 @@
         <!-- HEADER -->
         <jsp:include page="./jsptemplate/header.jsp" />
 
-     
+
 
         <!--Navigation section-->
         <div class="container">
@@ -71,10 +71,13 @@
                 <div id="main-content" class="main-content">
 
                     <!--summary info--> 
-                    <div class="sumary-product single-layout">
+                    <div class="sumary-product single-layout" style="padding-top: 90px;">
                         <div class="media">
                             <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                <li><img src="assets/images/products/${prod.picture}" alt="" style=""></li>
+                                <li><img src="assets/images/products/${prod.picture}" alt="" style="width: 300px;
+                                         height: 270px;
+                                         object-fit: cover;
+                                         border-radius: 20px;"></li>
                             </ul>
                         </div>
                         <div class="product-attribute">
@@ -85,7 +88,7 @@
                                 <b class="category">Type: ${cate.get(prod.category)}</b>
                                 <span class="review-count">cal: ${prod.averageCalories}</span>
                             </div>
-                                <p class="sku">Source: ${prod.supplier}<span style="margin-left: 10px;">in stock:${prod.quantityInStock}</span></p>
+                            <p class="sku">Source: ${prod.supplier}<span style="margin-left: 10px;">in stock:${prod.quantityInStock}</span></p>
                             <p class="excerpt">${prod.description}</p>
                             <div class="price">
                                 <ins><span class="price-amount">${prod.price} <span class="currencySymbol">VND</span></span></ins>
