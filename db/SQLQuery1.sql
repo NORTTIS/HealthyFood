@@ -57,6 +57,8 @@ CREATE TABLE Orders (
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
 );
+ALTER TABLE Orders
+ADD order_type NVARCHAR(50) NULL;
 CREATE TABLE DeliveryDetails (
     delivery_id INT IDENTITY(1,1) PRIMARY KEY,        -- ID giao hàng, tự động tăng
     order_id INT NOT NULL,                            -- ID đơn hàng
@@ -116,6 +118,7 @@ CREATE TABLE Reviews (
     account_id INT,
 	product_id INT,
 	comment NVARCHAR(MAX),
+	rate int ,
 	create_at DATETIME DEFAULT GETDATE(),
 	status NVARCHAR(10) CHECK (status IN ('Approved ', 'Rejected ')) NOT NULL,
 	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,
@@ -164,17 +167,11 @@ CREATE TABLE Blogs (
 ALTER TABLE Blogs
 ADD bmi_range int NULL;
 
-
-INSERT INTO Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar)
-VALUES
-('admin', 'admin', 'admin', 'admin', 'admin', 'john@example.com', '1234567890', 'Admin', 'Active', NULL),
-
 CREATE TABLE Discount(
-	id INT IDENTITY(1,1) PRIMARY KEY
+	id INT IDENTITY(1,1) PRIMARY KEY,
 	discountValue int,
 	discountName nvarchar(255)
 )
-
 
 
 

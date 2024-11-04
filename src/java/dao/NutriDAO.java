@@ -383,7 +383,7 @@ public void menuDecide(int firstId, int lastId, String description, String decid
         }
           return null;
     }
-     
+
     
     public boolean checkMenuTitle(int userId, String menuTitle){
         List<Menu> mList = new ArrayList<>();
@@ -430,6 +430,7 @@ public void menuDecide(int firstId, int lastId, String description, String decid
         }
         return id;
     }
+
     
     public static void main(String[] args) {
         NutriDAO ndb = new NutriDAO();

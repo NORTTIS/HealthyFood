@@ -40,3 +40,86 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     overflow: hidden;
     justify-content: flex-end;
 }
+
+/* Container for each menu item */
+.menu-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.item-nav{
+     padding: 0;
+  background-color: initial;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Styling for input fields and select */
+.menu-item input[type="text"],
+.menu-item input[type="number"],
+.menu-item select {
+  flex: 1 1 200px;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Specific styling for readonly inputs */
+.menu-item input[readonly] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* Styling for the file input */
+.menu-item input[type="file"] {
+  flex: 1 1 100%;
+  padding: 8px 0;
+}
+
+/* Hover effect for interactive elements */
+.menu-item input:not([readonly]):hover,
+.menu-item select:hover {
+  border-color: #adb5bd;
+}
+
+/* Focus effect for interactive elements */
+.menu-item input:not([readonly]):focus,
+.menu-item select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Placeholder styling */
+.menu-item input::placeholder {
+  color: #6c757d;
+}
+
+/* Styling for the select dropdown */
+.menu-item select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23343a40' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 28px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu-item input,
+  .menu-item select {
+    flex-basis: 100%;
+  }
+}

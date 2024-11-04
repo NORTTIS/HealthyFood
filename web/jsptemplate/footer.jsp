@@ -9,10 +9,10 @@
                     <section class="footer-item">
                         <a href="home" class="logo footer-logo"
                             ><img
-                                src="assets/images/organic-3-green.png"
+                                src="./assets/images/logo.png"
                                 alt="biolife logo"
-                                width="135"
-                                height="36"
+                                width="125"
+                                style="height: 70px;"
                         /></a>
                         <div class="footer-phone-info">
                             <i class="biolife-icon icon-head-phone"></i>
