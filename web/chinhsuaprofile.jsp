@@ -21,7 +21,7 @@
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" value="${user.username}" required />
         <br />
-
+       
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="${user.email}" oninput="checkEmail()" required />
         <div id="emailError" style="display:none; color: red">Invalid email format.</div>

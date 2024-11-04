@@ -856,6 +856,31 @@ public class ProductDao extends DBContext {
         }
         return list;
     }
+    
+    public int getLastProductId() {
+        int id = 0;
+        String sql = "select count(*) from Products";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1); // lấy giá trị của COUNT(*)
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return id;
+    }
+    
+    public void setMenuDetail(int menuId, int productId){
+        String sql = "insert into Menu_Detail(menu_id, product_id) values (?, ?)";
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setInt(1, menuId);
+            st.setInt(2, productId);
+            st.executeUpdate();
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 
     public List<Products> getAllDiscountProduct() {
         String sql = "Select * from Products ";
