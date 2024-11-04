@@ -650,7 +650,6 @@ public class ProductDao extends DBContext {
         }
         return null;
     }
-    
 
     public void createProduct(int category_id, String supplier, String name, String description, double price, int quanty, double calo, String picture) {
         String sql = "  insert into Products(category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture) values (?,?,?,?,?,?,'available',?,?)";
@@ -668,8 +667,6 @@ public class ProductDao extends DBContext {
             System.out.println(e);
         }
     }
-
-
 
     public double calculateBMI(double weight, double height) {
         return weight / (height * height);
@@ -834,7 +831,6 @@ public class ProductDao extends DBContext {
         return 0;
     }
 
-
     public List<Products> pagingProduct(int index) {
         List<Products> list = new ArrayList<>();
         String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 8 ROWS ONLY";
@@ -921,4 +917,28 @@ public class ProductDao extends DBContext {
         return mProduct;
     }
 
+    public int getLastProductId() {
+        int id = 0;
+        String sql = "select count(*) from Products";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1); // lấy giá trị của COUNT(*)
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return id;
+    }
+    
+    public void setMenuDetail(int menuId, int productId){
+        String sql = "insert into Menu_Detail(menu_id, product_id) values (?, ?)";
+        try(PreparedStatement st = connection.prepareStatement(sql)){
+            st.setInt(1, menuId);
+            st.setInt(2, productId);
+            st.executeUpdate();
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
 }

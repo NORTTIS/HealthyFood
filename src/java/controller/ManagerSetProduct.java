@@ -69,9 +69,6 @@ public class ManagerSetProduct extends HttpServlet {
         String[] qty = request.getParameterValues("qty");
         String[] calo = request.getParameterValues("calo");
         String[] picture = request.getParameterValues("picture");
-        String firstId = request.getParameter("firstId");
-        String lastId = request.getParameter("lastId");
-
         ProductDao pdb = new ProductDao();
         Map<Integer, String> map = pdb.getAllProductCategory();
         for (int i = 0; i < name.length; i++) {
@@ -82,6 +79,13 @@ public class ManagerSetProduct extends HttpServlet {
                 }
             }
             pdb.createProduct(cateId, supplier[i], name[i], description[i], Double.parseDouble(price[i]), Integer.parseInt(qty[i]), Double.parseDouble(calo[i]), picture[i]);
+        }
+        String totalMenuId = request.getParameter("totalMenuId");
+        String[] listId = totalMenuId.split("-");
+        int lastProductId = pdb.getLastProductId();
+        for(int i = 0; i < listId.length; i++){
+            int productId = lastProductId - listId.length + i;
+            pdb.setMenuDetail(Integer.parseInt(listId[i]), productId);
         }
         response.sendRedirect("menuList");
     }

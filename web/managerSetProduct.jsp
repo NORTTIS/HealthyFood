@@ -82,15 +82,12 @@
                                         <input type="number" name="price" step="0.01" min="0" required placeholder="Input price"/>
                                         <input type="number" name="qty" placeholder="Input quantity" required/>
                                         <input type="number" name="calo" step="0.01" min="0" value="${i.getAverage_calories()}" readonly/>
-                                        <!<!-- picture -->
-
+                                        <!-- picture -->
                                         <input type="file" name="picture" accept="image/*" required/>
-
-                                        <input type="number" hidden value="${lastMenuId}" name="lastId"/>
-                                        <input type="number" hidden value="${firstMenuId}" name="firstId"/>
                                     </div>
                                 </c:forEach>
                             </div>
+                            <input type="text" name="totalMenuId" value="${totalMenuId}" hidden/>
                             <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <input style="width:120px" type="submit" value="Create Product" class="btn btn-default"/>
                             </div>
@@ -116,28 +113,6 @@
         <script src="assets/js/biolife.framework.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/nutriMenu.js"></script>
-        <script>
-
-            //function lấy name từ các meals theo class
-            function getAllMeals() {
-                var idOfMeal = document.getElementsByClassName("mealsID");
-                var listDish = "";
-                var lishMeals = "";
-                for (var i = 0; i < idOfMeal.length; i++) {
-                    listDish += idOfMeal[i].name; // Thêm giá trị name vào chuỗi
-                    lishMeals += idOfMeal[i].value;
-                    if (i < idOfMeal.length - 1) {
-                        listDish += "-"; // Nếu không phải phần tử cuối, thêm dấu ';'
-                        lishMeals += "-";
-                    }
-                }
-                // Gán chuỗi listMeals là giá trị của input 
-                document.getElementById("allMealList").value = listDish;
-                document.getElementById("getMeals").value = lishMeals;
-                console.log(document.getElementById("allMealList").value);
-                console.log(document.getElementById("getMeals").value);
-            }
-        </script>
     </body>
 
 </html>

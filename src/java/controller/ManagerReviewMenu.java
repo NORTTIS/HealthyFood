@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Accounts;
@@ -132,20 +131,24 @@ public class ManagerReviewMenu extends HttpServlet {
         }
         
         if(action.equals("Accept")){
+            String totalMenuId = "";
             List<Menu> mList = new ArrayList<>();
             for(int i = firstId; i <= lastId; i++){
                 Menu m = ndb.getMenuByID(i);
                 if(!m.getMenu_name().equals(ndb.getMenuByID(i++).getName())){
                     mList.add(m);
+                    totalMenuId += i;
+                    if(i < lastId){
+                        totalMenuId += "-";
+                    }
                 }
             }
             ndb.menuDecide(firstId, lastId, descrip, "Accept");
             ProductDao pd = new ProductDao();
             Map<Integer, String> cate = pd.getAllProductCategory();
-            request.setAttribute("firstId", firstId);
-            request.setAttribute("lastId", lastId);
             request.setAttribute("cate", cate);
             request.setAttribute("list", mList);
+            request.setAttribute("totalMenuId", totalMenuId);
             request.getRequestDispatcher("managerSetProduct.jsp").forward(request, response);
         }
     }
