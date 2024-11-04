@@ -152,7 +152,9 @@ input:focus{
     outline: none;
 }
 
-.btn-default
+.btn-default,
+.btn-default:focus,
+.btn-default:active
 {
     background-color: #7faf51;
     font-size: 16px;

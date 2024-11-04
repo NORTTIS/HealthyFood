@@ -4,24 +4,25 @@
  */
 package controller;
 
-import dao.AccountsDAO;
-import dao.MessageDao;
+import dao.DiscountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Accounts;
-import model.Messages;
+import model.Discount;
 
 /**
  *
- * @author Norttie
+ * @author Minh
  */
-public class ChatControl extends HttpServlet {
+@WebServlet(name = "DiscountList", urlPatterns = {"/discountList"})
+public class DiscountList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +41,10 @@ public class ChatControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ChatControl</title>");
+            out.println("<title>Servlet DiscountList</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ChatControl at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DiscountList at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,28 +62,34 @@ public class ChatControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String accId = request.getParameter("accId");
-        List<Accounts> accs = new AccountsDAO().getAllAccountByRole("Customer");
         HttpSession session = request.getSession();
-        Accounts acc = (Accounts) session.getAttribute("acc");
-        boolean isCustomer = acc.getRole().equals("Customer");
-        if (isCustomer) {
-            accs = new AccountsDAO().getAllAccountByRole("Nutritionist");
-        }
-        if (accId != null && (!accId.equals("-1"))) {
-
-            Accounts account = new AccountsDAO().getAccountByid(accId);
-            List<Messages> listMes = new MessageDao().getMessagesByConversation(accId, "" + acc.getAccount_id());
-            request.setAttribute("accN", account);
-            request.setAttribute("listMes", listMes);
-            request.setAttribute("receiveId", accId);
+        //lấy dữ liệu tài khoản đăng nhập
+        Accounts ac = (Accounts) session.getAttribute("acc");
+        if (ac == null) {
+            response.sendRedirect("login.jsp");
         } else {
-            request.setAttribute("receiveId", "-1");
-
+            DiscountDAO ddb = new DiscountDAO();
+            String action = request.getParameter("ac");
+            String id = request.getParameter("id");
+            if(action != null && id != null){
+                ddb.deleteDiscount(Integer.parseInt(id));
+            }
+            int totalObj = 3; // Số bản ghi mỗi trang
+            int totalPages = ddb.getTotalPages(totalObj);
+            String pageParam = request.getParameter("page");
+            int page = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+            if (page < 1) {
+                page = 1;
+            }
+            if (page > totalPages) {
+                page = totalPages; 
+            }
+            List<Discount> lst = ddb.getAllDiscounts(page, totalObj);
+            request.setAttribute("totalPages", totalPages);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("list", lst);
+            request.getRequestDispatcher("discountList.jsp").forward(request, response);
         }
-        request.setAttribute("lacc", accs);
-
-        request.getRequestDispatcher("chat.jsp").forward(request, response);
     }
 
     /**

@@ -20,7 +20,7 @@ import model.Blog;
 public class BlogDao extends DBContext {
 
     public void createBlog(String nutriId, String title, String cateId, String content, String image, String bmirange) {
-        String sql = "INSERT INTO Blogs  (nutri_id,title,cate_id,content,image,bmi_range) VALUES(?,?,?,?,?) ";
+        String sql = "INSERT INTO Blogs  (nutri_id,title,cate_id,content,image,bmi_range) VALUES(?,?,?,?,?,?) ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             int index = 1;
