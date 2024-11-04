@@ -2,22 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-// /updatedis
 package controller;
 
-import dao.DiscountsDao;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  *
+
  * @author Gosu
  */
-public class UpdateDiscounts extends HttpServlet {
+@WebServlet(name = "ManagerSetProduct", urlPatterns = {"/setProduct"})
+public class ManagerSetProduct extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,14 +39,15 @@ public class UpdateDiscounts extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateDiscounts</title>");
+            out.println("<title>Servlet ManagerSetProduct</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdateDiscounts at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ManagerSetProduct at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,16 +61,7 @@ public class UpdateDiscounts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String value = request.getParameter("value");
-        String amounts_string = request.getParameter("amount");
-        int amounts = Integer.parseInt(amounts_string);
-        String oldname = request.getParameter("oldname");
-
-        DiscountsDao adb = new DiscountsDao();
-
-        adb.updateDiscounts(oldname, name, value, amounts);
-        response.sendRedirect("discounts");
+        processRequest(request, response);
     }
 
     /**
@@ -80,14 +75,39 @@ public class UpdateDiscounts extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String[] name = request.getParameterValues("name");
+        String[] category = request.getParameterValues("category");
+        String[] supplier = request.getParameterValues("supplier");
+        String[] description = request.getParameterValues("description");
+        String[] price = request.getParameterValues("price");
+        String[] qty = request.getParameterValues("qty");
+        String[] calo = request.getParameterValues("calo");
+        String[] picture = request.getParameterValues("picture");
+
+        ProductDao pdb = new ProductDao();
+        Map<Integer, String> map = pdb.getAllProductCategory();
+        for (int i = 0; i < name.length; i++) {
+            int cateId = 0;
+            for (Map.Entry<Integer, String> entry : map.entrySet()) {
+                if (entry.getValue().equals(category[i])) {
+                    cateId = entry.getKey();
+                }
+            }
+            pdb.createProduct(cateId, supplier[i], name[i], description[i], Double.parseDouble(price[i]), Integer.parseInt(qty[i]), Double.parseDouble(calo[i]), picture[i]);
+        }
+        String totalMenuId = request.getParameter("totalMenuId");
+        String[] listId = totalMenuId.split("-");
+        int lastProductId = pdb.getLastProductId();
+
+        for(int i = 0; i < listId.length; i++){
+
+            int productId = lastProductId - listId.length + i;
+            pdb.setMenuDetail(Integer.parseInt(listId[i]), productId);
+        }
+        response.sendRedirect("menuList");
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";

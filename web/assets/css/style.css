@@ -152,7 +152,9 @@ input:focus{
     outline: none;
 }
 
-.btn-default
+.btn-default,
+.btn-default:focus,
+.btn-default:active
 {
     background-color: #7faf51;
     font-size: 16px;
@@ -1038,7 +1040,6 @@ body{
     outline: none;
 }
 .biolife-carousel .row-item{
-    font-size: 0;
     line-height: 0;
 }
 .biolife-carousel.row-space-29px .row-item+.row-item{

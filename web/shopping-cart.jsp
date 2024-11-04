@@ -98,7 +98,7 @@
                                                     <td class="product-thumbnail" data-title="Product Name">
                                                         <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
                                                         <a class="prd-thumb" href="#">
-                                                            <figure><img width="113" height="113" src="assets/images/shippingcart/pr-01.jpg" alt="shipping cart"></figure>
+                                                            <figure><img width="113" height="113" src="./assets/images/products/${i.product.picture}" alt="shipping cart" style="    border-radius: 20px;"></figure>
                                                         </a>
                                                         <a class="prd-name" href="#">${i.product.name}</a>
                                                         <div class="action">
@@ -108,7 +108,7 @@
                                                     </td>
                                                     <td class="product-price" data-title="Price">
                                                         <div class="price price-contain">
-                                                            <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins>
+                                                            <ins><span class="price-amount">${i.product.price}<span class="currencySymbol"> đ</span></span></ins>
                                                         </div>
                                                     </td>
                                                     <td class="product-quantity" data-title="Quantity">
@@ -122,7 +122,7 @@
                                                     </td>
                                                     <td class="product-subtotal" data-title="Total">
                                                         <div class="price price-contain">
-                                                            <ins><span class="price-amount">${i.getTotal()}<span class="currencySymbol">đ</span></span></ins>
+                                                            <ins><span class="price-amount">${i.getTotal()}<span class="currencySymbol"> đ</span></span></ins>
                                                         </div>
                                                     </td>
                                                 </tr>

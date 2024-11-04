@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dao.NutriDAO;
+import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,17 +13,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
-import model.Accounts;
-import model.Menu;
+import model.Cart;
+import model.LineItem;
+import model.Products;
 
 /**
  *
  * @author Minh
  */
-@WebServlet(name = "zNutriMenuList", urlPatterns = {"/menuList"})
-public class zNutriMenuList extends HttpServlet {
+@WebServlet(name = "ComboCart", urlPatterns = {"/comboCart"})
+public class ComboCart extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +41,10 @@ public class zNutriMenuList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet NutriMenuList</title>");
+            out.println("<title>Servlet ComboCart</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet NutriMenuList at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ComboCart at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,18 +62,56 @@ public class zNutriMenuList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String productid = request.getParameter("productId");
+        String quantity = request.getParameter("qty");
+        int qty = 1;
+        if (quantity != null && !quantity.equals("")) {
+            qty = Integer.parseInt(quantity);
+        }
         HttpSession session = request.getSession();
-        //lấy dữ liệu tài khoản đăng nhập
-        Accounts ac = (Accounts) session.getAttribute("acc");
-        if (ac == null) {
-            response.sendRedirect("login.jsp");
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+        }
+        double totalprice = 0;
+        double totalcal = 0;
+        int totalitem = 0;
+        String[] eachId = productid.split("-");
+        for (String id : eachId) {
+            Products prod = new ProductDao().getProductsById(id);
+            LineItem lineItem = new LineItem(prod, qty);
+            cart.addItem(lineItem);
+        }
+        for (LineItem item : cart.getItems()) {
+            totalprice += item.getTotal();
+            totalcal += item.getTotalCal();
+            totalitem++;
+        }
+        session.setAttribute("totalcal", totalcal);
+        session.setAttribute("totalcart", totalprice);
+        session.setAttribute("totalitem", totalitem);
+        session.setAttribute("cart", cart);
+        PrintWriter out = response.getWriter();
+        for (LineItem item : cart.getItems()) {
+            out.print(item.getProduct());
+        }
+
+        String previousURL = request.getHeader("Referer");
+        String currentURL = request.getRequestURL().toString();
+
+// Kiểm tra nếu previousURL không null và không trùng với currentURL
+        if (previousURL != null && !previousURL.equals(currentURL)) {
+            // Kiểm tra nếu previousURL chứa từ khóa "cart"
+            if (previousURL.contains("cart")) {
+                // Chuyển hướng đến trang cart?ac=show
+                response.sendRedirect("cart?ac=show");
+            } else {
+                // Chuyển hướng lại trang trước đó nếu không chứa "cart"
+                response.sendRedirect(previousURL);
+            }
         } else {
-            NutriDAO ndb = new NutriDAO();
-            //lấy id của nutri đăng nhập để có thể tìm menu tạo bởi nutri đó
-            Map<String, Map<String, List<Menu>>> mList = ndb.getMenuByStatus(ac.getAccount_id(), "Accept");
-            request.setAttribute("menuList", mList);
-            request.getRequestDispatcher("zNutriMenu.jsp").forward(request, response);
-//            request.getRequestDispatcher("testMenuList.jsp").forward(request, response);
+            // Nếu không có "Referer" hoặc "Referer" trùng với URL hiện tại, chuyển đến trang mặc định
+            response.sendRedirect("home");
         }
     }
 
@@ -89,7 +126,7 @@ public class zNutriMenuList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        processRequest(request, response);
     }
 
     /**

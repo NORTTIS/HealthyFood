@@ -4,7 +4,6 @@
  */
 package controller;
 
-
 import dao.AccountsDAO;
 import dao.BlogDao;
 import dao.NutriDAO;
@@ -17,10 +16,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.Accounts;
@@ -29,6 +28,7 @@ import model.Cart;
 import model.Menu;
 
 import model.Products;
+import model.Reviews;
 
 /**
  *
@@ -46,7 +46,6 @@ public class HomeControl extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
@@ -104,15 +103,48 @@ public class HomeControl extends HttpServlet {
         }
 
         ProductDao prodDao = new ProductDao();
-        List<Products> lProduct = prodDao.getAllDiscountProduct();
+//        lProduct menu combo
+        List<Products> lProduct = prodDao.getAllProduct();
         Map<Integer, String> cates = prodDao.getAllProductCategory();
+        for (Products products : lProduct) {
+            int star5 = 0;
+            int star4 = 0;
+            int star3 = 0;
+            int star2 = 0;
+            int star1 = 0;
+            double starAverage = 0;
+             List<Reviews> listTotal = prodDao.getReviewByProdId(0, products.getProductId()+"");
+             int  totalReview = listTotal.size();
+             star5 = prodDao.getReviewByProdId(5, products.getProductId()+"").size();
+                star4 = prodDao.getReviewByProdId(4, products.getProductId()+"").size();
+                star3 = prodDao.getReviewByProdId(3, products.getProductId()+"").size();
+                star2 = prodDao.getReviewByProdId(2, products.getProductId()+"").size();
+                star1 = prodDao.getReviewByProdId(1, products.getProductId()+"").size();
+                starAverage = 1.0*(star5 * 5 + star4 * 4 + star3 * 3 + star2 * 2 + star1 * 1) / totalReview;
+                products.setRate(starAverage);
+        }
+
         request.setAttribute("lProd", lProduct);
         request.setAttribute("cates", cates);
-
         NutriDAO nutriDao = new NutriDAO();
         Map<String, Map<String, List<Menu>>> mList = nutriDao.getMenuByType(Integer.parseInt(bmirange));
         if (!mList.isEmpty()) {
-            request.setAttribute("menuList", mList);
+            Map<String, Map<String, List<Products>>> productMap = new HashMap<>();
+            for (String key : mList.keySet()) {
+                Map<String, List<Menu>> innerMap = mList.get(key);
+                Map<String, List<Products>> innerProductMap = new HashMap<>();
+                for (String innerKey : innerMap.keySet()) {
+                    List<Products> products = new ArrayList<>();
+                    for (Menu menu : innerMap.get(innerKey)) {
+                        products.addAll(prodDao.getMenuProduct(menu.getMenu_id())); // Lấy sản phẩm từ từng menu
+                    }
+                    innerProductMap.put(innerKey, products);
+                }
+                productMap.put(key, innerProductMap);
+            }
+            request.setAttribute("menuList", productMap);
+//            request.setAttribute("menuList", mList);
+            
         } else {
             request.setAttribute("error", "Sorry for the inconvenient are on the ways to prepared more menu for you !!!");
         }

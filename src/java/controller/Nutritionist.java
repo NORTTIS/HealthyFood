@@ -59,7 +59,7 @@ public class Nutritionist extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         AccountsDAO adb = new AccountsDAO();
-        List<Accounts> al = adb.getAllManagers();
+        List<Accounts> al = adb.getAllNutritionists();
         request.setAttribute("data", al);
         request.getRequestDispatcher("nutritionistpage.jsp").forward(request, response);
     }  
