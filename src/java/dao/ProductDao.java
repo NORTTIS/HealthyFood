@@ -25,18 +25,11 @@ import model.Reviews;
  */
 public class ProductDao extends DBContext {
 
-
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
     public List<Products> getAllProduct() {
         List<Products> list = new ArrayList<>();
-        String query = "Select * from Products";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
+        String query = "SELECT * FROM Products";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 list.add(new Products(
                         rs.getInt(1),
@@ -51,6 +44,7 @@ public class ProductDao extends DBContext {
                         rs.getString(10)));
             }
         } catch (SQLException e) {
+            e.printStackTrace(); // Log lỗi
         }
         return list;
     }
@@ -64,17 +58,15 @@ public class ProductDao extends DBContext {
 //    }
     public List<Category> getAllCategory() {
         List<Category> list = new ArrayList<>();
-        String query = "Select * from Category";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            rs = ps.executeQuery();
+        String query = "SELECT * FROM Category";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 list.add(new Category(rs.getInt(1),
                         rs.getString(2)));
-
             }
         } catch (SQLException e) {
+            e.printStackTrace(); // Log lỗi
         }
         return list;
     }
@@ -89,26 +81,27 @@ public class ProductDao extends DBContext {
 //    }
     public List<Products> getProductsByCateId(String cid) {
         List<Products> list = new ArrayList<>();
-        String query = "Select * from Products where category_id = ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
+        String query = "SELECT * FROM Products WHERE category_id = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
             ps.setString(1, cid);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getString(10)));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Products(
+                            rs.getInt(1),
+                            rs.getInt(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getDouble(6),
+                            rs.getInt(7),
+                            rs.getString(8),
+                            rs.getDouble(9),
+                            rs.getString(10)));
+                }
             }
         } catch (SQLException e) {
+            e.printStackTrace(); // Log lỗi
         }
         return list;
     }
@@ -125,10 +118,8 @@ public class ProductDao extends DBContext {
     public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
 
-        try (PreparedStatement st = connection.prepareStatement(sql)) {
-
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
             st.setString(1, id);
-
             ResultSet rs;
             rs = st.executeQuery();
             while (rs.next()) {
@@ -148,42 +139,38 @@ public class ProductDao extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
-            return null;
         }
-
         return null;
     }
 
     public List<Products> searchByName(String txtSearch) {
         List<Products> list = new ArrayList<>();
-        String sql = "Select * from Products where [name] LIKE ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(sql);
+        String sql = "SELECT * FROM Products WHERE [name] LIKE ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, "%" + txtSearch + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Products(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getDouble(6),
-                        rs.getInt(7),
-                        rs.getString(8),
-                        rs.getDouble(9),
-                        rs.getString(10)));
 
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Products(
+                            rs.getInt(1),
+                            rs.getInt(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getDouble(6),
+                            rs.getInt(7),
+                            rs.getString(8),
+                            rs.getDouble(9),
+                            rs.getString(10)
+                    ));
+                }
             }
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace(); // Sử dụng logger nếu có
             return null;
         }
-
         return list;
     }
-
 
     public String getWishIdByAccountId(String accountid) {
         String sql = "SELECT wish_id FROM WishList WHERE account_id = ?";
@@ -309,7 +296,6 @@ public class ProductDao extends DBContext {
         return cateList;
     }
 
-
     public String createOrder(Cart cart, String accountId) {
 
         Connection conn = new DBContext().getConnection();
@@ -387,11 +373,10 @@ public class ProductDao extends DBContext {
 
     }
 
-    public static void main(String[] args) {
-        ProductDao prod = new ProductDao();
-        prod.updateProductStock(4, 10);
-    }
-
+//    public static void main(String[] args) {
+//        ProductDao prod = new ProductDao();
+//        prod.updateProductStock(4, 10);
+//    }
     public boolean CheckvalidStockOrderItem(Cart cart) {
         for (LineItem item : cart.getItems()) {
             Products product = getProductsById(item.getProduct().getProductId() + "");
@@ -629,7 +614,6 @@ public class ProductDao extends DBContext {
 //            System.out.println(o.getName());
 //        }
 //    }
-
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        List<Products> list = dao.getAllProduct();
@@ -637,7 +621,6 @@ public class ProductDao extends DBContext {
 //            System.out.println(o);
 //        }
 //    }
-
 //    public static void main(String[] args) {
 //        String cid = "1";
 //        ProductDao dao = new ProductDao();
@@ -647,8 +630,6 @@ public class ProductDao extends DBContext {
 //            System.out.println(o);
 //        }
 //    }
-
-
     public List<Products> getProductsByPrice(String fromPrice, String toPrice) {
         List<Products> list = new ArrayList<>();
         String query = "SELECT * FROM Products WHERE price BETWEEN ? AND ?";
@@ -807,8 +788,7 @@ public class ProductDao extends DBContext {
         List<Products> list = new ArrayList<>();
         String query = "SELECT * FROM Products ORDER BY product_id OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY";
 
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement st = conn.prepareStatement(query)) {
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement st = conn.prepareStatement(query)) {
             st.setInt(1, (index - 1) * 12);
             try (ResultSet rs = st.executeQuery()) {
                 while (rs.next()) {
@@ -832,6 +812,88 @@ public class ProductDao extends DBContext {
         return list;
     }
 
+    public void createProduct(String category_id, String supplier, String name, String description, String price, String quantity_in_stock, String average_calories, String picture) {
+        // Xác định giá trị status dựa trên quantity_in_stock
+        String status = Integer.parseInt(quantity_in_stock) > 0 ? "available" : "unavailable";
+
+        System.out.println("Creating product with: " + name + ", " + price + ", " + quantity_in_stock); // Ghi log dữ liệu đầu vào
+        String sql = "INSERT INTO Products (category_id, supplier, name, description, price, quantity_in_stock, status, average_calories, picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
+            int index = 1;
+            st.setString(index++, category_id);
+            st.setString(index++, supplier);
+            st.setString(index++, name);
+            st.setString(index++, description);
+            st.setString(index++, price);
+            st.setString(index++, quantity_in_stock);
+            st.setString(index++, status); // Sử dụng giá trị status đã xác định
+            st.setString(index++, average_calories);
+            st.setString(index++, picture);
+            int rowsAffected = st.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected); // Kiểm tra số hàng bị ảnh hưởng
+        } catch (SQLException e) {
+            System.err.println("Error cannot insert product: " + e.getMessage());
+        }
+    }
+
+    public void updateProduct(String productId, String categoryId, String supplier, String name, String description, String price, String quantityInStock, String averageCalories, String picture) {
+        // Xác định giá trị status dựa trên quantity_in_stock
+        String status = Integer.parseInt(quantityInStock) > 0 ? "available" : "unavailable";
+
+        String sql = "UPDATE Products SET category_id = ?, supplier = ?, name = ?, description = ?, price = ?, quantity_in_stock = ?, status = ?, average_calories = ?, picture = ? WHERE product_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            int index = 1;
+            st.setString(index++, categoryId);
+            st.setString(index++, supplier);
+            st.setString(index++, name);
+            st.setString(index++, description);
+            st.setString(index++, price);
+            st.setString(index++, quantityInStock);
+            st.setString(index++, status); // Sử dụng giá trị status đã xác định
+            st.setString(index++, averageCalories);
+            st.setString(index++, picture);
+            st.setString(index++, productId); // Gán productId ở cuối cùng
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error cannot update product: " + e);
+        }
+    }
+
+    public void deleteProduct(String productId) {
+        String sql = "DELETE FROM Products WHERE product_id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            int index = 1;
+            st.setString(index++, productId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error cannot delete product: " + e);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Tạo đối tượng ProductDao
+        ProductDao productDao = new ProductDao();
+
+        // Thông tin sản phẩm cần tạo
+        String categoryId = "1"; // ID danh mục, giả sử đã tồn tại
+        String supplier = "Supplier Name";
+        String name = "Product Name";
+        String description = "Product Description";
+        String price = "100.00"; // Giá sản phẩm (chuỗi)
+        String quantityInStock = "10"; // Số lượng trong kho (chuỗi)
+        String averageCalories = "200.0"; // Trung bình calo (chuỗi)
+        String picture = "path/to/picture.jpg"; // Đường dẫn tới hình ảnh sản phẩm
+
+        // Gọi hàm createProduct
+        try {
+            productDao.createProduct(categoryId, supplier, name, description, price, quantityInStock, averageCalories, picture);
+            System.out.println("Product created successfully.");
+        } catch (Exception e) {
+            System.err.println("Error creating product: " + e.getMessage());
+        }
+    }
 //    public static void main(String[] args) {
 //        ProductDao dao = new ProductDao();
 //        List<Products> list = dao.pagingProduct(1);
@@ -839,5 +901,4 @@ public class ProductDao extends DBContext {
 //            System.out.println(p);
 //        }
 //    }
-
 }
