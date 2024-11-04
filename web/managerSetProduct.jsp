@@ -70,10 +70,11 @@
                             <div id="mealsContainer">
                                 <!-- nơi thêm các thẻ bữa ăn mới vào -->
                                 <c:forEach var="i" items="${list}">
-                                    <div>
+                                    <div class="menu-item">
+                                        <input type="text" name="totalMenuId" value="${totalMenuId}" hidden/>
                                         <input value="${i.getMenu_name()}" type="text" name="name" readonly/>
                                         <select name="category">
-                                            <c:forEach var = "c" items="${cate}">
+                                            <c:forEach var="c" items="${cate}">
                                                 <option>${c.value}</option>
                                             </c:forEach>
                                         </select>
@@ -82,8 +83,6 @@
                                         <input type="number" name="price" step="0.01" min="0" required placeholder="Input price"/>
                                         <input type="number" name="qty" placeholder="Input quantity" required/>
                                         <input type="number" name="calo" step="0.01" min="0" value="${i.getAverage_calories()}" readonly/>
-                                        <!<!-- picture -->
-
                                         <input type="file" name="picture" accept="image/*" required/>
 
                                         <input type="number" hidden value="${lastMenuId}" name="lastId"/>

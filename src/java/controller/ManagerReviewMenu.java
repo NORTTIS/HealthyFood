@@ -70,7 +70,6 @@ public class ManagerReviewMenu extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        //lấy dữ liệu tài khoản đăng nhập
         Accounts ac = (Accounts) session.getAttribute("acc");
         if (ac == null) {
             response.sendRedirect("login.jsp");
@@ -87,7 +86,6 @@ public class ManagerReviewMenu extends HttpServlet {
                     request.setAttribute("detailMenu", foundMenu);
                     foundMenu.entrySet().forEach(type -> {
                         List<Menu> menuList = type.getValue();
-                        // Lặp qua từng đối tượng Menu trong List
                         menuList.forEach(menu -> {
                             String typeC = ndb.getTypeByTypeID(menu.getType_id());
                             request.setAttribute("typeC", typeC);
@@ -132,20 +130,24 @@ public class ManagerReviewMenu extends HttpServlet {
         }
         
         if(action.equals("Accept")){
+            String totalMenuId = "";
             List<Menu> mList = new ArrayList<>();
             for(int i = firstId; i <= lastId; i++){
                 Menu m = ndb.getMenuByID(i);
                 if(!m.getMenu_name().equals(ndb.getMenuByID(i++).getName())){
                     mList.add(m);
+                    totalMenuId += i;
+                    if(i < lastId){
+                        totalMenuId += "-";
+                    }
                 }
             }
             ndb.menuDecide(firstId, lastId, descrip, "Accept");
             ProductDao pd = new ProductDao();
             Map<Integer, String> cate = pd.getAllProductCategory();
-            request.setAttribute("firstId", firstId);
-            request.setAttribute("lastId", lastId);
             request.setAttribute("cate", cate);
             request.setAttribute("list", mList);
+            request.setAttribute("totalMenuId", totalMenuId);
             request.getRequestDispatcher("managerSetProduct.jsp").forward(request, response);
         }
     }
