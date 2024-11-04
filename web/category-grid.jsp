@@ -44,21 +44,17 @@
         <!--HEADER-->
         <jsp:include page="./jsptemplate/header.jsp" />
 
-        <!--Hero Section-->
-        <div class="hero-section hero-background">
-            <h1 class="page-title">Shop</h1>
-        </div>
 
 
- 
+
+
 
         <!--Navigation section-->
-                <div class="container">
+        <div class="container">
             <nav class="biolife-nav">
                 <ul>
                     <li class="nav-item"><a href="home" class="permal-link">Home</a></li>
-                    <li class="nav-item"><a href="shop" class="permal-link">Shop</a></li>
-                    
+                    <li class="nav-item"><span class="current-page">shop</span></li>
                 </ul>
             </nav>
         </div>
@@ -77,7 +73,7 @@
 
                                 <div id="main-content" class="main-content col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                                    <div class="block-item recently-products-cat md-margin-bottom-39">
+                                    <div class="block-item recently-products-cat">
                                         <ul class="products-list biolife-carousel nav-center-02 nav-none-on-mobile" 
                                             data-slick='{"arrows": true, "dots": false, "slidesMargin": 0, "slidesToShow": 1, "infinite": false, "speed": 800}'> 
                                             <li class="product-item">
@@ -97,10 +93,11 @@
                                                 <c:forEach items="${listP}" var="o">
                                                     <li class="product-item col-lg-3 col-md-3 col-sm-4 col-xs-6">
 
-                                                        <div class="contain-product layout-default">
-                                                            <div class="product-thumb">
-                                                                <a href="productDetail.jsp" class="link-to-product">
-                                                                    <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto;" class="product-thumnail">
+                                                        <div class="contain-product layout-default" style="    border: 1px solid #d8d8d8;
+                                                             border-radius: 20px;     margin-bottom: 20px;">
+                                                            <div class="product-thumb" style="text-align: center;">
+                                                                <a href="productDetail?ac=show&productId=${o.productId}" class="link-to-product">
+                                                                    <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail">
                                                                 </a>
                                                             </div>
 
@@ -110,13 +107,19 @@
                                                                 <div class="price">
                                                                     <ins><span class="price-amount">${o.price}<span class="currencySymbol"> VND</span></span></ins>
                                                                 </div>
+                                                                <div style="    display: flex;
+                                                                     gap: 50px;
+                                                                     justify-content: center;">
+                                                                    <span style="text-align: center;">${cates.get(o.category)}</span>
+                                                                    <span style="text-align: center;">${o.averageCalories} cal</span> 
+                                                                </div>
 
 
                                                                 <div class="slide-down-box">
                                                                     <p class="message">${o.description}</p>
                                                                     <div class="buttons">
-                                                                        <a href="#" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                                        <a href="#" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                                        <a href="wishlist?ac=add&productId=${o.productId}" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                        <a href="cart?ac=addtocart&productId=${o.productId}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
 
                                                                     </div>
                                                                 </div>
@@ -184,6 +187,15 @@
                         </div>
                         <div class="sidebar-contain">
 
+                             <!-- kiểm tra role (manager) --> 
+                            <div class="sidebar-contain">
+                                <c:if test="${sessionScope.acc.role == 'Manager'}">
+
+                                    <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                        <button class="btn btn-default"><a href="manageproduct" style="color: inherit">Create a new product</a></button>
+                                    </div>
+                                </c:if>
+                                
                             <!-- Category Filter -->
                             <div class="widget biolife-filter">
                                 <h4 class="wgt-title">Category</h4>
@@ -213,7 +225,6 @@
                                     <div class="frm-contain">
                                         <form action="shop" name="price-filter" id="price-filter" method="get">
                                             <p class="f-item">
-                                               
                                                 <input class="input-number" type="number" id="pr-from" name="fromPrice" min="0" required>
                                             </p>
                                             <p class="f-item">
