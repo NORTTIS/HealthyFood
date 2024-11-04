@@ -68,6 +68,7 @@
                                 <!-- nơi thêm các thẻ bữa ăn mới vào -->
                                 <c:forEach var="i" items="${list}">
                                     <div class="menu-item">
+                                        <input type="text" name="totalMenuId" value="${totalMenuId}" hidden/>
                                         <input value="${i.getMenu_name()}" type="text" name="name" readonly/>
                                         <select name="category">
                                             <c:forEach var="c" items="${cate}">
