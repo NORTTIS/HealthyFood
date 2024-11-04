@@ -85,7 +85,7 @@ public class TransactionServlet extends HttpServlet {
         String signValue = Config.hashAllFields(fields);
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(request.getParameter("vnp_TransactionStatus"))) {
-                request.setAttribute("result", "Thành Công");
+                request.setAttribute("result", "Succesful");
                 // tạo order khi thanh toán thành công 
                 HttpSession session = request.getSession();
                 Cart cart = (Cart) session.getAttribute("cart");
@@ -95,7 +95,7 @@ public class TransactionServlet extends HttpServlet {
 
                 if (deDetail != null) {
                     if (acc != null) {
-                        String orderId = prod.createOrder(cart, acc.getAccount_id() + "");
+                        String orderId = prod.createOrder(cart, acc.getAccount_id() + "","online");
                         if (orderId.equals("outofstock")) {
                             request.setAttribute("error", "It looks like a certain product is out of stock, please edit your cart!");
                             request.getRequestDispatcher("checkout").forward(request, response);
@@ -106,7 +106,7 @@ public class TransactionServlet extends HttpServlet {
                         }
 
                     } else {
-                        String orderId = prod.createOrder(cart,"5");
+                        String orderId = prod.createOrder(cart,"5","online");
                         if (orderId.equals("outofstock")) {
                             request.setAttribute("error", "It looks like a certain product is out of stock, please edit your cart!");
                             request.setAttribute("cart", cart);
@@ -125,11 +125,10 @@ public class TransactionServlet extends HttpServlet {
                 }
 
             } else {
-                request.setAttribute("result", "Không thành công");
+                request.setAttribute("result", "Unsucess");
             }
-
         } else {
-            request.setAttribute("result", "invalid signature");
+            request.setAttribute("result", "Unsucess");
         }
 
         request.getRequestDispatcher("vnpay_return.jsp").forward(request, response);

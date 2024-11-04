@@ -16,6 +16,7 @@ import java.util.Map;
 
 /**
  *
+
  * @author Gosu
  */
 @WebServlet(name = "ManagerSetProduct", urlPatterns = {"/setProduct"})
@@ -46,6 +47,7 @@ public class ManagerSetProduct extends HttpServlet {
             out.println("</html>");
         }
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -82,6 +84,9 @@ public class ManagerSetProduct extends HttpServlet {
         String[] calo = request.getParameterValues("calo");
         String[] picture = request.getParameterValues("picture");
 
+        String firstId = request.getParameter("firstId");
+        String lastId = request.getParameter("lastId");
+
         ProductDao pdb = new ProductDao();
         Map<Integer, String> map = pdb.getAllProductCategory();
         for (int i = 0; i < name.length; i++) {
@@ -103,11 +108,7 @@ public class ManagerSetProduct extends HttpServlet {
         response.sendRedirect("menuList");
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";

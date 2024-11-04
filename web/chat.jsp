@@ -33,7 +33,6 @@
             }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
-        <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Optional: Add your custom styles -->
     </head>
     <body>
         <!-- Preloader loading-->
@@ -59,7 +58,7 @@
                         <input class="search" type="text" class="form-control" placeholder="Search for contact...">
                     </div>
                     <div class="contact-list">
-                        <ul class="list" style="list-style: none">
+                        <ul class="list" style="list-style: none;    max-height: 380px;">
                             <c:forEach items="${lacc}" var="i">
                                 <li>
                                     <a href="chat?accId=${i.account_id}" style="color:initial">
@@ -74,6 +73,7 @@
                                 </li>
 
                             </c:forEach>
+                              
                             <li>
                                 <a href="chat?accId=-1" style="color:initial">
                                     <div class="d-flex align-items-center p-2 border-bottom">
