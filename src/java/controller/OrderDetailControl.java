@@ -70,7 +70,12 @@ public class OrderDetailControl extends HttpServlet {
         AccountsDAO accDao = new AccountsDAO();
         Accounts acc = accDao.getAccountByid(order.getAuthor());
         DeliveryDetail deDetail = prodDao.getDeliveryDetailByOrderId(orderId);
+        int discountValue = 0;
+        if (deDetail.getVoucher() != null) {
+                discountValue = new ProductDao().getVoucherValueByVouderCode(deDetail.getVoucher());
+            }
         Cart cartOrder = prodDao.getOrderDetailById(orderId);
+        request.setAttribute("discount",cartOrder.getTotalPrice()*discountValue/100 );
         request.setAttribute("deDetail", deDetail);
         request.setAttribute("order", order);
         request.setAttribute("cart", cartOrder);

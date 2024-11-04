@@ -116,12 +116,15 @@
 
 
                                                                 <div class="slide-down-box">
-                                                                    <p class="message">${o.description}</p>
-                                                                    <div class="buttons">
+                                                                    <p class="message excerpt">${o.description}</p>
+                                                                    <c:if test="${sessionScope.acc.role!='Manager'&& sessionScope.acc.role!='Nutritionist'}">
+                                                                         <div class="buttons">
                                                                         <a href="wishlist?ac=add&productId=${o.productId}" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                                         <a href="cart?ac=addtocart&productId=${o.productId}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
 
                                                                     </div>
+                                                                    </c:if>
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>

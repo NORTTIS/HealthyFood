@@ -95,24 +95,27 @@
                             </div>
 
                         </div>
-                        <div class="action-form">
-                            <div class="quantity-box">
-                                <span class="title">Quantity:</span>
-                                <div class="qty-input">
-                                    <input id="quantity" class="input-qty" type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
-                                    <a href="#" class="qty-btn btn-ups"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                                    <a href="#" class="qty-btn btn-downs"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <c:if test="${sessionScope.acc.role !='Manager'&& sessionScope!='Nutritionist'}">
+                            <div class="action-form">
+                                <div class="quantity-box">
+                                    <span class="title">Quantity:</span>
+                                    <div class="qty-input">
+                                        <input id="quantity" class="input-qty" type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
+                                        <a href="#" class="qty-btn btn-ups"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
+                                        <a href="#" class="qty-btn btn-downs"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="buttons">
-                                <a  id="addToCartLink" href="cart?ac=addtocart&productId=${prod.productId}&qty=1"  class="btn add-to-cart-btn">add to cart</a>
-                                <p class="pull-row">
-                                    <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
-                                </p>
-                            </div>
+                                <div class="buttons">
+                                    <a  id="addToCartLink" href="cart?ac=addtocart&productId=${prod.productId}&qty=1"  class="btn add-to-cart-btn">add to cart</a>
+                                    <p class="pull-row">
+                                        <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
+                                    </p>
+                                </div>
 
-                        </div>
+                            </div>
+                        </c:if>
+
                     </div>
 
                     <div class="product-tabs single-layout biolife-tab-contain">
@@ -187,7 +190,7 @@
                                         <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
 
                                             <c:choose>
-                                                <c:when test="${not empty sessionScope.acc}">
+                                                <c:when test="${sessionScope.acc.role == 'Customer'}">
                                                     <div class="review-form-wrapper">
                                                         <span class="title">Submit your review</span>
                                                         <form action="review" name="frm-review" method="post">

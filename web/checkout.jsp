@@ -113,7 +113,7 @@
 
 
                                     <div class="mb-3" style="margin-top: 10px;" >
-                                        <label for="address" class="form-label">Address</label>
+                                        <label for="address" class="form-label">Address<span class="text-danger">*</span> </label>
                                         <input value="${sessionScope.deDetail.address}" name="address" type="text" class="form-control" id="address" value="${acc.address}" required>
                                     </div>
 
@@ -206,13 +206,13 @@
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name">Total Calorie </b>
-                                                <span class="stt-price">${totalCal}</span>
+                                                <span class="stt-price">${totalCal} cal</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name"> Discount </b>
-                                                <span class="stt-price">- ${discount==null?0:discount} đ</span>
+                                                <span class="stt-price">- ${discount==null?0:discount} VND</span>
                                             </div>
                                         </li>
                                         <li>
@@ -222,7 +222,7 @@
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name">Total amount:</b>
-                                                <span class="stt-price">${totalPrice}</span>
+                                                <span class="stt-price">${totalPrice} VND</span>
                                             </div>
                                         </li>
                                     </ul>

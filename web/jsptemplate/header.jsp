@@ -92,7 +92,7 @@
                             data-menuname="main menu">
                             <li class="menu-item item-nav"><a href="home">Home</a></li>
 
-                            <c:if test="${sessionScope.acc.role != 'Nutritionist'&& sessionScope.acc.role !='Manager'}">
+                            <c:if test="${sessionScope.acc.role != 'Nutritionist'}">
                                 <li class="menu-item menu-item-has-children item-nav">
                                     <a href="shop" class="menu-name" data-title="Shop">Shop</a>
                                 </li>
