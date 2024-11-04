@@ -187,6 +187,15 @@
                         </div>
                         <div class="sidebar-contain">
 
+                             <!-- kiểm tra role (manager) --> 
+                            <div class="sidebar-contain">
+                                <c:if test="${sessionScope.acc.role == 'Manager'}">
+
+                                    <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                        <button class="btn btn-default"><a href="manageproduct" style="color: inherit">Create a new product</a></button>
+                                    </div>
+                                </c:if>
+                                
                             <!-- Category Filter -->
                             <div class="widget biolife-filter">
                                 <h4 class="wgt-title">Category</h4>
