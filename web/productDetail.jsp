@@ -256,8 +256,8 @@
                                         <div class="biolife-panigations-block ">
                                             <ul class="panigation-contain">
                                                 <c:if test="${currentPage > 1}">
-                                                    <li><a href="blog?page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
-                                                    <li><a href="blog?page=${currentPage-1}" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${currentPage-1}" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
                                                         </c:if>
 
                                                 <c:choose>
@@ -270,7 +270,7 @@
                                                            end="${(currentPage + 2) < totalPages ? currentPage + 2 : totalPages}" 
                                                            var="i">
 
-                                                    <li><a href="blog?page=${i}" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${i}" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
                                                     </c:forEach>
 
                                                 <c:choose>
@@ -280,8 +280,8 @@
                                                 </c:choose>
 
                                                 <c:if test="${currentPage < totalPages}">
-                                                    <li><a href="blog?page=${currentPage+1}" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                                                    <li><a href="blog?page=${totalPages}" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${currentPage+1}" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${totalPages}" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                                                         </c:if>
                                             </ul>
                                             <div class="result-count">
