@@ -42,9 +42,9 @@
         </c:if>
         <!-- header -->
         <c:if test="${sessionScope.acc.role != 'Manager'}">
-             <jsp:include page="./jsptemplate/header.jsp" />
+            <jsp:include page="./jsptemplate/header.jsp" />
         </c:if>
-       
+
         <section style="margin: 45px 0px; " >
 
             <div class="container py-5">
@@ -52,74 +52,63 @@
                 <div class="row form-log" style="border-right: 0.5px solid #eaeaea;
                      border-left: 1px solid #eaeaea;
                      min-height: 450px;">
-<!--                    <div class="orderside-left col-lg-4" style="padding: 50px 20px 0px 35px;">
-                       
-                        <h3 style="font-size:30px"><b>Delivery address</b></h3>
-                        <span style="font-size: 20px;font-weight: 600;">${customer.displayname}</span>
-                        <br/>
-                        <span style="font-size: 15px;">${customer.phone_number}</span>
-                         <br/>
-                        <span style="font-size: 15px;">${customer.address}</span>
-                    </div>-->
-                 <div class=" orderside-left col-lg-7 col-md-7 col-sm-6 col-xs-12">
-                            <div class="mt-4">
-                                <h2>Delivery Details</h2>
-                                <form action="checkout" method="post">
-                                    <div class="row mb-3">
-                                        <div class="col-md-5">
-                                            <label for="fullName" class="form-label">Full name<span class="text-danger">*</span></label>
-                                            <input value="${deDetail.fullname==null?acc.displayname: deDetail.fullname}" name="fullname" type="text" class="form-control" id="fullName" readonly="true">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
-                                            <input value="${deDetail.email==null?acc.email: deDetail.email}" name="email" type="email" class="form-control" id="email" readonly="true">
-                                            <div id="emailError" class="text-danger" style="display:none;">Invalid email format.</div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="mobile" class="form-label">Mobile<span class="text-danger">*</span></label>
-                                            <input value="${deDetail.phone==null?acc.phone_number: deDetail.phone}" name="phone" type="tel" class="form-control" id="mobile" readonly="true">
-                                            <div id="phoneError" class="text-danger" style="display:none;">Invalid phone number format.</div>
-                                        </div>
+                    <div class=" orderside-left col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                        <div class="mt-4">
+                            <h2>Delivery Details</h2>
+                            <div >
+                                <div class="row mb-3">
+                                    <div class="col-md-5">
+                                        <label for="fullName" class="form-label">Full name</label>
+                                        <p>${deDetail.fullname==null?acc.displayname: deDetail.fullname}</p>
                                     </div>
-
-                                    <div class="mb-3" style="margin-top: 10px;" >
-                                        <label for="address" class="form-label">Address</label>
-                                        <input value="${deDetail.address==null?acc.address : deDetail.address}" name="address" type="text" class="form-control" id="address" value="${acc.address}" readonly="true">
+                                    <div class="col-md-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <p>${deDetail.email==null?acc.email: deDetail.email}</p>
                                     </div>
-
-                                    <div class="mb-3" style="margin-top: 10px;" >
-                                        <label for="deliveryNotes" class="form-label">Delivery Notes</label>
-                                        <textarea name="note" class="form-control" id="deliveryNotes" rows="3" readonly="true">${deDetail.note}</textarea>
+                                    <div class="col-md-3">
+                                        <label for="mobile" class="form-label">Mobile</label>
+                                        <p>${deDetail.phone==null?acc.phone_number: deDetail.phone}</p>
                                     </div>
+                                </div>
 
-                                    <div class="row mb-3" style="margin-top: 10px;" >
-                                        <div class="col-md-6">
-                                            <label for="voucherCode" class="form-label">Voucher Code</label>
-                                            <div class="input-group" style="    display: flex;
-                                                 gap: 10px;
-                                                 margin-bottom: 10px;">
-                                                <input name="voucher" type="text" class="form-control" id="voucherCode" value="${deDetail.voucher}"  readonly="true">
+                                <div class="mb-3" style="margin-top: 10px;" >
+                                    <label for="address" class="form-label">Address</label>
+                                    <p>${deDetail.address==null?acc.address : deDetail.address}</p>
+                                </div>
 
-                                            </div>
+                                <div class="mb-3" style="margin-top: 10px;" >
+                                    <label for="deliveryNotes" class="form-label">Delivery Notes</label>
+                                    <textarea  name="note" class="form-control" id="deliveryNotes" rows="12" readonly="true" style="background-color: inherit">${deDetail.note}</textarea>
+                                </div>
+
+                                <div class="row mb-3" style="margin-top: 10px;" >
+                                    <div class="col-md-6">
+                                        <label for="voucherCode" class="form-label">Voucher Code</label>
+                                        <div class="input-group" style="    display: flex;
+                                             gap: 10px;
+                                             margin-bottom: 10px;">
+                                            <p>${deDetail.voucher}</p>
+
                                         </div>
                                     </div>
+                                </div>
 
-                                </form>
-                              
-
-                            </div> 
-                        </div>
-                    <div class="orderside-left col-lg-5" style="padding: 50px 20px 0px 35px;">
-                         <div class="order-summary sm-margin-bottom-80px">
-                                    <div class="order-summary sm-margin-bottom-24px">
-                            <div class="title-block d-flex">
-                                <h3 class="title">Order Summary</h3>
-
-                                <span class="order-date">Order date: ${order.createAt}</span>
-                                 
                             </div>
+
+
+                        </div> 
+                    </div>
+                    <div class="orderside-left col-lg-5" style="padding: 50px 20px 0px 35px;">
+                        <div class="order-summary sm-margin-bottom-80px">
+                            <div class="order-summary sm-margin-bottom-24px">
+                                <div class="title-block d-flex">
+                                    <h3 class="title">Order Summary</h3>
+
+                                    <span class="order-date">Order date: ${order.createAt}</span>
+
+                                </div>
                                 <span style=""> ${order.status}</span>  
-                                
+
                                 <div class="cart-list-box short-type">
                                     <span class="number">${cart.getCount()} items</span>
                                     <ul class="cart-list">
@@ -128,7 +117,7 @@
                                                 <div class="cart-item">
                                                     <div class="product-thumb">
                                                         <a class="prd-thumb" href="#">
-                                                            <figure><img src="./assets/images/products/p-01.jpg" width="113" height="113" alt="shop-cart" ></figure>
+                                                            <figure><img src="./assets/images/products/${i.product.picture}" width="113" height="113" style="border-radius: 20px" alt="shop-cart" ></figure>
                                                         </a>
                                                     </div>
                                                     <div class="info">
@@ -148,34 +137,35 @@
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name">Total Calorie </b>
-                                                <span class="stt-price">${cart.totalCal}</span>
+                                                <span class="stt-price">${cart.totalCal} cal</span>
                                             </div>
-                                        </li>
-                                        <li>
-
                                         </li>
 
                                         <li>
                                             <div class="subtotal-line">
+                                                <b class="stt-name">Discount</b>
+                                                <span class="stt-price">- ${discount==null?0:discount} VND</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="subtotal-line">
                                                 <b class="stt-name">Total amount:</b>
-                                                <span class="stt-price">${cart.totalPrice}</span>
+                                                <span class="stt-price">${cart.totalPrice - discount} VND</span>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <form method="post" action="pay" style="text-align: end;">
-                                    <input type="text" name="amount" value="${cart.totalPrice}" hidden/>
-                                </form>
-                            </div>
-                    </div> 
-                    
 
+                            </div>
+                        </div> 
+
+
+                    </div>
                 </div>
-            </div>
         </section>
         <!-- footer -->
-        
-         <c:if test="${sessionScope.acc.role != 'Manager'}">
+
+        <c:if test="${sessionScope.acc.role != 'Manager'}">
             <jsp:include page="./jsptemplate/footer.jsp" />
         </c:if>
         <script src="assets/js/jquery-3.4.1.min.js"></script>

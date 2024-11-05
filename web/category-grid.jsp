@@ -96,7 +96,7 @@
                                                         <div class="contain-product layout-default" style="    border: 1px solid #d8d8d8;
                                                              border-radius: 20px;     margin-bottom: 20px;">
                                                             <div class="product-thumb" style="text-align: center;">
-                                                                <a href="productDetail" class="link-to-product">
+                                                                <a href="productDetail?ac=show&productId=${o.productId}" class="link-to-product">
                                                                     <img src="assets/images/products/${o.picture}" alt="dd" style="width: 120px;height: 120px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail">
                                                                 </a>
                                                             </div>
@@ -116,12 +116,15 @@
 
 
                                                                 <div class="slide-down-box">
-                                                                    <p class="message">${o.description}</p>
-                                                                    <div class="buttons">
+                                                                    <p class="message excerpt">${o.description}</p>
+                                                                    <c:if test="${sessionScope.acc.role!='Manager'&& sessionScope.acc.role!='Nutritionist'}">
+                                                                         <div class="buttons">
                                                                         <a href="wishlist?ac=add&productId=${o.productId}" class="btn wishlist-btn"><i class="fa fa-heart" aria-hidden="true"></i></a>
                                                                         <a href="cart?ac=addtocart&productId=${o.productId}" class="btn add-to-cart-btn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
 
                                                                     </div>
+                                                                    </c:if>
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -187,6 +190,15 @@
                         </div>
                         <div class="sidebar-contain">
 
+                             <!-- kiểm tra role (manager) --> 
+                            <div class="sidebar-contain">
+                                <c:if test="${sessionScope.acc.role == 'Manager'}">
+
+                                    <div class="widget biolife-filter" style="border-bottom: 1px solid #e6e6e6; padding: 37px 0; margin-bottom: 20px;">
+                                        <button class="btn btn-default"><a href="manageproduct" style="color: inherit">Create a new product</a></button>
+                                    </div>
+                                </c:if>
+                                
                             <!-- Category Filter -->
                             <div class="widget biolife-filter">
                                 <h4 class="wgt-title">Category</h4>

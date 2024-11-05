@@ -50,7 +50,7 @@
         <!-- HEADER -->
         <jsp:include page="./jsptemplate/header.jsp" />
 
-     
+
 
         <!--Navigation section-->
         <div class="container">
@@ -71,10 +71,13 @@
                 <div id="main-content" class="main-content">
 
                     <!--summary info--> 
-                    <div class="sumary-product single-layout">
+                    <div class="sumary-product single-layout" style="padding-top: 90px;">
                         <div class="media">
                             <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                <li><img src="assets/images/products/${prod.picture}" alt="" style=""></li>
+                                <li><img src="assets/images/products/${prod.picture}" alt="" style="width: 300px;
+                                         height: 270px;
+                                         object-fit: cover;
+                                         border-radius: 20px;"></li>
                             </ul>
                         </div>
                         <div class="product-attribute">
@@ -85,31 +88,34 @@
                                 <b class="category">Type: ${cate.get(prod.category)}</b>
                                 <span class="review-count">cal: ${prod.averageCalories}</span>
                             </div>
-                                <p class="sku">Source: ${prod.supplier}<span style="margin-left: 10px;">in stock:${prod.quantityInStock}</span></p>
+                            <p class="sku">Source: ${prod.supplier}<span style="margin-left: 10px;">in stock:${prod.quantityInStock}</span></p>
                             <p class="excerpt">${prod.description}</p>
                             <div class="price">
                                 <ins><span class="price-amount">${prod.price} <span class="currencySymbol">VND</span></span></ins>
                             </div>
 
                         </div>
-                        <div class="action-form">
-                            <div class="quantity-box">
-                                <span class="title">Quantity:</span>
-                                <div class="qty-input">
-                                    <input id="quantity" class="input-qty" type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
-                                    <a href="#" class="qty-btn btn-ups"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                                    <a href="#" class="qty-btn btn-downs"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <c:if test="${sessionScope.acc.role !='Manager'&& sessionScope!='Nutritionist'}">
+                            <div class="action-form">
+                                <div class="quantity-box">
+                                    <span class="title">Quantity:</span>
+                                    <div class="qty-input">
+                                        <input id="quantity" class="input-qty" type="text" name="qty" value="1" data-max_value="${prod.quantityInStock}" data-min_value="1" data-step="1">
+                                        <a href="#" class="qty-btn btn-ups"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
+                                        <a href="#" class="qty-btn btn-downs"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
 
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="buttons">
-                                <a  id="addToCartLink" href="cart?ac=addtocart&productId=${prod.productId}&qty=1"  class="btn add-to-cart-btn">add to cart</a>
-                                <p class="pull-row">
-                                    <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
-                                </p>
-                            </div>
+                                <div class="buttons">
+                                    <a  id="addToCartLink" href="cart?ac=addtocart&productId=${prod.productId}&qty=1"  class="btn add-to-cart-btn">add to cart</a>
+                                    <p class="pull-row">
+                                        <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
+                                    </p>
+                                </div>
 
-                        </div>
+                            </div>
+                        </c:if>
+
                     </div>
 
                     <div class="product-tabs single-layout biolife-tab-contain">
@@ -184,7 +190,7 @@
                                         <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
 
                                             <c:choose>
-                                                <c:when test="${not empty sessionScope.acc}">
+                                                <c:when test="${sessionScope.acc.role == 'Customer'}">
                                                     <div class="review-form-wrapper">
                                                         <span class="title">Submit your review</span>
                                                         <form action="review" name="frm-review" method="post">
@@ -250,8 +256,8 @@
                                         <div class="biolife-panigations-block ">
                                             <ul class="panigation-contain">
                                                 <c:if test="${currentPage > 1}">
-                                                    <li><a href="blog?page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
-                                                    <li><a href="blog?page=${currentPage-1}" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=1" class="link-page next"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${currentPage-1}" class="link-page next"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
                                                         </c:if>
 
                                                 <c:choose>
@@ -264,7 +270,7 @@
                                                            end="${(currentPage + 2) < totalPages ? currentPage + 2 : totalPages}" 
                                                            var="i">
 
-                                                    <li><a href="blog?page=${i}" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${i}" class="link-page ${i == currentPage ? 'current-page' : ''}">${i}</a></li>
                                                     </c:forEach>
 
                                                 <c:choose>
@@ -274,8 +280,8 @@
                                                 </c:choose>
 
                                                 <c:if test="${currentPage < totalPages}">
-                                                    <li><a href="blog?page=${currentPage+1}" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-                                                    <li><a href="blog?page=${totalPages}" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${currentPage+1}" class="link-page next"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                                    <li><a href="productDetail?ac=show&productId=${prod.productId}&page=${totalPages}" class="link-page next"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
                                                         </c:if>
                                             </ul>
                                             <div class="result-count">

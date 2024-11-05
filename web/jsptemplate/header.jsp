@@ -83,125 +83,130 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                    <a href="home" class="biolife-logo"><img src="assets/images/organic-3-green.png"
-                                                             alt="biolife logo" width="135" height="36"></a>
+                    <a href="home" class="biolife-logo"><img src="./assets/images/logo.png"
+                                                             alt="biolife logo" style="width: 125px; height: 70px;"></a>
                 </div>
                 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                     <div class="primary-menu">
                         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu"
                             data-menuname="main menu">
-                            <li class="menu-item"><a href="home">Home</a></li>
-                            <li class="menu-item menu-item-has-children ">
-                                <a href="shop" class="menu-name" data-title="Shop">Shop</a>
+                            <li class="menu-item item-nav"><a href="home">Home</a></li>
 
-                            </li>
-
-
-                            <li class="menu-item menu-item-has-children ">
+                            <c:if test="${sessionScope.acc.role != 'Nutritionist'}">
+                                <li class="menu-item menu-item-has-children item-nav">
+                                    <a href="shop" class="menu-name" data-title="Shop">Shop</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.role !='Manager'}">
+                                <li class="menu-item menu-item-has-children item-nav">
                                 <a href="blog" class="menu-name" data-title="Blog">Blog</a>
 
                             </li>
+                            </c:if>
+                            
                             <!--nếu đăng nhập là nutritionist thì sẽ hiện ra thanh chuyển xem list menu thay vì contact -->
                             <c:choose>
                                 <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
-                                    <li class="menu-item"><a href="menuList">Menu</a></li>
+                                    <li class="menu-item item-nav"><a href="menuList">Menu</a></li>
                                     </c:when>
                                     <c:when test="${sessionScope.acc.role == 'Manager'}">
-                                    <li class="menu-item"><a href="Revenue">Revenue</a></li>
-                                    <li class="menu-item"><a href="listMenu">Menu</a></li>
-                                    </c:when>
-                                </c:choose>
+                                    <li class="menu-item item-nav"><a href="discountList">Discount</a></li>
+
+                                    <li class="menu-item item-nav"><a href="Revenue">Revenue</a></li>
+                                    <li class="menu-item item-nav"><a href="listMenu">Menu</a></li>
+
+                                </c:when>
+                            </c:choose>
+                            <c:if test="${sessionScope.acc.role == 'Nutritionist' ||sessionScope.acc.role == 'Customer' }">
+                                <li class="menu-item menu-item-has-children  item-nav">
+                                    <a href="chat" class="menu-name" data-title="chat">Chat</a>
+
+                                </li>
+                            </c:if>
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
-                    <div class="biolife-cart-info">
+                    <c:if test="${sessionScope.acc.role !='Manager'}">
+                        <div class="biolife-cart-info">
 
-                        <c:if test="${sessionScope.acc.role=='Customer'}">
-                            <div class="wishlist-block hidden-sm hidden-xs">
-                                <a href="wishlist?ac=show" class="link-to">
-                                    <span class="icon-qty-combine">
-                                        <i class="icon-heart-bold biolife-icon"></i>
-                                        <span class="qty">${sessionScope.totalWish == null?0:sessionScope.totalWish}</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </c:if>
-
-                        <div class="minicart-block">
-                            <div class="minicart-contain">
-                                <a href="javascript:void(0)" class="link-to">
-                                    <span class="icon-qty-combine">
-                                        <i class="icon-cart-mini biolife-icon"></i>
-                                        <span class="qty">${sessionScope.totalitem == null ? 0 : sessionScope.totalitem}</span>
-                                    </span>
-                                    <span class="title">My Cart -</span>
-                                    <span class="sub-total">${sessionScope.cart.totalPrice == null ? 0 : sessionScope.cart.totalPrice} VND</span>
-                                </a>
-                                <div class="cart-content">
-                                    <div class="cart-inner">
-                                        <ul class="products">
-                                            <li>
-                                                <c:if test="${ sessionScope.totalitem == 0|| sessionScope.totalitem == null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
-                                                <c:forEach items="${sessionScope.cart.getItems()}" var="i">
-                                                <li>
-                                                    <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
-                                                    <div class="minicart-item">
-                                                        <div class="thumb">
-                                                            <a href="productDetail?ac=show&productId=${i.product.productId}"> <img src="assets/images/products/${i.product.picture}" alt="dd" style="width: 120px;height: 90px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail"></a>
-                                                        </div>
-                                                        <div class="left-info">
-                                                            <div>
-                                                                <div class="product-title"><a href="#"
-                                                                                              class="product-name">${i.product.name}</a></div>
-                                                                <div class="qty">
-                                                                    <label for="cart[id123][qty]">Qty:</label>
-
-                                                                    <span class="in-qty" disabledc> ${i.quantity}</span>
+                            <c:if test="${sessionScope.acc.role=='Customer'}">
+                                <div class="wishlist-block hidden-sm hidden-xs">
+                                    <a href="wishlist?ac=show" class="link-to">
+                                        <span class="icon-qty-combine">
+                                            <i class="icon-heart-bold biolife-icon"></i>
+                                            <span class="qty">${sessionScope.totalWish == null?0:sessionScope.totalWish}</span>
+                                        </span>
+                                    </a>
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.role != 'Nutritionist'}">
+                                <div class="minicart-block">
+                                    <div class="minicart-contain">
+                                        <a href="javascript:void(0)" class="link-to">
+                                            <span class="icon-qty-combine">
+                                                <i class="icon-cart-mini biolife-icon"></i>
+                                                <span class="qty">${sessionScope.totalitem == null ? 0 : sessionScope.totalitem}</span>
+                                            </span>
+                                            <span class="title">My Cart -</span>
+                                            <span class="sub-total">${sessionScope.cart.totalPrice == null ? 0 : sessionScope.cart.totalPrice} VND</span>
+                                        </a>
+                                        <div class="cart-content">
+                                            <div class="cart-inner">
+                                                <ul class="products">
+                                                    <li>
+                                                        <c:if test="${ sessionScope.totalitem == 0|| sessionScope.totalitem == null}"><p style="text-align: center;margin-top: 15px;">You have no products in your cart!</p></c:if>  </li>
+                                                        <c:forEach items="${sessionScope.cart.getItems()}" var="i">
+                                                        <li>
+                                                            <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
+                                                            <div class="minicart-item">
+                                                                <div class="thumb">
+                                                                    <a href="productDetail?ac=show&productId=${i.product.productId}"> <img src="assets/images/products/${i.product.picture}" alt="dd" style="width: 120px;height: 90px; object-fit: cover;margin:0 auto; border-radius: 10px;" class="product-thumnail"></a>
                                                                 </div>
+                                                                <div class="left-info">
+                                                                    <div>
+                                                                        <div class="product-title"><a href="#"
+                                                                                                      class="product-name">${i.product.name}</a></div>
+                                                                        <div class="qty">
+                                                                            <label for="cart[id123][qty]">Qty:</label>
+
+                                                                            <span class="in-qty" disabledc> ${i.quantity}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="price">
+                                                                        <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins><br/>
+                                                                    </div>
+
+                                                                </div>
+
                                                             </div>
-
-                                                            <div class="price">
-                                                                <ins><span class="price-amount">${i.product.price}<span class="currencySymbol">đ</span></span></ins><br/>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </div>
-                                                </li>
-                                            </c:forEach>
+                                                        </li>
+                                                    </c:forEach>
 
 
-                                        </ul>
-                                        <p class="btn-control">
-                                            <a href="cart?ac=show" class="btn view-cart">view cart</a>
-                                            <a href="checkout" class="btn" ${(totalitem == null||totalitem ==0)?'style=" pointer-events:none; background-color: #a5a5a5;"':''}>checkout</a>
-                                        </p>
+                                                </ul>
+                                                <p class="btn-control">
+                                                    <a href="cart?ac=show" class="btn view-cart">view cart</a>
+                                                    <a href="checkout" class="btn" ${(totalitem == null||totalitem ==0)?'style=" pointer-events:none; background-color: #a5a5a5;"':''}>checkout</a>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </c:if>
+
                         </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
-            <div class="header-bottom hidden-sm hidden-xs">
+            <c:if test="${sessionScope.acc.role != 'Nutritionist'&& sessionScope.acc.role !='Manager'}">
+                <div class="header-bottom hidden-sm hidden-xs">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 col-md-4">
-                            <!--                    <div class="vertical-menu vertical-category-block ">
-                                                    <div class=" menu-titles block-title">
-                            
-                                                        <span class=" menu-title">All departments</span>
-                                                        <span class="angle" data-tgleclass="fa fa-caret-down"><i class="fa fa-caret-up"
-                                                                                                                 aria-hidden="true"></i></span>
-                                                    </div>
-                                                    <div class="wrap-menu">
-                                                        <ul class="menu clone-main-menu">
-                                                            <li class="menu-item menu-item-has-children ">
-                                                                <a href="#" class="menu-name" data-title="Fruit & Nut Gifts">Fruit & Nut Gifts</a>
-                                                            </li>
-                                                    </div>
-                                                </div>-->
+                          
                             <div class="row"  style="margin-top: 10px">
                                 <div class="vertical-menu vertical-category-block bmi-wrap col-lg-7" >
                                     <div class="menu-titles" style="padding: 10px 10px 10px 15px;
@@ -215,23 +220,23 @@
                                     <form action="bmical" method="post" class="wrap-menu" style="padding: 15px;top: 148%;left: -79px; width: 300px">
                                         <table style="margin-bottom: -7px;">
                                             <tbody>
-<!--                                                <tr>
-                                                    <td>Age</td>
-                                                    <td><input name="age" type="number" value="0"/></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Gender</td>
-                                                    <td>
-                                                        <label class="text-center" for="male" style="margin-right: 10px;">
-                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
-                                                            Male
-                                                        </label>
-                                                        <label for="female">
-                                                            <input name="gender" id="female" type="radio" value="female" />
-                                                            female
-                                                        </label>
-                                                    </td>
-                                                </tr>-->
+                                                <!--                                                <tr>
+                                                                                                    <td>Age</td>
+                                                                                                    <td><input name="age" type="number" value="0"/></td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>Gender</td>
+                                                                                                    <td>
+                                                                                                        <label class="text-center" for="male" style="margin-right: 10px;">
+                                                                                                            <input name="gender" id="male" type="radio" value="male" checked="true"/>
+                                                                                                            Male
+                                                                                                        </label>
+                                                                                                        <label for="female">
+                                                                                                            <input name="gender" id="female" type="radio" value="female" />
+                                                                                                            female
+                                                                                                        </label>
+                                                                                                    </td>
+                                                                                                </tr>-->
                                                 <tr>
                                                     <td>Height</td>
                                                     <td>
@@ -273,21 +278,23 @@
                         </div>
                         <div class="col-lg-9 col-md-8 padding-top-2px">
                             <div class="col-lg-9 col-md-8 padding-top-2px">
-                            <div class="header-search-bar layout-01">
+                                <div class="header-search-bar layout-01">
 
-                                <form action="search" class="form-search" name="desktop-seacrh" method="post">
-                                    <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
-                                    <button type="submit" class="btn-submit"><i
-                                            class="biolife-icon icon-search"></i></button>
-                                </form>
+                                    <form action="search" class="form-search" name="desktop-seacrh" method="post">
+                                        <input type="text" name="txt" class="input-text" value="" placeholder="Search here...">
+                                        <button type="submit" class="btn-submit"><i
+                                                class="biolife-icon icon-search"></i></button>
+                                    </form>
+                                </div>
+
                             </div>
-
-                        </div>
 
                         </div>
                     </div>
                 </div>
             </div>
+            </c:if>
+            
 
             </header>
 

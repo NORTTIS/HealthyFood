@@ -22,7 +22,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <!-- Sau đó tải DataTables -->
-        <link rel="stylesheet" type="text/css" href="./assets/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="./assets/css/jquery.dataTables.min.css"> 
 
 
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -121,6 +121,7 @@
                             <div class="card-body rounded-3 ">
                                 <form action="cus_profile" method="POST" id="myForm" enctype="multipart/form-data">
                                     <div class="row align-items-center">
+
                                         <input type="text" name="id" value="${sessionScope.acc.account_id}" hidden />
                                     </div>
 
@@ -151,7 +152,7 @@
                                             <div id="emailError" class="text-danger" style="display:none;">Invalid email format.</div>
                                         </div>
                                     </div>
-                                            <hr>
+                                    <hr>
                                     <div class="row align-items-center">
                                         <div class="col-sm-3">
                                             <p class="mb-0">Phone</p>
@@ -167,7 +168,8 @@
                                             <p class="mb-0">Address</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="mb-0 no-border text-muted " name="address" value="" readonly="true" required="true" />
+                                            <input type="text" class="mb-0 no-border text-muted" name="address" value="${sessionScope.acc.address}" required="true" />
+
                                         </div>
                                     </div>
                                     <hr>
@@ -189,6 +191,7 @@
                         </div>
 
                     </div>
+                    <!--Order list-->
                     <div class="col-lg-8" id="myorder" style="display: none; overflow-y: scroll;
                          height: 450px;">
                         <table class="table order-list"  id="myOrderTable">

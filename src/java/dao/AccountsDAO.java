@@ -287,24 +287,7 @@ public class AccountsDAO extends DBContext {
         return managers;
     }
 
-    public void createManager(String username, String password, String email, String phone_number, String role, String status, String displayname, String address, String avatar) {
-        String sql = "insert into Accounts values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
-            st.setString(2, password);
-            st.setString(3, email);
-            st.setString(4, phone_number);
-            st.setString(5, role);
-            st.setString(6, status);
-            st.setString(7, displayname);
-            st.setString(8, address);
-            st.setString(9, avatar);
-            st.executeUpdate();
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }
+    
 
     public boolean isUsernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM Accounts WHERE username = ?";
@@ -381,6 +364,7 @@ public class AccountsDAO extends DBContext {
         }
     }
 
+
     public void updateUser(String username, String email, String phone_number, String password) {
 
         String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, password = ? WHERE username = ?";
@@ -428,10 +412,8 @@ public class AccountsDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
-        List<Accounts> alist = adb.getAllUser();
-        for (Accounts i : alist) {
-            i.getAccount_id();
-        }
+        adb.createAccount("ducmen123", "duckment123", "ducmen123", "ducmentthaem@gmail.com", "Customer");
+       
     }
 
     public Accounts getUser(String username) {
@@ -512,8 +494,8 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-    public void createManager(String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status, String avatar) {
-        String sql = "insert into Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void createManager(String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status) {
+        String sql = "insert into Accounts (username, password, displayname, address, description, email, phone_number, role, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -525,7 +507,7 @@ public class AccountsDAO extends DBContext {
             st.setString(7, phone_number);
             st.setString(8, role);
             st.setString(9, status);
-            st.setString(10, avatar);
+            
 
             st.executeUpdate();
         } catch (SQLException ex) {
@@ -592,8 +574,8 @@ public class AccountsDAO extends DBContext {
         return nutritionists;
     }
 
-    public void createNutritionist(String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status, String avatar) {
-        String sql = "insert into Accounts (username, password, displayname, address, description, email, phone_number, role, status, avatar) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void createNutritionist(String username, String password, String displayname, String address, String description, String email, String phone_number, String role, String status) {
+        String sql = "insert into Accounts (username, password, displayname, address, description, email, phone_number, role, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, )";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -605,7 +587,7 @@ public class AccountsDAO extends DBContext {
             st.setString(7, phone_number);
             st.setString(8, role);
             st.setString(9, status);
-            st.setString(10, avatar);
+
             st.executeUpdate();
         } catch (SQLException ex) {
             System.out.println(ex);

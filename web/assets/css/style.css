@@ -4414,7 +4414,6 @@ body.open-overlay #overlay{
     line-height: 1;
 }
 .sumary-product .product-attribute .excerpt{
-    display: block;
     color: #666666;
     font-size: 14px;
     line-height: 20px;

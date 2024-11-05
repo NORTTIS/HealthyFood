@@ -10,7 +10,7 @@ package model;
  * @author Norttie
  */
 public class LineItem {
-     private Products product;
+    private Products product;
     private int quantity;
 
     public LineItem() {

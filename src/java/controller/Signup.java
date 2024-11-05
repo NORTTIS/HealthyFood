@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import dao.AccountsDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,50 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Accounts;
 
-/**
- *
- * @author Norttie
- */
 @WebServlet(name = "Signup", urlPatterns = {"/signup"})
 public class Signup extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -65,62 +19,93 @@ public class Signup extends HttpServlet {
         String password = request.getParameter("password");
         String email = request.getParameter("email");
         String comfirmpassword = request.getParameter("comfirmpassword");
-        String role = request.getParameter("permission");
+
         try {
             boolean isValidForm = true;
-            boolean isNotValidUsername = !validator.Validator.checkUsername(userName);
-            boolean isNotValidPassword = !validator.Validator.checkPassWord(password);
+
+            // Kiểm tra tên người dùng
+            boolean isNotValidUsername = !checkUsername(userName);
             Accounts acc = new AccountsDAO().getAccountByUserName(userName);
-            Accounts accByEmail = new  AccountsDAO().getAccountByEmail(email);
             if (isNotValidUsername) {
                 request.setAttribute("messU", "Username must have at least 5 characters");
                 isValidForm = false;
             }
             if (acc != null) {
-                request.setAttribute("messU", "User already exists ");
-                isValidForm = false;
-            }
-            if (isNotValidPassword) {
-                request.setAttribute("messP", "Password must have at least 8 characters"
-                        + "including uppercase and lowercase letters and number");
-                isValidForm = false;
-            }
-             if(accByEmail!=null){
-                 request.setAttribute("messEmail", "Email already exists");
-                isValidForm = false;
-            }
-            if (!password.equals(comfirmpassword)) {
-                request.setAttribute("messCp",
-                        "passwords do not match ");
+                request.setAttribute("messU", "User already exists");
                 isValidForm = false;
             }
 
+            // Kiểm tra mật khẩu
+            boolean isNotValidPassword = !checkPassword(password);
+            if (isNotValidPassword) {
+                request.setAttribute("messP", "Password must have at least 6 characters, "
+                        + "including uppercase letters, lowercase letters, numbers, and special characters.");
+                isValidForm = false;
+            }
+
+            // Kiểm tra email
+            Accounts accByEmail = new AccountsDAO().getAccountByEmail(email);
+            if (accByEmail != null) {
+                request.setAttribute("messEmail", "Email already exists");
+                isValidForm = false;
+            }
+
+            // Kiểm tra xác nhận mật khẩu
+            if (!password.equals(comfirmpassword)) {
+                request.setAttribute("messCp", "Passwords do not match");
+                isValidForm = false;
+            }
+
+            // Nếu có lỗi, quay lại trang signup.jsp
             if (!isValidForm) {
                 request.setAttribute("username", userName);
                 request.setAttribute("pass", password);
                 request.setAttribute("cpass", comfirmpassword);
-                 request.setAttribute("email", email);
+                request.setAttribute("email", email);
                 request.getRequestDispatcher("signup.jsp").forward(request, response);
-
             } else {
-             new AccountsDAO().createAccount(userName, password, userName, email, role);
+                // Tạo tài khoản mới
+                new AccountsDAO().createAccount(userName, password, userName, email, "Customer");
                 response.sendRedirect("login");
             }
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    private boolean checkPassword(String password) {
+        if (password.length() < 6) {
+            return false; // Mật khẩu phải có ít nhất 6 ký tự
+        }
+
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+        boolean hasDigit = false;
+        boolean hasSpecialChar = false;
+        String specialCharacters = "!@#$%^&*()-+";
+
+        for (char c : password.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                hasUpperCase = true;
+            } else if (Character.isLowerCase(c)) {
+                hasLowerCase = true;
+            } else if (Character.isDigit(c)) {
+                hasDigit = true;
+            } else if (specialCharacters.contains(String.valueOf(c))) {
+                hasSpecialChar = true;
+            }
+        }
+
+        return hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar;
+    }
+
+    private boolean checkUsername(String username) {
+        return username != null && username.length() >= 5;
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
+    }
 }

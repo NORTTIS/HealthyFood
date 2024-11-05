@@ -19,7 +19,7 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins:600&amp;display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400i,700i" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
-        <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="./assets/images/logo.png" />
         <link rel="stylesheet" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/css/nice-select.css">
@@ -65,8 +65,11 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="blog" class="btn btn-thin">View Blog</a>
+                                      
+                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+                                            <a href="shop"  class="btn btn-bold">Shop now</a>
+                                            <a href="blog" class="btn btn-thin">View Blog</a>
+                                        </c:if> 
                                     </p>
                                 </div>
                             </div>
@@ -79,8 +82,12 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="blog" class="btn btn-thin">View Blog</a>
+                                        
+                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+                                            <a href="shop"  class="btn btn-bold">Shop now</a>
+                                            <a href="blog" class="btn btn-thin">View Blog</a>
+                                        </c:if>  
+
                                     </p>
                                 </div>
                             </div>
@@ -93,8 +100,11 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="blog" class="btn btn-thin">View Blog</a>
+                                        
+                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+                                            <a href="shop"  class="btn btn-bold">Shop now</a>
+                                            <a href="blog" class="btn btn-thin">View Blog</a>
+                                        </c:if> 
                                     </p>
                                 </div>
                             </div>
@@ -107,8 +117,11 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="blog" class="btn btn-thin">View Blog</a>
+                                        
+                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+                                            <a href="shop"  class="btn btn-bold">Shop now</a>
+                                            <a href="blog" class="btn btn-thin">View Blog</a>
+                                        </c:if> 
                                     </p>
                                 </div>
                             </div>
@@ -121,8 +134,11 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        <a href="shop" class="btn btn-bold">Shop now</a>
-                                        <a href="blog" class="btn btn-thin">View Blog</a>
+                                        
+                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+                                            <a href="shop"  class="btn btn-bold">Shop now</a>
+                                            <a href="blog" class="btn btn-thin">View Blog</a>
+                                        </c:if> 
                                     </p>
                                 </div>
                             </div>
@@ -134,7 +150,7 @@
 
 
                 <!--Block 04: Products-->
-                <div class="Product-box sm-margin-top-96px">
+                <div class="Product-box sm-margin-top-96px"  style="margin-bottom: 20px;">
                     <div class="container">
                         <div class="row">
 
@@ -147,29 +163,56 @@
                                     <div style="margin-bottom: 50px; color: #dc143c; font-size: 30px">
                                         ${requestScope.error}
                                     </div>
-                                    <div>
-                                        <c:forEach var="m" items="${menuList}">
-                                            <button class="accordion" style="margin-bottom: 10px">${m.key}</button>
-                                            <div class="panel">
-                                                <c:forEach var="nameEntry" items="${m.value}">
-                                                    <button class="accordion">${nameEntry.key}</button>
-                                                    <div class="panel">
-                                                        <c:forEach var="menu" items="${nameEntry.value}">
-                                                            <div style="margin: 10px; display: flex; justify-content: space-between">
-                                                                <div>
-                                                                    ${menu.menu_name}
+                                    <div style="margin-bottom: 20px">
+                                        <form method="get" action="comboCart">
+                                            <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager'}">
+                                                <input onclick="getProID()" style="background-color: #7faf51; border: none; color: white" type="submit" value="add to cart"/>
+                                            </c:if>
+                                            <c:forEach var="m" items="${menuList}">
+                                                <button type="button" class="accordion" style="margin-bottom: 10px">${m.key}</button>
+                                                <div class="panel">
+                                                    <c:forEach var="nameEntry" items="${m.value}">
+                                                        <button type="button" class="accordion">${nameEntry.key}
+                                                        </button>
+
+                                                        <div class="panel">
+                                                            <c:forEach var="menu" items="${nameEntry.value}">
+                                                                <div style="margin: 10px;">
+                                                                    <div>
+                                                                        <a href="productDetail?ac=show&productId=${menu.productId}" class="link-to-product">
+                                                                            ${menu.getName()}
+                                                                        </a>
+
+                                                                        <span style="margin-left: 10%">
+                                                                            Calories: ${menu.getAverageCalories()}
+                                                                        </span>
+                                                                        <span style="margin-left: 10%">
+                                                                            Prices: ${menu.getPrice()}
+                                                                        </span>
+                                                                        <input hidden class="proId" value="${menu.getProductId()}"/>
+                                                                        <span>
+                                                                            <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager'}">
+                                                                                <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                                    <a href="wishcart?ac=add&productId=${menu.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                                    </c:if>
+                                                                                <a href="cart?ac=addtocart&productId=${menu.productId}" class="btn btn-default">add to cart</a>
+                                                                            </c:if>
+
+                                                                        </span>
+                                                                    </div>
                                                                 </div>
-                                                                <div>
-                                                                    Calories: ${menu.getAverage_calories()}
-                                                                </div>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </div>
-                                                </c:forEach>
-                                            </div>
-                                        </c:forEach>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                            </c:forEach>
+                                            <input type="hidden" id="productId" name="productId">
+                                        </form>
                                     </div>
-                                    <!-- menu để tạm nma không hiểu nó như nào :3 -->
+
+                                    <div class="biolife-title-box bold-style biolife-title-box__bold-style">
+                                        <h3 class="title">Others Product</h3>
+                                    </div>
                                     <ul class="products biolife-carousel nav-center-03 nav-none-on-mobile row-space-29px"
                                         data-slick='{"rows":2,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":3,"responsive":[{"breakpoint":1200,"settings":{ "rows":2, "slidesToShow": 3}},{"breakpoint":992, "settings":{ "rows":2, "slidesToShow": 1}},{"breakpoint":768, "settings":{ "rows":2, "slidesToShow": 2}},{"breakpoint":500, "settings":{ "rows":2, "slidesToShow": 1}}]}'>
                                         <c:forEach items="${lProd}" var="i" varStatus="j">
@@ -198,11 +241,13 @@
                                                         </div>
                                                         <div class="slide-down-box" style="margin-top: 10px;">
                                                             <div>
-                                                                <c:if test="${sessionScope.acc.role=='Customer'}">
+                                                                <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager'}">
+                                                                    <c:if test="${sessionScope.acc.role=='Customer'}">
 
-                                                                    <a href="wishlist?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                                                                    </c:if>
-                                                                <a href="cart?ac=addtocart&productId=${i.productId}" class="btn btn-default">add to cart</a>
+                                                                        <a href="wishlist?ac=add&productId=${i.productId}" class="btn wish-btn" style="margin-right: 10px;"><i class="fa fa-heart" aria-hidden="true"></i></a>
+                                                                        </c:if>
+                                                                    <a href="cart?ac=addtocart&productId=${i.productId}" class="btn btn-default">add to cart</a>
+                                                                </c:if>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -221,83 +266,59 @@
                 </div>
 
                 <!--Block 05: Blog Posts-->
-                <div class="blog-posts sm-margin-top-93px sm-padding-top-72px xs-padding-bottom-50px">
-                    <div class="container">
-                        <div class="biolife-title-box">
-                            <span class="subtitle">The freshest and most exciting news</span>
-                            <h3 class="main-title">From the Blog</h3>
-                        </div>
-                        <ul class="biolife-carousel nav-center nav-none-on-mobile xs-margin-top-36px"
-                            data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":1, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 1}},{"breakpoint":992, "settings":{ "slidesToShow": 1}},{"breakpoint":768, "settings":{ "slidesToShow": 1}},{"breakpoint":600, "settings":{ "slidesToShow": 1}}]}'>
-                            <c:forEach items="${bList}" var="i" varStatus="j">
-                                <!--                                <li>
-                                                                    <div class="post-item effect-01 style-bottom-info layout-02 ">
-                                                                        <div class="thumbnail">
-                                                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post"><img src="assets/images/our-blog/${i.imagePath}"
-                                                                                                                                          style="width: 360px; height: 270px;" alt=""></a>
-                                
-                                                                        </div>
-                                                                        <div class="post-content">
-                                                                            <h4 class="post-name"><a href="blogdetail?blogId=${i.id}" class="linktopost">${i.title}</a></h4>
-                                                                            <div class="post-meta">
-                                                                                <a href="blogdetail?blogId=${i.id}" class="post-meta__item author"><img
-                                                                                        src="./assets/image/${accList.get(j.index).avatar==null?'Avatar.png':accList.get(j.index).avatar}" width="28" height="28"
-                                                                                        alt=""><span>${accList.get(j.index).displayname}</span></a>
-                                
-                                                                                <div class="post-meta__item post-meta__item-social-box">
-                                ${i.createAt}
+                <c:if test="${sessionScope.acc.role !='Manager'}">
+                    <div class="blog-posts sm-margin-top-93px sm-padding-top-72px xs-padding-bottom-50px">
+                        <div class="container">
+                            <div class="biolife-title-box">
+                                <span class="subtitle">The freshest and most exciting news</span>
+                                <h3 class="main-title">From the Blog</h3>
                             </div>
-                        </div>
-                        <div class="excerpt">
-                                ${i.content}
-                            </div>
-                            <div class="group-buttons">
-                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">continue reading</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>-->
-                                <li class="post-elem col-lg-12 col-md-4 col-sm-6 col-xs-12" style="    padding: 20px; border-radius: 16px; border: 2px solid #e8e8e8;">
-                                    <div class="post-item effect-04 style-bottom-info">
-                                        <div class="post-content col-lg-8">
-                                            <div class="auth-info" style="display: flex; justify-content: space-between">
-                                                <div class="ath">
-                                                    <a href="#" class="avata"><img src="assets/image/${accList.get(j.index).avatar==null?'Avatar.png': accList.get(j.index).avatar}" style="width: 35px; height: 35px; border-radius: 50%;" alt="Christian Doe">
-                                                        <span style="    color: black;
-                                                              font-size: 13px; margin-left: 5px;">${accList.get(j.index).displayname}</span></a>
+                            <ul class="biolife-carousel nav-center nav-none-on-mobile xs-margin-top-36px"
+                                data-slick='{"rows":1,"arrows":true,"dots":false,"infinite":false,"speed":400,"slidesMargin":30,"slidesToShow":1, "responsive":[{"breakpoint":1200, "settings":{ "slidesToShow": 1}},{"breakpoint":992, "settings":{ "slidesToShow": 1}},{"breakpoint":768, "settings":{ "slidesToShow": 1}},{"breakpoint":600, "settings":{ "slidesToShow": 1}}]}'>
+                                <c:forEach items="${bList}" var="i" varStatus="j">
+                                    <li class="post-elem col-lg-12 col-md-4 col-sm-6 col-xs-12" style="    padding: 20px; border-radius: 16px; border: 2px solid #e8e8e8;">
+                                        <div class="post-item effect-04 style-bottom-info">
+                                            <div class="post-content col-lg-8">
+                                                <div class="auth-info" style="display: flex; justify-content: space-between">
+                                                    <div class="ath">
+                                                        <a href="#" class="avata"><img src="assets/image/${accList.get(j.index).avatar==null?'Avatar.png': accList.get(j.index).avatar}" style="width: 35px; height: 35px; border-radius: 50%;" alt="Christian Doe">
+                                                            <span style="    color: black;
+                                                                  font-size: 13px; margin-left: 5px;">${accList.get(j.index).displayname}</span></a>
 
+                                                    </div>
+                                                    <div class="socials-connection">
+                                                        <p class="title">${i.createAt}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="socials-connection">
-                                                    <p class="title">${i.createAt}</p>
+                                                <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" style="font-weight: 700" >${i.title}</p></a></h4>
+
+                                                <div class="excerpt">
+                                                    ${i.content}
+                                                </div>
+
+                                                <div class="group-buttons">
+                                                    <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
                                                 </div>
                                             </div>
-                                                    <h4 class="post-name" style="text-align: left;"><a href="blogdetail?blogId=${i.id}" class="linktopost"><p class="blog-title" style="font-weight: 700" >${i.title}</p></a></h4>
-
-                                            <div class="excerpt">
-                                                ${i.content}
-                                            </div>
-
-                                            <div class="group-buttons">
-                                                <a href="blogdetail?blogId=${i.id}" class="btn readmore">read more</a>
-                                            </div>
-                                        </div>
                                             <div class="thumbnail col-lg-4" style="border-radius: 20px">
-                                            <a href="blogdetail?blogId=${i.id}" class="link-to-post">
-                                                <div>
-                                                    <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px; border-radius: 20px" alt="">
-                                                </div>
-                                            </a>
+                                                <a href="blogdetail?blogId=${i.id}" class="link-to-post">
+                                                    <div>
+                                                        <img src="assets/images/our-blog/${i.imagePath}" style="width: 360px; height: 270px; border-radius: 20px" alt="">
+                                                    </div>
+                                                </a>
+                                            </div>
+
                                         </div>
-
-                                    </div>
-                                </li>
-                            </c:forEach>
+                                    </li>
+                                </c:forEach>
 
 
-                        </ul>
+                            </ul>
+                        </div>
+
                     </div>
+                </c:if>
 
-                </div>
 
             </div>
 
@@ -319,6 +340,22 @@
         <script src="assets/js/jquery.nicescroll.min.js"></script>
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/nutriMenu.js"></script>
+        <script>
+                                                    function getProID() {
+                                                        var idOfProd = document.getElementsByClassName("proId");
+                                                        var list = "";
+                                                        for (var i = 0; i < idOfProd.length; i++) {
+                                                            list += idOfProd[i].value;
+                                                            if (i < idOfProd.length - 1) {
+                                                                list += "-";
+                                                            }
+                                                        }
+                                                        // Gán chuỗi listMeals là giá trị của input 
+                                                        document.getElementById("productId").value = list;
+                                                        Console.log(list);
+                                                    }
+
+        </script>
     </body>
 
 

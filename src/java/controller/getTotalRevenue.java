@@ -61,8 +61,10 @@ public class getTotalRevenue extends HttpServlet {
 //        double totalRevenue = orderDAO.getTotalRevenue();
 //        request.setAttribute("totalRevenue", totalRevenue);
 //        request.getRequestDispatcher("revenue.jsp").forward(request, response);
-//    }
-}
+
+    }
+
+
 
 /**
  * Handles the HTTP <code>POST</code> method.

@@ -69,6 +69,7 @@
                             <div class="mt-4">
                                 <h2>Delivery Details</h2>
                                 <form action="checkout" method="post">
+                                    <input type="text" name="ac" value="upd" hidden="true"/>
                                     <div class="row mb-3">
                                         <div class="col-md-5">
                                             <label for="fullName" class="form-label">Full name<span class="text-danger">*</span></label>
@@ -112,8 +113,8 @@
 
 
                                     <div class="mb-3" style="margin-top: 10px;" >
-                                        <label for="address" class="form-label">Address</label>
-                                        <input value="${sessionScope.deDetail.address==null?acc.address : sessionScope.deDetail.address}" name="address" type="text" class="form-control" id="address" value="${acc.address}" required>
+                                        <label for="address" class="form-label">Address<span class="text-danger">*</span> </label>
+                                        <input value="${sessionScope.deDetail.address}" name="address" type="text" class="form-control" id="address" value="${acc.address}" required>
                                     </div>
 
                                     <div class="mb-3" style="margin-top: 10px;" >
@@ -142,13 +143,27 @@
                                 </form>
                                 <form action="pay" method="post">
                                     <input type="text" name="amount" value="${totalPrice}" hidden/>
-                                    <input type="submit" class=" btn btn-default" value="Thanh toán" style="    width: 100%;
+                                    <input type="submit" class=" btn btn-default" value="Checkout online" style="    width: 100%;
                                            border-radius: 0px;
                                            margin-top: 10px;
                                            padding: 20px 0px;
                                            ${(sessionScope.deDetail==null || error != null)?'pointer-events:none;background-color:#8e8e8e':""}
                                            "
                                            />
+                                  
+                                </form>
+                                           <p style="margin: 0; text-align: center">Or</p>
+                                   <form action="checkout" method="post">
+                                       <input type="text" value="cashon" name="ac" hidden="true"/>
+                                    <input type="submit" class=" btn btn-default" value="Cash on delivery" style="    width: 100%;
+                                           border-radius: 0px;
+                                           margin-bottom: 35px;
+                                           padding: 20px 0px;
+                                           background-color: #b08d0e;
+                                           ${(sessionScope.deDetail==null || error != null)?'pointer-events:none;background-color:#8e8e8e':""}
+                                           "
+                                           />
+                                  
                                 </form>
 
                             </div> 
@@ -171,7 +186,7 @@
                                                 <div class="cart-item">
                                                     <div class="product-thumb">     
                                                         <a class="prd-thumb" href="#">
-                                                            <figure><img src="./assets/images/products/p-01.jpg" alt="shop-cart" ></figure>
+                                                            <figure><img src="./assets/images/products/${i.product.picture}" alt="shop-cart" width="113" height="113"  style="border-radius: 20px; width: 113px; height: 113px;"></figure>
                                                         </a>
                                                     </div>
                                                     <div class="info">
@@ -191,13 +206,13 @@
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name">Total Calorie </b>
-                                                <span class="stt-price">${totalCal}</span>
+                                                <span class="stt-price">${totalCal} cal</span>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name"> Discount </b>
-                                                <span class="stt-price">${totalPrice}</span>
+                                                <span class="stt-price">- ${discount==null?0:discount} VND</span>
                                             </div>
                                         </li>
                                         <li>
@@ -207,7 +222,7 @@
                                         <li>
                                             <div class="subtotal-line">
                                                 <b class="stt-name">Total amount:</b>
-                                                <span class="stt-price">${totalPrice}</span>
+                                                <span class="stt-price">${totalPrice} VND</span>
                                             </div>
                                         </li>
                                     </ul>

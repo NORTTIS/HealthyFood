@@ -37,7 +37,7 @@ CREATE TABLE Category (
 CREATE TABLE Products (
     product_id INT IDENTITY(1,1) PRIMARY KEY,   -- ID sản phẩm, tự động tăng
     category_id INT,                            -- ID loại sản phẩm (liên kết với bảng Category)
-    supplier NVARCHAR(255) NOT NULL,                            -- ID nhà cung cấp
+    supplier NVARCHAR(255) NOT NULL,            -- ID nhà cung cấp
     name NVARCHAR(255) NOT NULL,                -- Tên sản phẩm
     description TEXT,                           -- Mô tả sản phẩm
     price DECIMAL(10, 2) NOT NULL,              -- Giá sản phẩm
@@ -57,6 +57,8 @@ CREATE TABLE Orders (
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
     FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
 );
+ALTER TABLE Orders
+ADD order_type NVARCHAR(50) NULL;
 CREATE TABLE DeliveryDetails (
     delivery_id INT IDENTITY(1,1) PRIMARY KEY,        -- ID giao hàng, tự động tăng
     order_id INT NOT NULL,                            -- ID đơn hàng
@@ -83,7 +85,6 @@ CREATE TABLE Order_Items (
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 );
 
-
 CREATE TABLE Customer_Type (
     [type_id] INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
     [type_name] NVARCHAR(255) NOT NULL,                -- Tên loại sản phẩm
@@ -109,7 +110,6 @@ CREATE TABLE Menu_Detail (
     menu_detail_id INT IDENTITY(1,1) PRIMARY KEY,
 	menu_id INT,
     product_id  INT,
-	product_qty INT,
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 	FOREIGN KEY (menu_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
 );
@@ -118,6 +118,7 @@ CREATE TABLE Reviews (
     account_id INT,
 	product_id INT,
 	comment NVARCHAR(MAX),
+	rate int ,
 	create_at DATETIME DEFAULT GETDATE(),
 	status NVARCHAR(10) CHECK (status IN ('Approved ', 'Rejected ')) NOT NULL,
 	FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,
@@ -163,7 +164,14 @@ CREATE TABLE Blogs (
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
 	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
 );
+ALTER TABLE Blogs
+ADD bmi_range int NULL;
 
+CREATE TABLE Discount(
+	id INT IDENTITY(1,1) PRIMARY KEY,
+	discountValue int,
+	discountName nvarchar(255)
+)
 
 
 
@@ -226,3 +234,4 @@ VALUES
 ( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.100', '2024-10-25 02:31:03.100', 'demo1', 'In Process', 100, 'Demo 2'),
 ( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.150', '2024-10-25 02:31:03.150', 'demo2', 'In Process', 200, 'Demo 2'),
 ( 2, 'name1', 'demo', 4, '2024-10-25 02:31:03.170', '2024-10-25 02:31:03.170', 'demo 2.2', 'In Process', 3099, 'Demo 2');
+

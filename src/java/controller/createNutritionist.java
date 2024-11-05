@@ -86,9 +86,9 @@ public class createNutritionist extends HttpServlet {
             String phone_number = request.getParameter("phone_number");
             String role = request.getParameter("role");
             String status = request.getParameter("status");
-            String avatar = request.getParameter("avatar");
 
-            adb.createNutritionist(username, password, displayname, address, description, email, phone_number, role, status, avatar);
+
+            adb.createNutritionist(username, password, displayname, address, description, email, phone_number, role, status);
         }
 
         response.sendRedirect("userlist");

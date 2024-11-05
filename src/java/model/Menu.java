@@ -16,14 +16,14 @@ public class Menu {
     private String description;
     private int create_by;
     private String menu_name;
-    private float average_calories;
+    private double average_calories;
     private String status;
     private String menuTitle;
 
     public Menu() {
     }
 
-    public Menu(int menu_id, int type_id, String name, String description, int create_by, String menu_name, float average_calories, String status, String menuTitle) {
+    public Menu(int menu_id, int type_id, String name, String description, int create_by, String menu_name, double average_calories, String status, String menuTitle) {
         this.menu_id = menu_id;
         this.type_id = type_id;
         this.name = name;
@@ -83,11 +83,11 @@ public class Menu {
         this.menu_name = menu_name;
     }
 
-    public float getAverage_calories() {
+    public double getAverage_calories() {
         return average_calories;
     }
 
-    public void setAverage_calories(float average_calories) {
+    public void setAverage_calories(double average_calories) {
         this.average_calories = average_calories;
     }
 

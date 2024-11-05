@@ -9,11 +9,11 @@
     <style>
         .button-container {
             display: flex;
-            justify-content: center; /* Căn giữa các nút */
+            justify-content: center;
             align-items: center;
             margin-top: 30px;
             gap: 20px;
-            flex-direction: row; /* Đảm bảo các nút nằm ngang */
+            flex-direction: row;
         }
     </style>
 </head>
@@ -59,7 +59,7 @@
         </tr>
         <tr>
             <td><strong>Avatar:</strong></td>
-            <td><img src="${user.avatar}" alt="User Avatar" style="width:100px; height:100px;"/></td>
+            <td><img src="./assets/image/${user.avatar}" alt="User Avatar" style="width:40px; height:40px;"/></td>
         </tr>
     </table>
     <div class="button-container">
