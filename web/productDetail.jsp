@@ -66,16 +66,16 @@
 
         <div class="page-contain single-product">
             <div class="container">
-
+<!--data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}-->
                 <!--Main content--> 
                 <div id="main-content" class="main-content">
 
                     <!--summary info--> 
-                    <div class="sumary-product single-layout" style="padding-top: 90px;">
+                    <div class="sumary-product single-layout" style="padding-top: 30px;">
                         <div class="media">
-                            <ul class="biolife-carousel slider-for" data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                <li><img src="assets/images/products/${prod.picture}" alt="" style="width: 300px;
-                                         height: 270px;
+                            <ul class="biolife-carousel slider-for" '>
+                                <li><img src="assets/images/products/${prod.picture}" alt="" style="width: 400px;
+                                         height: 300px;
                                          object-fit: cover;
                                          border-radius: 20px;"></li>
                             </ul>
@@ -96,7 +96,7 @@
 
                         </div>
                                 <c:if test="${sessionScope.acc.role !='Manager'&& sessionScope!='Nutritionist'}">
-                            <div class="action-form">
+                                    <div class="action-form" style="border-radius: 20px;">
                                 <div class="quantity-box">
                                     <span class="title">Quantity:</span>
                                     <div class="qty-input">

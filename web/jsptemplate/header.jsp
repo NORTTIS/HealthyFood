@@ -123,6 +123,11 @@
 
                                 </li>
                             </c:if>
+                                 <c:if test="${sessionScope.acc.role == 'Manager' }">
+                                <li class="menu-item menu-item-has-children  item-nav">
+                                    <a href="orderlist" class="menu-name" data-title="chat">Orderlist</a>
+                                </li>
+                            </c:if>
 
                         </ul>
                     </div>

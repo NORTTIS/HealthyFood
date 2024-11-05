@@ -98,7 +98,7 @@
                                                     <td class="product-thumbnail" data-title="Product Name">
                                                         <input type="text" name="productid[]" value="${i.product.productId}" hidden/>
                                                         <a class="prd-thumb" href="#">
-                                                            <figure><img width="113" height="113" src="./assets/images/products/${i.product.picture}" alt="shipping cart" style="    border-radius: 20px;"></figure>
+                                                            <figure><img width="113" height="113" src="./assets/images/products/${i.product.picture}" alt="shipping cart" style=" width: 113px; height: 113px;    border-radius: 20px;"></figure>
                                                         </a>
                                                         <a class="prd-name" href="#">${i.product.name}</a>
                                                         <div class="action">

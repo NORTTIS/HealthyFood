@@ -72,7 +72,7 @@
                                 <c:forEach var="i" items="${list}">
                                     <div class="menu-item">
                                         <input type="text" name="totalMenuId" value="${totalMenuId}" hidden/>
-                                        <input value="${i.getMenu_name()}" type="text" name="name" readonly/>
+                                        <input value="${i.getMenu_name()}" type="text" name="prodname" readonly/>
                                         <select name="category">
                                             <c:forEach var="c" items="${cate}">
                                                 <option>${c.value}</option>
@@ -83,13 +83,13 @@
                                         <input type="number" name="price" step="0.01" min="0" required placeholder="Input price"/>
                                         <input type="number" name="qty" placeholder="Input quantity" required/>
                                         <input type="number" name="calo" step="0.01" min="0" value="${i.getAverage_calories()}" readonly/>
-                                        <input type="file" name="picture" accept="image/*" required/>
+                                        <input type="file" name="picture" accept=".jpg" required/>
                                     </div>
                                 </c:forEach>
                             </div>
                             <input type="text" name="totalMenuId" value="${totalMenuId}" hidden/>
                             <div class="sidebar blog-sidebar col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <input style="width:120px" type="submit" value="Create Product" class="btn btn-default"/>
+                                <input style="width:130px" type="submit" value="Create Product" class="btn btn-default"/>
                             </div>
                         </form>
                     </div>

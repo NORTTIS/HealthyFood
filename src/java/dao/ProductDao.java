@@ -333,7 +333,19 @@ public class ProductDao extends DBContext {
 
         }
     }
-
+    public void updateOrderStatusById(String orderId, String status){
+         Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = null;
+        try {
+            String sql = "update Orders set status = ? where order_id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setString(2, orderId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
     public void updateProductStock(int productId, int quantity) {
         Connection conn = new DBContext().getConnection();
         PreparedStatement st = null;
@@ -565,6 +577,31 @@ public class ProductDao extends DBContext {
             String sql = "select * from Orders where account_id =? order by order_date desc";
             st = conn.prepareStatement(sql);
             st.setString(1, accountId);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getDouble(5),
+                        rs.getDate(6));
+                lOrder.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return lOrder;
+    }
+    
+    public  List<Order> getAllOrder(){
+         Connection conn = new DBContext().getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        List<Order> lOrder = new ArrayList<>();
+        try {
+            String sql = "select * from Orders order by order_date desc";
+            st = conn.prepareStatement(sql);
             rs = st.executeQuery();
             while (rs.next()) {
                 Order order = new Order(
@@ -1019,7 +1056,7 @@ public class ProductDao extends DBContext {
     }
     public static void main(String[] args) {
        ProductDao prod = new ProductDao();
-        System.out.println(prod.getVoucherValueByVouderCode("SALE10"));
+       prod.updateOrderStatusById("2", "Completed");
     }
 
     

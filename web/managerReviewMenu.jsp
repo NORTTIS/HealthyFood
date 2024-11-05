@@ -108,7 +108,7 @@
                                     <input type="number" hidden value="${lastMenuId}" name="lastId"/>
                                     <input type="number" hidden value="${firstMenuId}" name="firstId"/>
                                     <input onclick="getAllMeals();" style="width:120px; background-color: red" type="submit" name="action" value="Reject" class="btn btn-default"/>
-                                    <input style="width:120px" type="submit" name="action" value="Accept" class="btn btn-default"/>
+                                    <input style="width:130px" type="submit" name="action" value="Accept" class="btn btn-default"/>
                                 </div>
                             </div>
                         </form>

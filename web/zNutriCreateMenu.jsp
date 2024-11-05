@@ -36,99 +36,7 @@
     </div>
 
     <!-- HEADER -->
-    <header id="header" class="header-area style-01 layout-03">
-        <div class="header-top bg-main hidden-xs">
-            <div class="container">
-                <div class="top-bar left">
-                    <ul class="horizontal-menu">
-                        <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>Group5@gmail.com</a></li>
-                        <li><a href="#">HealthyFood for healthy life</a></li>
-                    </ul>
-                </div>
-                <div class="top-bar right">
-                    <ul class="social-list">
-                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                    <ul class="horizontal-menu">
-
-                        <li class="horz-menu-item lang">
-                            <select name="language" style=" background: transparent;
-                                    border: none;
-                                    color: #ffffff;
-                                    -webkit-appearance: none;
-                                    -moz-appearance: none;
-                                    appearance: none;">
-                                <option value="VND" selected>VietNam (VND)</option>
-                            </select>
-                        </li>
-                        <li> 
-                            <div>
-                                <c:if test="${not empty sessionScope.acc.avatar}">
-                                    <a href="profile.jsp">
-                                        <img
-                                            src="./assets/images/${sessionScope.acc.avatar}"
-                                            alt="avatar"
-                                            class="avatar"/>
-                                    </a>
-                                </c:if>
-                                <div class="user__name">${sessionScope.acc.username}</div>
-                                <c:choose>
-                                    <c:when test="${not empty sessionScope.acc}">
-                                        <a id="logout-btn" class="logout-btn" href="login?ac=logout">Log out</a>
-
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a href="login.jsp" class="login-link"><i
-                                                class="biolife-icon icon-login"></i>Login/Register</a>
-                                        </c:otherwise>
-                                    </c:choose>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="header-middle biolife-sticky-object ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                        <a href="home" class="biolife-logo"><img src="assets/images/organic-3-green.png"
-                                                                 alt="biolife logo" width="135" height="36"></a>
-                    </div>
-                    <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
-                        <div class="primary-menu">
-                            <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu"
-                                data-menuname="main menu">
-                                <li class="menu-item"><a href="home">Home</a></li>
-                                <li class="menu-item menu-item-has-children ">
-                                    <a href="shop" class="menu-name" data-title="Shop">Shop</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="menu-name" data-title="Pages">Location</a>
-                                </li>
-                                <li class="menu-item menu-item-has-children ">
-                                    <a href="blog" class="menu-name" data-title="Blog">Blog</a>
-
-                                </li>
-                                <!--nếu đăng nhập là nutritionist thì sẽ hiện ra thanh chuyển xem list menu thay vì contact -->
-                                <c:choose>
-                                    <c:when test="${sessionScope.acc.role == 'Nutritionist'}">
-                                        <li class="menu-item"><a href="menuList">Menu</a></li>
-                                        </c:when>
-                                        <c:otherwise>
-                                        <li class="menu-item"><a href="contact.html">Contact</a></li>
-                                        </c:otherwise>
-                                    </c:choose>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </header>
+    <jsp:include page="./jsptemplate/header.jsp"/>
 
     <!--Hero Section-->
     <div class="hero-section hero-background style-02">
@@ -151,7 +59,7 @@
                                 <button type="button" class="btn btn-default" style="padding: 10px 35px" onclick="createMeals()">Create</button>
                                 <input type="text" name="menuTitle" style="border-radius: 20px" placeholder="Menu title..." required/>
                                 <select name="type" style="border-radius: 20px; padding: 0 35px">
-                                    <c:forEach var="type" items="${typeList}">
+                                    <c:forEach var="type" begin="0" items="${typeList}" end="3">
                                         <option>${type}</option>
                                     </c:forEach>
                                 </select>

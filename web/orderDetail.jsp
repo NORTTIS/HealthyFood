@@ -41,9 +41,7 @@
             <c:redirect url="login"/>
         </c:if>
         <!-- header -->
-        <c:if test="${sessionScope.acc.role != 'Manager'}">
-            <jsp:include page="./jsptemplate/header.jsp" />
-        </c:if>
+        <jsp:include page="./jsptemplate/header.jsp" />
 
         <section style="margin: 45px 0px; " >
 
@@ -91,6 +89,21 @@
 
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row mb-3" style="margin-top: 10px;" >
+                                    <div class="col-md-6">
+                                        <form action="OrderDetail" method="post">
+                                            <input type="text" value="${order.orderId}" name="orderId" hidden="true"/>
+                                            <select name="status">
+                                                <option value="Pending">Pending</option>
+                                                <option value="Processing">Processing</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                            <button class="btn btn-default" type="submit">Change status</button>
+                                        </form>
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -165,9 +178,7 @@
         </section>
         <!-- footer -->
 
-        <c:if test="${sessionScope.acc.role != 'Manager'}">
-            <jsp:include page="./jsptemplate/footer.jsp" />
-        </c:if>
+        <jsp:include page="./jsptemplate/footer.jsp" />
         <script src="assets/js/jquery-3.4.1.min.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery.countdown.min.js"></script>

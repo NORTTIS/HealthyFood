@@ -121,6 +121,7 @@ public class HomeControl extends HttpServlet {
                 star2 = prodDao.getReviewByProdId(2, products.getProductId()+"").size();
                 star1 = prodDao.getReviewByProdId(1, products.getProductId()+"").size();
                 starAverage = 1.0*(star5 * 5 + star4 * 4 + star3 * 3 + star2 * 2 + star1 * 1) / totalReview;
+                starAverage = Math.round(starAverage * 10.0) / 10.0;
                 products.setRate(starAverage);
         }
 
