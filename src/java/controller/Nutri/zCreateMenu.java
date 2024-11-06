@@ -66,7 +66,7 @@ public class zCreateMenu extends HttpServlet {
         HttpSession session = request.getSession();
         Accounts ac = (Accounts) session.getAttribute("acc");
         if (ac == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("login");
         } else {
             NutriDAO ndb = new NutriDAO();
             List<String> typeList = ndb.getTypeList();
@@ -109,7 +109,7 @@ public class zCreateMenu extends HttpServlet {
             if (lst.isEmpty()) {
                 List<String> typeList = ndb.getTypeList();
                 request.setAttribute("typeList", typeList);
-                request.setAttribute("createMenuCaution", "Failed to create new Menu");
+                request.setAttribute("createMenuCaution", "Need to have two meals in menu");
                 System.out.println("lỗi này");
                 request.getRequestDispatcher("zNutriCreateMenu.jsp").forward(request, response);
             } else {

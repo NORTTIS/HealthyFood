@@ -312,7 +312,7 @@ public void menuDecide(int firstId, int lastId, String description, String decid
 
 
     public void insertNewMenu(String menuTitle, int type_id, String name, String description, int create_by, String menu_name, float average_calories) {
-        String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories, menuTitle) values (?, ?, ?, ?, ?, ?, ?);";
+        String sql1 = "insert into Menu(type_id, name, description, create_by, menu_name, average_calories, menuTitle, status) values (?, ?, ?, ?, ?, ?, ?, ?);";
         try (PreparedStatement st = connection.prepareStatement(sql1)) {
             st.setInt(1, type_id);
             st.setString(2, name);
@@ -321,6 +321,7 @@ public void menuDecide(int firstId, int lastId, String description, String decid
             st.setString(5, menu_name);
             st.setFloat(6, average_calories);
             st.setString(7, menuTitle);
+            st.setString(8, "In Process");
             st.executeUpdate();
         } catch (SQLException e) {
 

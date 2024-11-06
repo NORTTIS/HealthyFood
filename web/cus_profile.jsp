@@ -178,7 +178,8 @@
                                             <p class="mb-0">Avatar</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="file" class="mb-0 no-border text-muted " name="file" accept="image/*" />
+                                          
+                                            <input type="file" class="mb-0 no-border text-muted " name="file" accept="image/*" />   <!--accept=".jpg-->
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end">

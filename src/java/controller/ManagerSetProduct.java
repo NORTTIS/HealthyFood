@@ -112,7 +112,7 @@ public class ManagerSetProduct extends HttpServlet {
                     // Lấy đường dẫn thư mục gốc của ứng dụng
                     String appPath = request.getServletContext().getRealPath("/");
                     // Đường dẫn tới thư mục mong muốn (cùng cấp với thư mục chứa servlet)
-                    String path = "web/assets/products";
+                    String path = "web/assets/images/products";
                     Path uploadDir = Paths.get(appPath).getParent().getParent().resolve(path);
 
                     // Kiểm tra và tạo thư mục nếu chưa tồn tại
