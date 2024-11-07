@@ -100,7 +100,7 @@ public class productDetail extends HttpServlet {
                 for (Reviews review : listR) {
                     accList.add(accDao.getAccountByid(review.getAuthor()));
                 }
-                totalPage = prodDao.calNumPageBlog(listTotal);
+                totalPage = prodDao.calNumPageReview(listTotal);
                 totalReview = listTotal.size();
                 star5 = prodDao.getReviewByProdId(5, productId).size();
                 star4 = prodDao.getReviewByProdId(4, productId).size();

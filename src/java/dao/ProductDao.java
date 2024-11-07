@@ -25,7 +25,6 @@ import model.Reviews;
  */
 public class ProductDao extends DBContext {
 
-
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -98,7 +97,6 @@ public class ProductDao extends DBContext {
 
     public Products getProductsById(String id) {
         String sql = "Select * from Products where product_id =?";
-
 
         try (Connection conn = new DBContext().getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
 
@@ -276,9 +274,7 @@ public class ProductDao extends DBContext {
         return cateList;
     }
 
-
     public String createOrder(Cart cart, String accountId, String orderType) {
-
 
         Connection conn = new DBContext().getConnection();
         PreparedStatement psOrder = null;
@@ -399,7 +395,11 @@ public class ProductDao extends DBContext {
                         rs.getDouble(5),
                         rs.getDate(6)
                 );
-                return order;
+                if(order.getOrderId().equals(orderId)){
+                        return order;
+                }else{
+                    return null;
+                }
             }
 
         } catch (SQLException e) {
@@ -543,11 +543,12 @@ public class ProductDao extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            return null;
         }
         return listR;
     }
 
-    public int calNumPageBlog(List<Reviews> list) {
+    public int calNumPageReview(List<Reviews> list) {
         int numpage = 0;
         numpage = list.size() / 3;
         if (list.size() % 3 != 0) {
@@ -857,7 +858,7 @@ public class ProductDao extends DBContext {
         }
         return list;
     }
-    
+
     public int getLastProductId() {
         int id = 0;
         String sql = "select count(*) from Products";
@@ -871,18 +872,17 @@ public class ProductDao extends DBContext {
         }
         return id;
     }
-    
-    public void setMenuDetail(int menuId, int productId){
+
+    public void setMenuDetail(int menuId, int productId) {
         String sql = "insert into Menu_Detail(menu_id, product_id) values (?, ?)";
-        try(PreparedStatement st = connection.prepareStatement(sql)){
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setInt(1, menuId);
             st.setInt(2, productId);
             st.executeUpdate();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
-
 
     public void createProduct(String category_id, String supplier, String name, String description, String price, String quantity_in_stock, String average_calories, String picture) {
         // Xác định giá trị status dựa trên quantity_in_stock
@@ -944,7 +944,6 @@ public class ProductDao extends DBContext {
         }
     }
 
-
     public List<Products> getAllDiscountProduct() {
         String sql = "Select * from Products ";
         List<Products> lProduct = new ArrayList<>();
@@ -1002,13 +1001,13 @@ public class ProductDao extends DBContext {
 
         return mProduct;
     }
-    
-    public int getVoucherValueByVouderCode(String vourcherCode){
+
+    public int getVoucherValueByVouderCode(String vourcherCode) {
         String sql = "select discountValue from Discount where discountName = ?";
-        try (PreparedStatement st = connection.prepareStatement(sql)){
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
             st.setString(1, vourcherCode);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int discountValue = rs.getInt(1);
                 return discountValue;
             }
@@ -1017,10 +1016,13 @@ public class ProductDao extends DBContext {
         }
         return 0;
     }
+
     public static void main(String[] args) {
-       ProductDao prod = new ProductDao();
-        System.out.println(prod.getVoucherValueByVouderCode("SALE10"));
+        ProductDao prod = new ProductDao();
+        List<Order> li = prod.getAllOrderByAccId("2");
+        for (Order order : li) {
+            System.out.println(order);
+        }
     }
 
-    
 }

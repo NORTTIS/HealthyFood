@@ -94,12 +94,12 @@ public class BlogDao extends DBContext {
     }
 
     public int calNumPageBlog(List<Blog> list) {
-        int numpage = 0;
-        numpage = list.size() / 3;
-        if (list.size() % 3 != 0) {
-            numpage++;
-        }
-        return numpage;
+          if (list.size() % 3 != 0) {
+              return (list.size() / 3)+1;
+          }else{
+             return (list.size() / 3);
+          }
+
     }
 
     public List<Blog> getAllBlog(String nutriId, String cateId, int pageIndex, String searchValue, String bmirange) {
@@ -271,10 +271,8 @@ public class BlogDao extends DBContext {
 
     public static void main(String[] args) {
         BlogDao b = new BlogDao();
-        List<Blog> lBlog = b.getAllBlog("", "", 1, "", "1");
-        for (Blog blog : lBlog) {
-            System.out.println(blog);
-        }
+        List<Blog> lBlog = new ArrayList<>();
+        System.out.println(b.calNumPageBlog(lBlog));
     }
 
 }
