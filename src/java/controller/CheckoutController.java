@@ -130,7 +130,8 @@ public class CheckoutController extends HttpServlet {
                 session.setAttribute("totalcart", null);
                 session.setAttribute("totalCal", null);
             }
-            response.sendRedirect("home");
+            request.setAttribute("result", "Succesful");
+            request.getRequestDispatcher("vnpay_return.jsp").forward(request, response);
         }
         if (action != null && action.equals("upd")) {
 

@@ -73,7 +73,8 @@
                                     <div class="row mb-3">
                                         <div class="col-md-5">
                                             <label for="fullName" class="form-label">Full name<span class="text-danger">*</span></label>
-                                            <input value="${sessionScope.deDetail.fullname==null?acc.displayname:sessionScope.deDetail.fullname}" name="fullname" type="text" class="form-control" id="fullName" required>
+                                            <input value="${sessionScope.deDetail.fullname==null?acc.displayname:sessionScope.deDetail.fullname}" name="fullname" type="text" class="form-control" id="fullName" required oninput="checkFullname()">
+                                           <div id="nameError" class="text-danger" style="display:none;"></div>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
@@ -109,12 +110,12 @@
                                             </select>
                                         </div>
                                     </div>
-                                            
+
 
 
                                     <div class="mb-3" style="margin-top: 10px;" >
                                         <label for="address" class="form-label">Address<span class="text-danger">*</span> </label>
-                                        <input value="${sessionScope.deDetail.address}" name="address" type="text" class="form-control" id="address" value="${acc.address}" required>
+                                        <input value="${sessionScope.deDetail.address}" name="address" type="text" class="form-control" id="address" value="${acc.address}" required readonly="true" style="background-color: #fffefe">
                                     </div>
 
                                     <div class="mb-3" style="margin-top: 10px;" >
@@ -150,11 +151,11 @@
                                            ${(sessionScope.deDetail==null || error != null)?'pointer-events:none;background-color:#8e8e8e':""}
                                            "
                                            />
-                                  
+
                                 </form>
-                                           <p style="margin: 0; text-align: center">Or</p>
-                                   <form action="checkout" method="post">
-                                       <input type="text" value="cashon" name="ac" hidden="true"/>
+                                <p style="margin: 0; text-align: center">Or</p>
+                                <form action="checkout" method="post">
+                                    <input type="text" value="cashon" name="ac" hidden="true"/>
                                     <input type="submit" class=" btn btn-default" value="Cash on delivery" style="    width: 100%;
                                            border-radius: 0px;
                                            margin-bottom: 35px;
@@ -163,7 +164,7 @@
                                            ${(sessionScope.deDetail==null || error != null)?'pointer-events:none;background-color:#8e8e8e':""}
                                            "
                                            />
-                                  
+
                                 </form>
 
                             </div> 
@@ -263,6 +264,23 @@
                     emailError.style.display = "none"; // Ẩn thông báo lỗi
                 } else {
                     emailError.style.display = "block"; // Hiện thông báo lỗi
+                }
+            }
+            function checkFullname() {
+                const fullname = document.getElementById("fullName").value;
+                const fullnameError = document.getElementById("nameError");
+
+                const minLength = 8;
+                const maxLength = 50;
+
+                if (fullname.length < minLength) {
+                    fullnameError.innerText = `Full name must be at least 8 characters long.`;
+                    fullnameError.style.display = "block";
+                } else if (fullname.length > maxLength) {
+                    fullnameError.innerText = `Full name must not exceed 50 characters.`;
+                    fullnameError.style.display = "block";
+                } else {
+                    fullnameError.style.display = "none"; // Ẩn thông báo nếu hợp lệ
                 }
             }
 

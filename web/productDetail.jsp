@@ -108,9 +108,14 @@
                                 </div>
                                 <div class="buttons">
                                     <a  id="addToCartLink" href="cart?ac=addtocart&productId=${prod.productId}&qty=1"  class="btn add-to-cart-btn">add to cart</a>
-                                    <p class="pull-row">
+                                    
+                                    <c:if test="${sessionScope.acc.role != null}">
+                                        <p class="pull-row">
                                         <a href="wishcart?ac=add&productId=${prod.productId}" class="btn wishlist-btn">wishlist</a>
                                     </p>
+                                    </c:if>
+                                    
+                                    
                                 </div>
 
                             </div>

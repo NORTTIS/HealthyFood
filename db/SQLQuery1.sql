@@ -1,4 +1,7 @@
-﻿CREATE TABLE Accounts (
+﻿use master
+create database HealthyFood1
+use HealthyFood1
+CREATE TABLE Accounts (
     account_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID tài khoản, tự động tăng
     username NVARCHAR(50) NOT NULL UNIQUE,     -- Tên đăng nhập, không trùng lặp
     password NVARCHAR(255) NOT NULL,           -- Mật khẩu đã mã hóa
@@ -13,21 +16,11 @@
 	avatar NVARCHAR(MAX),					   -- Avatar người dùng
 	create_at DATETIME DEFAULT GETDATE(),
 	update_at DATETIME DEFAULT GETDATE(),
+	google_id NVARCHAR(50) NULL,
 );
-ALTER TABLE Accounts
-ADD google_id NVARCHAR(50) NULL;
 
 
-CREATE TABLE User_Health_Profile (
-    profile_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID hồ sơ sức khỏe, tự động tăng
-    account_id INT,                               -- ID người dùng
-    weight FLOAT NOT NULL,                     -- Cân nặng
-    height FLOAT NOT NULL,                     -- Chiều cao
-    age INT NOT NULL,                          -- Tuổi
-    gender NVARCHAR(10) CHECK (gender IN ('male', 'female', 'other')) NOT NULL,  -- Giới tính
-	bmi_result FLOAT NOT NULL                  -- chỉ số bmi
-    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE CASCADE  -- Khóa ngoại tham chiếu đến bảng Users
-);
+
 
 CREATE TABLE Category (
     category_id INT IDENTITY(1,1) PRIMARY KEY,  -- ID loại sản phẩm, tự động tăng
@@ -55,10 +48,10 @@ CREATE TABLE Orders (
     status NVARCHAR(20) CHECK (status IN ('Pending', 'Processing', 'Completed', 'Cancelled')) NOT NULL,  -- Trạng thái đơn hàng
 	total_calories FLOAT NOT NULL,           -- Tổng calo
 	order_date DATETIME DEFAULT GETDATE(),   -- Ngày đặt hàng
-    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL  -- Khóa ngoại tham chiếu đến bảng Accounts
+    FOREIGN KEY (account_id) REFERENCES Accounts(account_id) ON DELETE SET NULL,  -- Khóa ngoại tham chiếu đến bảng Accounts
+	 order_type NVARCHAR(50) NULL,
 );
-ALTER TABLE Orders
-ADD order_type NVARCHAR(50) NULL;
+
 CREATE TABLE DeliveryDetails (
     delivery_id INT IDENTITY(1,1) PRIMARY KEY,        -- ID giao hàng, tự động tăng
     order_id INT NOT NULL,                            -- ID đơn hàng
@@ -67,12 +60,9 @@ CREATE TABLE DeliveryDetails (
     mobile NVARCHAR(15) NOT NULL,                     -- Số điện thoại người nhận
     address NVARCHAR(255) NOT NULL,                   -- Địa chỉ giao hàng
     delivery_notes NVARCHAR(MAX),                     -- Ghi chú giao hàng
-    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE -- Khóa ngoại trỏ đến bảng Orders
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id) ON DELETE CASCADE, -- Khóa ngoại trỏ đến bảng Orders
+	voucher NVARCHAR(50) NULL,
 );
-ALTER TABLE DeliveryDetails
-ADD voucher NVARCHAR(50) NULL;
-	
-
 
 
 CREATE TABLE Order_Items (
@@ -106,12 +96,14 @@ CREATE TABLE Menu (
 	FOREIGN KEY ([type_id]) REFERENCES Customer_Type([type_id]) ON DELETE SET NULL,
 );
 
+
 CREATE TABLE Menu_Detail (
     menu_detail_id INT IDENTITY(1,1) PRIMARY KEY,
 	menu_id INT,
     product_id  INT,
 	FOREIGN KEY (product_id) REFERENCES Products(product_id) ON DELETE SET NULL,
 	FOREIGN KEY (menu_id) REFERENCES Menu(menu_id) ON DELETE SET NULL,
+	product_qty INT NULL
 );
 CREATE TABLE Reviews (
     review_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -162,10 +154,10 @@ CREATE TABLE Blogs (
     timestamp DATETIME DEFAULT GETDATE(),
 	image NVARCHAR(MAX),
 	FOREIGN KEY (nutri_id) REFERENCES Accounts(account_id),
-	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id) 
+	FOREIGN KEY (cate_id) REFERENCES BlogCategory(category_id),
+	bmi_range int NULL
 );
-ALTER TABLE Blogs
-ADD bmi_range int NULL;
+
 
 CREATE TABLE Discount(
 	id INT IDENTITY(1,1) PRIMARY KEY,
@@ -222,6 +214,13 @@ VALUES ('Dinner', N'đây là bữa ăn cho một người', 4, 'Green Salad', 2
 ('Breakfast', N'đây là bữa ăn cho một người', 4, 'Green Salad', 200, 'Accept');
 
 INSERT INTO Menu_Detail(menu_id, product_id, product_qty) values (1, 1, 12), (2, 2, 13), (3, 3, 20), (4, 4, 26)
+
+INSERT INTO Customer_Type ( type_name) VALUES
+( 'BMI < 18.5'),
+('18.5 <= BMI < 24.9'),
+('25 <= BMI < 29.9'),
+( 'BMI >= 30'),
+( 'All BMIs');
 
 INSERT INTO Menu (type_id, name, description, create_by, create_at, update_at, menu_name, status, average_calories, menuTitle)
 VALUES

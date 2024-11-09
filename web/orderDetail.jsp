@@ -90,21 +90,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-3" style="margin-top: 10px;" >
-                                    <div class="col-md-6">
-                                        <form action="OrderDetail" method="post">
-                                            <input type="text" value="${order.orderId}" name="orderId" hidden="true"/>
-                                            <select name="status">
-                                                <option value="Pending">Pending</option>
-                                                <option value="Processing">Processing</option>
-                                                <option value="Completed">Completed</option>
-                                            </select>
-                                            <button class="btn btn-default" type="submit">Change status</button>
-                                        </form>
+                                <c:if test="${sessionScope.acc.role == 'Manager'}">
+                                    <div class="row mb-3" style="margin-top: 10px;" >
+                                        <div class="col-md-6">
+                                            <form action="OrderDetail" method="post">
+                                                <input type="text" value="${order.orderId}" name="orderId" hidden="true"/>
+                                                <select name="status">
+                                                    <option value="Pending">Pending</option>
+                                                    <option value="Processing">Processing</option>
+                                                    <option value="Completed">Completed</option>
+                                                </select>
+                                                <button class="btn btn-default" type="submit">Change status</button>
+                                            </form>
+
+                                        </div>
 
                                     </div>
+                                </c:if>
 
-                                </div>
 
                             </div>
 
@@ -130,7 +133,7 @@
                                                 <div class="cart-item">
                                                     <div class="product-thumb">
                                                         <a class="prd-thumb" href="#">
-                                                            <figure><img src="./assets/images/products/${i.product.picture}" width="113" height="113" style="border-radius: 20px" alt="shop-cart" ></figure>
+                                                            <figure><img src="./assets/images/products/${i.product.picture}" width="113" height="113" style=" width: 113px; height: 113px; border-radius: 20px" alt="shop-cart" ></figure>
                                                         </a>
                                                     </div>
                                                     <div class="info">

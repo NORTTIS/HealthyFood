@@ -54,7 +54,7 @@
 
                     <!--articles block-->
                     <form action="createMenu" method="post">
-                        <div class="contain" style="width:100%; height: 500px;">
+                        <div class="contain" style="width:100%; height: 200px;">
                             <div class="create-new-meals" style=" display: flex; justify-content:space-between; margin-bottom: 100px">
                                 <button type="button" class="btn btn-default" style="padding: 10px 35px" onclick="createMeals()">Create</button>
                                 <input type="text" name="menuTitle" style="border-radius: 20px" placeholder="Menu title..." required/>

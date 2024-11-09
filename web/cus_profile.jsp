@@ -163,7 +163,7 @@
                                         </div>
                                     </div>
                                     <hr>
-                                    <div class="row align-items-center">
+<!--                                    <div class="row align-items-center">
                                         <div class="col-sm-3">
                                             <p class="mb-0">Address</p>
                                         </div>
@@ -172,7 +172,7 @@
 
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr>-->
                                     <div class="row align-items-center">
                                         <div class="col-sm-3">
                                             <p class="mb-0">Avatar</p>

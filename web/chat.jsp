@@ -136,6 +136,15 @@
                                 </div>
                             </c:if>
                         </c:forEach>
+                        <c:if test="${accN.avatar==null&&accN.displayname==null}">
+                                <div class="d-flex mb-3" >
+                                    <div class=" bg-light rounded p-2" style="max-width: 70%;">
+                                        <p class="mb-0">Welcome to HealthyFood! I'm Bio, your automated nutrition expert. Let me know your needs, and I'll help you choose the best meal plan to support your health! </p>
+                                        <small class="text-muted">${i.time}</small>
+                                    </div>
+                                </div>
+                            </c:if>
+                        
                     </div>
 
                     <!-- Message Input -->

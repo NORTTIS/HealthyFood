@@ -51,14 +51,18 @@
                     <c:choose>
                         <c:when test="${result == 'Succesful'}">
                             <center><h2>You have successfully paid</h2></center>
-                                </c:when>
-                                <c:otherwise>
+                            <div style="margin: 25px 0;" class="form-group">
+                                <center><p><a href="home">back to homepage</a></p></center>
+                            </div> 
+                        </c:when>
+                        <c:otherwise>
                             <center><h2>Your payment have not done</h2></center>
-                                </c:otherwise>
-                            </c:choose>
-                    <div style="margin: 25px 0;" class="form-group">
-                        <center><p><a href="home">back to homepage</a></p></center>
-                    </div> 
+                            <div style="margin: 25px 0;" class="form-group">
+                                <center><p><a href="cart?ac=show">back to your cart</a></p></center>
+                            </div> 
+                            </c:otherwise>
+                        </c:choose>
+                   
 
                 </div>
             </div>

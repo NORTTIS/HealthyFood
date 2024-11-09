@@ -287,8 +287,6 @@ public class AccountsDAO extends DBContext {
         return managers;
     }
 
-    
-
     public boolean isUsernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM Accounts WHERE username = ?";
         try {
@@ -364,7 +362,6 @@ public class AccountsDAO extends DBContext {
         }
     }
 
-
     public void updateUser(String username, String email, String phone_number, String password) {
 
         String sql = "UPDATE Accounts SET username = ?, email = ?, phone_number = ?, password = ? WHERE username = ?";
@@ -413,7 +410,7 @@ public class AccountsDAO extends DBContext {
     public static void main(String[] args) {
         AccountsDAO adb = new AccountsDAO();
         adb.createAccount("ducmen123", "duckment123", "ducmen123", "ducmentthaem@gmail.com", "Customer");
-       
+
     }
 
     public Accounts getUser(String username) {
@@ -507,7 +504,6 @@ public class AccountsDAO extends DBContext {
             st.setString(7, phone_number);
             st.setString(8, role);
             st.setString(9, status);
-            
 
             st.executeUpdate();
         } catch (SQLException ex) {
@@ -659,47 +655,47 @@ public class AccountsDAO extends DBContext {
 
     public int loginByGoogle(GoogleAccount googleAccount) {
         try {
-            // Check if the Google account email exists
+            // Kiểm tra xem email của tài khoản Google có tồn tại trong cơ sở dữ liệu hay không
             String checkQuery = "SELECT account_id, google_id FROM Accounts WHERE email = ?";
             PreparedStatement checkStmt = connection.prepareStatement(checkQuery);
-            checkStmt.setString(1, googleAccount.getEmail());
-            ResultSet rs = checkStmt.executeQuery();
+            checkStmt.setString(1, googleAccount.getEmail());  // Đặt email từ tài khoản Google vào câu truy vấn
+            ResultSet rs = checkStmt.executeQuery();  // Thực thi câu truy vấn và lưu kết quả
 
             if (rs.next()) {
-                // Email exists in the database
+                // Nếu email đã tồn tại trong cơ sở dữ liệu
                 String googleId = rs.getString("google_id");
 
                 if (googleId != null) {
-                    // This is already a Google-linked account, so proceed with Google login
-                    return rs.getInt("account_id");
+                    // Đây là tài khoản đã liên kết với Google, vì có google_id -> tiến hành đăng nhập bằng Google
+                    return rs.getInt("account_id");  // Trả về ID của tài khoản để đăng nhập
                 } else {
-                    // This is a regular account; prompt to link or handle accordingly
+                    // Đây là tài khoản thông thường chưa liên kết với Google
+                    // Cập nhật tài khoản này để liên kết với Google
                     String updateQuery = "UPDATE Accounts SET google_id = ?, update_at = GETDATE() WHERE account_id = ?";
                     PreparedStatement updateStmt = connection.prepareStatement(updateQuery);
-                    updateStmt.setString(1, googleAccount.getId()); // Assuming googleAccount.getId() provides Google’s unique user ID
-                    updateStmt.setInt(2, rs.getInt("account_id"));
+                    updateStmt.setString(1, googleAccount.getId());  // Đặt google_id từ tài khoản Google
+                    updateStmt.setInt(2, rs.getInt("account_id"));  // Đặt account_id của tài khoản trong cơ sở dữ liệu
 
-                    int rowsUpdated = updateStmt.executeUpdate();
-                    return rowsUpdated > 0 ? rs.getInt("account_id") : -1;
+                    updateStmt.executeUpdate();  // Thực thi câu lệnh cập nhật
+                    return rs.getInt("account_id");  // Trả về account_id nếu cập nhật thành công, ngược lại trả về -1
                 }
             } else {
-                // No account with this email exists, so create a new Google-linked account
+                // Nếu không có tài khoản nào có email này trong cơ sở dữ liệu, tạo tài khoản mới liên kết với Google
                 String insertQuery = "INSERT INTO Accounts (username, password, displayname, email, role, status, google_id) VALUES (?, ?, ?, ?, 'Customer', 'Active', ?)";
                 PreparedStatement insertStmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
-                insertStmt.setString(1, googleAccount.getEmail());  // Username as email
-                insertStmt.setString(2, "GoogleUser");              // Default password placeholder
-                insertStmt.setString(3, googleAccount.getName());   // Display name
-                insertStmt.setString(4, googleAccount.getEmail());  // Email
-                insertStmt.setString(5, googleAccount.getId());     // Google unique ID
+                insertStmt.setString(1, googleAccount.getEmail());  // Đặt username là email
+                insertStmt.setString(2, "GoogleUser");  // Đặt mật khẩu mặc định là "GoogleUser" (có thể thay đổi sau)
+                insertStmt.setString(3, googleAccount.getName());  // Đặt tên hiển thị là tên của tài khoản Google
+                insertStmt.setString(4, googleAccount.getEmail());  // Đặt email từ tài khoản Google
+                insertStmt.setString(5, googleAccount.getId());  // Đặt google_id từ tài khoản Google
 
-                int rowsInserted = insertStmt.executeUpdate();
-                if (rowsInserted > 0) {
-                    ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+                insertStmt.executeUpdate();  // Thực thi câu lệnh chèn
+                    ResultSet generatedKeys = insertStmt.getGeneratedKeys();  // Lấy khóa chính (account_id) được tạo
                     if (generatedKeys.next()) {
-                        return generatedKeys.getInt(1);  // Return the new account_id
+                        return generatedKeys.getInt(1);  // Trả về account_id của tài khoản mới tạo
                     }
-                }
-                return -1;  // Indicate failure to insert
+                
+                return -1;  // Nếu không chèn được tài khoản mới, trả về -1 để báo lỗi
             }
         } catch (SQLException e) {
             e.printStackTrace();

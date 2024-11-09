@@ -497,7 +497,7 @@ public class ProductDao extends DBContext {
                 sql.append(" and r.rate = ?");
             }
             sql.append(" and r.product_id = ?");
-            sql.append(" order by r.review_id offset ? rows fetch first 3 rows only");
+            sql.append(" order by r.review_id desc offset ? rows fetch first 3 rows only ");
 
             ps = conn.prepareStatement(sql.toString());
             int paramIndex = 1;
@@ -842,8 +842,8 @@ public class ProductDao extends DBContext {
 
     public int getTotalPage(List<Products> list) {
         int numpage = 0;
-        numpage = list.size() / 12;
-        if (list.size() % 12 != 0) {
+        numpage = list.size() / 8;
+        if (list.size() % 8 != 0) {
             numpage++;
         }
         return numpage;
@@ -1056,7 +1056,7 @@ public class ProductDao extends DBContext {
     }
     public static void main(String[] args) {
        ProductDao prod = new ProductDao();
-       prod.updateOrderStatusById("2", "Completed");
+//      list<Products> 
     }
 
     

@@ -161,11 +161,12 @@
                                     </div>
                                     <!-- menu theo bmi -->
                                     <div style="margin-bottom: 50px; color: #dc143c; font-size: 30px">
+                                        
                                         ${requestScope.error}
                                     </div>
                                     <div style="margin-bottom: 20px">
                                         <form method="get" action="comboCart">
-                                            <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager'}">
+                                            <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager' && requestScope.error!=null} ">
                                                 <input onclick="getProID()" style="background-color: #7faf51; border: none; color: white" type="submit" value="add to cart"/>
                                             </c:if>
                                             <c:forEach var="m" items="${menuList}">

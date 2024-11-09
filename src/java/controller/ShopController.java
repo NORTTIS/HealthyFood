@@ -4,7 +4,6 @@
  */
 package controller;
 
-
 import dao.ProductDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import model.Category;
 
 import model.Products;
@@ -66,7 +66,6 @@ public class ShopController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-
             throws ServletException, IOException {
 
         ProductDao dao = new ProductDao();
@@ -74,7 +73,7 @@ public class ShopController extends HttpServlet {
         // Lấy tất cả danh mục
         List<Category> listC = dao.getAllCategory();
         request.setAttribute("listC", listC);
-         Map<Integer, String> cates = dao.getAllProductCategory();
+        Map<Integer, String> cates = dao.getAllProductCategory();
 
         // Lấy các tham số từ request
         String categoryId = request.getParameter("category");
@@ -83,50 +82,49 @@ public class ShopController extends HttpServlet {
         request.setAttribute("sortType", sortType);
         String fromPrice = request.getParameter("fromPrice");
         String toPrice = request.getParameter("toPrice");
-        String page = request.getParameter("page");
-        
         int currentPage = 1;
-        int totalPage = 0;
-        if(page!=null&&!page.equals("")){
-            currentPage = Integer.parseInt(page);
+        String pageParam = request.getParameter("page");
+        if (pageParam != null) {
+            currentPage = Integer.parseInt(pageParam);
         }
 
         // Khởi tạo danh sách sản phẩm
-        List<Products> listP = new ArrayList<>();
+        List<Products> listP;
 
         // Lọc theo danh mục nếu có categoryId
         if (categoryId != null) {
             listP = dao.getProductsByCateId(categoryId);
-        } // Sắp xếp theo giá hoặc calo nếu có sortType
-        else if (sortType != null) {
+        } else if (fromPrice != null && toPrice != null) { // Lọc theo khoảng giá nếu có fromPrice và toPrice
+            listP = dao.getProductsByPrice(fromPrice, toPrice);
+        } else { // Lấy tất cả sản phẩm nếu không có tham số nào
+            listP = dao.getAllProduct();
+        }
+
+        // Sắp xếp theo giá hoặc calo nếu có sortType
+        if (sortType != null) {
             if (sortType.equals("priceAsc") || sortType.equals("priceDesc")) {
                 listP = dao.sortProductsByPrice(sortType.equals("priceAsc") ? "asc" : "desc");
             } else if (sortType.equals("caloriesAsc") || sortType.equals("caloriesDesc")) {
                 listP = dao.sortProductsByCalories(sortType.equals("caloriesAsc") ? "asc" : "desc");
             }
-        } // Lọc theo khoảng giá nếu có fromPrice và toPrice
-        else if (fromPrice != null && toPrice != null) {
-            listP = dao.getProductsByPrice(fromPrice, toPrice);
-        } // Lấy tất cả sản phẩm nếu không có tham số nào
-        else {
-            listP = dao.getAllProduct();
         }
 
-        totalPage = dao.getTotalPage(listP); // Sử dụng hàm getTotalPage
+        // Lấy tổng số trang
+        int totalPages = dao.getTotalPage(listP); // Sử dụng hàm getTotalPage
 
-       
-
-        // Phân trang các sản phẩm theo trang hiện tại
-        listP = dao.pagingProduct(currentPage);
+        // Phân trang danh sách sản phẩm
+        int pageSize = 8; // Số sản phẩm mỗi trang
+        int totalProducts = listP.size();
+        listP = listP.stream()
+                .skip((currentPage - 1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
 
         // Thiết lập thuộc tính cho JSP
-        request.setAttribute("totalPages", totalPage);
+        request.setAttribute("totalPages", totalPages);
         request.setAttribute("currentPage", currentPage);
-        request.setAttribute("cates", cates);
-
-        // Set danh sách sản phẩm vào request
         request.setAttribute("listP", listP);
-
+        request.setAttribute("cates", cates);
         // Chuyển tiếp tới trang category-grid.jsp
         request.getRequestDispatcher("category-grid.jsp").forward(request, response);
     }
