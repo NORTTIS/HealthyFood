@@ -65,8 +65,8 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                      
-                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+
+                                        <c:if test="${ sessionScope.acc.role !='Manager'}">
                                             <a href="shop"  class="btn btn-bold">Shop now</a>
                                             <a href="blog" class="btn btn-thin">View Blog</a>
                                         </c:if> 
@@ -82,8 +82,8 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        
-                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+
+                                        <c:if test="${ sessionScope.acc.role !='Manager'}">
                                             <a href="shop"  class="btn btn-bold">Shop now</a>
                                             <a href="blog" class="btn btn-thin">View Blog</a>
                                         </c:if>  
@@ -100,8 +100,8 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        
-                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+
+                                        <c:if test="${ sessionScope.acc.role !='Manager'}">
                                             <a href="shop"  class="btn btn-bold">Shop now</a>
                                             <a href="blog" class="btn btn-thin">View Blog</a>
                                         </c:if> 
@@ -117,8 +117,8 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        
-                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+
+                                        <c:if test="${ sessionScope.acc.role !='Manager'}">
                                             <a href="shop"  class="btn btn-bold">Shop now</a>
                                             <a href="blog" class="btn btn-thin">View Blog</a>
                                         </c:if> 
@@ -134,8 +134,8 @@
                                     <h3 class="second-line">Vegetables 100% Organic</h3>
                                     <p class="third-line">A blend of freshly squeezed green apple & fruits</p>
                                     <p class="buttons">
-                                        
-                                          <c:if test="${ sessionScope.acc.role !='Manager'}">
+
+                                        <c:if test="${ sessionScope.acc.role !='Manager'}">
                                             <a href="shop"  class="btn btn-bold">Shop now</a>
                                             <a href="blog" class="btn btn-thin">View Blog</a>
                                         </c:if> 
@@ -161,14 +161,15 @@
                                     </div>
                                     <!-- menu theo bmi -->
                                     <div style="margin-bottom: 50px; color: #dc143c; font-size: 30px">
-                                        
+
                                         ${requestScope.error}
                                     </div>
                                     <div style="margin-bottom: 20px">
                                         <form method="get" action="comboCart">
-                                            <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager' && requestScope.error!=null} ">
-                                                <input onclick="getProID()" style="background-color: #7faf51; border: none; color: white" type="submit" value="add to cart"/>
+                                            <c:if test="${sessionScope.acc.role != 'Nutritionist' && sessionScope.acc.role !='Manager'}">
+                                                <input onclick="getProID()" style="background-color: #7faf51; border: none; color: white; margin-bottom: 20px" type="submit" value="Add menu to cart"/>
                                             </c:if>
+                                                </br>
                                             <c:forEach var="m" items="${menuList}">
                                                 <button type="button" class="accordion" style="margin-bottom: 10px">${m.key}</button>
                                                 <div class="panel">
@@ -342,19 +343,19 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/nutriMenu.js"></script>
         <script>
-                                                    function getProID() {
-                                                        var idOfProd = document.getElementsByClassName("proId");
-                                                        var list = "";
-                                                        for (var i = 0; i < idOfProd.length; i++) {
-                                                            list += idOfProd[i].value;
-                                                            if (i < idOfProd.length - 1) {
-                                                                list += "-";
-                                                            }
-                                                        }
-                                                        // Gán chuỗi listMeals là giá trị của input 
-                                                        document.getElementById("productId").value = list;
-                                                        Console.log(list);
+                                            function getProID() {
+                                                var idOfProd = document.getElementsByClassName("proId");
+                                                var list = "";
+                                                for (var i = 0; i < idOfProd.length; i++) {
+                                                    list += idOfProd[i].value;
+                                                    if (i < idOfProd.length - 1) {
+                                                        list += "-";
                                                     }
+                                                }
+                                                // Gán chuỗi listMeals là giá trị của input 
+                                                document.getElementById("productId").value = list;
+                                                Console.log(list);
+                                            }
 
         </script>
     </body>

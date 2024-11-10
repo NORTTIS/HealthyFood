@@ -134,18 +134,20 @@ public class HomeControl extends HttpServlet {
             for (String key : mList.keySet()) {
                 Map<String, List<Menu>> innerMap = mList.get(key);
                 Map<String, List<Products>> innerProductMap = new HashMap<>();
+                List<Products> doHasProd = new ArrayList<>();
                 for (String innerKey : innerMap.keySet()) {
                     List<Products> products = new ArrayList<>();
                     for (Menu menu : innerMap.get(innerKey)) {
                         products.addAll(prodDao.getMenuProduct(menu.getMenu_id())); // Lấy sản phẩm từ từng menu
+                        doHasProd.addAll(prodDao.getMenuProduct(menu.getMenu_id())); 
                     }
                     innerProductMap.put(innerKey, products);
                 }
-                productMap.put(key, innerProductMap);
+                if(!doHasProd.isEmpty()){
+                    productMap.put(key, innerProductMap);
+                }
             }
             request.setAttribute("menuList", productMap);
-//            request.setAttribute("menuList", mList);
-            
         } else {
             request.setAttribute("error", "Sorry for the inconvenient are on the ways to prepared more menu for you !!!");
         }

@@ -535,7 +535,6 @@ public class ProductDao extends DBContext {
             }
             sql.append(" and r.product_id = ?");
 
-            System.out.println(sql.toString());
             ps = conn.prepareStatement(sql.toString());
             int paramIndex = 1;
             if (star != 0) {
